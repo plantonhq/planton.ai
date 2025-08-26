@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, createContext, useContext } from 'react';
 import { MdxRecordList, MdxRightBar, SortOption } from '@/app/components/common';
 import { Author } from '@/lib/mdx';
 
@@ -12,6 +12,12 @@ interface PostRecord {
   author: Author[];
   content: string;
 }
+
+// Create context for sort option
+const SortContext = createContext<SortOption>('date-desc');
+
+// Hook to use the sort context
+export const useSortContext = () => useContext(SortContext);
 
 interface MdxContentLayoutProps {
   children: React.ReactNode;
@@ -33,31 +39,33 @@ const MdxContentLayout: React.FC<MdxContentLayoutProps> = ({
   };
 
   return (
-    <div className="flex min-h-screen">
-      {/* Left Sidebar */}
-      <div className="sticky top-16 h-screen w-80 flex-shrink-0">
-        <div className="h-full bg-black/95 border-r border-gray-800">
-          <MdxRecordList
-            records={records}
-            currentSlug={currentSlug}
-            onSortChange={handleSortChange}
-            currentSort={currentSort}
-            sectionTitle={sectionTitle}
-            basePath={sectionTitle === 'Tutorials' ? '/tutorials' : '/blog'}
-          />
+    <SortContext.Provider value={currentSort}>
+      <div className="flex min-h-screen">
+        {/* Left Sidebar */}
+        <div className="sticky top-16 h-screen w-80 flex-shrink-0">
+          <div className="h-full bg-black/95 border-r border-gray-800">
+            <MdxRecordList
+              records={records}
+              currentSlug={currentSlug}
+              onSortChange={handleSortChange}
+              currentSort={currentSort}
+              sectionTitle={sectionTitle}
+              basePath={sectionTitle === 'Tutorials' ? '/tutorials' : '/blog'}
+            />
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="flex-1 bg-black">{children}</div>
+
+        {/* Right Sidebar */}
+        <div className="sticky top-16 h-screen w-80 flex-shrink-0">
+          <div className="h-full bg-black/95 border-l border-gray-800">
+            <MdxRightBar records={records} currentSlug={currentSlug} />
+          </div>
         </div>
       </div>
-
-      {/* Main Content */}
-      <div className="flex-1 bg-black">{children}</div>
-
-      {/* Right Sidebar */}
-      <div className="sticky top-16 h-screen w-80 flex-shrink-0">
-        <div className="h-full bg-black/95 border-l border-gray-800">
-          <MdxRightBar records={records} currentSlug={currentSlug} />
-        </div>
-      </div>
-    </div>
+    </SortContext.Provider>
   );
 };
 

@@ -27,3 +27,67 @@ export function formatShortDate(dateString: string): string {
     day: 'numeric'
   });
 } 
+
+/**
+ * Generates a clean text excerpt from markdown content by removing markdown symbols and formatting.
+ * This function is safe to use on both server and client side.
+ * 
+ * @param content - The markdown content to generate excerpt from
+ * @param maxLength - Maximum length of the excerpt (default: 500)
+ * @returns Clean text excerpt without markdown symbols
+ */
+export function generateExcerptFromContent(content: string, maxLength: number = 500): string {
+  // Remove frontmatter
+  const contentWithoutFrontmatter = content.replace(/^---[\s\S]*?---/, '');
+
+  // Remove markdown symbols and formatting
+  let cleanText = contentWithoutFrontmatter
+    // Remove code blocks
+    .replace(/```[\s\S]*?```/g, '')
+    // Remove inline code
+    .replace(/`([^`]+)`/g, '$1')
+    // Remove headers
+    .replace(/^#{1,6}\s+/gm, '')
+    // Remove bold/italic
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/\*([^*]+)\*/g, '$1')
+    // Remove links but keep text
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    // Remove images
+    .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1')
+    // Remove HTML tags
+    .replace(/<[^>]*>/g, '')
+    // Remove horizontal rules
+    .replace(/^[-*_]{3,}$/gm, '')
+    // Remove blockquotes
+    .replace(/^>\s+/gm, '')
+    // Remove list markers
+    .replace(/^[-*+]\s+/gm, '')
+    .replace(/^\d+\.\s+/gm, '')
+    // Remove emphasis
+    .replace(/_{1,2}([^_]+)_{1,2}/g, '$1')
+    // Remove strikethrough
+    .replace(/~~([^~]+)~~/g, '$1')
+    // Remove tables
+    .replace(/\|.*\|/g, '')
+    // Remove multiple newlines and spaces
+    .replace(/\n\s*\n/g, '\n')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  // If content is shorter than maxLength, return as is
+  if (cleanText.length <= maxLength) {
+    return cleanText;
+  }
+
+  // Truncate to maxLength and add ellipsis if needed
+  const truncated = cleanText.substring(0, maxLength);
+  const lastSpace = truncated.lastIndexOf(' ');
+
+  if (lastSpace > maxLength * 0.8) {
+    // If we can break at a word boundary
+    return truncated.substring(0, lastSpace) + '...';
+  }
+
+  return truncated + '...';
+} 
