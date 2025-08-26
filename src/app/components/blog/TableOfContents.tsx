@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface HeadingItem {
   id: string;
@@ -9,10 +9,93 @@ interface HeadingItem {
 }
 
 interface TableOfContentsProps {
-  headings: HeadingItem[];
+  content: string;
 }
 
-const TableOfContents: React.FC<TableOfContentsProps> = ({ headings }) => {
+const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
+  const [headings, setHeadings] = useState<HeadingItem[]>([]);
+
+  // Extract headings from the content
+  useEffect(() => {
+    if (content) {
+      const lines = content.split('\n');
+      const extractedHeadings: HeadingItem[] = [];
+      let inCodeBlock = false;
+      let inIndentedCodeBlock = false;
+      let codeBlockDepth = 0;
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        const trimmedLine = line.trim();
+
+        // Skip empty lines
+        if (trimmedLine === '') {
+          continue;
+        }
+
+        // Handle fenced code blocks
+        if (trimmedLine.startsWith('```')) {
+          if (!inCodeBlock) {
+            inCodeBlock = true;
+            codeBlockDepth++;
+          } else {
+            codeBlockDepth--;
+            if (codeBlockDepth === 0) {
+              inCodeBlock = false;
+            }
+          }
+          continue;
+        }
+
+        // Handle indented code blocks (4+ spaces or tabs)
+        if (line.startsWith('    ') || line.startsWith('\t')) {
+          inIndentedCodeBlock = true;
+          continue;
+        } else if (inIndentedCodeBlock && trimmedLine !== '') {
+          // Exit indented code block if we hit a non-empty, non-indented line
+          inIndentedCodeBlock = false;
+        }
+
+        // Skip if we're inside any type of code block
+        if (inCodeBlock || inIndentedCodeBlock) {
+          continue;
+        }
+
+        // Look for markdown headings
+        const headingMatch = trimmedLine.match(/^(#{1,6})\s+(.+)$/);
+        if (headingMatch) {
+          const level = headingMatch[1].length;
+          const text = headingMatch[2].trim();
+
+          // Skip very short headings (likely code comments)
+          if (text.length < 3) {
+            continue;
+          }
+
+          // Skip single-word headings that are common in code
+          if (text.split(' ').length === 1 && 
+              ['Build', 'Production', 'Install', 'Copy', 'Create', 'User', 'Volume', 'Expose', 'Arg', 'Label', 'Cmd', 'Entrypoint', 'Workdir'].includes(text)) {
+            continue;
+          }
+
+          // Skip if it looks like a code comment (starts with common code words)
+          if (text.match(/^(Build|Production|Install|Copy|Create|User|Volume|Expose|Arg|Label|Cmd|Entrypoint|Workdir)\s+/)) {
+            continue;
+          }
+
+          const id = text
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-');
+
+          extractedHeadings.push({ id, text, level });
+        }
+      }
+
+      setHeadings(extractedHeadings);
+    }
+  }, [content]);
+
   if (headings.length === 0) {
     return null;
   }

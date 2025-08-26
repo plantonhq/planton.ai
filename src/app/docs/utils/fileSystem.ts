@@ -549,10 +549,7 @@ export function generateStaticParamsFromStructure(structure: DocItem[]): { slug:
         // Add the clean route (without .md extension)
         params.push({ slug: [...currentPath, item.name] });
 
-        // Also add the .md and .mdx extension routes for static export compatibility
-        // This handles cases where someone visits /docs/platform/platform-tour.md or .mdx
-        params.push({ slug: [...currentPath, `${item.name}.md`] });
-        params.push({ slug: [...currentPath, `${item.name}.mdx`] });
+
       } else if (item.type === 'directory') {
         // If directory has an index file, add a path for the directory itself
         if (item.hasIndex) {
@@ -580,16 +577,12 @@ export function generateStaticParamsFromStructure(structure: DocItem[]): { slug:
  * @returns Object containing processed slug information
  */
 export function processDocumentationSlug(slug: string[] = []) {
-  // Check if the route contains .md or .mdx extension
-  const hasMarkdownExtension = slug.some((part) => /\.(md|mdx)$/i.test(part));
-
   // Strip .md extensions from slug parts to handle both clean routes and .md routes
   const cleanSlug = slug.map((part) => part.replace(/\.(md|mdx)$/i, ''));
   const path = cleanSlug.join('/');
 
   return {
     originalSlug: slug,
-    hasMarkdownExtension,
     cleanSlug,
     path: path || 'index',
   };

@@ -196,7 +196,7 @@ npm run build
 npm run dev
 
 # Create a new blog post
-touch content/blog/my-new-post.md
+touch public/blog/my-new-post.md
 
 # Check git status
 git status

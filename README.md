@@ -69,13 +69,13 @@ yarn start
 
 ### Content model
 
-- Docs: Markdown files under `content/docs/**`
-- Blog: MD/MDX under `content/blog/**`
+- Docs: Markdown files under `public/docs/**`
+- Blog: MD/MDX under `public/blog/**`
 - Static assets: `public/`
 - Media (images, videos): See Media management below
 
 The app uses file system–based routing and content rendering. To add a new page:
-1) Create a Markdown/MDX file under `content/docs` or `content/blog`
+1) Create a Markdown/MDX file under `public/docs` or `public/blog`
 2) Include frontmatter (e.g., `title`, `description` for docs; `title`, `date`, `author`, `tags` for blog)
 3) Run `yarn dev` and navigate to the route
 

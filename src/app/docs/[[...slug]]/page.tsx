@@ -41,17 +41,12 @@ export async function generateStaticParams() {
 
 export default async function DocsPage({ params }: { params: DocsParams }) {
   const { slug = [] } = await params;
-  const { hasMarkdownExtension, path } = processDocumentationSlug(slug);
+  const { path } = processDocumentationSlug(slug);
 
   try {
     const content = await getMarkdownContent(path);
     const { data } = matter(content);
     const mdxContent = MDXParser.reconstructMDX(content);
-
-    // If route contains .md or .mdx extension, return only the raw content
-    if (hasMarkdownExtension) {
-      return <pre className="whitespace-pre-wrap p-6 overflow-auto">{content}</pre>;
-    }
 
     // Get the documentation structure to find the next item
     const allDocs = await getDocumentationStructure();

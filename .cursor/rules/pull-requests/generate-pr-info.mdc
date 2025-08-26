@@ -1,8 +1,3 @@
----
-description: Generate a PR title and a Markdown PR description as exactly two copyable code blocks (ask-only). Conventional Commit prefix + planton.ai-aware scope from file paths. No repo edits.
-globs:
-alwaysApply: false
----
 
 # Rule: Pull Request Title and Description (ask-only)
 
@@ -51,8 +46,8 @@ Determine the `<scope-path>` from the changed files. Use the most impacted area 
   - Root app configuration (e.g., `next.config.ts`, `tailwind.config.ts`, `eslint.config.mjs`, `tsconfig.json`, `postcss.config.mjs`) → `website/config`
 
 - Content sources
-  - `content/docs/**` → `docs`
-  - `content/blog/**` → `blog`
+  - `public/docs/**` → `docs`
+  - `public/blog/**` → `blog`
   - `workspace/**` (drafts, transcripts, internal content staging) → `content/workspace`
 
 - Project meta and tooling
@@ -62,14 +57,14 @@ Determine the `<scope-path>` from the changed files. Use the most impacted area 
 ### Multi-area changes
 - If changes span multiple areas within the same parent, use the shared parent:
   - `src/app` and `src/lib` → `website`
-  - Multiple content sections under `content/docs/**` → `docs`
+  - Multiple content sections under `public/docs/**` → `docs`
 - If changes are broadly cross-cutting (≥3 unrelated parents), use `repo`.
 
 ## How to infer the title prefix
 - `feat`: Adds a new capability, page, component, or content section
 - `fix`: Corrects a bug or content error
 - `refactor`: Code restructuring without user-visible behavior changes
-- `docs`: Documentation-only changes (most `content/docs/**` or README updates)
+- `docs`: Documentation-only changes (most `public/docs/**` or README updates)
 - `test`: Tests only
 - `perf`: Performance improvements
 - `ci`: CI pipeline/config changes
@@ -120,6 +115,11 @@ If context is insufficient to infer details, choose the best effort scope from f
 - [ ] Docs updated (if needed)
 - [ ] Tests added/updated (if needed)
 - [ ] Backward compatible
+
+<!-- Optionally: Closes #123 -->
+```
+
+@README.md
 
 <!-- Optionally: Closes #123 -->
 ```
