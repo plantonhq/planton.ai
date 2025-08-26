@@ -209,6 +209,25 @@ This automatically:
 - Sets up routing rules
 - Gives you a URL like `your-service.your-domain.com`
 
+## Controlling Deployment Environments
+
+By default, services deploy to all environments defined in your _kustomize overlays. But you can be selective:
+
+```yaml
+# Deploy only to specific environments
+deployment_environments:
+  - dev
+  - stage
+  # prod is intentionally excluded
+```
+
+This is particularly useful for:
+- Branch-based deployments where each branch should deploy to specific environments
+- Services that shouldn't go to production yet
+- Gradual rollouts across environments
+
+> **Learn more**: See [Deployment Environments](/docs/service-hub/deployment-environments) for detailed configuration and use cases.
+
 ## Real-World Patterns
 
 ### The Simple API

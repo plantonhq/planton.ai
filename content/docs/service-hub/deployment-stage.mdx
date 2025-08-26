@@ -212,6 +212,14 @@ The orchestration system creates one deployment task for each overlay directory,
 - `prod/` overlay → Creates deployment task named "prod" (deploys to environment specified in metadata.env, e.g., "app-prod")
 - `staging/` overlay → Creates deployment task named "staging" (deploys to environment in metadata.env, e.g., "app-staging")
 
+**Selective Environment Deployment**: If your service has configured `deployment_environments`, only matching overlays get deployment tasks. For example, if `deployment_environments: ["dev", "stage"]`, then:
+- `dev/` overlay → Creates deployment task
+- `stage/` overlay → Creates deployment task  
+- `uat/` overlay → Skipped (not in deployment_environments list)
+- `prod/` overlay → Skipped (not in deployment_environments list)
+
+This gives you precise control over where your services deploy. See [Deployment Environments](/docs/service-hub/deployment-environments) for detailed configuration.
+
 ### 4. Stack Job Execution
 Each deployment task triggers a Stack Job that:
 - Takes the generated manifest
