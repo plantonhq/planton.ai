@@ -3,6 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { BLOG_DIRECTORY, TUTORIALS_DIRECTORY } from '@/lib/constants';
 import { Tutorial } from '@/lib/tutorials';
+import { generateExcerptFromContent } from '@/lib/utils';
 
 export interface Author {
   name: string;
@@ -208,3 +209,70 @@ export function getTutorialsByAuthor(author: string): Tutorial[] {
   const allTutorials = getAllTutorials();
   return allTutorials.filter((tutorial) => tutorial.author.some((a: any) => a.name === author));
 }
+
+// Utility functions to get next article
+export function getNextBlogPost(currentSlug: string, allPosts: BlogPost[], sortOption: 'date-desc' | 'date-asc' | 'title-asc' | 'title-desc' = 'date-desc'): { title: string; excerpt: string; slug: string } | null {
+  // Apply the same sorting logic as the sidebar
+  const sortedPosts = [...allPosts];
+  switch (sortOption) {
+    case 'date-desc':
+      sortedPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      break;
+    case 'date-asc':
+      sortedPosts.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      break;
+    case 'title-asc':
+      sortedPosts.sort((a, b) => a.title.localeCompare(b.title));
+      break;
+    case 'title-desc':
+      sortedPosts.sort((a, b) => b.title.localeCompare(a.title));
+      break;
+  }
+  
+  const currentIndex = sortedPosts.findIndex(post => post.slug === currentSlug);
+  
+  if (currentIndex === -1 || currentIndex === sortedPosts.length - 1) {
+    return null;
+  }
+  
+  const nextPost = sortedPosts[currentIndex + 1];
+  return {
+    title: nextPost.title,
+    excerpt: generateExcerptFromContent(nextPost.content || ''),
+    slug: nextPost.slug
+  };
+}
+
+export function getNextTutorial(currentSlug: string, sortOption: 'date-desc' | 'date-asc' | 'title-asc' | 'title-desc' = 'date-desc', allTutorials: Tutorial[]): { title: string; excerpt: string; slug: string } | null {  
+  // Apply the same sorting logic as the sidebar
+  const sortedTutorials = [...allTutorials];
+  switch (sortOption) {
+    case 'date-desc':
+      sortedTutorials.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      break;
+    case 'date-asc':
+      sortedTutorials.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      break;
+    case 'title-asc':
+      sortedTutorials.sort((a, b) => a.title.localeCompare(b.title));
+      break;
+    case 'title-desc':
+      sortedTutorials.sort((a, b) => b.title.localeCompare(a.title));
+      break;
+  }
+  
+  const currentIndex = sortedTutorials.findIndex(tutorial => tutorial.slug === currentSlug);
+  
+  if (currentIndex === -1 || currentIndex === sortedTutorials.length - 1) {
+    return null;
+  }
+  
+  const nextTutorial = sortedTutorials[currentIndex + 1];
+  return {
+    title: nextTutorial.title,
+    excerpt: generateExcerptFromContent(nextTutorial.content || ''),
+    slug: nextTutorial.slug
+  };
+}
+
+

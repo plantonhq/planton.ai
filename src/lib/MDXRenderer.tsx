@@ -7,7 +7,7 @@ import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from 'rehype-highlight';
 import matter from 'gray-matter';
 import { formatDate } from '@/lib/utils';
-import { Author } from '@/lib/mdx';
+import { Author } from '@/lib/types-client';
 import { DocsPageActions } from '@/app/docs/components/DocsPageActions';
 import CloudflareVideo, { getEmbedInfoFromUrl } from '@/app/components/media/CloudflareVideo';
 
@@ -26,12 +26,54 @@ interface MDXRendererProps {
   mdxContent: string;
   markdownContent?: string;
   title?: string;
+  nextArticle?: {
+    title: string;
+    excerpt?: string;
+    slug: string;
+  };
 }
+
+// NextArticle component for navigation
+interface NextArticleProps {
+  nextArticle?: {
+    title: string;
+    excerpt?: string;
+    slug: string;
+  };
+}
+
+const NextArticle: React.FC<NextArticleProps> = ({ nextArticle }) => {
+  if (!nextArticle) return null;
+
+  return (
+    <div className="mt-12 p-6 rounded-lg bg-gray-800 border border-gray-700">
+      <div className="max-w-none">
+        <p className="text-lg text-gray-400 m-0 font-bold">Next article</p>
+        <h3 className="text-xl font-bold text-white m-0 my-2">{nextArticle.title}</h3>
+        {nextArticle.excerpt && (
+          <div className="relative mb-4 min-h-24">
+            <div className="text-gray-300 leading-6 excerpt-text">
+              {nextArticle.excerpt}
+            </div>
+            <div className="excerpt-gradient" />
+          </div>
+        )}
+        <a
+          href={nextArticle.slug}
+          className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition-colors duration-200 hover:translate-y-[-1px] active:translate-y-[1px]"
+        >
+          Read next article
+        </a>
+      </div>
+    </div>
+  );
+};
 
 export const MDXRenderer: React.FC<MDXRendererProps> = ({
   mdxContent,
   markdownContent,
   title,
+  nextArticle,
 }) => {
   const { data, content } = matter(mdxContent);
   const metadata: MdxMetadata = data as MdxMetadata;
@@ -290,6 +332,9 @@ export const MDXRenderer: React.FC<MDXRendererProps> = ({
             {content}
           </ReactMarkdown>
         </div>
+
+        {/* Next Article Section */}
+        <NextArticle nextArticle={nextArticle} />
       </article>
     </div>
   );

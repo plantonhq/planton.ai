@@ -13,7 +13,7 @@ import {
   KeyboardArrowRight as CollapseIcon,
   KeyboardArrowDown as ExpandIcon
 } from '@mui/icons-material';
-import { DocItem } from '../utils/fileSystem';
+import { DocItem } from '@/app/docs/utils/fileSystem';
 
 interface DocsSidebarProps {
   onNavigate?: () => void;
@@ -204,9 +204,8 @@ export const DocsSidebar: FC<DocsSidebarProps> = ({ onNavigate }) => {
         if (response.ok) {
           const data = await response.json();
           setStructure(data);
-          // Initialize expanded paths: default expand "platform" and ancestors of current path
+          // Initialize expanded paths: only expand ancestors of current path
           const initial = new Set<string>();
-          initial.add('platform');
           if (currentDocPath) {
             const segments = currentDocPath.split('/').filter(Boolean);
             let acc = '';
@@ -231,7 +230,10 @@ export const DocsSidebar: FC<DocsSidebarProps> = ({ onNavigate }) => {
   useEffect(() => {
     if (!currentDocPath) return;
     setExpandedPaths((prev) => {
-      const next = new Set(prev);
+      // Only expand ancestors of the current path - no hardcoded defaults
+      const next = new Set<string>();
+      
+      // Add ancestors of the current path
       const segments = currentDocPath.split('/').filter(Boolean);
       let acc = '';
       for (const segment of segments) {

@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { DOCS_DIRECTORY } from '@/lib/constants';
+import { generateExcerptFromContent } from '@/lib/utils';
 
 export interface DocItem {
   name: string;
@@ -18,6 +19,7 @@ export interface DocItem {
   isExternal?: boolean;
   externalUrl?: string;
   hasIndex?: boolean; // For directories with index files
+  excerpt?: string;
 }
 
 export interface MarkdownContent {
@@ -204,7 +206,7 @@ const iconMap: Record<string, string> = {
   test: '🧪',
   stethoscope: '🩺',
   xray: '🩻',
-  adhesive: '🩹'
+  adhesive: '🩹',
 };
 
 // Category-based icon mapping
@@ -232,7 +234,7 @@ const categoryIcons: Record<string, string> = {
   'data-pipelines': '🔗',
   'data-warehouse': '🏭',
   'llm-observability': '🤖',
-  'max-ai': '🎯'
+  'max-ai': '🎯',
 };
 
 // Resolve an icon value coming from frontmatter. Accepts PostHog-style names
@@ -318,6 +320,8 @@ const getDefaultIcon = (type: string, name: string, category?: string): string =
   return type === 'directory' ? '📁' : '📄';
 };
 
+
+
 export async function getMarkdownContent(filePath: string): Promise<string> {
   // Try different file extensions and paths (.md and .mdx)
   const possiblePaths = [
@@ -326,7 +330,7 @@ export async function getMarkdownContent(filePath: string): Promise<string> {
     path.join(DOCS_DIRECTORY, filePath, 'index.md'),
     path.join(DOCS_DIRECTORY, filePath, 'index.mdx'),
     path.join(DOCS_DIRECTORY, filePath, 'README.md'),
-    path.join(DOCS_DIRECTORY, filePath, 'README.mdx')
+    path.join(DOCS_DIRECTORY, filePath, 'README.mdx'),
   ];
 
   for (const candidatePath of possiblePaths) {
@@ -404,7 +408,8 @@ function buildStructure(dirPath: string, relativePath: string = ''): DocItem[] {
           badge: metadata.badge,
           isExternal: (metadata.isExternal as boolean) || false,
           externalUrl: metadata.externalUrl as string | undefined,
-          hasIndex
+          hasIndex,
+          excerpt: '' // Directories don't have content to generate excerpts from
         });
       }
     } else if (item.endsWith('.md') || item.endsWith('.mdx')) {
@@ -437,7 +442,8 @@ function buildStructure(dirPath: string, relativePath: string = ''): DocItem[] {
             order: (data.order as number) || 0,
             badge: data.badge as string | undefined,
             isExternal: (data.isExternal as boolean) || false,
-            externalUrl: data.externalUrl as string | undefined
+            externalUrl: data.externalUrl as string | undefined,
+            excerpt: generateExcerptFromContent(fs.readFileSync(fullPath, 'utf-8'))
           });
         } catch (error) {
           console.warn(`Failed to parse metadata from ${fullPath}:`, error);
@@ -487,4 +493,104 @@ function formatName(name: string): string {
     .replace(/\b\w/g, (l) => l.toUpperCase())
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+// Function to get the next documentation item
+export function getNextDocItem(
+  currentPath: string,
+  structure: DocItem[]
+): { title: string; excerpt: string; slug: string } | null {
+  // Flatten the structure to get all items in order
+  const flattenItems = (items: DocItem[]): DocItem[] => {
+    const result: DocItem[] = [];
+    for (const item of items) {
+      if (item.type === 'file') {
+        result.push(item);
+      } else if (item.children) {
+        result.push(...flattenItems(item.children));
+      }
+    }
+    return result;
+  };
+
+  const allItems = flattenItems(structure);
+  const currentIndex = allItems.findIndex((item) => item.path === currentPath);
+
+  if (currentIndex === -1 || currentIndex === allItems.length - 1) {
+    return null;
+  }
+
+  const nextDocItem = allItems[currentIndex + 1];
+
+  return {
+    title: nextDocItem.title || '',
+    excerpt: nextDocItem.excerpt || '',
+    slug: nextDocItem.path,
+  };
+}
+
+/**
+ * Generates static params for documentation routes based on the documentation structure.
+ * This function can be reused across different documentation pages that need to generate
+ * static routes for markdown files and directories.
+ *
+ * @param structure - The documentation structure to generate params from
+ * @returns Array of slug parameters for static generation
+ */
+export function generateStaticParamsFromStructure(structure: DocItem[]): { slug: string[] }[] {
+  const params: { slug: string[] }[] = [];
+
+  // Add the root docs path
+  params.push({ slug: [] });
+
+  const addPaths = (items: DocItem[], currentPath: string[] = []) => {
+    items.forEach((item) => {
+      if (item.type === 'file') {
+        // Add the clean route (without .md extension)
+        params.push({ slug: [...currentPath, item.name] });
+
+        // Also add the .md and .mdx extension routes for static export compatibility
+        // This handles cases where someone visits /docs/platform/platform-tour.md or .mdx
+        params.push({ slug: [...currentPath, `${item.name}.md`] });
+        params.push({ slug: [...currentPath, `${item.name}.mdx`] });
+      } else if (item.type === 'directory') {
+        // If directory has an index file, add a path for the directory itself
+        if (item.hasIndex) {
+          params.push({ slug: [...currentPath, item.name] });
+        }
+        // Recursively add paths for children
+        addPaths(item.children || [], [...currentPath, item.name]);
+      }
+    });
+  };
+
+  addPaths(structure);
+  // Include root /docs path for static export with catch-all route
+  params.push({ slug: [] });
+
+  return params;
+}
+
+/**
+ * Processes documentation slug parameters to handle markdown extensions and clean paths.
+ * This function can be reused across different documentation pages that need to process
+ * slug parameters and handle both clean routes and .md/.mdx extension routes.
+ *
+ * @param slug - The slug array from the route parameters
+ * @returns Object containing processed slug information
+ */
+export function processDocumentationSlug(slug: string[] = []) {
+  // Check if the route contains .md or .mdx extension
+  const hasMarkdownExtension = slug.some((part) => /\.(md|mdx)$/i.test(part));
+
+  // Strip .md extensions from slug parts to handle both clean routes and .md routes
+  const cleanSlug = slug.map((part) => part.replace(/\.(md|mdx)$/i, ''));
+  const path = cleanSlug.join('/');
+
+  return {
+    originalSlug: slug,
+    hasMarkdownExtension,
+    cleanSlug,
+    path: path || 'index',
+  };
 }

@@ -3,7 +3,9 @@ import { notFound } from 'next/navigation';
 import {
   getMarkdownContent,
   getDocumentationStructure,
-  DocItem,
+  getNextDocItem,
+  generateStaticParamsFromStructure,
+  processDocumentationSlug,
 } from '@/app/docs/utils/fileSystem';
 import { MDXRenderer } from '@/lib/MDXRenderer';
 import { Author, MDXParser } from '@/lib/mdx';
@@ -13,7 +15,7 @@ type DocsParams = Promise<{ slug?: string[] }>;
 
 export async function generateMetadata({ params }: { params: DocsParams }): Promise<Metadata> {
   const { slug = [] } = await params;
-  const path = slug.join('/');
+  const { path } = processDocumentationSlug(slug);
 
   try {
     const content = await getMarkdownContent(path);
@@ -34,49 +36,43 @@ export async function generateMetadata({ params }: { params: DocsParams }): Prom
 
 export async function generateStaticParams() {
   const structure = await getDocumentationStructure();
-  const params: { slug: string[] }[] = [];
-
-  // Add the root docs path
-  params.push({ slug: [] });
-
-  const addPaths = (items: DocItem[], currentPath: string[] = []) => {
-    items.forEach((item) => {
-      if (item.type === 'file') {
-        params.push({ slug: [...currentPath, item.name] });
-      } else if (item.type === 'directory') {
-        // If directory has an index file, add a path for the directory itself
-        if (item.hasIndex) {
-          params.push({ slug: [...currentPath, item.name] });
-        }
-        // Recursively add paths for children
-        addPaths(item.children || [], [...currentPath, item.name]);
-      }
-    });
-  };
-
-  addPaths(structure);
-  // Include root /docs path for static export with catch-all route
-  params.push({ slug: [] });
-  return params;
+  return generateStaticParamsFromStructure(structure);
 }
 
 export default async function DocsPage({ params }: { params: DocsParams }) {
   const { slug = [] } = await params;
-  const path = slug.join('/');
+  const { hasMarkdownExtension, path } = processDocumentationSlug(slug);
 
   try {
-    const content = await getMarkdownContent(path || 'index');
+    const content = await getMarkdownContent(path);
     const { data } = matter(content);
     const mdxContent = MDXParser.reconstructMDX(content);
+
+    // If route contains .md or .mdx extension, return only the raw content
+    if (hasMarkdownExtension) {
+      return <pre className="whitespace-pre-wrap p-6 overflow-auto">{content}</pre>;
+    }
+
+    // Get the documentation structure to find the next item
+    const allDocs = await getDocumentationStructure();
+    const nextDocItem = getNextDocItem(path, allDocs);
+
+    // Normal rendering with full layout
     return (
-      <DocsLayout 
-        author={data?.author as unknown as Author[]}
-        content={content}
-      >
-        <MDXRenderer 
+      <DocsLayout author={data?.author as unknown as Author[]} content={content}>
+        <MDXRenderer
           mdxContent={mdxContent}
           markdownContent={content}
           title={data?.title}
+          nextArticle={
+            nextDocItem
+              ? {
+                  title: nextDocItem.title,
+                  excerpt: nextDocItem.excerpt,
+                  slug: `/docs/${nextDocItem.slug}`,
+                }
+              : undefined
+          }
         />
       </DocsLayout>
     );
