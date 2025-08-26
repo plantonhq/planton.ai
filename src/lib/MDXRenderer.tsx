@@ -210,8 +210,8 @@ export const MDXRenderer: React.FC<MDXRendererProps> = ({
               ),
               li: ({ children }) => <li className="text-gray-300">{children}</li>,
               blockquote: ({ children }) => (
-                <blockquote className="border-l-4 border-blue-500 pl-4 py-2 my-4 bg-gray-800 rounded-r">
-                  <p className="text-gray-300 italic">{children}</p>
+                <blockquote className="border-l-4 border-blue-500 pl-4 py-2 my-4 bg-gray-800 rounded-r text-gray-300 italic">
+                  {children}
                 </blockquote>
               ),
               code: ({ children, className }) => {
@@ -240,15 +240,13 @@ export const MDXRenderer: React.FC<MDXRendererProps> = ({
               ),
               img: ({ src, alt }) => {
                 if (!src) return null;
-
+                // Avoid wrapping with a div to prevent <div> inside <p> which breaks hydration
                 return (
-                  <div className="my-6">
-                    <img
-                      src={src}
-                      alt={alt || ''}
-                      className="max-w-full h-auto rounded-lg shadow-lg"
-                    />
-                  </div>
+                  <img
+                    src={src}
+                    alt={alt || ''}
+                    className="max-w-full h-auto rounded-lg shadow-lg my-6 block"
+                  />
                 );
               },
               table: ({ children }) => (
