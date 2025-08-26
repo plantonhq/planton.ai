@@ -1,13 +1,17 @@
 'use client';
 
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Box, Typography, Chip } from '@mui/material';
+import { Box, Typography, Chip, IconButton } from '@mui/material';
 import {
   Folder as FolderIcon,
   Description as FileIcon,
   OpenInNew as ExternalLinkIcon
+} from '@mui/icons-material';
+import {
+  KeyboardArrowRight as CollapseIcon,
+  KeyboardArrowDown as ExpandIcon
 } from '@mui/icons-material';
 import { DocItem } from '../utils/fileSystem';
 
@@ -19,12 +23,16 @@ interface SidebarItemProps {
   item: DocItem;
   level?: number;
   onNavigate?: () => void;
+  expandedPaths: Set<string>;
+  onToggle: (path: string) => void;
 }
 
 const SidebarItem: FC<SidebarItemProps> = ({
   item,
   level = 0,
-  onNavigate
+  onNavigate,
+  expandedPaths,
+  onToggle
 }) => {
   const pathname = usePathname();
   const isActive = pathname === `/docs/${item.path}`;
@@ -78,6 +86,7 @@ const SidebarItem: FC<SidebarItemProps> = ({
   };
 
   if (item.type === 'directory') {
+    const isExpanded = expandedPaths.has(item.path);
     return (
       <Box>
         <Box
@@ -102,17 +111,30 @@ const SidebarItem: FC<SidebarItemProps> = ({
             )}
             {renderBadge()}
           </Box>
+          <IconButton
+            size="small"
+            aria-label={isExpanded ? 'Collapse section' : 'Expand section'}
+            aria-expanded={isExpanded}
+            onClick={() => onToggle(item.path)}
+            className="text-gray-300"
+          >
+            {isExpanded ? <ExpandIcon fontSize="small" /> : <CollapseIcon fontSize="small" />}
+          </IconButton>
         </Box>
-        <Box className="ml-4">
-          {item.children?.map((child, index) => (
-            <SidebarItem
-              key={index}
-              item={child}
-              level={level + 1}
-              onNavigate={onNavigate}
-            />
-          ))}
-        </Box>
+        {isExpanded && (
+          <Box className="ml-4">
+            {item.children?.map((child, index) => (
+              <SidebarItem
+                key={index}
+                item={child}
+                level={level + 1}
+                onNavigate={onNavigate}
+                expandedPaths={expandedPaths}
+                onToggle={onToggle}
+              />
+            ))}
+          </Box>
+        )}
       </Box>
     );
   }
@@ -166,7 +188,14 @@ function formatName(name: string): string {
 export const DocsSidebar: FC<DocsSidebarProps> = ({ onNavigate }) => {
   const [structure, setStructure] = useState<DocItem[]>([]);
   const [loading, setLoading] = useState(true);
-  // No expanded state; everything is always expanded
+  const pathname = usePathname();
+  const [expandedPaths, setExpandedPaths] = useState<Set<string>>(new Set());
+
+  const currentDocPath = useMemo(() => {
+    // Convert pathname like /docs/platform/getting-started to platform/getting-started
+    const prefix = '/docs/';
+    return pathname.startsWith(prefix) ? pathname.slice(prefix.length) : '';
+  }, [pathname]);
 
   useEffect(() => {
     const loadStructure = async () => {
@@ -175,6 +204,18 @@ export const DocsSidebar: FC<DocsSidebarProps> = ({ onNavigate }) => {
         if (response.ok) {
           const data = await response.json();
           setStructure(data);
+          // Initialize expanded paths: default expand "platform" and ancestors of current path
+          const initial = new Set<string>();
+          initial.add('platform');
+          if (currentDocPath) {
+            const segments = currentDocPath.split('/').filter(Boolean);
+            let acc = '';
+            for (const segment of segments) {
+              acc = acc ? `${acc}/${segment}` : segment;
+              initial.add(acc);
+            }
+          }
+          setExpandedPaths(initial);
         }
       } catch (error) {
         console.error('Failed to load documentation structure:', error);
@@ -184,7 +225,34 @@ export const DocsSidebar: FC<DocsSidebarProps> = ({ onNavigate }) => {
     };
 
     loadStructure();
-  }, []);
+  }, [currentDocPath]);
+
+  // Ensure ancestors of the active page are expanded on route change
+  useEffect(() => {
+    if (!currentDocPath) return;
+    setExpandedPaths((prev) => {
+      const next = new Set(prev);
+      const segments = currentDocPath.split('/').filter(Boolean);
+      let acc = '';
+      for (const segment of segments) {
+        acc = acc ? `${acc}/${segment}` : segment;
+        next.add(acc);
+      }
+      return next;
+    });
+  }, [currentDocPath]);
+
+  const handleToggle = (path: string) => {
+    setExpandedPaths((prev) => {
+      const next = new Set(prev);
+      if (next.has(path)) {
+        next.delete(path);
+      } else {
+        next.add(path);
+      }
+      return next;
+    });
+  };
 
   if (loading) {
     return (
@@ -207,6 +275,8 @@ export const DocsSidebar: FC<DocsSidebarProps> = ({ onNavigate }) => {
             key={index}
             item={item}
             onNavigate={onNavigate}
+            expandedPaths={expandedPaths}
+            onToggle={handleToggle}
           />
         ))}
       </Box>

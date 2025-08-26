@@ -41,9 +41,9 @@ export const DocsLayout: React.FC<DocsLayoutProps> = ({ children, author = [] , 
       </div>
 
       <div className="flex">
-        {/* Left Sidebar - Sticky */}
-        <div className="hidden md:block sticky top-16 h-screen w-80 flex-shrink-0">
-          <div className="h-full bg-black/95 border-r border-gray-800">
+        {/* Left Sidebar - Sticky, independently scrollable */}
+        <div className="hidden md:block sticky top-16 h-[calc(100vh-4rem)] w-80 flex-shrink-0">
+          <div className="h-full overflow-y-auto bg-black/95 border-r border-gray-800">
             <DocsSidebar />
           </div>
         </div>
@@ -80,8 +80,8 @@ export const DocsLayout: React.FC<DocsLayoutProps> = ({ children, author = [] , 
         </div>
 
         {/* Right Sidebar - Always render for table of contents */}
-        <div className="hidden xl:block sticky top-16 h-screen w-80 flex-shrink-0">
-          <div className="h-full bg-black/95 border-l border-gray-800">
+        <div className="hidden xl:block sticky top-16 h-[calc(100vh-4rem)] w-80 flex-shrink-0">
+          <div className="h-full overflow-y-auto bg-black/95 border-l border-gray-800">
             <RightSidebar author={author} content={content} />
           </div>
         </div>

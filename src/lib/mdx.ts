@@ -50,7 +50,7 @@ export class MDXParser {
 
     const frontmatterFields = [
       `title: "${data.title || ''}"`,
-      `date: ${data.date || new Date().toISOString()}`,
+      ...(data.date ? [`date: ${data.date}`] : []),
       `author:\n${authorYaml}`
     ];
 
