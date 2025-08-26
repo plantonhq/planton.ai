@@ -6,6 +6,7 @@ import { mdxComponents } from './MDXComponents';
 import { Box, Typography, Paper, Divider } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import CloudflareVideo, { getEmbedInfoFromUrl } from '@/app/components/media/CloudflareVideo';
 
 interface MDXRendererProps {
   content: string;
@@ -19,6 +20,37 @@ export const MDXRenderer: FC<MDXRendererProps> = ({ content }) => {
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           components={{
+            p: ({ children, node }: any) => {
+              try {
+                const rawChildren = Array.isArray(node?.children) ? node.children : [];
+                const nonWhitespace = rawChildren.filter((c: any) => {
+                  if (c.type === 'text') {
+                    return (c.value || '').trim().length > 0;
+                  }
+                  return true;
+                });
+
+                if (nonWhitespace.length === 1) {
+                  const only = nonWhitespace[0] as any;
+                  if (
+                    (only.type === 'element' || only.type === 'elementData') &&
+                    (only.tagName === 'a' || only.tagName === 'A') &&
+                    typeof only.properties?.href === 'string'
+                  ) {
+                    const linkText = only.children?.[0]?.value as string | undefined;
+                    const href = only.properties.href as string;
+                    const shouldEmbed = !linkText || linkText.trim() === href.trim();
+                    const embed = getEmbedInfoFromUrl(href);
+                    if (shouldEmbed && embed) {
+                      return <CloudflareVideo url={href} />;
+                    }
+                  }
+                }
+              } catch {}
+              return (
+                <Typography className="text-gray-300 mb-4 leading-relaxed">{children}</Typography>
+              );
+            },
             h1: ({ children }) => (
               <Typography variant="h3" className="text-white mb-6 mt-8 first:mt-0">
                 {children}
@@ -48,9 +80,6 @@ export const MDXRenderer: FC<MDXRendererProps> = ({ content }) => {
               <Typography variant="subtitle2" className="text-white mb-2 mt-4 font-semibold">
                 {children}
               </Typography>
-            ),
-            p: ({ children }) => (
-              <Typography className="text-gray-300 mb-4 leading-relaxed">{children}</Typography>
             ),
             ul: ({ children }) => (
               <Box component="ul" className="list-disc list-inside mb-4 space-y-2">

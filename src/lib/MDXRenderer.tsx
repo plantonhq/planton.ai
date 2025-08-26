@@ -9,6 +9,7 @@ import matter from 'gray-matter';
 import { formatDate } from '@/lib/utils';
 import { Author } from '@/lib/mdx';
 import { DocsPageActions } from '@/app/docs/components/DocsPageActions';
+import CloudflareVideo, { getEmbedInfoFromUrl } from '@/app/components/media/CloudflareVideo';
 
 interface MdxMetadata {
   title: string;
@@ -101,16 +102,7 @@ export const MDXRenderer: React.FC<MDXRendererProps> = ({
           {/* Featured Video */}
           {metadata.featuredVideo && (
             <div className="mb-6">
-              <div className="relative w-full h-0 pb-[56.25%] rounded-lg overflow-hidden shadow-lg">
-                <iframe
-                  src={metadata.featuredVideo}
-                  title={metadata.title}
-                  className="absolute top-0 left-0 w-full h-full"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
+              <CloudflareVideo url={metadata.featuredVideo} title={metadata.title} />
             </div>
           )}
         </header>
@@ -121,6 +113,36 @@ export const MDXRenderer: React.FC<MDXRendererProps> = ({
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw, rehypeHighlight]}
             components={{
+              p: ({ children, node }: any) => {
+                try {
+                  const rawChildren = Array.isArray(node?.children) ? node.children : [];
+                  const nonWhitespace = rawChildren.filter((c: any) => {
+                    if (c.type === 'text') {
+                      return (c.value || '').trim().length > 0;
+                    }
+                    return true;
+                  });
+
+                  if (nonWhitespace.length === 1) {
+                    const only = nonWhitespace[0] as any;
+                    // react-markdown provides HAST nodes here: links are type 'element', tagName 'a'
+                    if (
+                      (only.type === 'element' || only.type === 'elementData') &&
+                      (only.tagName === 'a' || only.tagName === 'A') &&
+                      typeof only.properties?.href === 'string'
+                    ) {
+                      const linkText = only.children?.[0]?.value as string | undefined;
+                      const href = only.properties.href as string;
+                      const shouldEmbed = !linkText || linkText.trim() === href.trim();
+                      const embed = getEmbedInfoFromUrl(href);
+                      if (shouldEmbed && embed) {
+                        return <CloudflareVideo url={href} title={metadata.title} />;
+                      }
+                    }
+                  }
+                } catch {}
+                return <p className="text-gray-300 mb-4 leading-relaxed">{children}</p>;
+              },
               h1: ({ children }) => {
                 const id = children
                   ?.toString()
@@ -199,7 +221,6 @@ export const MDXRenderer: React.FC<MDXRendererProps> = ({
                   </h6>
                 );
               },
-              p: ({ children }) => <p className="text-gray-300 mb-4 leading-relaxed">{children}</p>,
               ul: ({ children }) => (
                 <ul className="list-disc list-inside text-gray-300 mb-4 space-y-2">{children}</ul>
               ),

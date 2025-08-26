@@ -3,6 +3,7 @@
 import { MDXComponents } from 'mdx/types';
 import { Box, Paper, Tabs as MuiTabs, Tab as MuiTab, Typography, Divider } from '@mui/material';
 import React, { ReactNode, useState } from 'react';
+import CloudflareVideo from '@/app/components/media/CloudflareVideo';
 
 export function Callout({ type = 'note', title, children }: { type?: 'note' | 'tip' | 'warning'; title?: string; children: ReactNode }) {
   const border = type === 'warning' ? 'border-red-500' : type === 'tip' ? 'border-green-500' : 'border-blue-500';
@@ -156,6 +157,8 @@ export const mdxComponents: MDXComponents = {
   Card,
   Tabs,
   Tab,
+  // Allow direct component usage in MDX, e.g. <CloudflareVideo url="..." />
+  CloudflareVideo,
 };
 
 
