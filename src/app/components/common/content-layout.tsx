@@ -24,6 +24,9 @@ interface MdxContentLayoutProps {
   records: PostRecord[];
   currentSlug: string;
   sectionTitle?: string;
+  basePath: string;
+  author: Author[];
+  content: string;
 }
 
 const MdxContentLayout: React.FC<MdxContentLayoutProps> = ({
@@ -31,6 +34,9 @@ const MdxContentLayout: React.FC<MdxContentLayoutProps> = ({
   records,
   currentSlug,
   sectionTitle = 'Content',
+  basePath,
+  author,
+  content,
 }) => {
   const [currentSort, setCurrentSort] = useState<SortOption>('date-desc');
 
@@ -50,7 +56,7 @@ const MdxContentLayout: React.FC<MdxContentLayoutProps> = ({
               onSortChange={handleSortChange}
               currentSort={currentSort}
               sectionTitle={sectionTitle}
-              basePath={sectionTitle === 'Tutorials' ? '/tutorials' : '/blog'}
+              basePath={basePath}
             />
           </div>
         </div>
@@ -61,7 +67,7 @@ const MdxContentLayout: React.FC<MdxContentLayoutProps> = ({
         {/* Right Sidebar */}
         <div className="sticky top-16 h-screen w-80 flex-shrink-0">
           <div className="h-full bg-black/95 border-l border-gray-800">
-            <MdxRightBar records={records} currentSlug={currentSlug} />
+            <MdxRightBar author={author} content={content} />
           </div>
         </div>
       </div>

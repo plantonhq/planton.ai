@@ -29,6 +29,26 @@ export function formatShortDate(dateString: string): string {
 } 
 
 /**
+ * Checks if a slug has a markdown file extension (.md or .mdx).
+ * 
+ * @param slug - The slug string to check
+ * @returns True if the slug has a markdown extension, false otherwise
+ */
+export function hasMarkdownExtension(slug: string): boolean {
+  return /\.(md|mdx)$/i.test(slug);
+}
+
+/**
+ * Removes markdown file extensions (.md or .mdx) from a slug.
+ * 
+ * @param slug - The slug string to clean
+ * @returns The slug without markdown file extensions
+ */
+export function cleanSlug(slug: string): string {
+  return slug.replace(/\.(md|mdx)$/i, '');
+}
+
+/**
  * Generates a clean text excerpt from markdown content by removing markdown symbols and formatting.
  * This function is safe to use on both server and client side.
  * 
