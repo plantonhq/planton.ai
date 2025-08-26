@@ -4,7 +4,7 @@ Purpose: A single, reusable authoring guide for building engaging documentation 
 
 Usage: Invoke as `@docs-elements` alongside `@docs-style` and `@docs-sources` for any new or updated docs/blog content.
 
-Scope: Applies to content under `content/docs/**` and `content/blog/**` in this repo. Designed for our renderer in `src/app/docs/components/MarkdownRenderer.tsx` (ReactMarkdown + GFM + rehype-raw + highlight.js), not full MDX components.
+Scope: Applies to content under `public/docs/**` and `public/blog/**` in this repo. Designed for our renderer in `src/app/docs/components/MarkdownRenderer.tsx` (ReactMarkdown + GFM + rehype-raw + highlight.js), not full MDX components.
 
 Dependencies:
 - Style & tone: `@docs-style`

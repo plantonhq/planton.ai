@@ -12,17 +12,35 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // async headers() {
-  //   return [
-  //     {
-  //       source: '/install.sh',
-  //       headers: [
-  //         { key: 'Cache-Control', value: 'no-cache' },
-  //         { key: 'Content-Type', value: 'text/plain; charset=utf-8' },
-  //       ],
-  //     },
-  //   ];
-  // },
+  async headers() {
+    return [
+      {
+        source: '/install.sh',
+        headers: [
+          { key: 'Cache-Control', value: 'no-cache' },
+          { key: 'Content-Type', value: 'text/plain; charset=utf-8' },
+        ],
+      },
+      // Generic Markdown files - works for any folder
+      {
+        source: '/:path*.md',
+        headers: [
+          { key: 'Content-Type', value: 'text/markdown; charset=utf-8' },
+          { key: 'Content-Disposition', value: 'inline' },
+          { key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' },
+        ],
+      },
+      // Generic MDX files - works for any folder
+      {
+        source: '/:path*.mdx',
+        headers: [
+          { key: 'Content-Type', value: 'text/markdown; charset=utf-8' },
+          { key: 'Content-Disposition', value: 'inline' },
+          { key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' },
+        ],
+      },
+    ];
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,

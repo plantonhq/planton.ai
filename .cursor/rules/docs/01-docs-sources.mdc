@@ -1,13 +1,9 @@
----
-description: Source-of-truth and referencing guide for Planton.ai docs/blogs. Requires grounding in project-planton and planton-cloud source code and READMEs.
-alwaysApply: false
----
 
 # Rule: Docs Source-of-Truth and Referencing
 
 Purpose: Every new documentation or blog page must be grounded in actual source artifacts across this workspace — no speculation. Consult protobuf/API definitions, IaC modules, CLI and backend code, and package READMEs. Cite what you used.
 
-Usage: Invoke explicitly as `@docs-sources` before drafting or editing content under `content/docs/**` or `content/blog/**`.
+Usage: Invoke explicitly as `@docs-sources` before drafting or editing content under `public/docs/**` or `public/blog/**`.
 
 ## Golden Sources
 When documenting a feature, consult these in order. Prefer direct code or READMEs over memory.
@@ -85,6 +81,10 @@ Infra Hub + EKS cluster provisioning (high-level reference):
 
 ServiceHub pipeline on commit:
 - Core models: `Service`, `Pipeline` (protobufs under `apis/cloud/planton/...`)
+- Orchestration: `planton-cloud/backend/services/service-hub` with Temporal
+
+@README.md
+
 - Orchestration: `planton-cloud/backend/services/service-hub` with Temporal
 
 @README.md

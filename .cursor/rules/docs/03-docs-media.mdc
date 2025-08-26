@@ -5,8 +5,8 @@ Purpose: Ensure all images and screenshots in documentation use the Cloudflare R
 Usage: Invoke explicitly as `@docs-media` when adding images, screenshots, or other media assets to documentation or blog posts.
 
 Scope: Applies to all image references in:
-- Documentation pages (`content/docs/**`)
-- Blog posts (`content/blog/**`)
+- Documentation pages (`public/docs/**`)
+- Blog posts (`public/blog/**`)
 - Any Markdown/MDX content that includes images
 
 ## MANDATORY: Use Cloudflare R2 URLs

@@ -34,9 +34,9 @@ export function formatShortDate(dateString: string): string {
  * @param slug - The slug string to check
  * @returns True if the slug has a markdown extension, false otherwise
  */
-export function hasMarkdownExtension(slug: string): boolean {
-  return /\.(md|mdx)$/i.test(slug);
-}
+// export function hasMarkdownExtension(slug: string): boolean {
+//   return /\.(md|mdx)$/i.test(slug);
+// }
 
 /**
  * Removes markdown file extensions (.md or .mdx) from a slug.

@@ -1,15 +1,11 @@
----
-description: Style and tone guide for Planton.ai docs and blogs inspired by PostHog docs. Use for all content under content/docs and content/blog.
-alwaysApply: false
----
 
 # Rule: Docs and Blog Style (PostHog-inspired)
 
 Purpose: Ensure all documentation and blog content for PlantonCloud follows a consistent, pragmatic, and reader-first style inspired by the tone and information architecture on posthog.com/docs.
 
-Usage: Invoke explicitly as `@docs-style` when drafting or editing any page under `content/docs/**` or `content/blog/**` in this repository.
+Usage: Invoke explicitly as `@docs-style` when drafting or editing any page under `public/docs/**` or `public/blog/**` in this repository.
 
-Scope: Applies to documentation pages (Markdown in `content/docs`) and blog posts (MD/MDX in `content/blog`).
+Scope: Applies to documentation pages (Markdown in `public/docs`) and blog posts (MD/MDX in `public/blog`).
 
 ## Voice and Tone
 - Conversational, direct, and helpful. Write to the reader as “you”.
@@ -34,7 +30,7 @@ For each blog post:
 - Callouts: prefer blockquotes (>) with a bold lead (e.g., “Note:”) rather than custom admonitions.
 - Link precisely: relative links within docs, absolute links for external resources.
 
-## Docs Frontmatter (content/docs)
+## Docs Frontmatter (public/docs)
 These fields power the dynamic sidebar, ordering, and metadata. Include at minimum `title` and `description`.
 
 Required (recommended):
@@ -122,7 +118,7 @@ planton <command>
 - Related docs pages
 ```
 
-## Blog Frontmatter (content/blog)
+## Blog Frontmatter (public/blog)
 Blog posts support MD or MDX. Include at least `title`, `date`, `author`, and `tags`.
 
 Required:
@@ -165,6 +161,10 @@ Intro paragraph with the key takeaway.
 ## When in Doubt
 - Default to clarity over completeness; link to deeper references.
 - If a concept spans multiple concerns, split into separate pages.
+
+@README.md
+
+
 
 @README.md
 
