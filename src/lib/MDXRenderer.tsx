@@ -10,6 +10,7 @@ import { formatDate } from '@/lib/utils';
 import { Author } from '@/lib/types-client';
 import { DocsPageActions } from '@/app/docs/components/DocsPageActions';
 import CloudflareVideo, { getEmbedInfoFromUrl } from '@/app/components/media/CloudflareVideo';
+import { CodeBlock } from '@/app/components/common';
 
 interface MdxMetadata {
   title: string;
@@ -52,9 +53,7 @@ const NextArticle: React.FC<NextArticleProps> = ({ nextArticle }) => {
         <h3 className="text-xl font-bold text-white m-0 my-2">{nextArticle.title}</h3>
         {nextArticle.excerpt && (
           <div className="relative mb-4 min-h-24">
-            <div className="text-gray-300 leading-6 excerpt-text">
-              {nextArticle.excerpt}
-            </div>
+            <div className="text-gray-300 leading-6 excerpt-text">{nextArticle.excerpt}</div>
             <div className="excerpt-gradient" />
           </div>
         )}
@@ -279,18 +278,12 @@ export const MDXRenderer: React.FC<MDXRendererProps> = ({
               ),
               code: ({ children, className }) => {
                 return (
-                  <code
-                    className={`px-2 py-1 bg-gray-800 text-green-400 rounded text-sm ${
-                      className || ''
-                    }`}
-                  >
+                  <code className={`bg-gray-800 text-green-400 rounded text-sm ${className || ''}`}>
                     {children}
                   </code>
                 );
               },
-              pre: ({ children }) => (
-                <pre className="bg-gray-800 p-4 rounded-lg overflow-x-auto mb-4">{children}</pre>
-              ),
+              pre: ({ children }) => <CodeBlock>{children}</CodeBlock>,
               a: ({ href, children }) => (
                 <a
                   href={href}

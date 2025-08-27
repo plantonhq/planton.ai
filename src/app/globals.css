@@ -173,6 +173,11 @@ pre:hover::before {
   z-index: 1;
 }
 
+/* Ensure copy button is above the hover effect */
+.group:hover .absolute {
+  z-index: 10;
+}
+
 /* Excerpt text styling for NextArticle component */
 .excerpt-text {
   display: -webkit-box;

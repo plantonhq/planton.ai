@@ -10,6 +10,7 @@ export * from './images';
 export * from './content-layout';
 export * from './content-sidebar';
 export * from './content-details-sidebar';
+export * from './CodeBlock';
 
 export const randomBetween = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
