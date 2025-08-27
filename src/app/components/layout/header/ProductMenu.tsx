@@ -49,11 +49,13 @@ export const ProductMenu = ({
   leftMenu,
   rightMenu,
   footerMenu,
+  leftWidthClass = 'w-[270px]',
 }: {
   title: string;
   leftMenu: IMenu[];
   rightMenu?: IMenu[];
   footerMenu?: IMenuItems;
+  leftWidthClass?: string;
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -105,15 +107,17 @@ export const ProductMenu = ({
           onClick={handleClose}
         >
           <Stack className="flex-row p-6 ">
-            <Stack className="w-[270px] mr-4">
+            <Stack className={`${leftWidthClass} mr-4`}>
               {leftMenu.map((menu, index) => (
                 <Stack key={index} className="mb-8 last:mb-0">
                   {menu.title && (
                     <Typography className="font-semibold mb-4">{menu.title}</Typography>
                   )}
                   <Stack gap={menu.title ? 1.5 : 3}>
-                    {menu.items.map((item) => (
-                      <ProductMenuItem key={item.label} {...item} />
+                    {menu.items.map((item, itemIdx) => (
+                      <ProductMenuItem key={`${item.label || item.subLabel || item.href || itemIdx}`}
+                        {...item}
+                      />
                     ))}
                   </Stack>
                 </Stack>
@@ -127,8 +131,10 @@ export const ProductMenu = ({
                       <Typography className="font-semibold mb-4">{menu.title}</Typography>
                     )}
                     <Stack gap={menu.title ? 1.5 : 3}>
-                      {menu.items.map((item) => (
-                        <ProductMenuItem key={item.label} {...item} />
+                      {menu.items.map((item, itemIdx) => (
+                        <ProductMenuItem key={`${item.label || item.subLabel || item.href || itemIdx}`}
+                          {...item}
+                        />
                       ))}
                     </Stack>
                   </Stack>

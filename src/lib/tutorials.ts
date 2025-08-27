@@ -30,7 +30,7 @@ export interface Tutorial {
 
 export function getTutorialContentBySlug(slug: string): string {
   try {
-    let fullPath = path.join(TUTORIALS_DIRECTORY, `${slug}.md`);
+    const fullPath = path.join(TUTORIALS_DIRECTORY, `${slug}.md`);
     
     if (!fs.existsSync(fullPath)) {
       return '';

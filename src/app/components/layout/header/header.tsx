@@ -64,7 +64,7 @@ const HeaderLogo = () => {
 
 const MenuSection: FC<MenuSectionProps> = ({ children }) => {
   return (
-    <Stack direction="row" className="items-center gap-4 text-sm">
+    <Stack direction="row" className="items-center gap-3 text-sm">
       {children}
     </Stack>
   );
@@ -154,15 +154,12 @@ export const menuByRole: IMenuItems[] = [
   { label: '', subLabel: 'Startup Founder', href: '/solutions/by-role/startup-founders' },
   { label: '', subLabel: 'Engineering Leader', href: '/solutions/by-role/engineering-leader' },
 ];
-export const menuOpenSource: IMenuItems[] = [
-  {
-    label: 'Project Planton',
-    subLabel: 'Multi-Cloud Deployment Framework',
-  },
-  {
-    label: 'Pulumi Modules',
-    subLabel: 'Ready-to-use with Built-in standards',
-  },
+
+// Resources dropdown (replacement for Open Source)
+export const menuResources: IMenuItems[] = [
+  { label: '', subLabel: 'Docs', href: '/docs' },
+  { label: '', subLabel: 'Tutorials', href: '/tutorials' },
+  { label: '', subLabel: 'Blog', href: '/blog' },
 ];
 
 const HeaderComputer: FC<IHeaderComputer> = ({ className }) => {
@@ -204,12 +201,13 @@ const HeaderComputer: FC<IHeaderComputer> = ({ className }) => {
         footerMenu={{ label: 'View all Solutions', href: '/solutions' }}
       />
       <ProductMenu
-        title="Open Source"
+        title="Resources"
         leftMenu={[
           {
-            items: menuOpenSource,
+            items: menuResources,
           },
         ]}
+        leftWidthClass="w-auto min-w-[180px]"
       />
       <Link href="/pricing" className="text-base font-medium">
         Pricing
@@ -317,11 +315,11 @@ const HeaderMobile: FC<IHeaderMobile> = ({ className }) => {
             </MenuAccordian>
             <MenuAccordian
               expanded={expandedPanel === 'panel-3'}
-              title="Open Source"
+              title="Resources"
               onChange={handleChange('panel-3')}
             >
               <Stack className="gap-5">
-                {menuOpenSource.map((item, index) => (
+                {menuResources.map((item, index) => (
                   <ProductMenuItem {...item} key={index} />
                 ))}
                 <Divider className="border-[#232323] -mt-2" />
@@ -343,20 +341,7 @@ export function Header() {
       <HeaderMobile className="md:hidden" />
       <HeaderComputer className="hidden md:flex" />
       <MenuSection>
-        <Btn
-          className="text-text-secondary"
-          LinkComponent={Link}
-          href="/blog"
-        >
-          Blogs
-        </Btn>
-        <Btn
-          className="text-text-secondary"
-          LinkComponent={Link}
-          href="/docs"
-        >
-          Docs
-        </Btn>
+        <JoinDiscordBtn className="text-text-secondary">Discord</JoinDiscordBtn>
         <Btn
           className="text-text-secondary"
           LinkComponent={Link}
@@ -366,7 +351,6 @@ export function Header() {
           Login
         </Btn>
         <JoinBetaBtn className="bg-white text-black !h-8 !px-3 !py-2">Join Beta</JoinBetaBtn>
-        <JoinDiscordBtn className="text-text-secondary">Discord</JoinDiscordBtn>
         {/* <Link href="https://console.planton.cloud/" target="_blank">
           <Stack className="flex-row">
             <Typography className="text-sm text-gray-400 font-medium">

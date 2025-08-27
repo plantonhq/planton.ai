@@ -81,7 +81,7 @@ export class MDXParser {
 
 export function getBlogPostContentBySlug(slug: string): string {
   try {
-    let fullPath = path.join(BLOG_DIRECTORY, `${slug}.md`);
+    const fullPath = path.join(BLOG_DIRECTORY, `${slug}.md`);
     
     if (!fs.existsSync(fullPath)) {
       return '';
@@ -143,7 +143,7 @@ export function getBlogPostsByAuthor(author: string): BlogPost[] {
 
 export function getTutorialContentBySlug(slug: string): string {
   try {
-    let fullPath = path.join(TUTORIALS_DIRECTORY, `${slug}.md`);
+    const fullPath = path.join(TUTORIALS_DIRECTORY, `${slug}.md`);
     
     if (!fs.existsSync(fullPath)) {
       return '';

@@ -61,7 +61,7 @@ export function generateExcerptFromContent(content: string, maxLength: number = 
   const contentWithoutFrontmatter = content.replace(/^---[\s\S]*?---/, '');
 
   // Remove markdown symbols and formatting
-  let cleanText = contentWithoutFrontmatter
+  const cleanText = contentWithoutFrontmatter
     // Remove code blocks
     .replace(/```[\s\S]*?```/g, '')
     // Remove inline code
