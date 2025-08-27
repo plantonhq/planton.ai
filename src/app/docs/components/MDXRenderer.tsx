@@ -12,7 +12,7 @@ interface MDXRendererProps {
   content: string;
 }
 
-// We keep compatibility: .mdx pages can use MDX components; .md pages remain Markdown.
+// We keep compatibility: .md pages can use MDX components.
 export const MDXRenderer: FC<MDXRendererProps> = ({ content }) => {
   return (
     <MDXProvider components={mdxComponents}>

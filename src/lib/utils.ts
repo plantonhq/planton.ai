@@ -29,23 +29,23 @@ export function formatShortDate(dateString: string): string {
 } 
 
 /**
- * Checks if a slug has a markdown file extension (.md or .mdx).
+ * Checks if a slug has a markdown file extension (.md).
  * 
  * @param slug - The slug string to check
  * @returns True if the slug has a markdown extension, false otherwise
  */
 // export function hasMarkdownExtension(slug: string): boolean {
-//   return /\.(md|mdx)$/i.test(slug);
+//   return /\.md$/i.test(slug);
 // }
 
 /**
- * Removes markdown file extensions (.md or .mdx) from a slug.
+ * Removes markdown file extensions (.md) from a slug.
  * 
  * @param slug - The slug string to clean
  * @returns The slug without markdown file extensions
  */
 export function cleanSlug(slug: string): string {
-  return slug.replace(/\.(md|mdx)$/i, '');
+  return slug.replace(/\.md$/i, '');
 }
 
 /**

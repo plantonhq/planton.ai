@@ -81,13 +81,10 @@ export class MDXParser {
 
 export function getBlogPostContentBySlug(slug: string): string {
   try {
-    let fullPath = path.join(BLOG_DIRECTORY, `${slug}.mdx`);
+    let fullPath = path.join(BLOG_DIRECTORY, `${slug}.md`);
     
     if (!fs.existsSync(fullPath)) {
-      fullPath = path.join(BLOG_DIRECTORY, `${slug}.md`);
-      if (!fs.existsSync(fullPath)) {
-        return '';
-      }
+      return '';
     }
 
     return fs.readFileSync(fullPath, 'utf8');
@@ -105,9 +102,9 @@ export function getAllBlogPosts(): BlogPost[] {
 
     const fileNames = fs.readdirSync(BLOG_DIRECTORY);
     const allPostsData = fileNames
-      .filter((fileName) => fileName.endsWith('.mdx') || fileName.endsWith('.md'))
+      .filter((fileName) => fileName.endsWith('.md'))
       .map((fileName) => {
-        const slug = fileName.replace(/\.(mdx|md)$/, '');
+        const slug = fileName.replace(/\.md$/, '');
         const fullPath = path.join(BLOG_DIRECTORY, fileName);
         const fileContents = fs.readFileSync(fullPath, 'utf8');
         const { data, content } = matter(fileContents);
@@ -146,13 +143,10 @@ export function getBlogPostsByAuthor(author: string): BlogPost[] {
 
 export function getTutorialContentBySlug(slug: string): string {
   try {
-    let fullPath = path.join(TUTORIALS_DIRECTORY, `${slug}.mdx`);
+    let fullPath = path.join(TUTORIALS_DIRECTORY, `${slug}.md`);
     
     if (!fs.existsSync(fullPath)) {
-      fullPath = path.join(TUTORIALS_DIRECTORY, `${slug}.md`);
-      if (!fs.existsSync(fullPath)) {
-        return '';
-      }
+      return '';
     }
 
     return fs.readFileSync(fullPath, 'utf8');
@@ -170,9 +164,9 @@ export function getAllTutorials(): Tutorial[] {
 
     const fileNames = fs.readdirSync(TUTORIALS_DIRECTORY);
     const allTutorialsData = fileNames
-      .filter((fileName) => fileName.endsWith('.mdx') || fileName.endsWith('.md'))
+      .filter((fileName) => fileName.endsWith('.md'))
       .map((fileName) => {
-        const slug = fileName.replace(/\.(mdx|md)$/, '');
+        const slug = fileName.replace(/\.md$/, '');
         const fullPath = path.join(TUTORIALS_DIRECTORY, fileName);
         const fileContents = fs.readFileSync(fullPath, 'utf8');
         const { data, content } = matter(fileContents);

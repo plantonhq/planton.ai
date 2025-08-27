@@ -323,14 +323,11 @@ const getDefaultIcon = (type: string, name: string, category?: string): string =
 
 
 export async function getMarkdownContent(filePath: string): Promise<string> {
-  // Try different file extensions and paths (.md and .mdx)
+  // Try different file extensions and paths (.md only)
   const possiblePaths = [
     path.join(DOCS_DIRECTORY, `${filePath}.md`),
-    path.join(DOCS_DIRECTORY, `${filePath}.mdx`),
     path.join(DOCS_DIRECTORY, filePath, 'index.md'),
-    path.join(DOCS_DIRECTORY, filePath, 'index.mdx'),
     path.join(DOCS_DIRECTORY, filePath, 'README.md'),
-    path.join(DOCS_DIRECTORY, filePath, 'README.mdx'),
   ];
 
   for (const candidatePath of possiblePaths) {
@@ -339,11 +336,11 @@ export async function getMarkdownContent(filePath: string): Promise<string> {
     }
   }
 
-  // If no markdown file found, try to find any .md or .mdx file in the directory
+  // If no markdown file found, try to find any .md file in the directory
   const dirPath = path.join(DOCS_DIRECTORY, filePath);
   if (fs.existsSync(dirPath) && fs.statSync(dirPath).isDirectory()) {
     const files = fs.readdirSync(dirPath);
-    const mdLikeFile = files.find((file) => file.endsWith('.md') || file.endsWith('.mdx'));
+    const mdLikeFile = files.find((file) => file.endsWith('.md'));
     if (mdLikeFile) {
       return fs.readFileSync(path.join(dirPath, mdLikeFile), 'utf-8');
     }
@@ -372,9 +369,9 @@ function buildStructure(dirPath: string, relativePath: string = ''): DocItem[] {
     if (stat.isDirectory()) {
       const children = buildStructure(fullPath, itemRelativePath);
       if (children.length > 0) {
-        // Try to get metadata from index/README (.md or .mdx)
+        // Try to get metadata from index/README (.md only)
         let metadata: MarkdownContent['data'] = {};
-        const indexFiles = ['index.md', 'index.mdx', 'README.md', 'README.mdx'];
+        const indexFiles = ['index.md', 'README.md'];
 
         for (const indexFile of indexFiles) {
           const indexPath = path.join(fullPath, indexFile);
@@ -412,14 +409,14 @@ function buildStructure(dirPath: string, relativePath: string = ''): DocItem[] {
           excerpt: '' // Directories don't have content to generate excerpts from
         });
       }
-    } else if (item.endsWith('.md') || item.endsWith('.mdx')) {
+    } else if (item.endsWith('.md')) {
       // Skip certain files that are not meant for documentation
-      // Also skip index.md/mdx and README.md/mdx as they represent directory content
+      // Also skip index.md and README.md as they represent directory content
       if (
         !item.startsWith('prompt.') &&
         !item.startsWith('response.') &&
         !item.includes('.not-good.') &&
-        !['index.md', 'index.mdx', 'README.md', 'README.mdx'].includes(item)
+        !['index.md', 'README.md'].includes(item)
       ) {
         try {
           const fileContent = fs.readFileSync(fullPath, 'utf-8');
@@ -427,15 +424,15 @@ function buildStructure(dirPath: string, relativePath: string = ''): DocItem[] {
           const category = relativePath.split('/')[0] || 'general';
 
           structure.push({
-            name: item.replace(/\.(md|mdx)$/i, ''),
+            name: item.replace(/\.md$/i, ''),
             type: 'file',
-            path: itemRelativePath.replace(/\.(md|mdx)$/i, ''),
-            title: (data.title as string) || formatName(item.replace(/\.(md|mdx)$/i, '')),
+            path: itemRelativePath.replace(/\.md$/i, ''),
+            title: (data.title as string) || formatName(item.replace(/\.md$/i, '')),
             description: data.description as string | undefined,
             icon: resolveIcon(
               data.icon as string | undefined,
               'file',
-              item.replace(/\.(md|mdx)$/i, ''),
+              item.replace(/\.md$/i, ''),
               category
             ),
             category,
@@ -450,11 +447,11 @@ function buildStructure(dirPath: string, relativePath: string = ''): DocItem[] {
           // Fallback without metadata
           const category = relativePath.split('/')[0] || 'general';
           structure.push({
-            name: item.replace(/\.(md|mdx)$/i, ''),
+            name: item.replace(/\.md$/i, ''),
             type: 'file',
-            path: itemRelativePath.replace(/\.(md|mdx)$/i, ''),
-            title: formatName(item.replace(/\.(md|mdx)$/i, '')),
-            icon: getDefaultIcon('file', item.replace(/\.(md|mdx)$/i, ''), category),
+            path: itemRelativePath.replace(/\.md$/i, ''),
+            title: formatName(item.replace(/\.md$/i, '')),
+            icon: getDefaultIcon('file', item.replace(/\.md$/i, ''), category),
             category,
             order: 0
           });
@@ -571,14 +568,14 @@ export function generateStaticParamsFromStructure(structure: DocItem[]): { slug:
 /**
  * Processes documentation slug parameters to handle markdown extensions and clean paths.
  * This function can be reused across different documentation pages that need to process
- * slug parameters and handle both clean routes and .md/.mdx extension routes.
+ * slug parameters and handle both clean routes and .md extension routes.
  *
  * @param slug - The slug array from the route parameters
  * @returns Object containing processed slug information
  */
 export function processDocumentationSlug(slug: string[] = []) {
   // Strip .md extensions from slug parts to handle both clean routes and .md routes
-  const cleanSlug = slug.map((part) => part.replace(/\.(md|mdx)$/i, ''));
+  const cleanSlug = slug.map((part) => part.replace(/\.md$/i, ''));
   const path = cleanSlug.join('/');
 
   return {
