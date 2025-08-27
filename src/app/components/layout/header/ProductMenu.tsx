@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import { Icon, Menu, Paper, Stack, Typography } from '@mui/material';
-import { NavigateNext } from '@mui/icons-material';
+import { Menu, Paper, Stack, Typography } from '@mui/material';
+import { NavigateNext, KeyboardArrowDown } from '@mui/icons-material';
 
 interface IMenu {
   title?: string;
@@ -79,15 +79,13 @@ export const ProductMenu = ({
         onClick={handleClick}
       >
         <Typography className="text-base font-medium">{title}</Typography>
-        <Icon
+        <KeyboardArrowDown
           className="text-sm"
           sx={{
             fontSize: '20px !important',
             fontVariationSettings: "'FILL' 1, 'wght' 500, 'GRAD' 200, 'opsz' 48",
           }}
-        >
-          keyboard_arrow_down
-        </Icon>
+        />
       </Stack>
       <Menu
         id="composition-menu"
