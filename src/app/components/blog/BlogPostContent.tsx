@@ -35,6 +35,7 @@ export function BlogPostContent({ slug, post, allPosts, nextArticle }: BlogPostC
         mdxContent={mdxContent} 
         markdownContent={post}
         nextArticle={dynamicNextArticle}
+        path={slug}
       />
     </div>
   );

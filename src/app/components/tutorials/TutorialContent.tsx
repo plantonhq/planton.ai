@@ -35,6 +35,7 @@ export function TutorialContent({ slug, tutorialContent, allTutorials, nextArtic
         mdxContent={mdxContent} 
         markdownContent={tutorialContent}
         nextArticle={dynamicNextArticle}
+        path={slug}
       />
     </div>
   );

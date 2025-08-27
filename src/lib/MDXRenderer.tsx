@@ -32,6 +32,7 @@ interface MDXRendererProps {
     excerpt?: string;
     slug: string;
   };
+  path: string;
 }
 
 // NextArticle component for navigation
@@ -73,6 +74,7 @@ export const MDXRenderer: React.FC<MDXRendererProps> = ({
   markdownContent,
   title,
   nextArticle,
+  path,
 }) => {
   const { data, content } = matter(mdxContent);
   const metadata: MdxMetadata = data as MdxMetadata;
@@ -106,6 +108,7 @@ export const MDXRenderer: React.FC<MDXRendererProps> = ({
                 <DocsPageActions
                   markdownContent={markdownContent}
                   title={title || metadata.title}
+                  path={path}
                 />
               )}
             </div>

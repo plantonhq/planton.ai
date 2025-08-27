@@ -68,6 +68,7 @@ export default async function DocsPage({ params }: { params: DocsParams }) {
                 }
               : undefined
           }
+          path={`/docs/${path}`}
         />
       </DocsLayout>
     );
