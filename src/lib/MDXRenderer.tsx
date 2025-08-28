@@ -21,6 +21,8 @@ interface MdxMetadata {
   featuredVideo?: string;
   tags: string[];
   content: string;
+  hideCopyMarkdown?: boolean;
+  hideViewMarkdown?: boolean;
 }
 
 interface MDXRendererProps {
@@ -78,6 +80,11 @@ export const MDXRenderer: React.FC<MDXRendererProps> = ({
 }) => {
   const { data, content } = matter(mdxContent);
   const metadata: MdxMetadata = data as MdxMetadata;
+  
+  // Configuration for page actions
+  const hideCopyMarkdown = metadata?.hideCopyMarkdown ?? false;
+  const hideViewMarkdown = metadata?.hideViewMarkdown ?? false;
+  const shouldShowActions = markdownContent && !(hideCopyMarkdown && hideViewMarkdown);
 
   return (
     <div className="w-full">
@@ -104,11 +111,13 @@ export const MDXRenderer: React.FC<MDXRendererProps> = ({
                   </div>
                 </>
               )}
-              {markdownContent && (
+              {shouldShowActions && (
                 <DocsPageActions
                   markdownContent={markdownContent}
                   title={title || metadata.title}
                   path={path}
+                  hideCopyMarkdown={hideCopyMarkdown}
+                  hideViewMarkdown={hideViewMarkdown}
                 />
               )}
             </div>

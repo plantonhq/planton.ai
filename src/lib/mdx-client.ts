@@ -46,6 +46,14 @@ export class MDXParserClient {
     if (data.excerpt) {
       frontmatterFields.push(`excerpt: "${data.excerpt}"`);
     }
+    
+    if (data.hideCopyMarkdown) {
+      frontmatterFields.push(`hideCopyMarkdown: true`);
+    }
+    
+    if (data.hideViewMarkdown) {
+      frontmatterFields.push(`hideViewMarkdown: true`);
+    }
 
     return `---\n${frontmatterFields.join('\n')}\n---\n\n${content}`;
   }

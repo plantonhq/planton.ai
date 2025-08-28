@@ -10,12 +10,16 @@ interface DocsPageActionsProps {
   markdownContent: string;
   title?: string;
   path: string;
+  hideCopyMarkdown?: boolean;
+  hideViewMarkdown?: boolean;
 }
 
 export const DocsPageActions: React.FC<DocsPageActionsProps> = ({
   markdownContent,
   title = 'Documentation',
   path,
+  hideCopyMarkdown = false,
+  hideViewMarkdown = false,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [showCopied, setShowCopied] = useState(false);
@@ -66,6 +70,10 @@ export const DocsPageActions: React.FC<DocsPageActionsProps> = ({
     setShowCopied(false);
   };
 
+  if (hideCopyMarkdown && hideViewMarkdown) {
+    return <></>;
+  }
+
   return (
     <>
       <CopyButton onClick={handleMenuOpen} />
@@ -76,6 +84,8 @@ export const DocsPageActions: React.FC<DocsPageActionsProps> = ({
         onClose={handleMenuClose}
         onCopyAsMarkdown={handleCopyAsMarkdown}
         onViewAsMarkdown={handleViewAsMarkdown}
+        hideCopyMarkdown={hideCopyMarkdown}
+        hideViewMarkdown={hideViewMarkdown}
       />
 
       <CopySnackbar open={showCopied} message={copiedText} onClose={handleCloseSnackbar} />
