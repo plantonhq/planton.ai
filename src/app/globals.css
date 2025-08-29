@@ -2,6 +2,127 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --radius-2xl: 1.5rem;
+  }
+}
+
+/* Demo-specific styles - scoped to .demo-layout */
+.demo-layout {
+  --radius-2xl: 1.5rem;
+  min-height: 100vh;
+  isolation: isolate;
+}
+
+/* Button and component styles */
+.demo-layout .btn-gradient {
+  background: linear-gradient(90deg, #cb6ce6 0%, #7b3ff9 100%);
+  box-shadow: 0 8px 18px -10px rgba(123, 63, 249, 0.7);
+}
+
+.demo-layout .btn-gradient:hover { 
+  filter: brightness(1.05); 
+  transform: translateY(-1px); 
+}
+
+.demo-layout .btn-gradient:focus-visible { 
+  outline: 3px solid rgba(203,108,230,0.6); 
+  outline-offset: 2px; 
+}
+
+.demo-layout .shadow-card { 
+  box-shadow: 0 24px 48px -12px rgba(16, 24, 40, 0.25); 
+}
+
+/* Rich text content (Markdown/HTML) - scoped to .demo-layout */
+.demo-layout .prose-custom h1,
+.demo-layout .prose-custom h2,
+.demo-layout .prose-custom h3 { 
+  color: #111827; 
+}
+
+.demo-layout .prose-custom p { 
+  color: #374151; 
+}
+
+.demo-layout .prose-custom a { 
+  color: #7b3ff9; 
+  text-decoration: underline; 
+}
+
+.demo-layout .prose-custom ul { 
+  list-style: disc; 
+  padding-left: 1.25rem; 
+  color: #374151; 
+}
+
+.demo-layout .prose-custom ol { 
+  list-style: decimal; 
+  padding-left: 1.25rem; 
+  color: #374151; 
+}
+
+.demo-layout .prose-custom strong { 
+  color: #111827; 
+}
+
+/* Prose content styling */
+.demo-layout .prose {
+  color: #4B5563;
+  line-height: 1.75;
+}
+
+.demo-layout .prose h1, 
+.demo-layout .prose h2, 
+.demo-layout .prose h3, 
+.demo-layout .prose h4, 
+.demo-layout .prose strong {
+  color: #1F2937;
+  font-weight: 700;
+}
+
+.demo-layout .prose h1 {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.demo-layout .prose h2 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.demo-layout .prose h3 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.demo-layout .prose p {
+  margin-bottom: 1rem;
+}
+
+.demo-layout .prose ul {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.demo-layout .prose li {
+  margin-bottom: 0.5rem;
+}
+
+.demo-layout .prose a {
+  color: #8B5CF6;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.demo-layout .prose a:hover {
+  color: #7C3AED;
+}
+
 /* :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -178,66 +299,7 @@ pre:hover::before {
   z-index: 10;
 }
 
-/* Demo page specific styles - scoped to demo layout only */
-.demo-layout {
-  min-height: 100vh;
-  isolation: isolate;
-}
 
-.demo-layout .prose {
-  color: #4B5563;
-  line-height: 1.75;
-}
-
-.demo-layout .prose h1, 
-.demo-layout .prose h2, 
-.demo-layout .prose h3, 
-.demo-layout .prose h4, 
-.demo-layout .prose strong {
-  color: #1F2937;
-  font-weight: 700;
-}
-
-.demo-layout .prose h1 {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.demo-layout .prose h2 {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-  margin-bottom: 0.75rem;
-}
-
-.demo-layout .prose h3 {
-  font-size: 1.5rem;
-  line-height: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-.demo-layout .prose p {
-  margin-bottom: 1rem;
-}
-
-.demo-layout .prose ul {
-  margin-bottom: 1rem;
-  padding-left: 1.5rem;
-}
-
-.demo-layout .prose li {
-  margin-bottom: 0.5rem;
-}
-
-.demo-layout .prose a {
-  color: #8B5CF6;
-  font-weight: 600;
-  text-decoration: underline;
-}
-
-.demo-layout .prose a:hover {
-  color: #7C3AED;
-}
 
 /* Excerpt text styling for NextArticle component */
 .excerpt-text {

@@ -1,6 +1,6 @@
 "use client";
 
-import TourPage from "@/app/components/tour/TourPage";
+import TourPage from "@/components/tour/TourPage";
 
 export default function Tour() {
   return <TourPage />;

@@ -8,9 +8,9 @@ import rehypeHighlight from 'rehype-highlight';
 import matter from 'gray-matter';
 import { formatDate } from '@/lib/utils';
 import { Author } from '@/lib/types-client';
-import { DocsPageActions } from '@/app/docs/components/DocsPageActions';
-import CloudflareVideo, { getEmbedInfoFromUrl } from '@/app/components/media/CloudflareVideo';
-import { CodeBlock } from '@/app/components/common';
+import { DocsPageActions } from '@/app/(root)/docs/components/DocsPageActions';
+import CloudflareVideo, { getEmbedInfoFromUrl } from '@/components/media/CloudflareVideo';
+import { CodeBlock } from '@/components/common';
 
 interface MdxMetadata {
   title: string;

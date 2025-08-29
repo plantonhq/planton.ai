@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getDocumentationStructure } from '../../../docs/utils/fileSystem';
+import { getDocumentationStructure } from '../../../(root)/docs/utils/fileSystem';
 
 export const dynamic = 'force-static';
 
