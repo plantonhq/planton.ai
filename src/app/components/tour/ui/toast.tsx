@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cva } from "class-variance-authority";
 import { X } from 'lucide-react';
-import { cn } from "@/app/components/tour/lib/utils";
+import { cn } from "@/lib/utils";
 
 const ToastProvider = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ ...props }, ref) => (
   <div
