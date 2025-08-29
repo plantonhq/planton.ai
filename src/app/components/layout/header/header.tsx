@@ -160,6 +160,7 @@ export const menuResources: IMenuItems[] = [
   { label: '', subLabel: 'Docs', href: '/docs' },
   { label: '', subLabel: 'Tutorials', href: '/tutorials' },
   { label: '', subLabel: 'Blog', href: '/blog' },
+  { label: '', subLabel: 'Tour', href: '/tour' },
 ];
 
 const HeaderComputer: FC<IHeaderComputer> = ({ className }) => {
