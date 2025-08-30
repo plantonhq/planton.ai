@@ -36,9 +36,13 @@ interface MenuSectionProps {
   children: ReactNode;
 }
 
-const HeaderLogo = () => {
+interface IHeaderLogo {
+  className?: string;
+}
+
+export const HeaderLogo = ({ className }: IHeaderLogo) => {
   return (
-    <Link href="/">
+    <Link href="/" className={className}>
       {/* <Image src="/images/header-logo.svg" width={24} height={24} alt="Logo" /> */}
       <SvgIcon width={32} height={32}>
         <svg
