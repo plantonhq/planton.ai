@@ -15,6 +15,7 @@ export default {
     extend: {
       fontFamily: {
         'work-sans': ['var(--font-work-sans)', 'Work Sans', 'sans-serif'],
+        'manrope': ['Manrope', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
       },
       colors: {
         primary: {
