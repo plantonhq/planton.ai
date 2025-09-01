@@ -320,3 +320,9 @@ pre:hover::before {
   background: linear-gradient(to top, rgb(31, 41, 55) 0%, rgba(31, 41, 55, 0.8) 50%, transparent 100%);
   pointer-events: none;
 }
+
+/* Tour route CSS variables - scoped to tour route only */
+.tour-layout {
+  --foreground: 0 0% 3.9%;
+  color: hsl(var(--foreground));
+}

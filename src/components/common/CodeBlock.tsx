@@ -2,12 +2,34 @@
 
 import React from 'react';
 import { ContentCopy } from '@mui/icons-material';
+import MermaidDiagram from './MermaidDiagram';
 
 interface CodeBlockProps {
   children: React.ReactNode;
 }
 
 export const CodeBlock: React.FC<CodeBlockProps> = ({ children }) => {
+  // Check if this is a Mermaid diagram
+  const checkForMermaid = () => {
+    if (React.isValidElement(children)) {
+      const codeElement = children as React.ReactElement<any>;
+      if (codeElement.props?.className) {
+        const className = codeElement.props.className;
+        if (typeof className === 'string' && className.includes('language-mermaid')) {
+          const codeContent = codeElement.props.children;
+          const content = Array.isArray(codeContent) ? codeContent.join('') : String(codeContent);
+          return content;
+        }
+      }
+    }
+    return null;
+  };
+
+  const mermaidContent = checkForMermaid();
+  
+  if (mermaidContent) {
+    return <MermaidDiagram chart={mermaidContent} />;
+  }
   const preRef = React.useRef<HTMLPreElement>(null);
   const [copied, setCopied] = React.useState(false);
   

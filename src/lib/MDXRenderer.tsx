@@ -288,13 +288,11 @@ export const MDXRenderer: React.FC<MDXRendererProps> = ({
                   {children}
                 </blockquote>
               ),
-              code: ({ children, className }) => {
-                return (
-                  <code className={`bg-gray-800 text-green-400 rounded text-sm ${className || ''}`}>
-                    {children}
-                  </code>
-                );
-              },
+              code: ({ children, className }) => (
+                <code className={`bg-gray-800 text-green-400 rounded text-sm ${className || ''}`}>
+                  {children}
+                </code>
+              ),
               pre: ({ children }) => <CodeBlock>{children}</CodeBlock>,
               a: ({ href, children }) => (
                 <a

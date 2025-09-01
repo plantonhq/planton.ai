@@ -34,7 +34,9 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${workSans.variable} antialiased h-screen bg-cover bg-center bg-black`}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
