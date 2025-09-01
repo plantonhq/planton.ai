@@ -46,6 +46,47 @@ export default {
           100: "#FFFFFF",
         },
         text: { secondary: '#999999' },
+        
+        tour: {
+          // shadcn/ui style primary for tour components
+          primary: {
+            DEFAULT: "#171717",
+            foreground: "#ffffff",
+          },
+          // shadcn/ui style secondary for tour components
+          secondary: {
+            DEFAULT: "#f5f5f5",
+            foreground: "#171717",
+          },
+          // Base colors for tour components
+          border: "#e5e7eb",
+          input: "#e5e7eb", 
+          ring: "#171717",
+          background: "#ffffff",
+          foreground: "hsl(var(--foreground))",
+          
+          // Tour component color variants
+          destructive: {
+            DEFAULT: "#ef4444",
+            foreground: "#fefefe",
+          },
+          muted: {
+            DEFAULT: "#f5f5f5",
+            foreground: "#737373",
+          },
+          accent: {
+            DEFAULT: "#f5f5f5",
+            foreground: "#171717",
+          },
+          popover: {
+            DEFAULT: "#ffffff",
+            foreground: "#171717",
+          },
+          card: {
+            DEFAULT: "#ffffff",
+            foreground: "#171717",
+          },
+        },
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

@@ -8,9 +8,9 @@ import rehypeHighlight from 'rehype-highlight';
 import matter from 'gray-matter';
 import { formatDate } from '@/lib/utils';
 import { Author } from '@/lib/types-client';
-import { DocsPageActions } from '@/app/docs/components/DocsPageActions';
-import CloudflareVideo, { getEmbedInfoFromUrl } from '@/app/components/media/CloudflareVideo';
-import { CodeBlock } from '@/app/components/common';
+import { DocsPageActions } from '@/app/(root)/docs/components/DocsPageActions';
+import CloudflareVideo, { getEmbedInfoFromUrl } from '@/components/media/CloudflareVideo';
+import { CodeBlock } from '@/components/common';
 
 interface MdxMetadata {
   title: string;
@@ -288,13 +288,11 @@ export const MDXRenderer: React.FC<MDXRendererProps> = ({
                   {children}
                 </blockquote>
               ),
-              code: ({ children, className }) => {
-                return (
-                  <code className={`bg-gray-800 text-green-400 rounded text-sm ${className || ''}`}>
-                    {children}
-                  </code>
-                );
-              },
+              code: ({ children, className }) => (
+                <code className={`bg-gray-800 text-green-400 rounded text-sm ${className || ''}`}>
+                  {children}
+                </code>
+              ),
               pre: ({ children }) => <CodeBlock>{children}</CodeBlock>,
               a: ({ href, children }) => (
                 <a
