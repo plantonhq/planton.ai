@@ -1,13 +1,7 @@
-/* ACME-specific styles */
-
 /* ACME CSS Variables */
 :root {
   --acme-blue: #0B3D91;
   --acme-teal: #0E7C86;
-  --acme-slate-950: #0B1120;
-  --acme-slate-900: #0F172A;
-  --acme-slate-800: #1E293B;
-  --acme-slate-700: #334155;
 }
 
 /* ACME Display Font */
@@ -30,78 +24,4 @@
   box-shadow: 0 0 20px rgba(11, 61, 145, 0.3);
 }
 
-/* ACME-specific color utilities */
-.text-acme-blue {
-  color: var(--acme-blue);
-}
 
-.text-acme-teal {
-  color: var(--acme-teal);
-}
-
-.bg-acme-blue {
-  background-color: var(--acme-blue);
-}
-
-.bg-acme-teal {
-  background-color: var(--acme-teal);
-}
-
-.border-acme-blue {
-  border-color: var(--acme-blue);
-}
-
-.border-acme-teal {
-  border-color: var(--acme-teal);
-}
-
-/* ACME-specific background colors */
-.bg-acme-slate-950 {
-  background-color: var(--acme-slate-950);
-}
-
-.bg-acme-slate-900 {
-  background-color: var(--acme-slate-900);
-}
-
-.bg-acme-slate-800 {
-  background-color: var(--acme-slate-800);
-}
-
-.bg-acme-slate-700 {
-  background-color: var(--acme-slate-700);
-}
-
-/* ACME-specific text colors */
-.text-acme-slate-950 {
-  color: var(--acme-slate-950);
-}
-
-.text-acme-slate-900 {
-  color: var(--acme-slate-900);
-}
-
-.text-acme-slate-800 {
-  color: var(--acme-slate-800);
-}
-
-.text-acme-slate-700 {
-  color: var(--acme-slate-700);
-}
-
-/* ACME-specific border colors */
-.border-acme-slate-950 {
-  border-color: var(--acme-slate-950);
-}
-
-.border-acme-slate-900 {
-  border-color: var(--acme-slate-900);
-}
-
-.border-acme-slate-800 {
-  border-color: var(--acme-slate-800);
-}
-
-.border-acme-slate-700 {
-  border-color: var(--acme-slate-700);
-}
