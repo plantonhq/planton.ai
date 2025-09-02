@@ -1,6 +1,6 @@
 {
   "name": "planton-ai",
-  "packageManager": "yarn@4.5.1",
+  "packageManager": "yarn@3.8.7",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -40,6 +40,8 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@swc/core": "^1.13.5",
+    "@swc/helpers": "^0.5.17",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

@@ -14,7 +14,7 @@ lint: install
 	$(YARN) lint
 
 build: install lint
-	NODE_OPTIONS=--no-deprecation $(YARN) build
+	NODE_NO_WARNINGS=1 NEXT_TELEMETRY_DISABLED=1 $(YARN) build
 
 # Development server
 devs: run

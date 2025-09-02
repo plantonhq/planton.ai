@@ -36,13 +36,18 @@ jobs:
         run: |
           corepack enable
           # Ensure project Yarn version via Corepack (uses packageManager from package.json)
-          corepack install
-          yarn --immutable
+          corepack prepare yarn@3.8.7 --activate
+          yarn install
 
       # Build and export static site
       - name: Build site
+        env:
+          GITHUB_PAGES: true
         run: |
-          yarn build
+          # Run lint first (as per Makefile)
+          yarn lint
+          # Build with warnings suppressed (matching our Makefile)
+          NODE_NO_WARNINGS=1 NEXT_TELEMETRY_DISABLED=1 yarn build
           # output: 'export' writes to ./out by default
           # Ensure 404.html exists for SPA deep links (Next already creates one)
           if [ -f out/index.html ] && [ ! -f out/404.html ]; then

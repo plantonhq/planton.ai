@@ -30,11 +30,9 @@ const categoryIcons: Record<string, string> = {
 };
 
 export default function TutorialsSidebar({ 
-  className = '', 
   categories, 
   selectedCategory, 
   onCategoryChange,
-  onTagClick,
   onNavigate
 }: TutorialsSidebarProps) {
 

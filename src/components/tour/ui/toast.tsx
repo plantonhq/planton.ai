@@ -78,12 +78,12 @@ const ToastClose = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttribute
 ));
 ToastClose.displayName = "ToastClose";
 
-const ToastTitle = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
+const ToastTitle = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ ...props }, ref) => (
   <div ref={ref} className="text-sm font-semibold" {...props} />
 ));
 ToastTitle.displayName = "ToastTitle";
 
-const ToastDescription = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
+const ToastDescription = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ ...props }, ref) => (
   <div ref={ref} className="text-sm opacity-90" {...props} />
 ));
 ToastDescription.displayName = "ToastDescription";

@@ -4,8 +4,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import TutorialListRow from './TutorialListRow';
 import TutorialsSidebar from './TutorialsSidebar';
 import { IconButton, Typography, Stack, Drawer, Menu, MenuItem, Button } from '@mui/material';
-import { Menu as MenuIcon, Close as CloseIcon, Sort as SortIcon, KeyboardArrowDown as KeyboardArrowDownIcon } from '@mui/icons-material';
-import { SearchBar } from '@/app/(root)/docs/components/SearchBar';
+import { Close as CloseIcon, Sort as SortIcon, KeyboardArrowDown as KeyboardArrowDownIcon } from '@mui/icons-material';
 import { Tutorial } from '@/lib/tutorials';
 
 interface TutorialsPageClientProps {

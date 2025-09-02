@@ -28,7 +28,7 @@ export function useNextArticle({ slug, allItems, nextArticle, basePath }: UseNex
         sortedItems.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
         break;
       case 'date-asc':
-        sortedItems.sort((a, b) => new Date(a.date).getTime() - new Date(a.date).getTime());
+        sortedItems.sort((a, _b) => new Date(a.date).getTime() - new Date(a.date).getTime());
         break;
       case 'title-asc':
         sortedItems.sort((a, b) => a.title.localeCompare(b.title));

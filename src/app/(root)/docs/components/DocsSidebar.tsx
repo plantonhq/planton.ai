@@ -229,7 +229,7 @@ export const DocsSidebar: FC<DocsSidebarProps> = ({ onNavigate }) => {
   // Ensure ancestors of the active page are expanded on route change
   useEffect(() => {
     if (!currentDocPath) return;
-    setExpandedPaths((prev) => {
+    setExpandedPaths((_prev) => {
       // Only expand ancestors of the current path - no hardcoded defaults
       const next = new Set<string>();
       

@@ -307,7 +307,7 @@ export default function DemoPage() {
 
       const sortedSteps = filteredSteps.sort((a: any, b: any) => a.step_number - b.step_number);
       setCurrentPathSteps(sortedSteps);
-    } catch (error) {
+    } catch (_error) {
       setError('Failed to load demo data. Please try again later.');
       setCurrentPathSteps([]);
     } finally {
@@ -321,10 +321,7 @@ export default function DemoPage() {
     }
   }, [loadDemoData, currentPath]);
 
-  const resetDemo = useCallback(() => {
-    setCurrentPath('welcome');
-    setCurrentStep(0);
-  }, []);
+
 
   const goToHome = useCallback(() => {
     setCurrentPath('home');

@@ -22,7 +22,7 @@ const eslintConfig = [
       "jsx-a11y/alt-text": "off",
       // Typing tolerances in authored MDX renderers/components
       "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
+      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_", caughtErrorsIgnorePattern: "^_" }],
       // Hooks warnings in non-critical visual components
       "react-hooks/exhaustive-deps": "warn",
     },

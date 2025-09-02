@@ -26,7 +26,6 @@ const MermaidDiagram: React.FC<MermaidDiagramProps> = ({ chart, className = '' }
         
         // Scale down large diagrams
         const originalWidth = svgElement.getAttribute('width');
-        const originalHeight = svgElement.getAttribute('height');
         
         if (originalWidth && parseInt(originalWidth) > 800) {
           svgElement.style.transform = 'scale(0.8)';
