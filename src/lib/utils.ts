@@ -4,8 +4,15 @@ import { twMerge } from "tailwind-merge"
 /**
  * Utility function to merge Tailwind CSS classes with proper precedence handling
  */
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+export function cn(...inputs: (string | undefined | null | false)[]): string {
+  // Lightweight merge similar to original project
+  try {
+    const { twMerge } = require('tailwind-merge');
+    const clsx = require('clsx');
+    return twMerge(clsx(inputs));
+  } catch (_e) {
+    return inputs.filter(Boolean).join(' ');
+  }
 }
 
 /**
@@ -120,4 +127,16 @@ export function generateExcerptFromContent(content: string, maxLength: number = 
   }
 
   return truncated + '...';
+} 
+
+export function createPageUrl(pageName: string): string {
+  const key = pageName.toLowerCase().replace(/[\s_-]/g, '');
+  const overrides: Record<string, string> = {
+    retailhub: '/acme/catalog/retail-hub',
+    home: '/acme',
+  };
+  if (overrides[key]) {
+    return overrides[key];
+  }
+  return '/acme/' + pageName.toLowerCase().replace(/ /g, '-');
 } 
