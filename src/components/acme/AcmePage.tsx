@@ -2,7 +2,7 @@
 import Hero from "@/components/acme/Hero";
 import FeatureGrid from "@/components/acme/FeatureGrid";
 import CTASection from "@/components/acme/CTASection";
-import ButtonLink from "@/components/acme/ButtonLink";
+
 import { Shield, Zap, Globe, Database, Lock, BarChart3, TrendingUp, Box } from "lucide-react";
 
 export default function AcmePage() {

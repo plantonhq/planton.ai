@@ -71,7 +71,7 @@ export default function About() {
           <div className="prose prose-lg prose-invert mx-auto">
             <p className="text-xl text-gray-300 leading-relaxed mb-8">
               ACME began with a conviction: retailers deserve infrastructure that scales with ambition
-              and stands up to reality. We build what we wish we'd had—clear contracts, honest operations,
+              and stands up to reality. We build what we wish we&apos;d had—clear contracts, honest operations,
               and a stack you can explain on a whiteboard.
             </p>
 

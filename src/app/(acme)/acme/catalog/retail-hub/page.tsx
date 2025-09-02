@@ -4,7 +4,7 @@ import Link from "next/link";
 import Hero from "@/components/acme/Hero";
 import FeatureGrid from "@/components/acme/FeatureGrid";
 import CTASection from "@/components/acme/CTASection";
-import { User, Package, ShoppingCart, CreditCard, FileText, BarChart3, Shield, Globe, Zap, CheckCircle, ArrowRight } from "lucide-react";
+import { User, Package, ShoppingCart, CreditCard, BarChart3, Shield, Globe, Zap, CheckCircle, ArrowRight } from "lucide-react";
 
 export default function RetailHub() {
   const heroProps = {

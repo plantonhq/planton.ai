@@ -1,18 +1,11 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import AuthorSection from '@/components/blog/AuthorSection';
 import TableOfContents from '@/components/blog/TableOfContents';
 import { Author } from '@/lib/mdx';
 
-// Custom type with only the properties actually used by the component
-interface PostRecord {
-  slug: string;
-  title: string;
-  date: string;
-  author: Author[];
-  content: string;
-}
+
 
 interface IMdxRightBar {
   author: Author[];

@@ -5,10 +5,8 @@ import { twMerge } from "tailwind-merge"
  * Utility function to merge Tailwind CSS classes with proper precedence handling
  */
 export function cn(...inputs: (string | undefined | null | false)[]): string {
-  // Lightweight merge similar to original project
+  // Use the ES6 imports that are already imported at the top
   try {
-    const { twMerge } = require('tailwind-merge');
-    const clsx = require('clsx');
     return twMerge(clsx(inputs));
   } catch (_e) {
     return inputs.filter(Boolean).join(' ');

@@ -9,6 +9,10 @@ interface CodeBlockProps {
 }
 
 export const CodeBlock: React.FC<CodeBlockProps> = ({ children }) => {
+  // Hooks must be called before any conditional returns
+  const preRef = React.useRef<HTMLPreElement>(null);
+  const [copied, setCopied] = React.useState(false);
+  
   // Check if this is a Mermaid diagram
   const checkForMermaid = () => {
     if (React.isValidElement(children)) {
@@ -30,8 +34,6 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({ children }) => {
   if (mermaidContent) {
     return <MermaidDiagram chart={mermaidContent} />;
   }
-  const preRef = React.useRef<HTMLPreElement>(null);
-  const [copied, setCopied] = React.useState(false);
   
   const handleCopy = async () => {
     try {
