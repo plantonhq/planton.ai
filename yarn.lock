@@ -3116,6 +3116,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/canvas-confetti@npm:^1.9.0":
+  version: 1.9.0
+  resolution: "@types/canvas-confetti@npm:1.9.0"
+  checksum: 56227a362cead21ab76b0870e07e0cc2d26c800f5bc0fc109e4a3eca1a4d4dd317e1292163246d389827b7f30ce9e6eca3915681f3c80ed1e46491018f48a266
+  languageName: node
+  linkType: hard
+
 "@types/d3-array@npm:*":
   version: 3.2.1
   resolution: "@types/d3-array@npm:3.2.1"
@@ -4329,6 +4336,13 @@ __metadata:
   version: 1.0.30001739
   resolution: "caniuse-lite@npm:1.0.30001739"
   checksum: 285554bcf66d5baf6c1b76f2864100aa1fca2d8795ed7ca76033dc472c100ec56a8556601cbdb632c3287a7b338f571a18e5bab5ee1500c5852abd80081972a0
+  languageName: node
+  linkType: hard
+
+"canvas-confetti@npm:^1.9.3":
+  version: 1.9.3
+  resolution: "canvas-confetti@npm:1.9.3"
+  checksum: db044a9c9ca0e58eafd115f7dfc2f9ecc377be34d8a5dd75901dae0dafd4fb0b75fbbf8edd48bbefad2468653c5838348f0e768b79727a924259a9ada343ea30
   languageName: node
   linkType: hard
 
@@ -8875,10 +8889,12 @@ __metadata:
     "@svgr/webpack": ^8.1.0
     "@swc/core": ^1.13.5
     "@swc/helpers": ^0.5.17
+    "@types/canvas-confetti": ^1.9.0
     "@types/mermaid": ^9.2.0
     "@types/node": ^20
     "@types/react": ^19
     "@types/react-dom": ^19
+    canvas-confetti: ^1.9.3
     class-variance-authority: ^0.7.1
     clsx: ^2.1.1
     eslint: ^9
