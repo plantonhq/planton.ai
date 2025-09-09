@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Cloud, Link, CheckCircle, Loader2, ExternalLink } from 'lucide-react';
+import { Link, CheckCircle, Loader2, ExternalLink } from 'lucide-react';
 
 interface CloudProvider {
   id: string;
@@ -12,7 +12,36 @@ interface CloudProvider {
   bgColor: string;
   isConnected: boolean;
   isConnecting: boolean;
+  icon: string;
 }
+
+// Icon component using real SVG files from planton-cloud
+const ProviderIcon = ({ providerId }: { providerId: string }) => {
+  const getIconPath = (id: string) => {
+    switch (id) {
+      case 'aws':
+        return '/images/resources/aws.svg';
+      case 'gcp':
+        return '/images/resources/gcp.svg';
+      case 'azure':
+        return '/images/resources/azure.svg';
+      case 'cloudflare':
+        return '/images/resources/cloudflare.svg';
+      case 'digitalocean':
+        return '/images/resources/digital-ocean.svg';
+      default:
+        return '/images/resources/aws.svg';
+    }
+  };
+
+  return (
+    <img 
+      src={getIconPath(providerId)} 
+      alt={`${providerId} icon`}
+      className="w-8 h-8"
+    />
+  );
+};
 
 export default function CloudConnections() {
   const [providers, setProviders] = useState<CloudProvider[]>([
@@ -24,6 +53,7 @@ export default function CloudConnections() {
       bgColor: 'bg-orange-50',
       isConnected: false,
       isConnecting: false,
+      icon: 'aws',
     },
     {
       id: 'gcp',
@@ -33,6 +63,7 @@ export default function CloudConnections() {
       bgColor: 'bg-blue-50',
       isConnected: false,
       isConnecting: false,
+      icon: 'gcp',
     },
     {
       id: 'azure',
@@ -42,6 +73,7 @@ export default function CloudConnections() {
       bgColor: 'bg-sky-50',
       isConnected: false,
       isConnecting: false,
+      icon: 'azure',
     },
     {
       id: 'cloudflare',
@@ -51,6 +83,7 @@ export default function CloudConnections() {
       bgColor: 'bg-amber-50',
       isConnected: false,
       isConnecting: false,
+      icon: 'cloudflare',
     },
     {
       id: 'digitalocean',
@@ -60,6 +93,7 @@ export default function CloudConnections() {
       bgColor: 'bg-cyan-50',
       isConnected: false,
       isConnecting: false,
+      icon: 'digitalocean',
     },
   ]);
 
@@ -115,18 +149,13 @@ export default function CloudConnections() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className={`${provider.bgColor} rounded-xl border-2 ${
-                provider.isConnected
-                  ? 'border-green-400'
-                  : 'border-gray-200'
-              } overflow-hidden`}
+              className="bg-white rounded-2xl border border-gray-200 demo-card-shadow hover:demo-card-hover transition-all duration-200 h-full"
             >
-              <div className="p-6">
+              <div className="p-6 h-full flex flex-col">
+                {/* Header with icon */}
                 <div className="flex items-start justify-between mb-4">
-                  <div
-                    className={`w-12 h-12 bg-gradient-to-br ${provider.color} rounded-xl flex items-center justify-center shadow-lg`}
-                  >
-                    <Cloud className="w-6 h-6 text-white" />
+                  <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm">
+                    <ProviderIcon providerId={provider.icon} />
                   </div>
                   <AnimatePresence>
                     {provider.isConnected && (
@@ -141,21 +170,23 @@ export default function CloudConnections() {
                   </AnimatePresence>
                 </div>
 
-                <h3 className="font-bold text-lg text-gray-900 mb-1">
-                  {provider.name}
-                </h3>
-                <p className="text-sm text-gray-600 mb-4">
-                  {provider.description}
-                </p>
+                {/* Title and description */}
+                <div className="flex-1 mb-4">
+                  <h3 className="font-semibold text-lg text-gray-900 mb-2">
+                    {provider.name}
+                  </h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    {provider.description}
+                  </p>
+                </div>
 
+                {/* Action button */}
                 {!provider.isConnected ? (
                   <button
                     onClick={() => handleConnect(provider.id)}
                     disabled={provider.isConnecting}
-                    className={`w-full py-2 px-4 rounded-lg font-medium transition-all duration-200 ${
-                      provider.isConnecting
-                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                        : 'bg-white hover:bg-gray-50 text-gray-700 shadow-sm hover:shadow-md'
+                    className={`w-full demo-button ${
+                      provider.isConnecting ? 'demo-button-disabled' : ''
                     }`}
                   >
                     {provider.isConnecting ? (
