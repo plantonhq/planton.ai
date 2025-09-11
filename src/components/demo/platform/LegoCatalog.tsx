@@ -14,6 +14,7 @@ import {
   Plus,
   Check,
   Search,
+  ExternalLink,
 } from 'lucide-react';
 
 interface LegoBlock {
@@ -159,33 +160,63 @@ export default function LegoCatalog() {
         </div>
       </div>
 
-      {/* Filters */}
-      <div className="px-8 py-4 border-b border-gray-200 bg-gray-50">
-        <div className="flex flex-col lg:flex-row gap-4">
+      {/* Search and Tabs */}
+      <div className="px-8 py-4 border-b border-gray-200" style={{ backgroundColor: '#F9F9F9' }}>
+        <div className="flex items-center gap-6">
           {/* Search */}
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <div className="relative w-80">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" style={{ color: '#545C66' }} />
             <input
               type="text"
               placeholder="Search blocks..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+              className="w-full pl-10 pr-3 focus:outline-none"
+              style={{ 
+                backgroundColor: '#FFFFFF',
+                border: '1px solid #E0E0E0',
+                borderRadius: '6px',
+                minHeight: '34px',
+                fontSize: '12px',
+                fontWeight: 400,
+                padding: '0px 8px',
+                paddingLeft: '32px',
+                transition: 'border-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = '#959595';
+                e.target.style.boxShadow = '0 0 0 3px rgba(66, 89, 161, 0.34)';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = '#E0E0E0';
+                e.target.style.boxShadow = 'none';
+              }}
             />
           </div>
 
-          {/* Categories */}
-          <div className="flex gap-2 overflow-x-auto">
+          {/* Categories Tabs */}
+          <div className="flex gap-6" style={{ minHeight: '40px', alignItems: 'center' }}>
             {categories.map(category => (
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`px-4 py-2 rounded-lg font-medium text-sm whitespace-nowrap transition-all duration-200 ${
-                  selectedCategory === category.id
-                    ? 'bg-violet-600 text-white'
-                    : 'bg-white text-gray-600 hover:bg-gray-100'
-                }`}
+                className="relative transition-all duration-200"
+                style={{
+                  color: '#0E131E',
+                  textTransform: 'none',
+                  fontSize: '12px',
+                  fontWeight: 500,
+                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  backgroundColor: selectedCategory === category.id ? '#E7EAED' : 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  minHeight: 'auto'
+                }}
               >
+                {selectedCategory === category.id && (
+                  <div className="absolute left-0 right-0 h-0.5" style={{ backgroundColor: '#005DA0', bottom: '-12px' }}></div>
+                )}
                 {category.name} ({category.count})
               </button>
             ))}
@@ -204,56 +235,59 @@ export default function LegoCatalog() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className={`${block.bgColor} rounded-xl border-2 ${
+                className={`bg-white rounded-2xl border ${
                   block.isAdded ? 'border-green-400' : 'border-gray-200'
-                } overflow-hidden hover:shadow-lg transition-all duration-300`}
+                } demo-card-shadow hover:demo-card-hover transition-all duration-200 h-full`}
               >
-                <div className="p-6">
+                <div className="p-6 h-full flex flex-col">
+                  {/* Header with icon */}
                   <div className="flex items-start justify-between mb-4">
-                    <div
-                      className={`w-12 h-12 bg-gradient-to-br ${block.color} rounded-xl flex items-center justify-center shadow-lg`}
-                    >
-                      <Icon className="w-6 h-6 text-white" />
+                    <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm">
+                      <div
+                        className={`w-10 h-10 bg-gradient-to-br ${block.color} rounded-lg flex items-center justify-center`}
+                      >
+                        <Icon className="w-5 h-5 text-white" />
+                      </div>
                     </div>
                     {block.isAdded && (
                       <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
-                        className="bg-green-100 rounded-full p-1"
+                        className="bg-green-100 rounded-full p-2"
                       >
                         <Check className="w-4 h-4 text-green-600" />
                       </motion.div>
                     )}
                   </div>
 
-                  <h3 className="font-bold text-lg text-gray-900 mb-2">
-                    {block.name}
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-4 line-clamp-2">
-                    {block.description}
-                  </p>
+                  {/* Title and description */}
+                  <div className="flex-1 mb-4">
+                    <h3 className="font-semibold text-lg text-gray-900 mb-2">
+                      {block.name}
+                    </h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      {block.description}
+                    </p>
+                  </div>
 
-                  <button
-                    onClick={() => handleAddBlock(block.id)}
-                    disabled={block.isAdded}
-                    className={`w-full py-2 px-4 rounded-lg font-medium transition-all duration-200 ${
-                      block.isAdded
-                        ? 'bg-green-100 text-green-700 cursor-default'
-                        : 'bg-white hover:bg-gray-50 text-gray-700 shadow-sm hover:shadow-md'
-                    }`}
-                  >
-                    {block.isAdded ? (
-                      <span className="flex items-center justify-center gap-2">
-                        <Check className="w-4 h-4" />
-                        Added
-                      </span>
-                    ) : (
+                  {/* Action button */}
+                  {!block.isAdded ? (
+                    <button
+                      onClick={() => handleAddBlock(block.id)}
+                      className="w-full demo-button"
+                    >
                       <span className="flex items-center justify-center gap-2">
                         <Plus className="w-4 h-4" />
                         Add to Environment
                       </span>
-                    )}
-                  </button>
+                    </button>
+                  ) : (
+                    <div className="flex items-center justify-center text-sm">
+                      <span className="text-green-600 font-medium">
+                        ✓ Added
+                      </span>
+                    </div>
+                  )}
                 </div>
               </motion.div>
             );
