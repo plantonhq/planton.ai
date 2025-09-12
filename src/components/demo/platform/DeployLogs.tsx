@@ -2,11 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Terminal, Loader2, Sparkles } from 'lucide-react';
+import { Loader2, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import StackJobLogger from './StackJobLogger';
 import StackJobHeader from './StackJobHeader';
-import stackJobData from '../../../../public/docs/stack-job.json';
+import stackJobData from '../../../../public/demo/stack-job.json';
 
 // Extract the full StackJob data and status from the imported file
 const stackJob = stackJobData;
@@ -71,17 +71,14 @@ export default function DeployLogs() {
       </div>
 
       {/* StackJob Header */}
-      <StackJobHeader 
-        stackJob={stackJob as any} 
-        stackJobStatus={stackJobStatus as any} 
-      />
+      <StackJobHeader stackJob={stackJob as any} stackJobStatus={stackJobStatus as any} />
 
       {/* StackJobLogger */}
       <div className="flex-1 overflow-auto">
-        <StackJobLogger 
-          stackJobStatus={stackJobStatus as any} 
+        <StackJobLogger
+          stackJobStatus={stackJobStatus as any}
           stackJob={stackJob as any}
-          loading={false} 
+          loading={false}
           onAnimationComplete={handleAnimationComplete}
         />
       </div>

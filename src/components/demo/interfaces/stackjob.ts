@@ -1,7 +1,16 @@
 /**
  * TypeScript interfaces for StackJob and related types
  * Extracted from planton-cloud protobuf definitions
+ * Refactored to use common interfaces
  */
+
+import {
+  Timestamp,
+  ApiResourceMetadata,
+  ApiResourceLifecycle,
+  ApiResourceAudit,
+  ApiResourceKindAndNameAndId,
+} from './common';
 
 // Enums
 export enum StackJobOperationType {
@@ -78,43 +87,11 @@ export enum WorkflowExecutionResult {
   TIMED_OUT = 6,
 }
 
-// Common types
-export interface Timestamp {
-  seconds: number;
-  nanos: number;
-}
-
-export interface ApiResourceMetadata {
-  id: string;
-  name: string;
-  org: string;
-  env: string;
-  version: {
-    id?: string;
-    message: string;
-  };
-  labels?: { [key: string]: string };
-  annotations?: { [key: string]: string };
-}
-
-export interface ApiResourceLifecycle {
-  state: string;
-  reason?: string;
-  message?: string;
-}
-
-
-export interface ApiResourceKindAndNameAndId {
-  kind: string;
-  name: string;
-  id: string;
-}
-
+// StackJob specific interfaces
 export interface IacProvisioner {
   type: string;
 }
 
-// StackJob related interfaces
 export interface IacOperationDiagnosticMessage {
   severity: IacDiagnosticEventSeverityType;
   resourceUrn: string;
@@ -184,23 +161,6 @@ export interface StackJobProgressStatus {
   status: WorkflowExecutionStatus | string;
   result: WorkflowExecutionResult | string;
   errors?: string[];
-}
-
-export interface ApiResourceAudit {
-  specAudit: ApiResourceAuditInfo;
-}
-
-export interface ApiResourceAuditInfo {
-  createdBy: {
-    id: string;
-    avatar?: string;
-  };
-  createdAt: string;
-  updatedBy?: {
-    id: string;
-  };
-  updatedAt?: string;
-  event?: string;
 }
 
 export interface StackJobStatus {

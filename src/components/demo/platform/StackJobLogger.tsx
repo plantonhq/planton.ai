@@ -13,7 +13,7 @@ import {
   WorkflowExecutionStatus,
   WorkflowExecutionResult,
   IacDiagnosticEventSeverityType,
-} from '../stackjob';
+} from '../interfaces';
 
 interface StackJobLoggerProps {
   stackJobStatus: StackJobStatus;

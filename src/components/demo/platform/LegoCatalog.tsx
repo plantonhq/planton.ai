@@ -16,6 +16,8 @@ import {
   Search,
   ExternalLink,
 } from 'lucide-react';
+import { FormModalRegistry } from '../modals';
+import { TabNavigation, TabItem } from '../forms/TabNavigation';
 
 interface LegoBlock {
   id: string;
@@ -31,7 +33,19 @@ interface LegoBlock {
 export default function LegoCatalog() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProvider, setSelectedProvider] = useState<LegoBlock | null>(null);
   const [blocks, setBlocks] = useState<LegoBlock[]>([
+    {
+      id: 'aws-alb',
+      name: 'AWS ALB',
+      category: 'network',
+      description: 'Application Load Balancer for high availability and traffic distribution',
+      icon: Network,
+      color: 'from-orange-500 to-orange-600',
+      bgColor: 'bg-orange-50',
+      isAdded: false,
+    },
     {
       id: 'postgres',
       name: 'Postgres Database',
@@ -114,21 +128,58 @@ export default function LegoCatalog() {
     },
   ]);
 
-  const categories = [
-    { id: 'all', name: 'All', count: blocks.length },
-    { id: 'compute', name: 'Compute', count: blocks.filter(b => b.category === 'compute').length },
-    { id: 'database', name: 'Database', count: blocks.filter(b => b.category === 'database').length },
-    { id: 'storage', name: 'Storage', count: blocks.filter(b => b.category === 'storage').length },
-    { id: 'network', name: 'Network', count: blocks.filter(b => b.category === 'network').length },
-    { id: 'security', name: 'Security', count: blocks.filter(b => b.category === 'security').length },
+  const categories: TabItem[] = [
+    { id: 'all', label: 'All', count: blocks.length },
+    { id: 'compute', label: 'Compute', count: blocks.filter(b => b.category === 'compute').length },
+    { id: 'database', label: 'Database', count: blocks.filter(b => b.category === 'database').length },
+    { id: 'storage', label: 'Storage', count: blocks.filter(b => b.category === 'storage').length },
+    { id: 'network', label: 'Network', count: blocks.filter(b => b.category === 'network').length },
+    { id: 'security', label: 'Security', count: blocks.filter(b => b.category === 'security').length },
   ];
 
   const handleAddBlock = (blockId: string) => {
-    setBlocks(prev =>
-      prev.map(block =>
-        block.id === blockId ? { ...block, isAdded: true } : block
-      )
-    );
+    const block = blocks.find(b => b.id === blockId);
+    if (block) {
+      if (block.id === 'aws-alb') {
+        // Open modal for AWS ALB
+        setSelectedProvider(block);
+        setIsModalOpen(true);
+      } else {
+        // Direct add for other blocks
+        setBlocks(prev =>
+          prev.map(b =>
+            b.id === blockId ? { ...b, isAdded: true } : b
+          )
+        );
+      }
+    }
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setSelectedProvider(null);
+  };
+
+  const handleModalSubmit = async (formData?: any) => {
+    if (!selectedProvider) return;
+    
+    try {
+      console.log('Modal submitted for:', selectedProvider.name);
+      if (formData) {
+        console.log('AWS ALB Form Data:', formData);
+      }
+      
+      // Mark as added after successful submission
+      setBlocks(prev =>
+        prev.map(block =>
+          block.id === selectedProvider.id ? { ...block, isAdded: true } : block
+        )
+      );
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    } finally {
+      handleModalClose();
+    }
   };
 
   const filteredBlocks = blocks.filter(block => {
@@ -195,32 +246,11 @@ export default function LegoCatalog() {
           </div>
 
           {/* Categories Tabs */}
-          <div className="flex gap-6" style={{ minHeight: '40px', alignItems: 'center' }}>
-            {categories.map(category => (
-              <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className="relative transition-all duration-200"
-                style={{
-                  color: '#0E131E',
-                  textTransform: 'none',
-                  fontSize: '12px',
-                  fontWeight: 500,
-                  padding: '8px 12px',
-                  borderRadius: '6px',
-                  backgroundColor: selectedCategory === category.id ? '#E7EAED' : 'transparent',
-                  border: 'none',
-                  cursor: 'pointer',
-                  minHeight: 'auto'
-                }}
-              >
-                {selectedCategory === category.id && (
-                  <div className="absolute left-0 right-0 h-0.5" style={{ backgroundColor: '#005DA0', bottom: '-12px' }}></div>
-                )}
-                {category.name} ({category.count})
-              </button>
-            ))}
-          </div>
+          <TabNavigation
+            tabs={categories}
+            activeTab={selectedCategory}
+            onTabChange={setSelectedCategory}
+          />
         </div>
       </div>
 
@@ -300,6 +330,27 @@ export default function LegoCatalog() {
           </div>
         )}
       </div>
+
+      {/* Modal */}
+      {selectedProvider && (
+        <FormModalRegistry
+          providerId="aws-alb"
+          isOpen={isModalOpen}
+          onClose={handleModalClose}
+          onSubmit={handleModalSubmit}
+          providerName={selectedProvider.name}
+          providerDescription={selectedProvider.description}
+          providerIcon={
+            <div className="w-6 h-6 bg-white rounded flex items-center justify-center shadow-sm">
+              <img 
+                src="/images/resources/aws.svg" 
+                alt="AWS icon"
+                className="w-4 h-4"
+              />
+            </div>
+          }
+        />
+      )}
     </div>
   );
 }

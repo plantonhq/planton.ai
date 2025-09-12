@@ -7,7 +7,7 @@ import {
   StackJobStatus,
   WorkflowExecutionStatus,
   WorkflowExecutionResult,
-} from '../stackjob';
+} from '../interfaces';
 
 interface StackJobHeaderProps {
   stackJob: StackJob;
@@ -54,8 +54,9 @@ const StackJobHeader: React.FC<StackJobHeaderProps> = ({ stackJob, stackJobStatu
 
   // Get triggered time ago
   const getTriggeredTime = () => {
-    if (stackJob.status.audit.specAudit.createdAt) {
-      const created = new Date(stackJob.status.audit.specAudit.createdAt);
+    if (stackJob.status.audit.specAudit?.createdAt) {
+      const createdAt = stackJob.status.audit.specAudit.createdAt;
+      const created = new Date(createdAt.seconds * 1000);
       const now = new Date();
       const diffMs = now.getTime() - created.getTime();
       const hours = Math.floor(diffMs / 3600000);
@@ -88,7 +89,7 @@ const StackJobHeader: React.FC<StackJobHeaderProps> = ({ stackJob, stackJobStatu
             <div className="flex-1">
               {/* Title */}
               <h2 className="text-base font-medium text-gray-900 mb-2">
-                {stackJob.metadata.version.message}
+                {stackJob.metadata.version?.message || 'Stack Job'}
               </h2>
               
               {/* Version Info Line */}
@@ -102,15 +103,15 @@ const StackJobHeader: React.FC<StackJobHeaderProps> = ({ stackJob, stackJobStatu
                     : stackJob.spec.essentials.provisioner.type} {stackJob.spec.stackJobOperation} by
                 </span>
                 <div className="flex items-center gap-1">
-                  {(stackJob.status.audit.specAudit.createdBy as any).avatar && (
+                  {stackJob.status.audit.specAudit?.createdBy?.avatar && (
                     <img 
-                      src={(stackJob.status.audit.specAudit.createdBy as any).avatar} 
+                      src={stackJob.status.audit.specAudit.createdBy.avatar} 
                       alt={stackJob.status.audit.specAudit.createdBy.id} 
                       className="w-4 h-4 rounded-full"
                     />
                   )}
                   <span className="text-gray-900 font-medium">
-                    {stackJob.status.audit.specAudit.createdBy.id.split('@')[0]}
+                    {stackJob.status.audit.specAudit?.createdBy?.id?.split('@')[0] || 'Unknown'}
                   </span>
                 </div>
               </div>

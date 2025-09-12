@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, CheckCircle, Loader2, ExternalLink } from 'lucide-react';
+import { AwsCredential } from '../interfaces';
+import { FormModalRegistry } from '../modals';
 
 interface CloudProvider {
   id: string;
@@ -44,6 +46,9 @@ const ProviderIcon = ({ providerId }: { providerId: string }) => {
 };
 
 export default function CloudConnections() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProvider, setSelectedProvider] = useState<CloudProvider | null>(null);
+  
   const [providers, setProviders] = useState<CloudProvider[]>([
     {
       id: 'aws',
@@ -116,6 +121,57 @@ export default function CloudConnections() {
     );
   };
 
+  const handleCardClick = (provider: CloudProvider) => {
+    setSelectedProvider(provider);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setSelectedProvider(null);
+  };
+
+  const handleModalSubmit = async (formData?: AwsCredential) => {
+    if (!selectedProvider) return;
+    
+    try {
+      console.log('Modal submitted for:', selectedProvider.name);
+      if (formData) {
+        console.log('AWS Credential Form Data:', formData);
+      }
+      
+      // Simulate connection process
+      setProviders(prev =>
+        prev.map(p =>
+          p.id === selectedProvider.id ? { ...p, isConnecting: true } : p
+        )
+      );
+      
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Update connection state after successful submission
+      setProviders(prev =>
+        prev.map(p =>
+          p.id === selectedProvider.id
+            ? { ...p, isConnecting: false, isConnected: true }
+            : p
+        )
+      );
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      // Reset connecting state on error
+      setProviders(prev =>
+        prev.map(p =>
+          p.id === selectedProvider.id ? { ...p, isConnecting: false } : p
+        )
+      );
+    } finally {
+      // Always close the modal after submission (success or error)
+      handleModalClose();
+    }
+  };
+
   const connectedCount = providers.filter(p => p.isConnected).length;
 
   return (
@@ -149,7 +205,14 @@ export default function CloudConnections() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-2xl border border-gray-200 demo-card-shadow hover:demo-card-hover transition-all duration-200 h-full"
+              className={`bg-white rounded-2xl border border-gray-200 demo-card-shadow hover:demo-card-hover transition-all duration-200 h-full ${
+                provider.id === 'aws' ? 'cursor-pointer' : ''
+              }`}
+              onClick={() => {
+                if (provider.id === 'aws') {
+                  handleCardClick(provider);
+                }
+              }}
             >
               <div className="p-6 h-full flex flex-col">
                 {/* Header with icon */}
@@ -183,7 +246,14 @@ export default function CloudConnections() {
                 {/* Action button */}
                 {!provider.isConnected ? (
                   <button
-                    onClick={() => handleConnect(provider.id)}
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent card click
+                      if (provider.id === 'aws') {
+                        handleCardClick(provider); // Open modal for AWS
+                      } else {
+                        handleConnect(provider.id); // Direct connect for others
+                      }
+                    }}
                     disabled={provider.isConnecting}
                     className={`w-full demo-button ${
                       provider.isConnecting ? 'demo-button-disabled' : ''
@@ -231,6 +301,17 @@ export default function CloudConnections() {
           </motion.div>
         )}
       </div>
+
+      {/* Credential Modal Registry */}
+      <FormModalRegistry
+        providerId={selectedProvider?.id || ''}
+        isOpen={isModalOpen && !!selectedProvider}
+        onClose={handleModalClose}
+        onSubmit={handleModalSubmit}
+        providerName={selectedProvider?.name || ''}
+        providerDescription={selectedProvider?.description || ''}
+        providerIcon={selectedProvider ? <ProviderIcon providerId={selectedProvider.icon} /> : undefined}
+      />
     </div>
   );
 }
