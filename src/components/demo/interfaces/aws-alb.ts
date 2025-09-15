@@ -3,8 +3,10 @@ import { ApiResourceMetadata } from './common';
 export interface StringValueOrRef {
   value?: string;
   valueFrom?: {
-    fieldRef?: string;
-    resourceFieldRef?: string;
+    kind?: string;
+    env?: string;
+    name?: string;
+    fieldPath?: string;
   };
 }
 

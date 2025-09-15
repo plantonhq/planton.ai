@@ -32,7 +32,12 @@ export const TabNavigation: React.FC<TabNavigationProps> = ({
           return (
             <button
               key={tab.id}
-              onClick={() => onTabChange(tab.id)}
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onTabChange(tab.id);
+              }}
               className="relative transition-all duration-200"
               style={{
                 color: '#0E131E',

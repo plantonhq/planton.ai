@@ -1,11 +1,14 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { AwsCredential } from '../interfaces';
 import { AwsCredentialFormElements } from './AwsCredentialFormElements';
 import { AccordionSection } from './AccordionSection';
 import { MetadataSection } from './MetadataSection';
+import { AnimatedFormField } from './AnimatedFormField';
 import { useAwsCredentialData } from '../../../hooks/useAwsCredentialData';
+import { AutoFillProvider, useAutoFill } from '../../../contexts/AutoFillContext';
+import { CURRENT_PRESET } from '../../../constants/animationConfig';
 
 interface AwsCredentialFormProps {
   onSubmit: (data: AwsCredential) => void;
@@ -13,14 +16,55 @@ interface AwsCredentialFormProps {
   initialData?: Partial<AwsCredential>;
 }
 
-export const AwsCredentialForm: React.FC<AwsCredentialFormProps> = ({
+interface AwsCredentialFormContentProps extends AwsCredentialFormProps {
+  onAnimationComplete?: () => void;
+}
+
+// Internal form component that uses the auto-fill context
+const AwsCredentialFormContent = React.forwardRef<
+  { handleAnimationComplete: () => void; handleFieldComplete: (fieldName: string) => void },
+  AwsCredentialFormContentProps
+>(({
   onSubmit,
   onCancel,
   initialData,
-}) => {
+  onAnimationComplete,
+}, ref) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [authorizedEnvironments, setAuthorizedEnvironments] = useState<string[]>([]);
-  const { data: jsonData, refetch, loading: dataLoading } = useAwsCredentialData();
+  const { data: jsonData } = useAwsCredentialData();
+  const { startAnimation, isAnimating, getFieldValue, isFieldAnimating, isFieldCompleted } = useAutoFill();
+  
+  const appDevRef = React.useRef<HTMLDivElement>(null);
+  const appProdRef = React.useRef<HTMLDivElement>(null);
+
+  // Track if animation has already been started to prevent looping
+  const hasAnimationStartedRef = useRef(false);
+
+  // Auto-start animation when data is loaded (only once)
+  useEffect(() => {
+    if (jsonData && !hasAnimationStartedRef.current) {
+      hasAnimationStartedRef.current = true;
+      
+      // Small delay to make the animation feel more natural
+      const timer = setTimeout(() => {
+        const fields = [
+          { name: 'metadata.name', value: jsonData.metadata.name || '', order: 1 },
+          { name: 'metadata.slug', value: jsonData.metadata.slug || '', order: 2 },
+          { name: 'spec.accountId', value: jsonData.spec.accountId || '', order: 3 },
+          { name: 'spec.region', value: jsonData.spec.region || '', order: 4 },
+          { name: 'spec.accessKeyId', value: jsonData.spec.accessKeyId || '', order: 5 },
+          { name: 'spec.secretAccessKey', value: jsonData.spec.secretAccessKey || '', order: 6 },
+          { name: 'authorizedEnvironments.app-dev', value: true, order: 7 },
+          { name: 'authorizedEnvironments.app-prod', value: true, order: 8 },
+        ];
+
+        startAnimation(fields);
+      }, CURRENT_PRESET.autoStartDelay);
+
+      return () => clearTimeout(timer);
+    }
+  }, [jsonData, startAnimation]);
 
   const [formData, setFormData] = useState<AwsCredential>({
     metadata: {
@@ -43,26 +87,8 @@ export const AwsCredentialForm: React.FC<AwsCredentialFormProps> = ({
     },
   });
 
-  // Set default values from JSON data when available
-  useEffect(() => {
-    if (jsonData) {
-      setFormData(prev => ({
-        ...prev,
-        metadata: {
-          ...prev.metadata,
-          name: jsonData.metadata.name || prev.metadata.name,
-          slug: jsonData.metadata.slug || prev.metadata.slug,
-        },
-        spec: {
-          ...prev.spec,
-          accountId: jsonData.spec.accountId || prev.spec.accountId,
-          region: jsonData.spec.region || prev.spec.region,
-          accessKeyId: jsonData.spec.accessKeyId || prev.spec.accessKeyId,
-          secretAccessKey: jsonData.spec.secretAccessKey || prev.spec.secretAccessKey,
-        },
-      }));
-    }
-  }, [jsonData]);
+  // Note: Removed automatic data filling to allow animation system to handle it
+  // The animation system will fill the data when the user clicks "Auto Fill"
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => {
@@ -128,9 +154,75 @@ export const AwsCredentialForm: React.FC<AwsCredentialFormProps> = ({
     }
   };
 
-  const handleRefreshData = async () => {
-    await refetch();
-  };
+
+
+  // Handle animation completion by updating the actual form data
+  const handleAnimationCompleteInternal = useCallback(() => {
+    if (jsonData) {
+      setFormData(prev => ({
+        ...prev,
+        metadata: {
+          ...prev.metadata,
+          name: jsonData.metadata.name || prev.metadata.name,
+          slug: jsonData.metadata.slug || prev.metadata.slug,
+        },
+        spec: {
+          ...prev.spec,
+          accountId: jsonData.spec.accountId || prev.spec.accountId,
+          region: jsonData.spec.region || prev.spec.region,
+          accessKeyId: jsonData.spec.accessKeyId || prev.spec.accessKeyId,
+          secretAccessKey: jsonData.spec.secretAccessKey || prev.spec.secretAccessKey,
+        },
+      }));
+      
+      // Set authorized environments
+      setAuthorizedEnvironments(['app-dev', 'app-prod']);
+    }
+    onAnimationComplete?.();
+  }, [jsonData, onAnimationComplete]);
+
+  // Handle field completion during animation to update form data in real-time
+  const handleFieldComplete = useCallback((fieldName: string) => {
+    if (jsonData) {
+      const keys = fieldName.split('.');
+      if (keys.length === 2) {
+        const [parent, child] = keys;
+        let value = '';
+        
+        if (parent === 'metadata') {
+          value = jsonData.metadata[child as keyof typeof jsonData.metadata] as string || '';
+        } else if (parent === 'spec') {
+          value = jsonData.spec[child as keyof typeof jsonData.spec] as string || '';
+        }
+        
+        if (value) {
+          setFormData(prev => {
+            const newData = { ...prev };
+            newData[parent as keyof AwsCredential] = {
+              ...newData[parent as keyof AwsCredential],
+              [child]: value,
+            } as any;
+            return newData;
+          });
+        }
+      } else if (keys.length === 3 && keys[0] === 'authorizedEnvironments') {
+        // Handle checkbox fields like 'authorizedEnvironments.app-dev'
+        const environment = keys[2];
+        setAuthorizedEnvironments(prev => {
+          if (!prev.includes(environment)) {
+            return [...prev, environment];
+          }
+          return prev;
+        });
+      }
+    }
+  }, [jsonData]);
+
+  // Expose the completion handlers to parent
+  React.useImperativeHandle(ref, () => ({
+    handleAnimationComplete: handleAnimationCompleteInternal,
+    handleFieldComplete: handleFieldComplete,
+  }));
 
   const helpTextMapping = {
     'metadata.name': 'Enter a unique name for your AWS credential',
@@ -157,22 +249,6 @@ export const AwsCredentialForm: React.FC<AwsCredentialFormProps> = ({
               <h1 className="text-xl font-semibold text-gray-900">Create AWS Credentials</h1>
             </div>
             <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={handleRefreshData}
-                disabled={dataLoading}
-                className="flex items-center gap-2 px-3 py-2 text-sm bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <svg 
-                  className={`w-4 h-4 ${dataLoading ? 'animate-spin' : ''}`} 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-                {dataLoading ? 'Refreshing...' : 'Refresh Data'}
-              </button>
               <button
                 type="button"
                 onClick={onCancel}
@@ -211,8 +287,6 @@ export const AwsCredentialForm: React.FC<AwsCredentialFormProps> = ({
                   slug={formData.metadata.slug}
                   onNameChange={handleMetadataNameChange}
                   onSlugChange={handleMetadataSlugChange}
-                  namePlaceholder="my-aws-credential"
-                  slugPlaceholder="my-aws-credential"
                   nameHelpText={helpTextMapping['metadata.name']}
                 />
               </AccordionSection>
@@ -230,29 +304,23 @@ export const AwsCredentialForm: React.FC<AwsCredentialFormProps> = ({
               <AccordionSection title="Authorized Environments">
                 <div className="space-y-3">
                   {['app-dev', 'app-prod'].map((environment) => (
-                    <label
+                    <AnimatedFormField
                       key={environment}
-                      className="flex items-center gap-3 cursor-pointer"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={authorizedEnvironments.includes(environment)}
-                        onChange={() => handleEnvironmentToggle(environment)}
-                        style={{
-                          appearance: 'auto',
-                          WebkitAppearance: 'checkbox',
-                          MozAppearance: 'checkbox',
-                          width: '16px',
-                          height: '16px',
-                          margin: '0',
-                          padding: '0',
-                          border: '1px solid #ccc',
-                          backgroundColor: 'white',
-                          borderRadius: '2px'
-                        }}
-                      />
-                      <span className="text-sm font-medium text-gray-900">{environment}</span>
-                    </label>
+                      ref={environment === 'app-dev' ? appDevRef : appProdRef}
+                      label={environment}
+                      value={authorizedEnvironments.includes(environment)}
+                      onChange={(checked) => {
+                        if (typeof checked === 'boolean') {
+                          handleEnvironmentToggle(environment);
+                        }
+                      }}
+                      type="checkbox"
+                      fieldName={`authorizedEnvironments.${environment}`}
+                      isAnimating={isAnimating}
+                      isCurrentField={isFieldAnimating(`authorizedEnvironments.${environment}`)}
+                      isCompleted={isFieldCompleted(`authorizedEnvironments.${environment}`)}
+                      animatedValue={getFieldValue(`authorizedEnvironments.${environment}`)}
+                    />
                   ))}
                 </div>
               </AccordionSection>
@@ -260,5 +328,25 @@ export const AwsCredentialForm: React.FC<AwsCredentialFormProps> = ({
           </div>
       </form>
     </div>
+  );
+});
+
+// Main exported component that wraps the form with AutoFillProvider
+export const AwsCredentialForm: React.FC<AwsCredentialFormProps> = (props) => {
+  const formContentRef = React.useRef<{ handleAnimationComplete: () => void; handleFieldComplete: (fieldName: string) => void } | null>(null);
+
+  return (
+    <AutoFillProvider
+      delay={CURRENT_PRESET.delay}
+      pauseBetweenFields={CURRENT_PRESET.pauseBetweenFields}
+      onComplete={() => {
+        formContentRef.current?.handleAnimationComplete();
+      }}
+      onFieldComplete={(fieldName) => {
+        formContentRef.current?.handleFieldComplete(fieldName);
+      }}
+    >
+      <AwsCredentialFormContent {...props} ref={formContentRef} />
+    </AutoFillProvider>
   );
 };

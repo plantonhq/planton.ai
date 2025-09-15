@@ -1,9 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { AwsAlb } from '../interfaces';
 import { FormField } from './FormField';
+import { AnimatedFormField } from './AnimatedFormField';
 import { TabNavigation } from './TabNavigation';
+import { ReferenceFieldGroup } from './ReferenceFieldGroup';
+import { FieldArrayWithTabs } from './FieldArrayWithTabs';
+import { useAutoFill } from '../../../contexts/AutoFillContext';
 
 interface AwsAlbFormElementsProps {
   formData: AwsAlb;
@@ -18,324 +22,41 @@ export const AwsAlbFormElements: React.FC<AwsAlbFormElementsProps> = ({
   helpTextMapping,
   section,
 }) => {
-  const [subnetTab, setSubnetTab] = useState<'direct' | 'reference'>('direct');
-  const [securityGroupTab, setSecurityGroupTab] = useState<'direct' | 'reference'>('direct');
+  const { isAnimating, getFieldValue, isFieldAnimating, isFieldCompleted } = useAutoFill();
 
-  const handleSubnetChange = (index: number, value: string) => {
-    const newSubnets = [...(formData.spec?.subnets || [])];
-    newSubnets[index] = { value };
-    onInputChange('spec.subnets', newSubnets);
-  };
-
-  const handleSecurityGroupChange = (index: number, value: string) => {
-    const newSecurityGroups = [...(formData.spec?.securityGroups || [])];
-    newSecurityGroups[index] = { value };
-    onInputChange('spec.securityGroups', newSecurityGroups);
-  };
-
-  const addSubnet = () => {
-    const newSubnets = [...(formData.spec?.subnets || []), { value: '' }];
-    onInputChange('spec.subnets', newSubnets);
-  };
-
-  const removeSubnet = (index: number) => {
-    const newSubnets = (formData.spec?.subnets || []).filter((_, i) => i !== index);
-    onInputChange('spec.subnets', newSubnets);
-  };
-
-  const addSecurityGroup = () => {
-    const newSecurityGroups = [...(formData.spec?.securityGroups || []), { value: '' }];
-    onInputChange('spec.securityGroups', newSecurityGroups);
-  };
-
-  const removeSecurityGroup = (index: number) => {
-    const newSecurityGroups = (formData.spec?.securityGroups || []).filter((_, i) => i !== index);
-    onInputChange('spec.securityGroups', newSecurityGroups);
-  };
+  // Refs for animated fields
+  const internalRef = useRef<HTMLDivElement>(null);
+  const deleteProtectionRef = useRef<HTMLDivElement>(null);
+  const idleTimeoutRef = useRef<HTMLDivElement>(null);
+  const dnsEnabledRef = useRef<HTMLDivElement>(null);
+  const route53ZoneIdRef = useRef<HTMLDivElement>(null);
+  const hostnameRef = useRef<HTMLDivElement>(null);
+  const sslEnabledRef = useRef<HTMLDivElement>(null);
+  const certificateArnRef = useRef<HTMLDivElement>(null);
 
   // Render specific section based on section prop
   if (section === 'subnets') {
     return (
-      <TabNavigation
-        tabs={[
-          {
-            id: 'direct',
-            label: 'Direct Value',
-            icon: (
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                />
-              </svg>
-            ),
-            content: (
-              <div className="space-y-3">
-                {(formData.spec?.subnets || []).map((subnet, index) => (
-                  <div key={index} className="flex items-center gap-2">
-                    <FormField
-                      label=""
-                      value={subnet.value || ''}
-                      onChange={(value) => handleSubnetChange(index, value)}
-                      placeholder="subnet-xxxxxxxxx"
-                      helpText={index === 0 ? helpTextMapping?.['spec.subnets'] : undefined}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => removeSubnet(index)}
-                      className="p-1 text-red-600 hover:text-red-800"
-                    >
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                ))}
-                <button
-                  type="button"
-                  onClick={addSubnet}
-                  className="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center gap-1"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 4v16m8-8H4"
-                    />
-                  </svg>
-                  Add Another
-                </button>
-              </div>
-            ),
-          },
-          {
-            id: 'reference',
-            label: 'Reference',
-            icon: (
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-                />
-              </svg>
-            ),
-            content: (
-              <div className="space-y-3">
-                <p className="text-sm text-gray-600">
-                  Reference existing subnets from your AWS account.
-                </p>
-                <div className="space-y-2">
-                  {(formData.spec?.subnets || []).map((subnet, index) => (
-                    <div key={index} className="flex items-center gap-2">
-                      <FormField
-                        label=""
-                        value={subnet.value || ''}
-                        onChange={(value) => handleSubnetChange(index, value)}
-                        placeholder="Select subnet reference"
-                        helpText={index === 0 ? helpTextMapping?.['spec.subnets'] : undefined}
-                      />
-                      <button
-                        type="button"
-                        onClick={() => removeSubnet(index)}
-                        className="p-1 text-red-600 hover:text-red-800"
-                      >
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  ))}
-                  <button
-                    type="button"
-                    onClick={addSubnet}
-                    className="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center gap-1"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 4v16m8-8H4"
-                      />
-                    </svg>
-                    Add Another
-                  </button>
-                </div>
-              </div>
-            ),
-          },
-        ]}
-        activeTab={subnetTab}
-        onTabChange={(tabId) => setSubnetTab(tabId as 'direct' | 'reference')}
+      <FieldArrayWithTabs
+        items={formData.spec?.subnets || []}
+        onItemsChange={(items) => onInputChange('spec.subnets', items)}
+        fieldName="spec.subnets"
+        placeholder="subnet-xxxxxxxxx"
+        helpText={helpTextMapping?.['spec.subnets']}
+        label="Subnets"
       />
     );
   }
 
   if (section === 'securityGroups') {
     return (
-      <TabNavigation
-        tabs={[
-          {
-            id: 'direct',
-            label: 'Direct Value',
-            icon: (
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                />
-              </svg>
-            ),
-            content: (
-              <div className="space-y-3">
-                {(formData.spec?.securityGroups || []).map((sg, index) => (
-                  <div key={index} className="flex items-center gap-2">
-                    <FormField
-                      label=""
-                      value={sg.value || ''}
-                      onChange={(value) => handleSecurityGroupChange(index, value)}
-                      placeholder="sg-xxxxxxxxx"
-                      helpText={index === 0 ? helpTextMapping?.['spec.securityGroups'] : undefined}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => removeSecurityGroup(index)}
-                      className="p-1 text-red-600 hover:text-red-800"
-                    >
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                ))}
-                <button
-                  type="button"
-                  onClick={addSecurityGroup}
-                  className="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center gap-1"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 4v16m8-8H4"
-                    />
-                  </svg>
-                  Add Another
-                </button>
-              </div>
-            ),
-          },
-          {
-            id: 'reference',
-            label: 'Reference',
-            icon: (
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-                />
-              </svg>
-            ),
-            content: (
-              <div className="space-y-3">
-                <p className="text-sm text-gray-600">
-                  Reference existing security groups from your AWS account.
-                </p>
-                <div className="space-y-2">
-                  {(formData.spec?.securityGroups || []).map((sg, index) => (
-                    <div key={index} className="flex items-center gap-2">
-                      <FormField
-                        label=""
-                        value={sg.value || ''}
-                        onChange={(value) => handleSecurityGroupChange(index, value)}
-                        placeholder="Select security group reference"
-                        helpText={
-                          index === 0 ? helpTextMapping?.['spec.securityGroups'] : undefined
-                        }
-                      />
-                      <button
-                        type="button"
-                        onClick={() => removeSecurityGroup(index)}
-                        className="p-1 text-red-600 hover:text-red-800"
-                      >
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  ))}
-                  <button
-                    type="button"
-                    onClick={addSecurityGroup}
-                    className="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center gap-1"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 4v16m8-8H4"
-                      />
-                    </svg>
-                    Add Another
-                  </button>
-                </div>
-              </div>
-            ),
-          },
-        ]}
-        activeTab={securityGroupTab}
-        onTabChange={(tabId) => setSecurityGroupTab(tabId as 'direct' | 'reference')}
+      <FieldArrayWithTabs
+        items={formData.spec?.securityGroups || []}
+        onItemsChange={(items) => onInputChange('spec.securityGroups', items)}
+        fieldName="spec.securityGroups"
+        placeholder="sg-xxxxxxxxx"
+        helpText={helpTextMapping?.['spec.securityGroups']}
+        label="Security Groups"
       />
     );
   }
@@ -343,57 +64,50 @@ export const AwsAlbFormElements: React.FC<AwsAlbFormElementsProps> = ({
   if (section === 'loadBalancer') {
     return (
       <div>
-        <FormField
+        <AnimatedFormField
+          ref={idleTimeoutRef}
           label="Idle Timeout (seconds)"
           value={formData.spec?.idleTimeoutSeconds?.toString() || '60'}
-          onChange={(value) => onInputChange('spec.idleTimeoutSeconds', parseInt(value) || 60)}
-          placeholder="60"
+          onChange={(value) =>
+            onInputChange('spec.idleTimeoutSeconds', parseInt(value as string) || 60)
+          }
           type="number"
           helpText={helpTextMapping?.['spec.idleTimeoutSeconds']}
+          fieldName="spec.idleTimeoutSeconds"
+          isAnimating={isAnimating}
+          isCurrentField={isFieldAnimating('spec.idleTimeoutSeconds')}
+          isCompleted={isFieldCompleted('spec.idleTimeoutSeconds')}
+          animatedValue={getFieldValue('spec.idleTimeoutSeconds')}
         />
 
         <div className="mt-4 space-y-3">
-          <div className="flex items-center gap-3">
-            <input
-              type="checkbox"
-              checked={formData.spec?.internal || false}
-              onChange={(e) => onInputChange('spec.internal', e.target.checked)}
-              style={{
-                appearance: 'auto',
-                WebkitAppearance: 'checkbox',
-                MozAppearance: 'checkbox',
-                width: '16px',
-                height: '16px',
-                margin: '0',
-                padding: '0',
-                border: '1px solid #ccc',
-                backgroundColor: 'white',
-                borderRadius: '2px',
-              }}
-            />
-            <label className="text-sm font-medium text-gray-900">Internal Load Balancer</label>
-          </div>
+          <AnimatedFormField
+            ref={internalRef}
+            label="Internal Load Balancer"
+            value={formData.spec?.internal || false}
+            onChange={(checked) => onInputChange('spec.internal', checked)}
+            type="checkbox"
+            fieldName="spec.internal"
+            isAnimating={isAnimating}
+            isCurrentField={isFieldAnimating('spec.internal')}
+            isCompleted={isFieldCompleted('spec.internal')}
+            animatedValue={getFieldValue('spec.internal')}
+            helpText={helpTextMapping?.['spec.internal']}
+          />
 
-          <div className="flex items-center gap-3">
-            <input
-              type="checkbox"
-              checked={formData.spec?.deleteProtectionEnabled || false}
-              onChange={(e) => onInputChange('spec.deleteProtectionEnabled', e.target.checked)}
-              style={{
-                appearance: 'auto',
-                WebkitAppearance: 'checkbox',
-                MozAppearance: 'checkbox',
-                width: '16px',
-                height: '16px',
-                margin: '0',
-                padding: '0',
-                border: '1px solid #ccc',
-                backgroundColor: 'white',
-                borderRadius: '2px',
-              }}
-            />
-            <label className="text-sm font-medium text-gray-900">Deletion Protection</label>
-          </div>
+          <AnimatedFormField
+            ref={deleteProtectionRef}
+            label="Deletion Protection"
+            value={formData.spec?.deleteProtectionEnabled || false}
+            onChange={(checked) => onInputChange('spec.deleteProtectionEnabled', checked)}
+            type="checkbox"
+            fieldName="spec.deleteProtectionEnabled"
+            isAnimating={isAnimating}
+            isCurrentField={isFieldAnimating('spec.deleteProtectionEnabled')}
+            isCompleted={isFieldCompleted('spec.deleteProtectionEnabled')}
+            animatedValue={getFieldValue('spec.deleteProtectionEnabled')}
+            helpText={helpTextMapping?.['spec.deleteProtectionEnabled']}
+          />
         </div>
       </div>
     );
@@ -401,50 +115,88 @@ export const AwsAlbFormElements: React.FC<AwsAlbFormElementsProps> = ({
 
   if (section === 'dns') {
     return (
-      <div className="flex items-center gap-3">
-        <input
+      <div className="space-y-4">
+        <AnimatedFormField
+          ref={dnsEnabledRef}
+          label="Enable DNS"
+          value={formData.spec?.dns?.enabled || false}
+          onChange={(checked) => onInputChange('spec.dns.enabled', checked)}
           type="checkbox"
-          checked={formData.spec?.dns?.enabled || false}
-          onChange={(e) => onInputChange('spec.dns.enabled', e.target.checked)}
-          style={{
-            appearance: 'auto',
-            WebkitAppearance: 'checkbox',
-            MozAppearance: 'checkbox',
-            width: '16px',
-            height: '16px',
-            margin: '0',
-            padding: '0',
-            border: '1px solid #ccc',
-            backgroundColor: 'white',
-            borderRadius: '2px',
-          }}
+          fieldName="spec.dns.enabled"
+          isAnimating={isAnimating}
+          isCurrentField={isFieldAnimating('spec.dns.enabled')}
+          isCompleted={isFieldCompleted('spec.dns.enabled')}
+          animatedValue={getFieldValue('spec.dns.enabled')}
+          helpText={helpTextMapping?.['spec.dns.enabled']}
         />
-        <label className="text-sm font-medium text-gray-900">Enable</label>
+
+        {formData.spec?.dns?.enabled && (
+          <>
+            <AnimatedFormField
+              ref={route53ZoneIdRef}
+              label="Route53 Zone ID"
+              value={formData.spec?.dns?.route53ZoneId?.value || ''}
+              onChange={(value) => onInputChange('spec.dns.route53ZoneId.value', value)}
+              type="text"
+              fieldName="spec.dns.route53ZoneId"
+              isAnimating={isAnimating}
+              isCurrentField={isFieldAnimating('spec.dns.route53ZoneId')}
+              isCompleted={isFieldCompleted('spec.dns.route53ZoneId')}
+              animatedValue={getFieldValue('spec.dns.route53ZoneId')}
+              helpText={helpTextMapping?.['spec.dns.route53ZoneId']}
+            />
+
+            <AnimatedFormField
+              ref={hostnameRef}
+              label="Hostname"
+              value={formData.spec?.dns?.hostnames?.[0] || ''}
+              onChange={(value) => onInputChange('spec.dns.hostnames.0', value)}
+              type="text"
+              fieldName="spec.dns.hostnames.0"
+              isAnimating={isAnimating}
+              isCurrentField={isFieldAnimating('spec.dns.hostnames.0')}
+              isCompleted={isFieldCompleted('spec.dns.hostnames.0')}
+              animatedValue={getFieldValue('spec.dns.hostnames.0')}
+              helpText={helpTextMapping?.['spec.dns.hostnames']}
+            />
+          </>
+        )}
       </div>
     );
   }
 
   if (section === 'ssl') {
     return (
-      <div className="flex items-center gap-3">
-        <input
+      <div className="space-y-4">
+        <AnimatedFormField
+          ref={sslEnabledRef}
+          label="Enable SSL"
+          value={formData.spec?.ssl?.enabled || false}
+          onChange={(checked) => onInputChange('spec.ssl.enabled', checked)}
           type="checkbox"
-          checked={formData.spec?.ssl?.enabled || false}
-          onChange={(e) => onInputChange('spec.ssl.enabled', e.target.checked)}
-          style={{
-            appearance: 'auto',
-            WebkitAppearance: 'checkbox',
-            MozAppearance: 'checkbox',
-            width: '16px',
-            height: '16px',
-            margin: '0',
-            padding: '0',
-            border: '1px solid #ccc',
-            backgroundColor: 'white',
-            borderRadius: '2px',
-          }}
+          fieldName="spec.ssl.enabled"
+          isAnimating={isAnimating}
+          isCurrentField={isFieldAnimating('spec.ssl.enabled')}
+          isCompleted={isFieldCompleted('spec.ssl.enabled')}
+          animatedValue={getFieldValue('spec.ssl.enabled')}
+          helpText={helpTextMapping?.['spec.ssl.enabled']}
         />
-        <label className="text-sm font-medium text-gray-900">Enable</label>
+
+        {formData.spec?.ssl?.enabled && (
+          <AnimatedFormField
+            ref={certificateArnRef}
+            label="Certificate ARN"
+            value={formData.spec?.ssl?.certificateArn?.value || ''}
+            onChange={(value) => onInputChange('spec.ssl.certificateArn.value', value)}
+            type="text"
+            fieldName="spec.ssl.certificateArn"
+            isAnimating={isAnimating}
+            isCurrentField={isFieldAnimating('spec.ssl.certificateArn')}
+            isCompleted={isFieldCompleted('spec.ssl.certificateArn')}
+            animatedValue={getFieldValue('spec.ssl.certificateArn')}
+            helpText={helpTextMapping?.['spec.ssl.certificateArn']}
+          />
+        )}
       </div>
     );
   }

@@ -1,11 +1,14 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { AwsAlb } from '../interfaces';
 import { AwsAlbFormElements } from './AwsAlbFormElements';
 import { AccordionSection } from './AccordionSection';
 import { MetadataSection } from './MetadataSection';
 import { useAwsAlbData } from '../../../hooks/useAwsAlbData';
+import { AutoFillProvider, useAutoFill } from '../../../contexts/AutoFillContext';
+import { CURRENT_PRESET } from '../../../constants/animationConfig';
+import { AnimatedFormField } from './AnimatedFormField';
 
 interface AwsAlbFormProps {
   onSubmit: (data: AwsAlb) => void;
@@ -13,13 +16,57 @@ interface AwsAlbFormProps {
   initialData?: Partial<AwsAlb>;
 }
 
-export const AwsAlbForm: React.FC<AwsAlbFormProps> = ({
+interface AwsAlbFormContentProps extends AwsAlbFormProps {
+  onAnimationComplete?: () => void;
+}
+
+// Internal form component that uses the auto-fill context
+const AwsAlbFormContent = React.forwardRef<
+  { handleAnimationComplete: () => void; handleFieldComplete: (fieldName: string) => void },
+  AwsAlbFormContentProps
+>(({
   onSubmit,
   onCancel,
   initialData,
-}) => {
+  onAnimationComplete,
+}, ref) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { data: jsonData, refetch, loading: dataLoading } = useAwsAlbData();
+  const { data: jsonData } = useAwsAlbData();
+  const { startAnimation, isAnimating, getFieldValue, isFieldAnimating, isFieldCompleted } = useAutoFill();
+
+  // Track if animation has already been started to prevent looping
+  const hasAnimationStartedRef = useRef(false);
+
+  // Auto-start animation when data is loaded (only once)
+  useEffect(() => {
+    if (jsonData && !hasAnimationStartedRef.current) {
+      hasAnimationStartedRef.current = true;
+      
+      // Small delay to make the animation feel more natural
+      const timer = setTimeout(() => {
+        const fields = [
+          { name: 'metadata.env', value: jsonData.metadata?.env || 'dev', order: 1 },
+          { name: 'metadata.name', value: jsonData.metadata?.name || '', order: 2 },
+          { name: 'metadata.slug', value: jsonData.metadata?.slug || '', order: 3 },
+          { name: 'spec.subnets.0', value: jsonData.spec?.subnets?.[0]?.value || '', order: 4 },
+          { name: 'spec.subnets.1', value: jsonData.spec?.subnets?.[1]?.value || '', order: 5 },
+          { name: 'spec.securityGroups.0', value: jsonData.spec?.securityGroups?.[0]?.value || '', order: 6 },
+          { name: 'spec.internal', value: jsonData.spec?.internal || false, order: 7 },
+          { name: 'spec.deleteProtectionEnabled', value: jsonData.spec?.deleteProtectionEnabled || false, order: 8 },
+          { name: 'spec.idleTimeoutSeconds', value: jsonData.spec?.idleTimeoutSeconds?.toString() || '60', order: 9 },
+          { name: 'spec.dns.enabled', value: jsonData.spec?.dns?.enabled || false, order: 10 },
+          { name: 'spec.dns.route53ZoneId', value: jsonData.spec?.dns?.route53ZoneId?.value || '', order: 11 },
+          { name: 'spec.dns.hostnames.0', value: jsonData.spec?.dns?.hostnames?.[0] || '', order: 12 },
+          { name: 'spec.ssl.enabled', value: jsonData.spec?.ssl?.enabled || false, order: 13 },
+          { name: 'spec.ssl.certificateArn', value: jsonData.spec?.ssl?.certificateArn?.value || '', order: 14 },
+        ];
+
+        startAnimation(fields);
+      }, CURRENT_PRESET.autoStartDelay);
+
+      return () => clearTimeout(timer);
+    }
+  }, [jsonData, startAnimation]);
 
   const [formData, setFormData] = useState<AwsAlb>({
     apiVersion: 'aws.project-planton.org/v1',
@@ -46,8 +93,8 @@ export const AwsAlbForm: React.FC<AwsAlbFormProps> = ({
     },
   });
 
-  // Set default values from JSON data when available
-  useEffect(() => {
+  // Handle animation completion by updating the actual form data
+  const handleAnimationCompleteInternal = useCallback(() => {
     if (jsonData) {
       setFormData(prev => ({
         ...prev,
@@ -73,7 +120,161 @@ export const AwsAlbForm: React.FC<AwsAlbFormProps> = ({
         },
       }));
     }
+    onAnimationComplete?.();
+  }, [jsonData, onAnimationComplete]);
+
+  // Handle field completion during animation to update form data in real-time
+  const handleFieldComplete = useCallback((fieldName: string) => {
+    if (jsonData) {
+      const keys = fieldName.split('.');
+      if (keys.length === 2) {
+        const [parent, child] = keys;
+        let value = '';
+        
+        if (parent === 'metadata') {
+          const metadataValue = jsonData.metadata?.[child as keyof typeof jsonData.metadata];
+          value = typeof metadataValue === 'string' ? metadataValue : '';
+        } else if (parent === 'spec') {
+          const specValue = jsonData.spec?.[child as keyof typeof jsonData.spec];
+          value = typeof specValue === 'string' ? specValue : '';
+        }
+        
+        if (value) {
+          setFormData(prev => {
+            const newData = { ...prev };
+            if (parent === 'metadata') {
+              newData.metadata = {
+                ...newData.metadata,
+                [child]: value,
+              };
+            } else if (parent === 'spec') {
+              newData.spec = {
+                ...newData.spec,
+                [child]: value,
+              };
+            }
+            return newData;
+          });
+        }
+      } else if (keys.length === 3) {
+        // Handle nested fields like 'spec.subnets.0' or 'spec.dns.enabled'
+        const [parent, child, grandchild] = keys;
+        if (parent === 'spec' && child === 'subnets') {
+          const index = parseInt(grandchild);
+          const subnetValue = jsonData.spec?.subnets?.[index]?.value;
+          if (subnetValue) {
+            setFormData(prev => {
+              const newSubnets = [...(prev.spec.subnets || [])];
+              newSubnets[index] = { value: subnetValue };
+              return {
+                ...prev,
+                spec: {
+                  ...prev.spec,
+                  subnets: newSubnets,
+                },
+              };
+            });
+          }
+        } else if (parent === 'spec' && child === 'securityGroups') {
+          const index = parseInt(grandchild);
+          const sgValue = jsonData.spec?.securityGroups?.[index]?.value;
+          if (sgValue) {
+            setFormData(prev => {
+              const newSecurityGroups = [...(prev.spec.securityGroups || [])];
+              newSecurityGroups[index] = { value: sgValue };
+              return {
+                ...prev,
+                spec: {
+                  ...prev.spec,
+                  securityGroups: newSecurityGroups,
+                },
+              };
+            });
+          }
+        } else if (parent === 'spec' && child === 'dns') {
+          if (grandchild === 'enabled') {
+            setFormData(prev => ({
+              ...prev,
+              spec: {
+                ...prev.spec,
+                dns: {
+                  enabled: jsonData.spec?.dns?.enabled || false,
+                  route53ZoneId: prev.spec.dns?.route53ZoneId,
+                  hostnames: prev.spec.dns?.hostnames || [],
+                },
+              },
+            }));
+          } else if (grandchild === 'route53ZoneId') {
+            setFormData(prev => ({
+              ...prev,
+              spec: {
+                ...prev.spec,
+                dns: {
+                  enabled: prev.spec.dns?.enabled || false,
+                  route53ZoneId: jsonData.spec?.dns?.route53ZoneId || prev.spec.dns?.route53ZoneId,
+                  hostnames: prev.spec.dns?.hostnames || [],
+                },
+              },
+            }));
+          }
+        } else if (parent === 'spec' && child === 'ssl') {
+          if (grandchild === 'enabled') {
+            setFormData(prev => ({
+              ...prev,
+              spec: {
+                ...prev.spec,
+                ssl: {
+                  enabled: jsonData.spec?.ssl?.enabled || false,
+                  certificateArn: prev.spec.ssl?.certificateArn,
+                },
+              },
+            }));
+          } else if (grandchild === 'certificateArn') {
+            setFormData(prev => ({
+              ...prev,
+              spec: {
+                ...prev.spec,
+                ssl: {
+                  enabled: prev.spec.ssl?.enabled || false,
+                  certificateArn: jsonData.spec?.ssl?.certificateArn || prev.spec.ssl?.certificateArn,
+                },
+              },
+            }));
+          }
+        }
+      } else if (keys.length === 4) {
+        // Handle very deeply nested fields like 'spec.dns.hostnames.0'
+        const [parent, child, grandchild, greatGrandchild] = keys;
+        if (parent === 'spec' && child === 'dns' && grandchild === 'hostnames') {
+          const index = parseInt(greatGrandchild);
+          const hostnameValue = jsonData.spec?.dns?.hostnames?.[index];
+          if (hostnameValue) {
+            setFormData(prev => {
+              const newHostnames = [...(prev.spec.dns?.hostnames || [])];
+              newHostnames[index] = hostnameValue;
+              return {
+                ...prev,
+                spec: {
+                  ...prev.spec,
+                  dns: {
+                    enabled: prev.spec.dns?.enabled || false,
+                    route53ZoneId: prev.spec.dns?.route53ZoneId,
+                    hostnames: newHostnames,
+                  },
+                },
+              };
+            });
+          }
+        }
+      }
+    }
   }, [jsonData]);
+
+  // Expose the completion handlers to parent
+  React.useImperativeHandle(ref, () => ({
+    handleAnimationComplete: handleAnimationCompleteInternal,
+    handleFieldComplete: handleFieldComplete,
+  }));
 
   const handleInputChange = (field: string, value: any) => {
     setFormData(prev => {
@@ -195,9 +396,6 @@ export const AwsAlbForm: React.FC<AwsAlbFormProps> = ({
     }
   };
 
-  const handleRefreshData = async () => {
-    await refetch();
-  };
 
   const helpTextMapping = {
     'metadata.name': 'Enter a unique name for your AWS ALB',
@@ -230,22 +428,6 @@ export const AwsAlbForm: React.FC<AwsAlbFormProps> = ({
               <h1 className="text-xl font-semibold text-gray-900">Deploy AWS ALB</h1>
             </div>
             <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={handleRefreshData}
-                disabled={dataLoading}
-                className="flex items-center gap-2 px-3 py-2 text-sm bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <svg 
-                  className={`w-4 h-4 ${dataLoading ? 'animate-spin' : ''}`} 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-                {dataLoading ? 'Refreshing...' : 'Refresh Data'}
-              </button>
               <button
                 type="button"
                 onClick={onCancel}
@@ -283,20 +465,22 @@ export const AwsAlbForm: React.FC<AwsAlbFormProps> = ({
             <AccordionSection title="Metadata">
               <div className="space-y-4">
                 {/* Environment Dropdown */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Environment
-                  </label>
-                  <select
-                    value={formData.metadata?.env || 'dev'}
-                    onChange={(e) => handleInputChange('metadata.env', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-900"
-                  >
-                    <option value="dev">dev</option>
-                    <option value="staging">staging</option>
-                    <option value="prod">prod</option>
-                  </select>
-                </div>
+                <AnimatedFormField
+                  label="Environment"
+                  value={formData.metadata?.env || 'dev'}
+                  onChange={(value) => handleInputChange('metadata.env', value)}
+                  type="select"
+                  fieldName="metadata.env"
+                  isAnimating={isAnimating}
+                  isCurrentField={isFieldAnimating('metadata.env')}
+                  isCompleted={isFieldCompleted('metadata.env')}
+                  animatedValue={getFieldValue('metadata.env')}
+                  options={[
+                    { value: 'dev', label: 'dev' },
+                    { value: 'staging', label: 'staging' },
+                    { value: 'prod', label: 'prod' }
+                  ]}
+                />
                 
                 {/* Name and Slug using MetadataSection */}
                 <MetadataSection
@@ -304,8 +488,6 @@ export const AwsAlbForm: React.FC<AwsAlbFormProps> = ({
                   slug={formData.metadata?.slug || ''}
                   onNameChange={handleMetadataNameChange}
                   onSlugChange={handleMetadataSlugChange}
-                  namePlaceholder="my-aws-alb"
-                  slugPlaceholder="my-aws-alb"
                   nameHelpText={helpTextMapping['metadata.name']}
                 />
               </div>
@@ -365,5 +547,25 @@ export const AwsAlbForm: React.FC<AwsAlbFormProps> = ({
         </div>
       </form>
     </div>
+  );
+});
+
+// Main exported component that wraps the form with AutoFillProvider
+export const AwsAlbForm: React.FC<AwsAlbFormProps> = (props) => {
+  const formContentRef = React.useRef<{ handleAnimationComplete: () => void; handleFieldComplete: (fieldName: string) => void } | null>(null);
+
+  return (
+    <AutoFillProvider
+      delay={CURRENT_PRESET.delay}
+      pauseBetweenFields={CURRENT_PRESET.pauseBetweenFields}
+      onComplete={() => {
+        formContentRef.current?.handleAnimationComplete();
+      }}
+      onFieldComplete={(fieldName) => {
+        formContentRef.current?.handleFieldComplete(fieldName);
+      }}
+    >
+      <AwsAlbFormContent {...props} ref={formContentRef} />
+    </AutoFillProvider>
   );
 };
