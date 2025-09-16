@@ -42,7 +42,12 @@ const AwsAlbFormContent = React.forwardRef<
     if (jsonData && !hasAnimationStartedRef.current) {
       hasAnimationStartedRef.current = true;
       
-      // Small delay to make the animation feel more natural
+      // Use a longer delay to ensure the modal is fully rendered and ready
+      // This helps with the race condition between auto-click and data loading
+      const animationDelay = Math.max(CURRENT_PRESET.autoStartDelay, 2000); // Use at least 2 seconds to ensure modal is ready
+      
+      console.log('AWS ALB Form: Data loaded, starting auto-fill animation in', animationDelay, 'ms');
+      
       const timer = setTimeout(() => {
         const fields = [
           { name: 'metadata.env', value: jsonData.metadata?.env || 'dev', order: 1 },
@@ -61,8 +66,9 @@ const AwsAlbFormContent = React.forwardRef<
           { name: 'spec.ssl.certificateArn', value: jsonData.spec?.ssl?.certificateArn?.value || '', order: 14 },
         ];
 
+        console.log('AWS ALB Form: Starting auto-fill animation with', fields.length, 'fields');
         startAnimation(fields);
-      }, CURRENT_PRESET.autoStartDelay);
+      }, animationDelay);
 
       return () => clearTimeout(timer);
     }

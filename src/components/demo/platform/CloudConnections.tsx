@@ -1,10 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, CheckCircle, Loader2, ExternalLink } from 'lucide-react';
 import { AwsCredential } from '../interfaces';
 import { FormModalRegistry } from '../modals';
+import { CURRENT_PRESET } from '../../../constants/animationConfig';
+
+// Constant for auto-clicking the first card on page load
+const AUTO_CLICK_FIRST_CARD = true;
 
 interface CloudProvider {
   id: string;
@@ -173,6 +177,21 @@ export default function CloudConnections() {
   };
 
   const connectedCount = providers.filter(p => p.isConnected).length;
+
+  // Auto-click the first card on page load
+  useEffect(() => {
+    if (AUTO_CLICK_FIRST_CARD && providers.length > 0) {
+      const firstProvider = providers[0];
+      // Add a delay longer than the auto-fill animation start delay to ensure proper timing
+      // Use animation config delay plus buffer to ensure modal is ready for auto-fill
+      const autoClickDelay = CURRENT_PRESET.autoStartDelay + 500; // 1000ms + 500ms buffer
+      const timer = setTimeout(() => {
+        handleCardClick(firstProvider);
+      }, autoClickDelay);
+      
+      return () => clearTimeout(timer);
+    }
+  }, []); // Empty dependency array to run only on mount
 
   return (
     <div className="h-full flex flex-col">

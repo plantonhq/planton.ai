@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import {
   Database,
@@ -18,6 +18,14 @@ import {
 } from 'lucide-react';
 import { FormModalRegistry } from '../modals';
 import { TabNavigation, TabItem } from '../forms/TabNavigation';
+import { CURRENT_PRESET } from '../../../constants/animationConfig';
+
+// Constant for auto-clicking the first block on page load
+const AUTO_CLICK_FIRST_BLOCK = true;
+
+// Global timer to survive component remounting
+let globalAutoClickTimer: NodeJS.Timeout | null = null;
+let globalAutoClickExecuted = false;
 
 interface LegoBlock {
   id: string;
@@ -31,10 +39,17 @@ interface LegoBlock {
 }
 
 export default function LegoCatalog() {
+  console.log('🚀 Infrastructure Catalog: Component mounting');
+  console.log('🚀 Infrastructure Catalog: AUTO_CLICK_FIRST_BLOCK =', AUTO_CLICK_FIRST_BLOCK);
+  
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProvider, setSelectedProvider] = useState<LegoBlock | null>(null);
+  
+  // Track if auto-click has already been triggered to prevent multiple clicks
+  const hasAutoClickedRef = useRef(false);
+  const autoClickTimerRef = useRef<NodeJS.Timeout | null>(null);
   const [blocks, setBlocks] = useState<LegoBlock[]>([
     {
       id: 'aws-alb',
@@ -138,10 +153,13 @@ export default function LegoCatalog() {
   ];
 
   const handleAddBlock = (blockId: string) => {
+    console.log('handleAddBlock called with blockId:', blockId);
     const block = blocks.find(b => b.id === blockId);
+    console.log('Found block:', block);
     if (block) {
       if (block.id === 'aws-alb') {
         // Open modal for AWS ALB
+        console.log('Opening AWS ALB modal');
         setSelectedProvider(block);
         setIsModalOpen(true);
       } else {
@@ -152,10 +170,13 @@ export default function LegoCatalog() {
           )
         );
       }
+    } else {
+      console.log('Block not found for id:', blockId);
     }
   };
 
   const handleModalClose = () => {
+    console.log('Infrastructure Catalog: Closing modal');
     setIsModalOpen(false);
     setSelectedProvider(null);
   };
@@ -191,6 +212,57 @@ export default function LegoCatalog() {
 
   const addedCount = blocks.filter(b => b.isAdded).length;
 
+  // Auto-click the first block on page load
+  useEffect(() => {
+    console.log('🚀 Infrastructure Catalog: useEffect running');
+    console.log('🚀 AUTO_CLICK_FIRST_BLOCK:', AUTO_CLICK_FIRST_BLOCK);
+    console.log('🚀 globalAutoClickExecuted:', globalAutoClickExecuted);
+    console.log('🚀 globalAutoClickTimer:', globalAutoClickTimer);
+    
+    if (AUTO_CLICK_FIRST_BLOCK && !globalAutoClickExecuted && !globalAutoClickTimer) {
+      console.log('🚀 Setting up global auto-click timer...');
+      globalAutoClickExecuted = true; // Mark as triggered to prevent multiple timers
+      
+      // Use a shorter delay for testing
+      const autoClickDelay = 3000; // 3 seconds for testing
+      
+      console.log('🚀 Auto-click scheduled for AWS ALB in', autoClickDelay, 'ms');
+      
+      // Add countdown for debugging
+      let countdown = 3;
+      const countdownInterval = setInterval(() => {
+        console.log('🚀 Countdown:', countdown);
+        countdown--;
+        if (countdown <= 0) {
+          clearInterval(countdownInterval);
+        }
+      }, 1000);
+      
+      globalAutoClickTimer = setTimeout(() => {
+        clearInterval(countdownInterval);
+        console.log('🚀 GLOBAL TIMER FIRED! Auto-clicking AWS ALB');
+        console.log('🚀 About to call handleAddBlock...');
+        try {
+          handleAddBlock('aws-alb');
+          console.log('🚀 handleAddBlock called successfully');
+        } catch (error) {
+          console.error('🚀 Error calling handleAddBlock:', error);
+        }
+        globalAutoClickTimer = null; // Clear the global timer
+      }, autoClickDelay);
+      
+      console.log('🚀 Global timer set:', globalAutoClickTimer);
+    } else {
+      console.log('🚀 Auto-click conditions not met - skipping');
+      console.log('🚀 Reasons: AUTO_CLICK_FIRST_BLOCK:', AUTO_CLICK_FIRST_BLOCK, 'globalExecuted:', globalAutoClickExecuted, 'globalTimer:', !!globalAutoClickTimer);
+    }
+  }, []); // Empty dependency array to run only once on mount
+
+  // Track modal state changes
+  useEffect(() => {
+    console.log('Infrastructure Catalog: Modal state changed - isModalOpen:', isModalOpen, 'selectedProvider:', selectedProvider?.name);
+  }, [isModalOpen, selectedProvider]);
+
   return (
     <div className="h-full flex flex-col">
       {/* Header */}
@@ -201,6 +273,16 @@ export default function LegoCatalog() {
             <p className="text-gray-600 mt-1">
               Pre-built, production-ready infrastructure blocks
             </p>
+            {/* Debug button */}
+            <button 
+              onClick={() => {
+                console.log('🧪 Manual test button clicked');
+                handleAddBlock('aws-alb');
+              }}
+              className="mt-2 px-4 py-2 bg-red-500 text-white rounded text-sm"
+            >
+              🧪 Test Modal (Manual)
+            </button>
           </div>
           <div className="flex items-center gap-4">
             <div className="text-right">
