@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   Database,
@@ -36,12 +36,12 @@ interface LegoBlock {
 export default function LegoCatalog() {
   console.log('🚀 Infrastructure Catalog: Component mounting');
   console.log('🚀 Infrastructure Catalog: AUTO_CLICK_FIRST_BLOCK =', AUTO_CLICK_FIRST_BLOCK);
-  
+
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProvider, setSelectedProvider] = useState<LegoBlock | null>(null);
-  
+
   const [blocks, setBlocks] = useState<LegoBlock[]>([
     {
       id: 'aws-alb',
@@ -137,16 +137,36 @@ export default function LegoCatalog() {
 
   const categories: TabItem[] = [
     { id: 'all', label: 'All', count: blocks.length },
-    { id: 'compute', label: 'Compute', count: blocks.filter(b => b.category === 'compute').length },
-    { id: 'database', label: 'Database', count: blocks.filter(b => b.category === 'database').length },
-    { id: 'storage', label: 'Storage', count: blocks.filter(b => b.category === 'storage').length },
-    { id: 'network', label: 'Network', count: blocks.filter(b => b.category === 'network').length },
-    { id: 'security', label: 'Security', count: blocks.filter(b => b.category === 'security').length },
+    {
+      id: 'compute',
+      label: 'Compute',
+      count: blocks.filter((b) => b.category === 'compute').length,
+    },
+    {
+      id: 'database',
+      label: 'Database',
+      count: blocks.filter((b) => b.category === 'database').length,
+    },
+    {
+      id: 'storage',
+      label: 'Storage',
+      count: blocks.filter((b) => b.category === 'storage').length,
+    },
+    {
+      id: 'network',
+      label: 'Network',
+      count: blocks.filter((b) => b.category === 'network').length,
+    },
+    {
+      id: 'security',
+      label: 'Security',
+      count: blocks.filter((b) => b.category === 'security').length,
+    },
   ];
 
   const handleAddBlock = (blockId: string) => {
     console.log('handleAddBlock called with blockId:', blockId);
-    const block = blocks.find(b => b.id === blockId);
+    const block = blocks.find((b) => b.id === blockId);
     console.log('Found block:', block);
     if (block) {
       if (block.id === 'aws-alb') {
@@ -156,11 +176,7 @@ export default function LegoCatalog() {
         setIsModalOpen(true);
       } else {
         // Direct add for other blocks
-        setBlocks(prev =>
-          prev.map(b =>
-            b.id === blockId ? { ...b, isAdded: true } : b
-          )
-        );
+        setBlocks((prev) => prev.map((b) => (b.id === blockId ? { ...b, isAdded: true } : b)));
       }
     } else {
       console.log('Block not found for id:', blockId);
@@ -175,16 +191,16 @@ export default function LegoCatalog() {
 
   const handleModalSubmit = async (formData?: any) => {
     if (!selectedProvider) return;
-    
+
     try {
       console.log('Modal submitted for:', selectedProvider.name);
       if (formData) {
         console.log('AWS ALB Form Data:', formData);
       }
-      
+
       // Mark as added after successful submission
-      setBlocks(prev =>
-        prev.map(block =>
+      setBlocks((prev) =>
+        prev.map((block) =>
           block.id === selectedProvider.id ? { ...block, isAdded: true } : block
         )
       );
@@ -195,25 +211,25 @@ export default function LegoCatalog() {
     }
   };
 
-  const filteredBlocks = blocks.filter(block => {
-    const matchesSearch = block.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         block.description.toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredBlocks = blocks.filter((block) => {
+    const matchesSearch =
+      block.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      block.description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || block.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
-  const addedCount = blocks.filter(b => b.isAdded).length;
+  const addedCount = blocks.filter((b) => b.isAdded).length;
 
   // Auto-click the first block on page load using the reusable hook
-  const { triggerAutoClick } = useAutoModalAndFill({
+  useAutoModalAndFill({
     enabled: AUTO_CLICK_FIRST_BLOCK,
     autoClickDelay: 1500, // 1.5 seconds for better responsiveness
     onAutoClick: () => {
       handleAddBlock('aws-alb');
     },
-    debugPrefix: 'Infrastructure Catalog'
+    debugPrefix: 'Infrastructure Catalog',
   });
-
 
   return (
     <div className="h-full flex flex-col">
@@ -222,9 +238,7 @@ export default function LegoCatalog() {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-gray-900">Infrastructure Catalog</h2>
-            <p className="text-gray-600 mt-1">
-              Pre-built, production-ready infrastructure blocks
-            </p>
+            <p className="text-gray-600 mt-1">Pre-built, production-ready infrastructure blocks</p>
           </div>
           <div className="flex items-center gap-4">
             <div className="text-right">
@@ -240,14 +254,17 @@ export default function LegoCatalog() {
         <div className="flex items-center gap-6">
           {/* Search */}
           <div className="relative w-80">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" style={{ color: '#545C66' }} />
+            <Search
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4"
+              style={{ color: '#545C66' }}
+            />
             <input
               type="text"
               placeholder="Search blocks..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-3 focus:outline-none"
-              style={{ 
+              style={{
                 backgroundColor: '#FFFFFF',
                 border: '1px solid #E0E0E0',
                 borderRadius: '6px',
@@ -256,7 +273,7 @@ export default function LegoCatalog() {
                 fontWeight: 400,
                 padding: '0px 8px',
                 paddingLeft: '32px',
-                transition: 'border-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out'
+                transition: 'border-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out',
               }}
               onFocus={(e) => {
                 e.target.style.borderColor = '#959595';
@@ -316,20 +333,13 @@ export default function LegoCatalog() {
 
                   {/* Title and description */}
                   <div className="flex-1 mb-4">
-                    <h3 className="font-semibold text-lg text-gray-900 mb-2">
-                      {block.name}
-                    </h3>
-                    <p className="text-sm text-gray-600 leading-relaxed">
-                      {block.description}
-                    </p>
+                    <h3 className="font-semibold text-lg text-gray-900 mb-2">{block.name}</h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">{block.description}</p>
                   </div>
 
                   {/* Action button */}
                   {!block.isAdded ? (
-                    <button
-                      onClick={() => handleAddBlock(block.id)}
-                      className="w-full demo-button"
-                    >
+                    <button onClick={() => handleAddBlock(block.id)} className="w-full demo-button">
                       <span className="flex items-center justify-center gap-2">
                         <Plus className="w-4 h-4" />
                         Add to Environment
@@ -337,9 +347,7 @@ export default function LegoCatalog() {
                     </button>
                   ) : (
                     <div className="flex items-center justify-center text-sm">
-                      <span className="text-green-600 font-medium">
-                        ✓ Added
-                      </span>
+                      <span className="text-green-600 font-medium">✓ Added</span>
                     </div>
                   )}
                 </div>

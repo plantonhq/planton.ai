@@ -27,7 +27,7 @@ const AwsCredentialFormContent = React.forwardRef<
 >(({ onSubmit, onCancel, initialData, onAnimationComplete }, ref) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [authorizedEnvironments, setAuthorizedEnvironments] = useState<string[]>([]);
-  const { data: jsonData, loading, error } = useAwsCredentialData();
+  const { data: jsonData } = useAwsCredentialData();
 
   const { startAnimation, isAnimating, getFieldValue, isFieldAnimating, isFieldCompleted } =
     useAutoFill();
@@ -376,6 +376,8 @@ const AwsCredentialFormContent = React.forwardRef<
     </div>
   );
 });
+
+AwsCredentialFormContent.displayName = 'AwsCredentialFormContent';
 
 // Main exported component that wraps the form with AutoFillProvider
 export const AwsCredentialForm: React.FC<AwsCredentialFormProps> = (props) => {

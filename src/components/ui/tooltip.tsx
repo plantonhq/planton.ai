@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 
 interface TooltipProps {
   content: string;
@@ -20,7 +20,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   const triggerRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
 
-  const updatePosition = () => {
+  const updatePosition = useCallback(() => {
     if (!triggerRef.current || !tooltipRef.current) return;
 
     const triggerRect = triggerRef.current.getBoundingClientRect();
@@ -51,7 +51,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
     }
 
     setTooltipPosition({ top, left });
-  };
+  }, [position]);
 
   useEffect(() => {
     if (isVisible) {
@@ -67,7 +67,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
         window.removeEventListener('resize', handleResize);
       };
     }
-  }, [isVisible, position]);
+  }, [isVisible, position, updatePosition]);
 
   const handleMouseEnter = () => {
     setIsVisible(true);

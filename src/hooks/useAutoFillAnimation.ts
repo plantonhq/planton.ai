@@ -126,7 +126,7 @@ export const useAutoFillAnimation = (options: AutoFillAnimationOptions = {}) => 
     };
 
     animateNextCharacter();
-  }, [delay, pauseBetweenFields, onComplete, onFieldComplete]);
+  }, [delay, pauseBetweenFields, onComplete, onFieldComplete, isAnimating, onFieldStart]);
 
   const stopAnimation = useCallback(() => {
     if (animationRef.current) {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 
 // Global state to survive component remounting (React Strict Mode)
 // Using actual global variables, not useRef, to persist across remounts
@@ -92,7 +92,7 @@ export const useAutoModalAndFill = (options: AutoModalAndFillOptions): AutoModal
     } catch (error) {
       console.error('Error in manual onAutoClick:', error);
     }
-  }, [onAutoClick, debugPrefix]);
+  }, [onAutoClick]);
 
   return {
     triggerAutoClick,

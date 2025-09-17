@@ -45,7 +45,10 @@ export const AnimatedFormField = React.forwardRef<HTMLDivElement, AnimatedFormFi
   ) => {
     // Safely get the auto-fill context - it might not be available in all forms
     const autoFillContext = useContext(AutoFillContext);
-    const registerFieldRef = autoFillContext?.registerFieldRef || (() => {});
+    const registerFieldRef = React.useMemo(
+      () => autoFillContext?.registerFieldRef || (() => {}),
+      [autoFillContext?.registerFieldRef]
+    );
 
     // Use animated value if available and field is being animated
     const displayValue = isAnimating && animatedValue !== undefined ? animatedValue : value;
@@ -178,3 +181,5 @@ export const AnimatedFormField = React.forwardRef<HTMLDivElement, AnimatedFormFi
     );
   }
 );
+
+AnimatedFormField.displayName = 'AnimatedFormField';

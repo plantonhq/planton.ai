@@ -195,7 +195,7 @@ const StackJobLogger: React.FC<StackJobLoggerProps> = ({
         clearTimeout(animationTimeoutRef.current);
       }
     };
-  }, [stackJobStatus, loading]);
+  }, [stackJobStatus, loading, onAnimationComplete]);
 
   const getStatusIcon = (status?: WorkflowExecutionStatus | string, result?: WorkflowExecutionResult | string) => {
     const statusStr = typeof status === 'string' ? status : WorkflowExecutionStatus[status as WorkflowExecutionStatus];

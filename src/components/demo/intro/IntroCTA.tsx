@@ -2,11 +2,35 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Cloud, Play, Check } from 'lucide-react';
+import { Play, Check } from 'lucide-react';
 
 interface IntroCTAProps {
   onProviderSelect: (provider: string) => void;
 }
+
+// Icon component using real SVG files from planton-cloud
+const ProviderIcon = ({ providerId }: { providerId: string }) => {
+  const getIconPath = (id: string) => {
+    switch (id) {
+      case 'aws':
+        return '/images/resources/aws.svg';
+      case 'gcp':
+        return '/images/resources/gcp.svg';
+      case 'azure':
+        return '/images/resources/azure.svg';
+      default:
+        return '/images/resources/aws.svg';
+    }
+  };
+
+  return (
+    <img 
+      src={getIconPath(providerId)} 
+      alt={`${providerId} icon`}
+      className="w-16 h-16"
+    />
+  );
+};
 
 export default function IntroCTA({ onProviderSelect }: IntroCTAProps) {
   const [selectedProvider, setSelectedProvider] = useState<string>('');
@@ -15,23 +39,17 @@ export default function IntroCTA({ onProviderSelect }: IntroCTAProps) {
     {
       id: 'aws',
       name: 'AWS',
-      color: 'from-orange-500 to-orange-600',
-      bgColor: 'bg-orange-50',
-      borderColor: 'border-orange-200',
+      icon: 'aws',
     },
     {
       id: 'gcp',
       name: 'Google Cloud',
-      color: 'from-blue-500 to-blue-600',
-      bgColor: 'bg-blue-50',
-      borderColor: 'border-blue-200',
+      icon: 'gcp',
     },
     {
       id: 'azure',
       name: 'Azure',
-      color: 'from-sky-500 to-sky-600',
-      bgColor: 'bg-sky-50',
-      borderColor: 'border-sky-200',
+      icon: 'azure',
     },
   ];
 
@@ -84,7 +102,7 @@ export default function IntroCTA({ onProviderSelect }: IntroCTAProps) {
               }`}
             >
               <div
-                className={`${provider.bgColor} ${provider.borderColor} border-2 rounded-2xl p-8 ${
+                className={`bg-white border border-gray-200 rounded-2xl p-8 demo-card-shadow hover:demo-card-hover transition-all duration-200 ${
                   selectedProvider === provider.id
                     ? 'ring-4 ring-offset-2 ring-violet-500'
                     : ''
@@ -101,10 +119,8 @@ export default function IntroCTA({ onProviderSelect }: IntroCTAProps) {
                 )}
 
                 <div className="flex flex-col items-center gap-4">
-                  <div
-                    className={`w-20 h-20 bg-gradient-to-br ${provider.color} rounded-2xl flex items-center justify-center shadow-lg`}
-                  >
-                    <Cloud className="w-10 h-10 text-white" />
+                  <div className="w-20 h-20 bg-white rounded-xl flex items-center justify-center shadow-sm">
+                    <ProviderIcon providerId={provider.icon} />
                   </div>
                   <h3 className="font-bold text-lg text-gray-900">{provider.name}</h3>
                 </div>

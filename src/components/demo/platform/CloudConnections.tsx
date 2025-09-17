@@ -179,7 +179,7 @@ export default function CloudConnections() {
   const connectedCount = providers.filter(p => p.isConnected).length;
 
   // Auto-click the first card on page load using the reusable hook
-  const { triggerAutoClick } = useAutoModalAndFill({
+  useAutoModalAndFill({
     enabled: AUTO_CLICK_FIRST_CARD,
     autoClickDelay: 1500, // 1.5 seconds for better responsiveness
     onAutoClick: () => {
