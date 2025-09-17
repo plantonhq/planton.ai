@@ -1,7 +1,6 @@
-import { createCredentialModal } from './CredentialModalFactory';
+import { createFormModal } from './FormModalFactory';
 import { AwsAlbForm } from '../forms';
 
-export const AwsAlbModal = createCredentialModal(
-  AwsAlbForm,
-  'AWS ALB Configuration'
+export const AwsAlbModal = createFormModal(
+  AwsAlbForm
 );

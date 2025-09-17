@@ -5,7 +5,7 @@
 
 // Core modal components
 export { CredentialModal } from './CredentialModal';
-export { CredentialModalFactory, createCredentialModal } from './CredentialModalFactory';
+export { FormModalFactory, createFormModal } from './FormModalFactory';
 export { FormModalRegistry } from './FormModalRegistry';
 
 

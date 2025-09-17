@@ -225,13 +225,6 @@ export default function LegoCatalog() {
             <p className="text-gray-600 mt-1">
               Pre-built, production-ready infrastructure blocks
             </p>
-            {/* Debug button */}
-            <button
-              onClick={triggerAutoClick}
-              className="mt-2 px-4 py-2 bg-red-500 text-white rounded text-sm"
-            >
-              🧪 Test Modal (Manual)
-            </button>
           </div>
           <div className="flex items-center gap-4">
             <div className="text-right">
@@ -369,17 +362,6 @@ export default function LegoCatalog() {
           isOpen={isModalOpen}
           onClose={handleModalClose}
           onSubmit={handleModalSubmit}
-          providerName={selectedProvider.name}
-          providerDescription={selectedProvider.description}
-          providerIcon={
-            <div className="w-6 h-6 bg-white rounded flex items-center justify-center shadow-sm">
-              <img 
-                src="/images/resources/aws.svg" 
-                alt="AWS icon"
-                className="w-4 h-4"
-              />
-            </div>
-          }
         />
       )}
     </div>

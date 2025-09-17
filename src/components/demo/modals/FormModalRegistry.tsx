@@ -3,16 +3,13 @@
 import React from 'react';
 import { AwsCredentialModal } from './AwsCredentialModal';
 import { AwsAlbModal } from './AwsAlbModal';
-import { CredentialModalFactory } from './CredentialModalFactory';
+import { FormModalFactory } from './FormModalFactory';
 
 interface FormModalRegistryProps {
   providerId: string;
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (data: any) => void;
-  providerName: string;
-  providerDescription: string;
-  providerIcon?: React.ReactNode;
   initialData?: any;
 }
 
@@ -30,22 +27,16 @@ export const FormModalRegistry: React.FC<FormModalRegistryProps> = ({
   isOpen,
   onClose,
   onSubmit,
-  providerName,
-  providerDescription,
-  providerIcon,
   initialData,
 }) => {
   // Check if provider is supported
   if (!(providerId in FORM_MODALS)) {
     // Fallback to generic modal with placeholder content
     return (
-      <CredentialModalFactory
+      <FormModalFactory
         isOpen={isOpen}
         onClose={onClose}
         onSubmit={onSubmit}
-        providerName={providerName}
-        providerDescription={providerDescription}
-        providerIcon={providerIcon}
         FormComponent={({ onSubmit, onCancel }) => (
           <div className="h-full flex flex-col">
             <div className="bg-white border-b border-gray-200 px-6 py-4 flex-shrink-0">
@@ -53,10 +44,16 @@ export const FormModalRegistry: React.FC<FormModalRegistryProps> = ({
                 <div className="flex items-center gap-3">
                   <div className="w-6 h-6 bg-gray-600 rounded flex items-center justify-center">
                     <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      <path
+                        fillRule="evenodd"
+                        d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                   </div>
-                  <h1 className="text-xl font-semibold text-gray-900">Create {providerName} Credentials</h1>
+                  <h1 className="text-xl font-semibold text-gray-900">
+                    Create {providerId} Credentials
+                  </h1>
                 </div>
                 <div className="flex items-center gap-3">
                   <button
@@ -80,9 +77,13 @@ export const FormModalRegistry: React.FC<FormModalRegistryProps> = ({
               <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                 <div className="flex items-center gap-2">
                   <svg className="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                    <path
+                      fillRule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                      clipRule="evenodd"
+                    />
                   </svg>
-                  <p className="text-gray-800 font-medium">{providerName} Credential Form</p>
+                  <p className="text-gray-800 font-medium">{providerId} Credential Form</p>
                 </div>
                 <p className="text-gray-700 text-sm mt-1">
                   This provider is not yet implemented. The credential form will be added here.
@@ -91,7 +92,6 @@ export const FormModalRegistry: React.FC<FormModalRegistryProps> = ({
             </div>
           </div>
         )}
-        title={`Create ${providerName} Credentials`}
       />
     );
   }
@@ -104,9 +104,6 @@ export const FormModalRegistry: React.FC<FormModalRegistryProps> = ({
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={onSubmit}
-      providerName={providerName}
-      providerDescription={providerDescription}
-      providerIcon={providerIcon}
       initialData={initialData}
     />
   );

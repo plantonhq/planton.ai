@@ -10,7 +10,7 @@ The modal system is built with a layered architecture for maximum reusability:
 ┌─────────────────────────────────────────────────────────┐
 │ FormModalRegistry (Entry Point)                  │
 ├─────────────────────────────────────────────────────────┤
-│ CredentialModalFactory (Factory Pattern)               │
+│ FormModalFactory (Factory Pattern)               │
 ├─────────────────────────────────────────────────────────┤
 │ CredentialModal (Base Modal)                           │
 ├─────────────────────────────────────────────────────────┤
@@ -48,9 +48,9 @@ interface CredentialModalProps {
 }
 ```
 
-### CredentialModalFactory
+### FormModalFactory
 
-A factory component that creates modals for any credential form.
+A factory component that creates modals for any form.
 
 **Features:**
 
@@ -62,14 +62,14 @@ A factory component that creates modals for any credential form.
 **Props:**
 
 ```typescript
-interface CredentialModalFactoryProps {
+interface FormModalFactoryProps {
   isOpen: boolean; // Controls modal visibility
   onClose: () => void; // Called when modal should close
   onSubmit: (data: any) => void; // Called with form data on submit
   providerName: string; // Provider name
   providerDescription: string; // Provider description
   providerIcon?: React.ReactNode; // Provider icon component
-  FormComponent: React.ComponentType<CredentialFormProps>; // Form component
+  FormComponent: React.ComponentType<FormProps>; // Form component
   formProps?: any; // Props to pass to form component
   title?: string; // Optional custom title
   submitLabel?: string; // Custom submit button text
@@ -171,9 +171,9 @@ import { AwsCredentialModal } from '../modals';
 ### Using the Factory
 
 ```typescript
-import { CredentialModalFactory } from '../modals';
+import { FormModalFactory } from '../modals';
 
-<CredentialModalFactory
+<FormModalFactory
   isOpen={isModalOpen}
   onClose={() => setIsModalOpen(false)}
   onSubmit={(data) => handleCredentials(data)}
@@ -221,7 +221,7 @@ const NewProviderCredentialForm: React.FC<{
 
 ```typescript
 // NewProviderCredentialModal.tsx
-import { CredentialModalFactory } from './CredentialModalFactory';
+import { FormModalFactory } from './FormModalFactory';
 import { NewProviderCredentialForm } from './NewProviderCredentialForm';
 
 export const NewProviderCredentialModal: React.FC<{
@@ -242,7 +242,7 @@ export const NewProviderCredentialModal: React.FC<{
   initialData,
 }) => {
   return (
-    <CredentialModalFactory
+    <FormModalFactory
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={onSubmit}
@@ -281,7 +281,7 @@ export { NewProviderCredentialModal } from './NewProviderCredentialModal';
 ```
 modals/
 ├── CredentialModal.tsx              # Base modal component
-├── CredentialModalFactory.tsx       # Factory for creating modals
+├── FormModalFactory.tsx       # Factory for creating modals
 ├── FormModalRegistry.tsx      # Registry for provider selection
 ├── withCredentialModal.tsx          # Higher-order component
 ├── AwsCredentialModal.tsx           # AWS-specific modal

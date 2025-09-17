@@ -199,13 +199,6 @@ export default function CloudConnections() {
             <p className="text-gray-600 mt-1">
               Connect your cloud providers to start deploying infrastructure
             </p>
-            {/* Debug button */}
-        <button 
-          onClick={triggerAutoClick}
-          className="mt-2 px-4 py-2 bg-red-500 text-white rounded text-sm"
-        >
-          🧪 Test Modal (Manual)
-        </button>
           </div>
           <div className="flex items-center gap-4">
             <div className="text-right">
@@ -330,9 +323,6 @@ export default function CloudConnections() {
         isOpen={isModalOpen && !!selectedProvider}
         onClose={handleModalClose}
         onSubmit={handleModalSubmit}
-        providerName={selectedProvider?.name || ''}
-        providerDescription={selectedProvider?.description || ''}
-        providerIcon={selectedProvider ? <ProviderIcon providerId={selectedProvider.icon} /> : undefined}
       />
     </div>
   );
