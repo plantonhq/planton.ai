@@ -3,7 +3,9 @@
 import { useEffect, useRef, useCallback } from 'react';
 
 // Global state to survive component remounting (React Strict Mode)
-// Using the same pattern as the working implementation
+// Using actual global variables, not useRef, to persist across remounts
+let globalAutoClickTimer: NodeJS.Timeout | null = null;
+let globalAutoClickExecuted = false;
 
 interface AutoModalAndFillOptions {
   /** Whether to enable auto modal open functionality */
@@ -47,44 +49,61 @@ export const useAutoModalAndFill = (options: AutoModalAndFillOptions): AutoModal
     debugPrefix = 'Auto Modal & Fill'
   } = options;
 
-  // Global state to survive component remounting (React Strict Mode)
-  // Using the same pattern as the working implementation
-  const globalAutoClickTimer = useRef<NodeJS.Timeout | null>(null);
-  const globalAutoClickExecuted = useRef(false);
-
-  // Auto-click functionality - exact same logic as working implementation
+  // Auto-click functionality with comprehensive iOS debugging
   useEffect(() => {
-    if (enabled && !globalAutoClickExecuted.current && !globalAutoClickTimer.current) {
-      globalAutoClickExecuted.current = true; // Mark as triggered to prevent multiple timers
+    console.log('🍎 iOS DEBUG - useAutoModalAndFill: useEffect triggered');
+    console.log('🍎 iOS DEBUG - enabled:', enabled);
+    console.log('🍎 iOS DEBUG - globalAutoClickExecuted:', globalAutoClickExecuted);
+    console.log('🍎 iOS DEBUG - globalAutoClickTimer exists:', !!globalAutoClickTimer);
+    console.log('🍎 iOS DEBUG - debugPrefix:', debugPrefix);
+    console.log('🍎 iOS DEBUG - User Agent:', navigator.userAgent);
+    console.log('🍎 iOS DEBUG - isIOS:', /iPad|iPhone|iPod/.test(navigator.userAgent));
+    
+    if (enabled && !globalAutoClickExecuted && !globalAutoClickTimer) {
+      console.log('🍎 iOS DEBUG - Setting up auto-click timer with delay:', autoClickDelay, 'ms');
+      globalAutoClickExecuted = true; // Mark as triggered to prevent multiple timers
       
-      globalAutoClickTimer.current = setTimeout(() => {
+      globalAutoClickTimer = setTimeout(() => {
+        console.log('🍎 iOS DEBUG - Auto-click timer fired!');
+        console.log('🍎 iOS DEBUG - Timer fired at:', new Date().toISOString());
         try {
           onAutoClick();
+          console.log('🍎 iOS DEBUG - onAutoClick called successfully');
         } catch (error) {
-          console.error(`Error calling onAutoClick:`, error);
+          console.error('🍎 iOS DEBUG - Error calling onAutoClick:', error);
+          console.error('🍎 iOS DEBUG - Error stack:', error instanceof Error ? error.stack : 'No stack trace');
         }
-        globalAutoClickTimer.current = null; // Clear the global timer
+        globalAutoClickTimer = null; // Clear the global timer
       }, autoClickDelay);
+    } else {
+      console.log('🍎 iOS DEBUG - Auto-click conditions not met');
+      console.log('🍎 iOS DEBUG - enabled:', enabled, 'executed:', globalAutoClickExecuted, 'timer exists:', !!globalAutoClickTimer);
     }
   }, [enabled, autoClickDelay, onAutoClick, debugPrefix]);
 
   // Reset global state when component unmounts
   useEffect(() => {
     return () => {
-      globalAutoClickExecuted.current = false;
-      if (globalAutoClickTimer.current) {
-        clearTimeout(globalAutoClickTimer.current);
-        globalAutoClickTimer.current = null;
+      console.log('🍎 iOS DEBUG - useAutoModalAndFill: Component unmounting, resetting global state');
+      globalAutoClickExecuted = false;
+      if (globalAutoClickTimer) {
+        clearTimeout(globalAutoClickTimer);
+        globalAutoClickTimer = null;
       }
     };
   }, [debugPrefix]);
 
   // Manual trigger function for testing
   const triggerAutoClick = useCallback(() => {
+    console.log('🍎 iOS DEBUG - Manual triggerAutoClick called');
+    console.log('🍎 iOS DEBUG - User Agent:', navigator.userAgent);
+    console.log('🍎 iOS DEBUG - isIOS:', /iPad|iPhone|iPod/.test(navigator.userAgent));
     try {
       onAutoClick();
+      console.log('🍎 iOS DEBUG - Manual onAutoClick called successfully');
     } catch (error) {
-      console.error(`Error in manual onAutoClick:`, error);
+      console.error('🍎 iOS DEBUG - Error in manual onAutoClick:', error);
+      console.error('🍎 iOS DEBUG - Error stack:', error instanceof Error ? error.stack : 'No stack trace');
     }
   }, [onAutoClick, debugPrefix]);
 

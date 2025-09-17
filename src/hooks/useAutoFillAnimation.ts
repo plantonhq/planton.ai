@@ -34,7 +34,14 @@ export const useAutoFillAnimation = (options: AutoFillAnimationOptions = {}) => 
   const fieldOrderRef = useRef<FieldConfig[]>([]);
 
   const startAnimation = useCallback((fields: FieldConfig[]) => {
+    console.log('🍎 iOS DEBUG - useAutoFillAnimation: startAnimation called');
+    console.log('🍎 iOS DEBUG - Fields received:', fields.length, 'fields');
+    console.log('🍎 iOS DEBUG - Current isAnimating state:', isAnimating);
+    console.log('🍎 iOS DEBUG - User Agent:', navigator.userAgent);
+    console.log('🍎 iOS DEBUG - isIOS:', /iPad|iPhone|iPod/.test(navigator.userAgent));
+    
     if (isAnimating) {
+      console.log('🍎 iOS DEBUG - Already animating, skipping');
       return;
     }
 
@@ -42,6 +49,9 @@ export const useAutoFillAnimation = (options: AutoFillAnimationOptions = {}) => 
     const sortedFields = [...fields].sort((a, b) => a.order - b.order);
     fieldOrderRef.current = sortedFields;
 
+    console.log('🍎 iOS DEBUG - Sorted fields:', sortedFields);
+    console.log('🍎 iOS DEBUG - Setting isAnimating to true');
+    
     setIsAnimating(true);
     setCompletedFields(new Set());
     setFieldValues({});
@@ -50,8 +60,12 @@ export const useAutoFillAnimation = (options: AutoFillAnimationOptions = {}) => 
     let currentCharIndex = 0;
 
     const animateNextCharacter = () => {
+      console.log('🍎 iOS DEBUG - animateNextCharacter called');
+      console.log('🍎 iOS DEBUG - currentFieldIndex:', currentFieldIndex, 'total fields:', sortedFields.length);
+      
       if (currentFieldIndex >= sortedFields.length) {
         // Animation complete
+        console.log('🍎 iOS DEBUG - Animation complete! All fields processed');
         setIsAnimating(false);
         setCurrentField(null);
         onComplete?.();
@@ -60,6 +74,10 @@ export const useAutoFillAnimation = (options: AutoFillAnimationOptions = {}) => 
 
       const field = sortedFields[currentFieldIndex];
       const fieldValue = field.value;
+      
+      console.log('🍎 iOS DEBUG - Processing field:', field.name);
+      console.log('🍎 iOS DEBUG - Field value:', fieldValue, 'type:', typeof fieldValue);
+      console.log('🍎 iOS DEBUG - currentCharIndex:', currentCharIndex);
 
       if (currentCharIndex === 0) {
         // Starting new field
@@ -87,12 +105,15 @@ export const useAutoFillAnimation = (options: AutoFillAnimationOptions = {}) => 
       if (typeof fieldValue === 'string' && currentCharIndex < fieldValue.length) {
         // Add next character
         const newValue = fieldValue.substring(0, currentCharIndex + 1);
+        console.log('🍎 iOS DEBUG - Setting field value:', field.name, '=', newValue);
         setFieldValues(prev => ({ ...prev, [field.name]: newValue }));
         currentCharIndex++;
 
+        console.log('🍎 iOS DEBUG - Scheduling next character in', delay, 'ms');
         animationRef.current = setTimeout(animateNextCharacter, delay);
       } else {
         // Field complete
+        console.log('🍎 iOS DEBUG - Field complete:', field.name);
         setCompletedFields(prev => new Set([...prev, field.name]));
         onFieldComplete?.(field.name);
         

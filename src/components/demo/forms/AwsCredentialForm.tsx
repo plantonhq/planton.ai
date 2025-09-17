@@ -44,6 +44,13 @@ const AwsCredentialFormContent = React.forwardRef<
 
   // Auto-start animation when data is loaded (only once)
   useEffect(() => {
+    console.log('🍎 iOS DEBUG - AWS Credential Form: useEffect triggered');
+    console.log('🍎 iOS DEBUG - jsonData exists:', !!jsonData);
+    console.log('🍎 iOS DEBUG - hasAnimationStarted:', hasAnimationStartedRef.current);
+    console.log('🍎 iOS DEBUG - User Agent:', navigator.userAgent);
+    console.log('🍎 iOS DEBUG - Platform:', navigator.platform);
+    console.log('🍎 iOS DEBUG - isIOS:', /iPad|iPhone|iPod/.test(navigator.userAgent));
+    
     if (jsonData && !hasAnimationStartedRef.current) {
       hasAnimationStartedRef.current = true;
       
@@ -51,7 +58,13 @@ const AwsCredentialFormContent = React.forwardRef<
       // This helps with the race condition between auto-click and auto-fill
       const animationDelay = Math.max(CURRENT_PRESET.autoStartDelay, 2000); // Use at least 2 seconds to ensure modal is ready
       
+      console.log('🍎 iOS DEBUG - Setting up auto-fill timer with delay:', animationDelay, 'ms');
+      console.log('🍎 iOS DEBUG - Current time:', new Date().toISOString());
+      
       const timer = setTimeout(() => {
+        console.log('🍎 iOS DEBUG - TIMER FIRED! Starting auto-fill animation...');
+        console.log('🍎 iOS DEBUG - Timer fired at:', new Date().toISOString());
+        
         const fields = [
           { name: 'metadata.name', value: jsonData.metadata.name || '', order: 1 },
           { name: 'metadata.slug', value: jsonData.metadata.slug || '', order: 2 },
@@ -63,14 +76,27 @@ const AwsCredentialFormContent = React.forwardRef<
           { name: 'authorizedEnvironments.app-prod', value: true, order: 8 },
         ];
 
+        console.log('🍎 iOS DEBUG - Prepared fields for animation:', fields.length, 'fields');
+        console.log('🍎 iOS DEBUG - Fields data:', fields);
+        
         try {
+          console.log('🍎 iOS DEBUG - Calling startAnimation...');
           startAnimation(fields);
+          console.log('🍎 iOS DEBUG - startAnimation called successfully');
         } catch (error) {
-          console.error('Error calling startAnimation:', error);
+          console.error('🍎 iOS DEBUG - Error calling startAnimation:', error);
+          console.error('🍎 iOS DEBUG - Error stack:', error instanceof Error ? error.stack : 'No stack trace');
         }
       }, animationDelay);
 
-      return () => clearTimeout(timer);
+      return () => {
+        console.log('🍎 iOS DEBUG - Cleaning up auto-fill timer');
+        clearTimeout(timer);
+      };
+    } else {
+      console.log('🍎 iOS DEBUG - Auto-fill conditions not met');
+      console.log('🍎 iOS DEBUG - jsonData exists:', !!jsonData);
+      console.log('🍎 iOS DEBUG - hasAnimationStarted:', hasAnimationStartedRef.current);
     }
   }, [jsonData, startAnimation]);
 
