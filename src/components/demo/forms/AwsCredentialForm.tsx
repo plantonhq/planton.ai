@@ -24,35 +24,14 @@ interface AwsCredentialFormContentProps extends AwsCredentialFormProps {
 const AwsCredentialFormContent = React.forwardRef<
   { handleAnimationComplete: () => void; handleFieldComplete: (fieldName: string) => void },
   AwsCredentialFormContentProps
->(({
-  onSubmit,
-  onCancel,
-  initialData,
-  onAnimationComplete,
-}, ref) => {
+>(({ onSubmit, onCancel, initialData, onAnimationComplete }, ref) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [authorizedEnvironments, setAuthorizedEnvironments] = useState<string[]>([]);
   const { data: jsonData, loading, error } = useAwsCredentialData();
-  
-  // Debug data loading
-  console.log('🍎 iOS DEBUG - AWS Credential Form: Data loading state');
-  console.log('🍎 iOS DEBUG - jsonData:', jsonData);
-  console.log('🍎 iOS DEBUG - loading:', loading);
-  console.log('🍎 iOS DEBUG - error:', error);
-  
-  // Monitor data changes
-  useEffect(() => {
-    console.log('🍎 iOS DEBUG - AWS Credential Form: Data changed');
-    console.log('🍎 iOS DEBUG - jsonData changed:', !!jsonData);
-    console.log('🍎 iOS DEBUG - loading changed:', loading);
-    if (jsonData) {
-      console.log('🍎 iOS DEBUG - jsonData content:', jsonData);
-    }
-  }, [jsonData, loading]);
-  
-  const { startAnimation, isAnimating, getFieldValue, isFieldAnimating, isFieldCompleted } = useAutoFill();
-  
-  
+
+  const { startAnimation, isAnimating, getFieldValue, isFieldAnimating, isFieldCompleted } =
+    useAutoFill();
+
   const appDevRef = React.useRef<HTMLDivElement>(null);
   const appProdRef = React.useRef<HTMLDivElement>(null);
 
@@ -62,39 +41,27 @@ const AwsCredentialFormContent = React.forwardRef<
 
   // Auto-start animation when data is loaded (only once)
   useEffect(() => {
-    console.log('🍎 iOS DEBUG - AWS Credential Form: useEffect triggered');
-    console.log('🍎 iOS DEBUG - jsonData exists:', !!jsonData);
-    console.log('🍎 iOS DEBUG - hasAnimationStarted:', hasAnimationStartedRef.current);
-    console.log('🍎 iOS DEBUG - User Agent:', navigator.userAgent);
-    console.log('🍎 iOS DEBUG - Platform:', navigator.platform);
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                  /iPad|iPhone|iPod/.test(navigator.platform) ||
-                  (navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform));
-    console.log('🍎 iOS DEBUG - isIOS:', isIOS);
-    console.log('🍎 iOS DEBUG - userAgent:', navigator.userAgent);
-    console.log('🍎 iOS DEBUG - platform:', navigator.platform);
-    console.log('🍎 iOS DEBUG - maxTouchPoints:', navigator.maxTouchPoints);
-    
+    const isIOS =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      /iPad|iPhone|iPod/.test(navigator.platform) ||
+      (navigator.maxTouchPoints &&
+        navigator.maxTouchPoints > 2 &&
+        /MacIntel/.test(navigator.platform));
+
     if (jsonData && !hasAnimationStartedRef.current) {
       hasAnimationStartedRef.current = true;
-      
+
       // iOS-specific timing adjustments
       const baseDelay = Math.max(CURRENT_PRESET.autoStartDelay, 2000);
       const animationDelay = isIOS ? baseDelay + 2000 : baseDelay; // Extra 2 seconds for iOS
-      
-      console.log('🍎 iOS DEBUG - Setting up auto-fill timer with delay:', animationDelay, 'ms');
-      console.log('🍎 iOS DEBUG - Current time:', new Date().toISOString());
-      
+
       // Clear any existing timer
       if (animationTimerRef.current) {
         clearTimeout(animationTimerRef.current);
         animationTimerRef.current = null;
       }
-      
+
       animationTimerRef.current = setTimeout(() => {
-        console.log('🍎 iOS DEBUG - TIMER FIRED! Starting auto-fill animation...');
-        console.log('🍎 iOS DEBUG - Timer fired at:', new Date().toISOString());
-        
         const fields = [
           { name: 'metadata.name', value: jsonData.metadata.name || '', order: 1 },
           { name: 'metadata.slug', value: jsonData.metadata.slug || '', order: 2 },
@@ -106,43 +73,30 @@ const AwsCredentialFormContent = React.forwardRef<
           { name: 'authorizedEnvironments.app-prod', value: true, order: 8 },
         ];
 
-        console.log('🍎 iOS DEBUG - Prepared fields for animation:', fields.length, 'fields');
-        console.log('🍎 iOS DEBUG - Fields data:', fields);
-        
         try {
-          console.log('🍎 iOS DEBUG - Calling startAnimation...');
           startAnimation(fields);
-          console.log('🍎 iOS DEBUG - startAnimation called successfully');
         } catch (error) {
-          console.error('🍎 iOS DEBUG - Error calling startAnimation:', error);
-          console.error('🍎 iOS DEBUG - Error stack:', error instanceof Error ? error.stack : 'No stack trace');
+          console.error('Error calling startAnimation:', error);
         }
-        
+
         // Clear the timer reference after it fires
         animationTimerRef.current = null;
       }, animationDelay);
 
       // Don't clean up the timer in the return function - let it fire
       return () => {
-        console.log('🍎 iOS DEBUG - useEffect cleanup - NOT clearing timer to let it fire');
+        // Timer will fire even if component unmounts
       };
     } else if (!jsonData && !hasAnimationStartedRef.current) {
       // Data not loaded yet, set up a retry mechanism
-      console.log('🍎 iOS DEBUG - Data not loaded yet, setting up retry mechanism...');
       const retryDelay = isIOS ? 1000 : 500; // Longer retry delay for iOS
       const retryTimer = setTimeout(() => {
-        console.log('🍎 iOS DEBUG - Retry timer fired, checking data again...');
         // This will trigger the useEffect again when jsonData becomes available
       }, retryDelay);
-      
+
       return () => {
-        console.log('🍎 iOS DEBUG - Cleaning up retry timer');
         clearTimeout(retryTimer);
       };
-    } else {
-      console.log('🍎 iOS DEBUG - Auto-fill conditions not met');
-      console.log('🍎 iOS DEBUG - jsonData exists:', !!jsonData);
-      console.log('🍎 iOS DEBUG - hasAnimationStarted:', hasAnimationStartedRef.current);
     }
   }, [jsonData, startAnimation]);
 
@@ -171,10 +125,10 @@ const AwsCredentialFormContent = React.forwardRef<
   // The animation system will fill the data when the user clicks "Auto Fill"
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => {
+    setFormData((prev) => {
       const newData = { ...prev };
       const keys = field.split('.');
-      
+
       if (keys.length === 2) {
         // Handle nested fields like 'metadata.name' or 'spec.accountId'
         const [parent, child] = keys;
@@ -183,13 +137,13 @@ const AwsCredentialFormContent = React.forwardRef<
           [child]: value,
         } as any;
       }
-      
+
       return newData;
     });
   };
 
   const handleMetadataNameChange = useCallback((value: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       metadata: {
         ...prev.metadata,
@@ -199,7 +153,7 @@ const AwsCredentialFormContent = React.forwardRef<
   }, []);
 
   const handleMetadataSlugChange = useCallback((value: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       metadata: {
         ...prev.metadata,
@@ -209,9 +163,9 @@ const AwsCredentialFormContent = React.forwardRef<
   }, []);
 
   const handleEnvironmentToggle = (environment: string) => {
-    setAuthorizedEnvironments(prev => {
+    setAuthorizedEnvironments((prev) => {
       if (prev.includes(environment)) {
-        return prev.filter(env => env !== environment);
+        return prev.filter((env) => env !== environment);
       } else {
         return [...prev, environment];
       }
@@ -220,7 +174,7 @@ const AwsCredentialFormContent = React.forwardRef<
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     setIsSubmitting(true);
     try {
       // Include authorized environments in the form data
@@ -234,12 +188,10 @@ const AwsCredentialFormContent = React.forwardRef<
     }
   };
 
-
-
   // Handle animation completion by updating the actual form data
   const handleAnimationCompleteInternal = useCallback(() => {
     if (jsonData) {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
         metadata: {
           ...prev.metadata,
@@ -254,7 +206,7 @@ const AwsCredentialFormContent = React.forwardRef<
           secretAccessKey: jsonData.spec.secretAccessKey || prev.spec.secretAccessKey,
         },
       }));
-      
+
       // Set authorized environments
       setAuthorizedEnvironments(['app-dev', 'app-prod']);
     }
@@ -262,41 +214,44 @@ const AwsCredentialFormContent = React.forwardRef<
   }, [jsonData, onAnimationComplete]);
 
   // Handle field completion during animation to update form data in real-time
-  const handleFieldComplete = useCallback((fieldName: string) => {
-    if (jsonData) {
-      const keys = fieldName.split('.');
-      if (keys.length === 2) {
-        const [parent, child] = keys;
-        let value = '';
-        
-        if (parent === 'metadata') {
-          value = jsonData.metadata[child as keyof typeof jsonData.metadata] as string || '';
-        } else if (parent === 'spec') {
-          value = jsonData.spec[child as keyof typeof jsonData.spec] as string || '';
-        }
-        
-        if (value) {
-          setFormData(prev => {
-            const newData = { ...prev };
-            newData[parent as keyof AwsCredential] = {
-              ...newData[parent as keyof AwsCredential],
-              [child]: value,
-            } as any;
-            return newData;
+  const handleFieldComplete = useCallback(
+    (fieldName: string) => {
+      if (jsonData) {
+        const keys = fieldName.split('.');
+        if (keys.length === 2) {
+          const [parent, child] = keys;
+          let value = '';
+
+          if (parent === 'metadata') {
+            value = (jsonData.metadata[child as keyof typeof jsonData.metadata] as string) || '';
+          } else if (parent === 'spec') {
+            value = (jsonData.spec[child as keyof typeof jsonData.spec] as string) || '';
+          }
+
+          if (value) {
+            setFormData((prev) => {
+              const newData = { ...prev };
+              newData[parent as keyof AwsCredential] = {
+                ...newData[parent as keyof AwsCredential],
+                [child]: value,
+              } as any;
+              return newData;
+            });
+          }
+        } else if (keys.length === 3 && keys[0] === 'authorizedEnvironments') {
+          // Handle checkbox fields like 'authorizedEnvironments.app-dev'
+          const environment = keys[2];
+          setAuthorizedEnvironments((prev) => {
+            if (!prev.includes(environment)) {
+              return [...prev, environment];
+            }
+            return prev;
           });
         }
-      } else if (keys.length === 3 && keys[0] === 'authorizedEnvironments') {
-        // Handle checkbox fields like 'authorizedEnvironments.app-dev'
-        const environment = keys[2];
-        setAuthorizedEnvironments(prev => {
-          if (!prev.includes(environment)) {
-            return [...prev, environment];
-          }
-          return prev;
-        });
       }
-    }
-  }, [jsonData]);
+    },
+    [jsonData]
+  );
 
   // Expose the completion handlers to parent
   React.useImperativeHandle(ref, () => ({
@@ -320,11 +275,7 @@ const AwsCredentialFormContent = React.forwardRef<
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-6 h-6 bg-white rounded flex items-center justify-center shadow-sm">
-                <img 
-                  src="/images/resources/aws.svg" 
-                  alt="AWS icon"
-                  className="w-4 h-4"
-                />
+                <img src="/images/resources/aws.svg" alt="AWS icon" className="w-4 h-4" />
               </div>
               <h1 className="text-xl font-semibold text-gray-900">Create AWS Credentials</h1>
             </div>
@@ -343,9 +294,24 @@ const AwsCredentialFormContent = React.forwardRef<
               >
                 {isSubmitting ? (
                   <>
-                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <svg
+                      className="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
                     </svg>
                     Creating...
                   </>
@@ -360,52 +326,52 @@ const AwsCredentialFormContent = React.forwardRef<
         {/* Scrollable Content Area */}
         <div className="flex-1 overflow-y-auto">
           <div className="p-6 pb-12 space-y-6">
-              {/* Metadata Section */}
-              <AccordionSection title="Metadata">
-                <MetadataSection
-                  name={formData.metadata.name}
-                  slug={formData.metadata.slug}
-                  onNameChange={handleMetadataNameChange}
-                  onSlugChange={handleMetadataSlugChange}
-                  nameHelpText={helpTextMapping['metadata.name']}
-                />
-              </AccordionSection>
+            {/* Metadata Section */}
+            <AccordionSection title="Metadata">
+              <MetadataSection
+                name={formData.metadata.name}
+                slug={formData.metadata.slug}
+                onNameChange={handleMetadataNameChange}
+                onSlugChange={handleMetadataSlugChange}
+                nameHelpText={helpTextMapping['metadata.name']}
+              />
+            </AccordionSection>
 
-              {/* AWS Account Details Section */}
-              <AccordionSection title="AWS Account Details">
-                <AwsCredentialFormElements
-                  formData={formData}
-                  onInputChange={handleInputChange}
-                  helpTextMapping={helpTextMapping}
-                />
-              </AccordionSection>
+            {/* AWS Account Details Section */}
+            <AccordionSection title="AWS Account Details">
+              <AwsCredentialFormElements
+                formData={formData}
+                onInputChange={handleInputChange}
+                helpTextMapping={helpTextMapping}
+              />
+            </AccordionSection>
 
-              {/* Authorized Environments Section */}
-              <AccordionSection title="Authorized Environments">
-                <div className="space-y-3">
-                  {['app-dev', 'app-prod'].map((environment) => (
-                    <AnimatedFormField
-                      key={environment}
-                      ref={environment === 'app-dev' ? appDevRef : appProdRef}
-                      label={environment}
-                      value={authorizedEnvironments.includes(environment)}
-                      onChange={(checked) => {
-                        if (typeof checked === 'boolean') {
-                          handleEnvironmentToggle(environment);
-                        }
-                      }}
-                      type="checkbox"
-                      fieldName={`authorizedEnvironments.${environment}`}
-                      isAnimating={isAnimating}
-                      isCurrentField={isFieldAnimating(`authorizedEnvironments.${environment}`)}
-                      isCompleted={isFieldCompleted(`authorizedEnvironments.${environment}`)}
-                      animatedValue={getFieldValue(`authorizedEnvironments.${environment}`)}
-                    />
-                  ))}
-                </div>
-              </AccordionSection>
-            </div>
+            {/* Authorized Environments Section */}
+            <AccordionSection title="Authorized Environments">
+              <div className="space-y-3">
+                {['app-dev', 'app-prod'].map((environment) => (
+                  <AnimatedFormField
+                    key={environment}
+                    ref={environment === 'app-dev' ? appDevRef : appProdRef}
+                    label={environment}
+                    value={authorizedEnvironments.includes(environment)}
+                    onChange={(checked) => {
+                      if (typeof checked === 'boolean') {
+                        handleEnvironmentToggle(environment);
+                      }
+                    }}
+                    type="checkbox"
+                    fieldName={`authorizedEnvironments.${environment}`}
+                    isAnimating={isAnimating}
+                    isCurrentField={isFieldAnimating(`authorizedEnvironments.${environment}`)}
+                    isCompleted={isFieldCompleted(`authorizedEnvironments.${environment}`)}
+                    animatedValue={getFieldValue(`authorizedEnvironments.${environment}`)}
+                  />
+                ))}
+              </div>
+            </AccordionSection>
           </div>
+        </div>
       </form>
     </div>
   );
@@ -413,7 +379,10 @@ const AwsCredentialFormContent = React.forwardRef<
 
 // Main exported component that wraps the form with AutoFillProvider
 export const AwsCredentialForm: React.FC<AwsCredentialFormProps> = (props) => {
-  const formContentRef = React.useRef<{ handleAnimationComplete: () => void; handleFieldComplete: (fieldName: string) => void } | null>(null);
+  const formContentRef = React.useRef<{
+    handleAnimationComplete: () => void;
+    handleFieldComplete: (fieldName: string) => void;
+  } | null>(null);
 
   return (
     <AutoFillProvider

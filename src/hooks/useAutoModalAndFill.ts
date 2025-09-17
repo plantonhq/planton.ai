@@ -27,10 +27,10 @@ interface AutoModalAndFillReturn {
  * Reusable hook for auto modal open functionality
  * This is a simplified version that only handles the auto-click part
  * to ensure we don't break the existing working auto-fill logic
- * 
+ *
  * @param options Configuration options for the hook
  * @returns Object with manual trigger function for testing
- * 
+ *
  * @example
  * ```tsx
  * const { triggerAutoClick } = useAutoModalAndFill({
@@ -46,53 +46,37 @@ export const useAutoModalAndFill = (options: AutoModalAndFillOptions): AutoModal
     enabled = true,
     autoClickDelay = 1500,
     onAutoClick,
-    debugPrefix = 'Auto Modal & Fill'
+    debugPrefix = 'Auto Modal & Fill',
   } = options;
 
-  // Auto-click functionality with comprehensive iOS debugging
+  // Auto-click functionality
   useEffect(() => {
-    console.log('🍎 iOS DEBUG - useAutoModalAndFill: useEffect triggered');
-    console.log('🍎 iOS DEBUG - enabled:', enabled);
-    console.log('🍎 iOS DEBUG - globalAutoClickExecuted:', globalAutoClickExecuted);
-    console.log('🍎 iOS DEBUG - globalAutoClickTimer exists:', !!globalAutoClickTimer);
-    console.log('🍎 iOS DEBUG - debugPrefix:', debugPrefix);
-    console.log('🍎 iOS DEBUG - User Agent:', navigator.userAgent);
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                  /iPad|iPhone|iPod/.test(navigator.platform) ||
-                  (navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform));
-    console.log('🍎 iOS DEBUG - isIOS:', isIOS);
-    console.log('🍎 iOS DEBUG - userAgent:', navigator.userAgent);
-    console.log('🍎 iOS DEBUG - platform:', navigator.platform);
-    console.log('🍎 iOS DEBUG - maxTouchPoints:', navigator.maxTouchPoints);
-    
+    const isIOS =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      /iPad|iPhone|iPod/.test(navigator.platform) ||
+      (navigator.maxTouchPoints &&
+        navigator.maxTouchPoints > 2 &&
+        /MacIntel/.test(navigator.platform));
+
     if (enabled && !globalAutoClickExecuted && !globalAutoClickTimer) {
       // iOS-specific timing adjustments
       const adjustedDelay = isIOS ? autoClickDelay + 1000 : autoClickDelay; // Extra 1 second for iOS
-      console.log('🍎 iOS DEBUG - Setting up auto-click timer with delay:', adjustedDelay, 'ms');
       globalAutoClickExecuted = true; // Mark as triggered to prevent multiple timers
-      
+
       globalAutoClickTimer = setTimeout(() => {
-        console.log('🍎 iOS DEBUG - Auto-click timer fired!');
-        console.log('🍎 iOS DEBUG - Timer fired at:', new Date().toISOString());
         try {
           onAutoClick();
-          console.log('🍎 iOS DEBUG - onAutoClick called successfully');
         } catch (error) {
-          console.error('🍎 iOS DEBUG - Error calling onAutoClick:', error);
-          console.error('🍎 iOS DEBUG - Error stack:', error instanceof Error ? error.stack : 'No stack trace');
+          console.error('Error calling onAutoClick:', error);
         }
         globalAutoClickTimer = null; // Clear the global timer
       }, adjustedDelay);
-    } else {
-      console.log('🍎 iOS DEBUG - Auto-click conditions not met');
-      console.log('🍎 iOS DEBUG - enabled:', enabled, 'executed:', globalAutoClickExecuted, 'timer exists:', !!globalAutoClickTimer);
     }
   }, [enabled, autoClickDelay, onAutoClick, debugPrefix]);
 
   // Reset global state when component unmounts
   useEffect(() => {
     return () => {
-      console.log('🍎 iOS DEBUG - useAutoModalAndFill: Component unmounting, resetting global state');
       globalAutoClickExecuted = false;
       if (globalAutoClickTimer) {
         clearTimeout(globalAutoClickTimer);
@@ -103,25 +87,14 @@ export const useAutoModalAndFill = (options: AutoModalAndFillOptions): AutoModal
 
   // Manual trigger function for testing
   const triggerAutoClick = useCallback(() => {
-    console.log('🍎 iOS DEBUG - Manual triggerAutoClick called');
-    console.log('🍎 iOS DEBUG - User Agent:', navigator.userAgent);
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                  /iPad|iPhone|iPod/.test(navigator.platform) ||
-                  (navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform));
-    console.log('🍎 iOS DEBUG - isIOS:', isIOS);
-    console.log('🍎 iOS DEBUG - userAgent:', navigator.userAgent);
-    console.log('🍎 iOS DEBUG - platform:', navigator.platform);
-    console.log('🍎 iOS DEBUG - maxTouchPoints:', navigator.maxTouchPoints);
     try {
       onAutoClick();
-      console.log('🍎 iOS DEBUG - Manual onAutoClick called successfully');
     } catch (error) {
-      console.error('🍎 iOS DEBUG - Error in manual onAutoClick:', error);
-      console.error('🍎 iOS DEBUG - Error stack:', error instanceof Error ? error.stack : 'No stack trace');
+      console.error('Error in manual onAutoClick:', error);
     }
   }, [onAutoClick, debugPrefix]);
 
   return {
-    triggerAutoClick
+    triggerAutoClick,
   };
 };

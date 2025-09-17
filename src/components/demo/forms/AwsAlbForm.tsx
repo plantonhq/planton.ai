@@ -33,21 +33,6 @@ const AwsAlbFormContent = React.forwardRef<
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { data: jsonData, loading, error } = useAwsAlbData();
   
-  // Debug data loading
-  console.log('🍎 iOS DEBUG - AWS ALB Form: Data loading state');
-  console.log('🍎 iOS DEBUG - jsonData:', jsonData);
-  console.log('🍎 iOS DEBUG - loading:', loading);
-  console.log('🍎 iOS DEBUG - error:', error);
-  
-  // Monitor data changes
-  useEffect(() => {
-    console.log('🍎 iOS DEBUG - AWS ALB Form: Data changed');
-    console.log('🍎 iOS DEBUG - jsonData changed:', !!jsonData);
-    console.log('🍎 iOS DEBUG - loading changed:', loading);
-    if (jsonData) {
-      console.log('🍎 iOS DEBUG - jsonData content:', jsonData);
-    }
-  }, [jsonData, loading]);
   const { startAnimation, isAnimating, getFieldValue, isFieldAnimating, isFieldCompleted } = useAutoFill();
   
 
@@ -57,18 +42,9 @@ const AwsAlbFormContent = React.forwardRef<
 
   // Auto-start animation when data is loaded (only once)
   useEffect(() => {
-    console.log('🍎 iOS DEBUG - AWS ALB Form: useEffect triggered');
-    console.log('🍎 iOS DEBUG - jsonData exists:', !!jsonData);
-    console.log('🍎 iOS DEBUG - hasAnimationStarted:', hasAnimationStartedRef.current);
-    console.log('🍎 iOS DEBUG - User Agent:', navigator.userAgent);
-    console.log('🍎 iOS DEBUG - Platform:', navigator.platform);
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
                   /iPad|iPhone|iPod/.test(navigator.platform) ||
                   (navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform));
-    console.log('🍎 iOS DEBUG - isIOS:', isIOS);
-    console.log('🍎 iOS DEBUG - userAgent:', navigator.userAgent);
-    console.log('🍎 iOS DEBUG - platform:', navigator.platform);
-    console.log('🍎 iOS DEBUG - maxTouchPoints:', navigator.maxTouchPoints);
     
     if (jsonData && !hasAnimationStartedRef.current) {
       hasAnimationStartedRef.current = true;
@@ -77,9 +53,6 @@ const AwsAlbFormContent = React.forwardRef<
       const baseDelay = Math.max(CURRENT_PRESET.autoStartDelay, 2000);
       const animationDelay = isIOS ? baseDelay + 2000 : baseDelay; // Extra 2 seconds for iOS
       
-      console.log('🍎 iOS DEBUG - Setting up auto-fill timer with delay:', animationDelay, 'ms');
-      console.log('🍎 iOS DEBUG - Current time:', new Date().toISOString());
-      
       // Clear any existing timer
       if (animationTimerRef.current) {
         clearTimeout(animationTimerRef.current);
@@ -87,9 +60,6 @@ const AwsAlbFormContent = React.forwardRef<
       }
       
       animationTimerRef.current = setTimeout(() => {
-        console.log('🍎 iOS DEBUG - TIMER FIRED! Starting auto-fill animation...');
-        console.log('🍎 iOS DEBUG - Timer fired at:', new Date().toISOString());
-        
         const fields = [
           { name: 'metadata.env', value: jsonData.metadata?.env || 'dev', order: 1 },
           { name: 'metadata.name', value: jsonData.metadata?.name || '', order: 2 },
@@ -107,16 +77,10 @@ const AwsAlbFormContent = React.forwardRef<
           { name: 'spec.ssl.certificateArn', value: jsonData.spec?.ssl?.certificateArn?.value || '', order: 14 },
         ];
 
-        console.log('🍎 iOS DEBUG - Prepared fields for animation:', fields.length, 'fields');
-        console.log('🍎 iOS DEBUG - Fields data:', fields);
-        
         try {
-          console.log('🍎 iOS DEBUG - Calling startAnimation...');
           startAnimation(fields);
-          console.log('🍎 iOS DEBUG - startAnimation called successfully');
         } catch (error) {
-          console.error('🍎 iOS DEBUG - Error calling startAnimation:', error);
-          console.error('🍎 iOS DEBUG - Error stack:', error instanceof Error ? error.stack : 'No stack trace');
+          console.error('Error calling startAnimation:', error);
         }
         
         // Clear the timer reference after it fires
@@ -125,25 +89,18 @@ const AwsAlbFormContent = React.forwardRef<
 
       // Don't clean up the timer in the return function - let it fire
       return () => {
-        console.log('🍎 iOS DEBUG - useEffect cleanup - NOT clearing timer to let it fire');
+        // Timer will fire even if component unmounts
       };
     } else if (!jsonData && !hasAnimationStartedRef.current) {
       // Data not loaded yet, set up a retry mechanism
-      console.log('🍎 iOS DEBUG - Data not loaded yet, setting up retry mechanism...');
       const retryDelay = isIOS ? 1000 : 500; // Longer retry delay for iOS
       const retryTimer = setTimeout(() => {
-        console.log('🍎 iOS DEBUG - Retry timer fired, checking data again...');
         // This will trigger the useEffect again when jsonData becomes available
       }, retryDelay);
       
       return () => {
-        console.log('🍎 iOS DEBUG - Cleaning up retry timer');
         clearTimeout(retryTimer);
       };
-    } else {
-      console.log('🍎 iOS DEBUG - Auto-fill conditions not met');
-      console.log('🍎 iOS DEBUG - jsonData exists:', !!jsonData);
-      console.log('🍎 iOS DEBUG - hasAnimationStarted:', hasAnimationStartedRef.current);
     }
   }, [jsonData, startAnimation]);
 
