@@ -53,6 +53,7 @@ const AwsAlbFormContent = React.forwardRef<
 
   // Track if animation has already been started to prevent looping
   const hasAnimationStartedRef = useRef(false);
+  const animationTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Auto-start animation when data is loaded (only once)
   useEffect(() => {
@@ -79,7 +80,13 @@ const AwsAlbFormContent = React.forwardRef<
       console.log('🍎 iOS DEBUG - Setting up auto-fill timer with delay:', animationDelay, 'ms');
       console.log('🍎 iOS DEBUG - Current time:', new Date().toISOString());
       
-      const timer = setTimeout(() => {
+      // Clear any existing timer
+      if (animationTimerRef.current) {
+        clearTimeout(animationTimerRef.current);
+        animationTimerRef.current = null;
+      }
+      
+      animationTimerRef.current = setTimeout(() => {
         console.log('🍎 iOS DEBUG - TIMER FIRED! Starting auto-fill animation...');
         console.log('🍎 iOS DEBUG - Timer fired at:', new Date().toISOString());
         
@@ -111,11 +118,14 @@ const AwsAlbFormContent = React.forwardRef<
           console.error('🍎 iOS DEBUG - Error calling startAnimation:', error);
           console.error('🍎 iOS DEBUG - Error stack:', error instanceof Error ? error.stack : 'No stack trace');
         }
+        
+        // Clear the timer reference after it fires
+        animationTimerRef.current = null;
       }, animationDelay);
 
+      // Don't clean up the timer in the return function - let it fire
       return () => {
-        console.log('🍎 iOS DEBUG - Cleaning up auto-fill timer');
-        clearTimeout(timer);
+        console.log('🍎 iOS DEBUG - useEffect cleanup - NOT clearing timer to let it fire');
       };
     } else if (!jsonData && !hasAnimationStartedRef.current) {
       // Data not loaded yet, set up a retry mechanism
