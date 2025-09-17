@@ -1,11 +1,8 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { AwsAlb } from '../interfaces';
-import { FormField } from './FormField';
 import { AnimatedFormField } from './AnimatedFormField';
-import { TabNavigation } from './TabNavigation';
-import { ReferenceFieldGroup } from './ReferenceFieldGroup';
 import { FieldArrayWithTabs } from './FieldArrayWithTabs';
 import { useAutoFill } from '../../../contexts/AutoFillContext';
 
@@ -41,9 +38,7 @@ export const AwsAlbFormElements: React.FC<AwsAlbFormElementsProps> = ({
         items={formData.spec?.subnets || []}
         onItemsChange={(items) => onInputChange('spec.subnets', items)}
         fieldName="spec.subnets"
-        placeholder="subnet-xxxxxxxxx"
         helpText={helpTextMapping?.['spec.subnets']}
-        label="Subnets"
       />
     );
   }
@@ -54,9 +49,7 @@ export const AwsAlbFormElements: React.FC<AwsAlbFormElementsProps> = ({
         items={formData.spec?.securityGroups || []}
         onItemsChange={(items) => onInputChange('spec.securityGroups', items)}
         fieldName="spec.securityGroups"
-        placeholder="sg-xxxxxxxxx"
         helpText={helpTextMapping?.['spec.securityGroups']}
-        label="Security Groups"
       />
     );
   }

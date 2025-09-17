@@ -10,18 +10,14 @@ interface FieldArrayWithTabsProps {
   items: Array<{ value?: string; valueFrom?: { kind?: string; env?: string; name?: string; fieldPath?: string } }>;
   onItemsChange: (items: Array<{ value?: string; valueFrom?: { kind?: string; env?: string; name?: string; fieldPath?: string } }>) => void;
   fieldName: string;
-  placeholder: string;
   helpText?: string;
-  label: string;
 }
 
 export const FieldArrayWithTabs: React.FC<FieldArrayWithTabsProps> = ({
   items,
   onItemsChange,
   fieldName,
-  placeholder,
   helpText,
-  label,
 }) => {
   const [activeTab, setActiveTab] = useState<'direct' | 'reference'>('direct');
   const { isAnimating, getFieldValue, isFieldAnimating, isFieldCompleted } = useAutoFill();

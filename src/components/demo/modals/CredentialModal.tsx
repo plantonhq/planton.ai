@@ -6,27 +6,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 interface CredentialModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (data: any) => void;
-  providerName: string;
-  providerDescription: string;
-  providerIcon?: React.ReactNode;
   children: React.ReactNode;
-  title?: string;
-  submitLabel?: string;
-  cancelLabel?: string;
 }
 
 export const CredentialModal: React.FC<CredentialModalProps> = ({
   isOpen,
   onClose,
-  onSubmit,
-  providerName,
-  providerDescription,
-  providerIcon,
   children,
-  title,
-  submitLabel = 'Submit',
-  cancelLabel = 'Cancel',
 }) => {
   const handleModalClose = () => {
     onClose();

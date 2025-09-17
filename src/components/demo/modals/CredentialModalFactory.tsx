@@ -49,13 +49,6 @@ export const CredentialModalFactory: React.FC<CredentialModalFactoryProps> = ({
     <CredentialModal
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={onSubmit}
-      providerName={providerName}
-      providerDescription={providerDescription}
-      providerIcon={providerIcon}
-      title={title}
-      submitLabel={submitLabel}
-      cancelLabel={cancelLabel}
     >
       <FormComponent
         {...formProps}
@@ -67,7 +60,7 @@ export const CredentialModalFactory: React.FC<CredentialModalFactoryProps> = ({
 };
 
 // Factory function that creates a modal component
-export function createCredentialModal<T>(
+export function createCredentialModal(
   FormComponent: React.ComponentType<CredentialFormProps>,
   modalTitle: string
 ): React.FC<Omit<CredentialModalFactoryProps, 'FormComponent' | 'title'>> {

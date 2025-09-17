@@ -36,7 +36,7 @@ export const AnimatedFormField = React.forwardRef<HTMLDivElement, AnimatedFormFi
       fieldName,
       isAnimating = false,
       isCurrentField = false,
-      isCompleted = false,
+      isCompleted: _isCompleted = false,
       animatedValue,
       options = [],
       radioName,

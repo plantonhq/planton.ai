@@ -6,18 +6,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 interface CloudProviderModalProps {
   isOpen: boolean;
   onClose: () => void;
-  providerName: string;
-  providerDescription: string;
-  providerIcon?: React.ReactNode;
   children: React.ReactNode;
 }
 
 export const CloudProviderModal: React.FC<CloudProviderModalProps> = ({
   isOpen,
   onClose,
-  providerName,
-  providerDescription,
-  providerIcon,
   children,
 }) => {
   const handleModalClose = () => {

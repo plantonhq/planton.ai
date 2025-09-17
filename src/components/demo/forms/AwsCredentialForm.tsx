@@ -35,6 +35,7 @@ const AwsCredentialFormContent = React.forwardRef<
   const { data: jsonData } = useAwsCredentialData();
   const { startAnimation, isAnimating, getFieldValue, isFieldAnimating, isFieldCompleted } = useAutoFill();
   
+  
   const appDevRef = React.useRef<HTMLDivElement>(null);
   const appProdRef = React.useRef<HTMLDivElement>(null);
 
@@ -46,7 +47,10 @@ const AwsCredentialFormContent = React.forwardRef<
     if (jsonData && !hasAnimationStartedRef.current) {
       hasAnimationStartedRef.current = true;
       
-      // Small delay to make the animation feel more natural
+      // Use a longer delay to ensure the modal is fully rendered and ready
+      // This helps with the race condition between auto-click and auto-fill
+      const animationDelay = Math.max(CURRENT_PRESET.autoStartDelay, 2000); // Use at least 2 seconds to ensure modal is ready
+      
       const timer = setTimeout(() => {
         const fields = [
           { name: 'metadata.name', value: jsonData.metadata.name || '', order: 1 },
@@ -59,8 +63,12 @@ const AwsCredentialFormContent = React.forwardRef<
           { name: 'authorizedEnvironments.app-prod', value: true, order: 8 },
         ];
 
-        startAnimation(fields);
-      }, CURRENT_PRESET.autoStartDelay);
+        try {
+          startAnimation(fields);
+        } catch (error) {
+          console.error('Error calling startAnimation:', error);
+        }
+      }, animationDelay);
 
       return () => clearTimeout(timer);
     }

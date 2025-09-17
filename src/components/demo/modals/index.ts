@@ -8,8 +8,6 @@ export { CredentialModal } from './CredentialModal';
 export { CredentialModalFactory, createCredentialModal } from './CredentialModalFactory';
 export { FormModalRegistry } from './FormModalRegistry';
 
-// Higher-order component
-export { withCredentialModal } from './withCredentialModal';
 
 // Specific credential modals
 export { AwsCredentialModal } from './AwsCredentialModal';

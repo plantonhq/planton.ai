@@ -5,3 +5,4 @@
 
 export { useAwsCredentialData } from './useAwsCredentialData';
 export { useAwsAlbData } from './useAwsAlbData';
+export { useAutoModalAndFill } from './useAutoModalAndFill';

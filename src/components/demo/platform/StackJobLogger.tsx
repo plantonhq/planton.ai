@@ -7,12 +7,9 @@ import {
   StackJob,
   StackJobStatus,
   StackJobProgressIacOperationState,
-  StackJobProgressIacOperationSnapshot,
   IacOperationResourceChangesSnapshotRow,
-  IacOperationSummarySnapshot,
   WorkflowExecutionStatus,
   WorkflowExecutionResult,
-  IacDiagnosticEventSeverityType,
 } from '../interfaces';
 
 interface StackJobLoggerProps {
@@ -24,7 +21,7 @@ interface StackJobLoggerProps {
 
 const StackJobLogger: React.FC<StackJobLoggerProps> = ({
   stackJobStatus,
-  stackJob,
+  stackJob: _stackJob,
   loading = false,
   onAnimationComplete,
 }) => {

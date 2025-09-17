@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import {
   Database,
@@ -14,18 +14,13 @@ import {
   Plus,
   Check,
   Search,
-  ExternalLink,
 } from 'lucide-react';
 import { FormModalRegistry } from '../modals';
 import { TabNavigation, TabItem } from '../forms/TabNavigation';
-import { CURRENT_PRESET } from '../../../constants/animationConfig';
+import { useAutoModalAndFill } from '../../../hooks/useAutoModalAndFill';
 
 // Constant for auto-clicking the first block on page load
 const AUTO_CLICK_FIRST_BLOCK = true;
-
-// Global timer to survive component remounting
-let globalAutoClickTimer: NodeJS.Timeout | null = null;
-let globalAutoClickExecuted = false;
 
 interface LegoBlock {
   id: string;
@@ -47,9 +42,6 @@ export default function LegoCatalog() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProvider, setSelectedProvider] = useState<LegoBlock | null>(null);
   
-  // Track if auto-click has already been triggered to prevent multiple clicks
-  const hasAutoClickedRef = useRef(false);
-  const autoClickTimerRef = useRef<NodeJS.Timeout | null>(null);
   const [blocks, setBlocks] = useState<LegoBlock[]>([
     {
       id: 'aws-alb',
@@ -212,56 +204,16 @@ export default function LegoCatalog() {
 
   const addedCount = blocks.filter(b => b.isAdded).length;
 
-  // Auto-click the first block on page load
-  useEffect(() => {
-    console.log('🚀 Infrastructure Catalog: useEffect running');
-    console.log('🚀 AUTO_CLICK_FIRST_BLOCK:', AUTO_CLICK_FIRST_BLOCK);
-    console.log('🚀 globalAutoClickExecuted:', globalAutoClickExecuted);
-    console.log('🚀 globalAutoClickTimer:', globalAutoClickTimer);
-    
-    if (AUTO_CLICK_FIRST_BLOCK && !globalAutoClickExecuted && !globalAutoClickTimer) {
-      console.log('🚀 Setting up global auto-click timer...');
-      globalAutoClickExecuted = true; // Mark as triggered to prevent multiple timers
-      
-      // Use a shorter delay for testing
-      const autoClickDelay = 3000; // 3 seconds for testing
-      
-      console.log('🚀 Auto-click scheduled for AWS ALB in', autoClickDelay, 'ms');
-      
-      // Add countdown for debugging
-      let countdown = 3;
-      const countdownInterval = setInterval(() => {
-        console.log('🚀 Countdown:', countdown);
-        countdown--;
-        if (countdown <= 0) {
-          clearInterval(countdownInterval);
-        }
-      }, 1000);
-      
-      globalAutoClickTimer = setTimeout(() => {
-        clearInterval(countdownInterval);
-        console.log('🚀 GLOBAL TIMER FIRED! Auto-clicking AWS ALB');
-        console.log('🚀 About to call handleAddBlock...');
-        try {
-          handleAddBlock('aws-alb');
-          console.log('🚀 handleAddBlock called successfully');
-        } catch (error) {
-          console.error('🚀 Error calling handleAddBlock:', error);
-        }
-        globalAutoClickTimer = null; // Clear the global timer
-      }, autoClickDelay);
-      
-      console.log('🚀 Global timer set:', globalAutoClickTimer);
-    } else {
-      console.log('🚀 Auto-click conditions not met - skipping');
-      console.log('🚀 Reasons: AUTO_CLICK_FIRST_BLOCK:', AUTO_CLICK_FIRST_BLOCK, 'globalExecuted:', globalAutoClickExecuted, 'globalTimer:', !!globalAutoClickTimer);
-    }
-  }, []); // Empty dependency array to run only once on mount
+  // Auto-click the first block on page load using the reusable hook
+  const { triggerAutoClick } = useAutoModalAndFill({
+    enabled: AUTO_CLICK_FIRST_BLOCK,
+    autoClickDelay: 1500, // 1.5 seconds for better responsiveness
+    onAutoClick: () => {
+      handleAddBlock('aws-alb');
+    },
+    debugPrefix: 'Infrastructure Catalog'
+  });
 
-  // Track modal state changes
-  useEffect(() => {
-    console.log('Infrastructure Catalog: Modal state changed - isModalOpen:', isModalOpen, 'selectedProvider:', selectedProvider?.name);
-  }, [isModalOpen, selectedProvider]);
 
   return (
     <div className="h-full flex flex-col">
@@ -274,11 +226,8 @@ export default function LegoCatalog() {
               Pre-built, production-ready infrastructure blocks
             </p>
             {/* Debug button */}
-            <button 
-              onClick={() => {
-                console.log('🧪 Manual test button clicked');
-                handleAddBlock('aws-alb');
-              }}
+            <button
+              onClick={triggerAutoClick}
               className="mt-2 px-4 py-2 bg-red-500 text-white rounded text-sm"
             >
               🧪 Test Modal (Manual)

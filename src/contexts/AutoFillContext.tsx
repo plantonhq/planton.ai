@@ -75,6 +75,18 @@ export const AutoFillProvider: React.FC<AutoFillProviderProps> = ({
     }, CURRENT_PRESET.scrollDelay);
   }, [scrollToField]);
 
+  const handleComplete = React.useCallback(() => {
+    // Scroll to top when animation completes to show header
+    const formContainer = document.querySelector('.overflow-y-auto');
+    if (formContainer) {
+      formContainer.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+    onComplete?.();
+  }, [onComplete]);
+
   const {
     isAnimating,
     currentField,
@@ -86,17 +98,7 @@ export const AutoFillProvider: React.FC<AutoFillProviderProps> = ({
   } = useAutoFillAnimation({
     delay,
     pauseBetweenFields,
-    onComplete: () => {
-      // Scroll to top when animation completes to show header
-      const formContainer = document.querySelector('.overflow-y-auto');
-      if (formContainer) {
-        formContainer.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      }
-      onComplete?.();
-    },
+    onComplete: handleComplete,
     onFieldComplete,
     onFieldStart: handleFieldStart,
   });
