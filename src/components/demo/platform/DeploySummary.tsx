@@ -3,17 +3,20 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
-  Database,
-  Server,
-  HardDrive,
-  Cpu,
-  Network,
   CheckCircle,
   Clock,
   DollarSign,
   Zap,
   AlertTriangle,
+  Server,
 } from 'lucide-react';
+import AwsVpcIcon from '../../../assets/icons/aws-vpc.svg';
+import AwsEksClusterIcon from '../../../assets/icons/aws-eks-cluster.svg';
+import PostgresKubernetesIcon from '../../../assets/icons/postgres-kubernetes.svg';
+import RedisKubernetesIcon from '../../../assets/icons/redis-kubernetes.svg';
+import CloudflareR2BucketIcon from '../../../assets/icons/cloudflare-r2-bucket.svg';
+import AwsCloudfrontIcon from '../../../assets/icons/aws-cloudfront.svg';
+import DeployResourceItem from './DeployResourceItem';
 
 interface DeploySummaryProps {
   onDeploy: () => void;
@@ -25,8 +28,8 @@ export default function DeploySummary({ onDeploy }: DeploySummaryProps) {
   const deploymentItems = [
     {
       id: 'vpc-1',
-      name: 'Virtual Private Cloud',
-      icon: Network,
+      name: 'VPC',
+      icon: AwsVpcIcon,
       color: 'from-indigo-500 to-indigo-600',
       config: { region: 'us-east-1', cidr: '10.0.0.0/16' },
       cost: '$0/month',
@@ -34,34 +37,42 @@ export default function DeploySummary({ onDeploy }: DeploySummaryProps) {
     {
       id: 'eks-1',
       name: 'EKS Cluster',
-      icon: Server,
+      icon: AwsEksClusterIcon,
       color: 'from-orange-500 to-orange-600',
       config: { region: 'us-east-1', size: 'medium', nodes: 3 },
       cost: '$216/month',
     },
     {
       id: 'postgres-1',
-      name: 'Postgres Database',
-      icon: Database,
+      name: 'Postgres',
+      icon: PostgresKubernetesIcon,
       color: 'from-blue-500 to-blue-600',
       config: { region: 'us-east-1', size: 'medium', replicas: 2 },
       cost: '$180/month',
     },
     {
       id: 'redis-1',
-      name: 'Redis Cache',
-      icon: Cpu,
+      name: 'Redis',
+      icon: RedisKubernetesIcon,
       color: 'from-green-500 to-green-600',
       config: { region: 'us-east-1', size: 'small' },
       cost: '$60/month',
     },
     {
       id: 'r2-1',
-      name: 'R2 Storage Bucket',
-      icon: HardDrive,
+      name: 'R2 Bucket',
+      icon: CloudflareR2BucketIcon,
       color: 'from-amber-500 to-amber-600',
       config: { region: 'global' },
       cost: '$15/month',
+    },
+    {
+      id: 'cdn-1',
+      name: 'CDN',
+      icon: AwsCloudfrontIcon,
+      color: 'from-purple-500 to-purple-600',
+      config: { region: 'global', distribution: 'enabled' },
+      cost: '$25/month',
     },
   ];
 
@@ -147,42 +158,9 @@ export default function DeploySummary({ onDeploy }: DeploySummaryProps) {
           {/* Resources List */}
           <div className="space-y-4 mb-8">
             <h3 className="font-bold text-gray-900">Resources to Deploy</h3>
-            {deploymentItems.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-white border border-gray-200 rounded-xl p-6"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div
-                        className={`w-12 h-12 bg-gradient-to-br ${item.color} rounded-xl flex items-center justify-center shadow-lg`}
-                      >
-                        <Icon className="w-6 h-6 text-white" />
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-gray-900">{item.name}</h4>
-                        <div className="flex items-center gap-4 mt-1">
-                          {Object.entries(item.config).map(([key, value]) => (
-                            <span key={key} className="text-sm text-gray-600">
-                              {key}: <span className="font-medium">{value}</span>
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-lg font-bold text-gray-900">{item.cost}</p>
-                      <p className="text-xs text-gray-500">estimated</p>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
+            {deploymentItems.map((item, index) => (
+              <DeployResourceItem key={item.id} item={item} index={index} />
+            ))}
           </div>
 
           {/* Security Check */}
