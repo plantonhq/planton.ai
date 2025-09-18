@@ -102,7 +102,7 @@ export default function DemoPage() {
     switch (currentScreen) {
       case 'welcome':
     return (
-      <div className="min-h-screen font-sans bg-[#110D1F] flex items-center justify-center p-8">
+      <div className="min-h-screen bg-[#110D1F] flex items-center justify-center p-8">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -172,7 +172,7 @@ export default function DemoPage() {
 
   // Main layout for demo screens
   return (
-    <div className="min-h-screen font-sans bg-[#110D1F] flex flex-col">
+    <div className="min-h-screen bg-[#110D1F] flex flex-col">
       {/* Header with Home button */}
       <div className="absolute top-4 right-4 z-10">
       <Button
