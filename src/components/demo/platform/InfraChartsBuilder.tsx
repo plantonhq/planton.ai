@@ -3,17 +3,18 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Database,
-  Server,
-  Globe,
-  HardDrive,
-  Cpu,
-  Network,
   Settings,
   X,
   Save,
   ChevronRight,
 } from 'lucide-react';
+import DraggableInfraBlock from './DraggableInfraBlock';
+import AwsVpcIcon from '../../../assets/icons/aws-vpc.svg';
+import AwsEksClusterIcon from '../../../assets/icons/aws-eks-cluster.svg';
+import PostgresKubernetesIcon from '../../../assets/icons/postgres-kubernetes.svg';
+import RedisKubernetesIcon from '../../../assets/icons/redis-kubernetes.svg';
+import CloudflareR2BucketIcon from '../../../assets/icons/cloudflare-r2-bucket.svg';
+import AwsCloudfrontIcon from '../../../assets/icons/aws-cloudfront.svg';
 
 interface InfraBlock {
   id: string;
@@ -38,37 +39,37 @@ export default function InfraChartsBuilder() {
     {
       id: 'vpc-1',
       name: 'VPC',
-      icon: Network,
+      icon: AwsVpcIcon,
       color: 'from-indigo-500 to-indigo-600',
     },
     {
       id: 'eks-1',
       name: 'EKS Cluster',
-      icon: Server,
+      icon: AwsEksClusterIcon,
       color: 'from-orange-500 to-orange-600',
     },
     {
       id: 'postgres-1',
       name: 'Postgres',
-      icon: Database,
+      icon: PostgresKubernetesIcon,
       color: 'from-blue-500 to-blue-600',
     },
     {
       id: 'redis-1',
       name: 'Redis',
-      icon: Cpu,
+      icon: RedisKubernetesIcon,
       color: 'from-green-500 to-green-600',
     },
     {
       id: 'r2-1',
       name: 'R2 Bucket',
-      icon: HardDrive,
+      icon: CloudflareR2BucketIcon,
       color: 'from-amber-500 to-amber-600',
     },
     {
       id: 'cdn-1',
       name: 'CDN',
-      icon: Globe,
+      icon: AwsCloudfrontIcon,
       color: 'from-purple-500 to-purple-600',
     },
   ];
@@ -120,11 +121,7 @@ export default function InfraChartsBuilder() {
                 className="w-full bg-white border border-gray-200 rounded-lg p-3 hover:shadow-md transition-all duration-200"
               >
                 <div className="flex items-center gap-3">
-                  <div
-                    className={`w-8 h-8 bg-gradient-to-br ${block.color} rounded-lg flex items-center justify-center`}
-                  >
-                    <Icon className="w-4 h-4 text-white" />
-                  </div>
+                  <Icon className="w-8 h-8" />
                   <span className="font-medium text-gray-700">{block.name}</span>
                   <ChevronRight className="w-4 h-4 text-gray-400 ml-auto" />
                 </div>
@@ -173,69 +170,27 @@ export default function InfraChartsBuilder() {
           )}
 
           <AnimatePresence>
-            {canvasBlocks.map(block => {
-              const Icon = block.icon;
-              return (
-                <motion.div
-                  key={block.id}
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  exit={{ scale: 0 }}
-                  style={{
-                    position: 'absolute',
-                    left: block.x,
-                    top: block.y,
-                  }}
-                  className="cursor-move"
-                  drag
-                  dragMomentum={false}
-                  onDragStart={() => setIsDragging(true)}
-                  onDragEnd={(e, info) => {
-                    setIsDragging(false);
-                    setCanvasBlocks(blocks =>
-                      blocks.map(b =>
-                        b.id === block.id
-                          ? { ...b, x: (block.x || 0) + info.offset.x, y: (block.y || 0) + info.offset.y }
-                          : b
-                      )
-                    );
-                  }}
-                  onClick={() => !isDragging && setSelectedBlock(block)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <div
-                    className={`relative group ${
-                      selectedBlock?.id === block.id
-                        ? 'ring-4 ring-violet-500 ring-offset-2'
-                        : ''
-                    } rounded-xl`}
-                  >
-                    <div className="bg-white rounded-xl shadow-lg p-4 min-w-[140px]">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleRemoveBlock(block.id);
-                        }}
-                        className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                      >
-                        <X className="w-3 h-3 text-white" />
-                      </button>
-                      <div className="flex flex-col items-center gap-2">
-                        <div
-                          className={`w-12 h-12 bg-gradient-to-br ${block.color} rounded-xl flex items-center justify-center`}
-                        >
-                          <Icon className="w-6 h-6 text-white" />
-                        </div>
-                        <span className="text-sm font-medium text-gray-700">
-                          {block.name}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
+            {canvasBlocks.map(block => (
+              <DraggableInfraBlock
+                key={block.id}
+                block={block}
+                isSelected={selectedBlock?.id === block.id}
+                isDragging={isDragging}
+                onDragStart={() => setIsDragging(true)}
+                onDragEnd={(e, info) => {
+                  setIsDragging(false);
+                  setCanvasBlocks(blocks =>
+                    blocks.map(b =>
+                      b.id === block.id
+                        ? { ...b, x: (block.x || 0) + info.offset.x, y: (block.y || 0) + info.offset.y }
+                        : b
+                    )
+                  );
+                }}
+                onClick={() => setSelectedBlock(block)}
+                onRemove={handleRemoveBlock}
+              />
+            ))}
           </AnimatePresence>
         </div>
       </div>
