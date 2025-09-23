@@ -283,12 +283,23 @@ const TOUR_STEPS: TourStep[] = [
   },
 ];
 
+const preloadImages = () => {
+  TOUR_STEPS.forEach((step) => {
+    const img = document.createElement('img');
+    img.src = step.image_url;
+  });
+};
+
 export default function TourPage() {
   const [currentStep, setCurrentStep] = useState(0);
   const [isStarted, setIsStarted] = useState(false);
   const [calloutsVisible, setCalloutsVisible] = useState(false);
   const [showDemoPrompt, setShowDemoPrompt] = useState(false);
   const [showClosingScreen, setShowClosingScreen] = useState(false);
+
+  useEffect(() => {
+    preloadImages();
+  }, []);
 
   useEffect(() => {
     if (isStarted && !showDemoPrompt && !showClosingScreen) {
