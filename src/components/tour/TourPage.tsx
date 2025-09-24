@@ -6,6 +6,7 @@ import { Button } from '@/components/tour/ui/button';
 import { ChevronLeft, ChevronRight, X, Play } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/tour/ui/toaster';
+import CalloutCard from '@/components/tour/CalloutCard';
 
 type Callout = { number: number; x: number; y: number; title: string; description: string };
 type TourStep = {
@@ -296,6 +297,7 @@ export default function TourPage() {
   const [calloutsVisible, setCalloutsVisible] = useState(false);
   const [showDemoPrompt, setShowDemoPrompt] = useState(false);
   const [showClosingScreen, setShowClosingScreen] = useState(false);
+  const [currentCalloutIndex, setCurrentCalloutIndex] = useState(0);
 
   useEffect(() => {
     preloadImages();
@@ -310,6 +312,10 @@ export default function TourPage() {
     }
   }, [currentStep, isStarted, showDemoPrompt, showClosingScreen]);
 
+  useEffect(() => {
+    setCurrentCalloutIndex(0);
+  }, [currentStep]);
+
   const handleStart = () => {
     setIsStarted(true);
     setCalloutsVisible(false);
@@ -318,6 +324,13 @@ export default function TourPage() {
   };
 
   const handleNext = () => {
+    const currentStepData = TOUR_STEPS[currentStep];
+
+    if (currentStepData.callouts && currentStepData.callouts.length > 0 && !calloutsVisible) {
+      setCalloutsVisible(true);
+      return;
+    }
+
     if (currentStep === 3 && !showDemoPrompt) {
       setCalloutsVisible(false);
       setShowDemoPrompt(true);
@@ -362,6 +375,21 @@ export default function TourPage() {
     setShowClosingScreen(false);
     setIsStarted(false);
     setCurrentStep(0);
+  };
+
+  const handleCalloutNext = () => {
+    const currentStepData = TOUR_STEPS[currentStep];
+    if (currentStepData.callouts && currentCalloutIndex < currentStepData.callouts.length - 1) {
+      setCurrentCalloutIndex((prev) => prev + 1);
+    } else {
+      handleNext();
+    }
+  };
+
+  const handleCalloutPrevious = () => {
+    if (currentCalloutIndex > 0) {
+      setCurrentCalloutIndex((prev) => prev - 1);
+    }
   };
 
   const progress = ((currentStep + 1) / TOUR_STEPS.length) * 100;
@@ -533,45 +561,34 @@ export default function TourPage() {
               />
               <div className="absolute inset-0 bg-black/10" />
               {currentStepData.callouts?.map((callout, index) => (
-                <motion.div
+                <CalloutCard
                   key={index}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: calloutsVisible ? 1 : 0, scale: calloutsVisible ? 1 : 0.8 }}
-                  transition={{ duration: 0.3, delay: callout.number * 0.1 }}
-                  className="absolute z-20"
-                  style={{
-                    left: `${callout.x}%`,
-                    top: `${callout.y}%`,
-                    transform: 'translate(-50%, -50%)',
+                  callout={callout}
+                  index={index}
+                  isVisible={calloutsVisible}
+                  isCurrent={index === currentCalloutIndex}
+                  currentCalloutIndex={currentCalloutIndex}
+                  totalCallouts={currentStepData.callouts?.length || 0}
+                  onNumberClick={(index) => {
+                    setCurrentCalloutIndex(index);
+                    if (!calloutsVisible) {
+                      setCalloutsVisible(true);
+                    }
                   }}
-                >
-                  <div className="relative">
-                    <div className="w-8 h-8 bg-white rounded-full shadow-lg border-2 border-purple-500 flex items-center justify-center">
-                      <span className="text-purple-600 font-bold text-sm">{callout.number}</span>
-                    </div>
-                    <div className="absolute inset-0 w-8 h-8 bg-purple-500 rounded-full animate-ping opacity-20"></div>
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: callout.number * 0.1 + 0.2 }}
-                      className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-72 bg-white rounded-xl shadow-xl border border-gray-100 p-4 z-30"
-                    >
-                      <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-l border-t border-gray-100 rotate-45"></div>
-                      <h4 className="font-semibold text-gray-900 mb-2">{callout.title}</h4>
-                      <p className="text-sm text-gray-600 leading-relaxed">{callout.description}</p>
-                    </motion.div>
-                  </div>
-                </motion.div>
+                  onNext={handleCalloutNext}
+                  onPrevious={handleCalloutPrevious}
+                />
               ))}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="absolute top-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg max-w-sm"
-              >
-                <h3 className="font-bold text-gray-900 mb-2">{currentStepData.title}</h3>
-                <p className="text-sm text-gray-600">{currentStepData.description}</p>
-              </motion.div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="absolute top-20 left-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg max-w-xs z-10"
+            >
+              <h3 className="font-bold text-gray-900 mb-2">{currentStepData.title}</h3>
+              <p className="text-sm text-gray-600">{currentStepData.description}</p>
             </motion.div>
           </AnimatePresence>
         </div>
@@ -584,35 +601,35 @@ export default function TourPage() {
           className="fixed bottom-0 left-0 right-0 z-[9996] bg-white/95 backdrop-blur-sm border-t border-gray-200 p-6"
         >
           <div className="max-w-4xl mx-auto">
-            <div className="mb-4">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-sm font-medium text-gray-700">
-                  Step {currentStep + 1} of {TOUR_STEPS.length}
-                </span>
-                <span className="text-sm text-gray-500">{Math.round(progress)}% Complete</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${progress}%` }}
-                  transition={{ duration: 0.5, ease: 'easeOut' }}
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
-                />
-              </div>
-            </div>
             <div className="flex justify-between items-center">
               <Button
                 variant="outline"
                 onClick={handlePrevious}
                 disabled={currentStep === 0}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 h-10"
               >
                 <ChevronLeft className="w-4 h-4" />
                 Previous
               </Button>
+              <div className="flex-1 mx-8">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm font-medium text-gray-700">
+                    Step {currentStep + 1} of {TOUR_STEPS.length}
+                  </span>
+                  <span className="text-sm text-gray-500">{Math.round(progress)}% Complete</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${progress}%` }}
+                    transition={{ duration: 0.5, ease: 'easeOut' }}
+                    className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
+                  />
+                </div>
+              </div>
               <Button
                 onClick={handleNext}
-                className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 h-10"
               >
                 {currentStep === TOUR_STEPS.length - 1 ? 'Finish Tour' : 'Next'}
                 <ChevronRight className="w-4 h-4" />
