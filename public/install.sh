@@ -52,10 +52,19 @@ echo "Verifying checksum..."
 #curl -fsSL "${url}.sha256" | sha256sum -c -
 
 # 5. Atomic install
+# Detect if we need sudo (not root and sudo exists)
+if [[ $EUID -ne 0 ]] && command -v sudo >/dev/null 2>&1; then
+  SUDO="sudo"
+else
+  SUDO=""
+fi
+
 targetDir="$installDir/$version"
-sudo mkdir -p "$targetDir"
-sudo install -m 0755 "$tmp" "$targetDir/planton"
-sudo ln -sf "$targetDir/planton" "$binLink"
+$SUDO mkdir -p "$targetDir"
+$SUDO install -m 0755 "$tmp" "$targetDir/planton"
+$SUDO ln -sf "$targetDir/planton" "$binLink"
+
+rm -f "$tmp"
 
 echo "🎉 Upgraded to planton $version"
 
