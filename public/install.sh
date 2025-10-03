@@ -58,3 +58,32 @@ sudo install -m 0755 "$tmp" "$targetDir/planton"
 sudo ln -sf "$targetDir/planton" "$binLink"
 
 echo "🎉 Upgraded to planton $version"
+
+# Post-install welcome message
+cat << 'EOF'
+
+✨ Installation Complete!
+
+Next Steps
+
+1. Authenticate with Planton Cloud:
+   planton auth login
+
+   This will open your browser to log in with your planton.cloud credentials.
+
+2. Set your organization context:
+   planton context set --org planton-cloud
+
+   This sets the default organization for all CLI commands.
+
+3. (Optional) Set your environment context:
+   planton context set --org planton-cloud --env prod
+
+   This sets the default environment for cloud resource operations.
+
+Happy deploying! 🚀
+
+For more help, visit https://planton.ai/docs or run:
+   planton --help
+
+EOF
