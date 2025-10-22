@@ -23,10 +23,25 @@ import LegoCatalog from './platform/LegoCatalog';
 import InfraChartsBuilder from './platform/InfraChartsBuilder';
 import DeploySummary from './platform/DeploySummary';
 import DeployLogs from './platform/DeployLogs';
+import InfraVersionHistory from './platform/InfraVersionHistory';
+import InfraVisualization from './platform/InfraVisualization';
+import InfraEditFlow from './platform/InfraEditFlow';
+
+// Import service components
+import ServiceHubIntro from './service/ServiceHubIntro';
+import GitHubConnection from './service/GitHubConnection';
+import BuildPacksSelection from './service/BuildPacksSelection';
+import ServiceConfiguration from './service/ServiceConfiguration';
+import ServiceDeployment from './service/ServiceDeployment';
+import ServiceLiveExample from './service/ServiceLiveExample';
+import ServiceSuccessStory from './service/ServiceSuccessStory';
 import './demo.css';
 
 type DemoScreen = 'welcome' | 'intro-problem' | 'intro-stakes' | 'intro-promise' | 'intro-cta' | 
-  'cloud-connections' | 'lego-catalog' | 'infra-builder' | 'deploy-summary' | 'deploy-logs';
+  'cloud-connections' | 'lego-catalog' | 'infra-builder' | 'deploy-summary' | 'deploy-logs' |
+  'infra-version-history' | 'infra-visualization' | 'infra-edit-flow' |
+  'service-hub-intro' | 'github-connection' | 'buildpacks-selection' | 
+  'service-configuration' | 'service-deployment' | 'service-live-example' | 'service-success-story';
 
 const demoScreens: DemoScreen[] = [
   'welcome',
@@ -38,7 +53,17 @@ const demoScreens: DemoScreen[] = [
   'lego-catalog',
   'infra-builder',
   'deploy-summary',
-  'deploy-logs'
+  'deploy-logs',
+  'infra-version-history',
+  'infra-visualization',
+  'infra-edit-flow',
+  'service-hub-intro',
+  'github-connection',
+  'buildpacks-selection',
+  'service-configuration',
+  'service-deployment',
+  'service-live-example',
+  'service-success-story'
 ];
 
 export default function DemoPage() {
@@ -159,6 +184,36 @@ export default function DemoPage() {
       
       case 'deploy-logs':
         return <DeployLogs />;
+      
+      case 'infra-version-history':
+        return <InfraVersionHistory />;
+      
+      case 'infra-visualization':
+        return <InfraVisualization />;
+      
+      case 'infra-edit-flow':
+        return <InfraEditFlow />;
+      
+      case 'service-hub-intro':
+        return <ServiceHubIntro />;
+      
+      case 'github-connection':
+        return <GitHubConnection />;
+      
+      case 'buildpacks-selection':
+        return <BuildPacksSelection />;
+      
+      case 'service-configuration':
+        return <ServiceConfiguration />;
+      
+      case 'service-deployment':
+        return <ServiceDeployment />;
+      
+      case 'service-live-example':
+        return <ServiceLiveExample />;
+      
+      case 'service-success-story':
+        return <ServiceSuccessStory />;
       
       default:
         return null;
