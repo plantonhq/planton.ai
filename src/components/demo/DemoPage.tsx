@@ -26,6 +26,10 @@ import CloudConnections from './platform/CloudConnections';
 import LegoCatalog from './platform/LegoCatalog';
 import ComponentConfiguration from './platform/ComponentConfiguration';
 import InfraChartsIntro from './platform/InfraChartsIntro';
+import InfraChartsChallenge from './platform/InfraChartsChallenge';
+import InfraChartsDAG from './platform/InfraChartsDAG';
+import InfraChartsConcept from './platform/InfraChartsConcept';
+import InfraChartsImpact from './platform/InfraChartsImpact';
 import InfraChartDeployment from './platform/InfraChartDeployment';
 import InfrastructureReady from './platform/InfrastructureReady';
 import DeploySummary from './platform/DeploySummary';
@@ -44,8 +48,13 @@ import ServiceLiveExample from './service/ServiceLiveExample';
 import ServiceSuccessStory from './service/ServiceSuccessStory';
 import './demo.css';
 
+// Import journey definitions
+import { infraChartsJourney } from './journeys';
+
 type DemoScreen = 'welcome' | 'company-selection' | 'intro-problem' | 'intro-stakes' | 'intro-promise' | 'intro-cta' | 
-  'cloud-connections' | 'lego-catalog' | 'component-config' | 'infra-charts-intro' | 'infra-chart-deploy' | 'infrastructure-ready' | 
+  'cloud-connections' | 'lego-catalog' | 'component-config' | 
+  'infra-charts-intro' | 'infra-charts-challenge' | 'infra-charts-dag' | 'infra-charts-concept' | 'infra-charts-impact' |
+  'infra-chart-deploy' | 'infrastructure-ready' | 
   'deploy-summary' | 'deploy-logs' | 'infra-version-history' | 'infra-visualization' | 'infra-edit-flow' |
   'service-hub-intro' | 'github-connection' | 'no-dockerfile-required' | 
   'service-configuration' | 'service-deployment' | 'service-live-example' | 'service-success-story';
@@ -62,7 +71,11 @@ const itConsultingFlow: DemoScreen[] = [
   'lego-catalog',           // Interactive with education
   'component-config',        // Form screen for single component
   'deploy-logs',            // Live deployment of single component
-  'infra-charts-intro',     // Explain Infra Charts concept
+  // Infra Charts Journey (4 focused screens)
+  'infra-charts-challenge', // The problem: production needs many resources
+  'infra-charts-dag',       // Visual: ECS DAG with 9 resources
+  'infra-charts-concept',   // Explain: What Infra Charts are (Helm inspiration)
+  'infra-charts-impact',    // Proof: Real customer success story
   'infra-chart-deploy',     // Deploy complete chart with DAG
   'infrastructure-ready',   // Infrastructure complete, segue to services
   'service-hub-intro',
@@ -82,7 +95,11 @@ const smallProductFlow: DemoScreen[] = [
   'lego-catalog',           // Interactive with education
   'component-config',        // Form screen for single component
   'deploy-logs',            // Live deployment of single component
-  'infra-charts-intro',     // Explain Infra Charts concept
+  // Infra Charts Journey (4 focused screens)
+  'infra-charts-challenge', // The problem: production needs many resources
+  'infra-charts-dag',       // Visual: ECS DAG with 9 resources
+  'infra-charts-concept',   // Explain: What Infra Charts are (Helm inspiration)
+  'infra-charts-impact',    // Proof: Real customer success story
   'infra-chart-deploy',     // Deploy complete chart with DAG
   'infrastructure-ready',   // Infrastructure complete, segue to services
   'deploy-summary',
@@ -104,7 +121,11 @@ const establishedProductFlow: DemoScreen[] = [
   'lego-catalog',           // Interactive with education
   'component-config',        // Form screen for single component
   'deploy-logs',            // Live deployment of single component
-  'infra-charts-intro',     // Explain Infra Charts concept
+  // Infra Charts Journey (4 focused screens)
+  'infra-charts-challenge', // The problem: production needs many resources
+  'infra-charts-dag',       // Visual: ECS DAG with 9 resources
+  'infra-charts-concept',   // Explain: What Infra Charts are (Helm inspiration)
+  'infra-charts-impact',    // Proof: Real customer success story
   'infra-chart-deploy',     // Deploy complete chart with DAG
   'infrastructure-ready',   // Infrastructure complete, segue to services
   'infra-visualization',
@@ -128,7 +149,11 @@ const defaultDemoScreens: DemoScreen[] = [
   'lego-catalog',
   'component-config',
   'deploy-logs',
-  'infra-charts-intro',
+  // Infra Charts Journey (4 focused screens)
+  'infra-charts-challenge',
+  'infra-charts-dag',
+  'infra-charts-concept',
+  'infra-charts-impact',
   'infra-chart-deploy',
   'infrastructure-ready',
   'deploy-summary',
@@ -299,7 +324,20 @@ export default function DemoPage() {
         return <ComponentConfiguration selectedComponent={selectedComponent} onDeploy={handleDeploy} />;
       
       case 'infra-charts-intro':
+        // Legacy screen - kept for backward compatibility
         return <InfraChartsIntro />;
+      
+      case 'infra-charts-challenge':
+        return <InfraChartsChallenge />;
+      
+      case 'infra-charts-dag':
+        return <InfraChartsDAG />;
+      
+      case 'infra-charts-concept':
+        return <InfraChartsConcept />;
+      
+      case 'infra-charts-impact':
+        return <InfraChartsImpact />;
       
       case 'infra-chart-deploy':
         return <InfraChartDeployment />;

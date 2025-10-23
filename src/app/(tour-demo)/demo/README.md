@@ -32,8 +32,33 @@ The platform is vast - no single linear workflow can demonstrate all capabilitie
 **Demo Design Concepts** (How we present):
 - **[Why Web Technologies](./concepts/why-web.md)**: Philosophy behind building demo as web app
 - **[Demo Narrative Structure](./concepts/demo-narrative.md)**: Three-act story with milestones
+- **[Demo Journey System](./concepts/demo-journeys.md)**: Focused screens and reusable journey patterns
 
 ## Architecture
+
+### Journey System
+
+The demo uses a **Journey System** to break complex concepts into focused, digestible screens.
+
+**Key Principle**: One screen = One concept
+
+**Journey**: A reusable sequence of focused screens that tells a cohesive story.
+
+**Example - Infra Charts Journey**:
+1. `infra-charts-challenge` - The problem (production needs many resources)
+2. `infra-charts-dag` - Visual demonstration (ECS DAG with 9 resources)
+3. `infra-charts-concept` - Explanation (what Infra Charts are)
+4. `infra-charts-impact` - Proof (customer success story)
+
+**Benefits**:
+- **Clarity**: Each screen explains one concept clearly
+- **Modularity**: Journeys can be reused or reordered
+- **Flexibility**: Different flows can use different journey subsets
+- **Maintainability**: Update one screen without affecting others
+
+**Implementation**: Journeys are defined in `src/components/demo/journeys.ts` and composed into company-specific flows.
+
+See [Demo Journeys](./concepts/demo-journeys.md) for complete architecture details.
 
 ### Company Type Personas
 
@@ -114,18 +139,29 @@ Welcome Screen
     ↓
 Company Type Selection (IT Consulting | Small Product | Established Product)
     ↓
-    ├─→ IT Consulting Flow (18 screens)
-    ├─→ Small Product Flow (18 screens)  
-    └─→ Established Product Flow (18 screens)
+    ├─→ IT Consulting Flow (21 screens)
+    ├─→ Small Product Flow (21 screens)  
+    └─→ Established Product Flow (21 screens)
 ```
 
-**Key Flow Pattern**: All flows follow the product's actual user journey:
-1. **Lego Catalog** - Interactive component selection with educational content
-2. **Component Configuration** - Form to configure the selected component
-3. **Deploy Logs** - Live deployment progress of single component
-4. **Infra Charts Intro** - Explains why we need charts and the problem they solve
-5. **Infra Chart Deployment** - Deploy complete chart with form + DAG side-by-side
-6. **Infrastructure Ready** - Milestone celebration and segue to Service Hub
+**Key Flow Pattern**: All flows follow the product's actual user journey, now organized with focused screens and reusable **Journeys**:
+
+1. **Lego Blocks** - Individual component deployment
+   - Lego Catalog (interactive selection with education)
+   - Component Configuration (form-based)
+   - Deploy Logs (live deployment)
+
+2. **Infra Charts Journey** - Orchestrated infrastructure (4 focused screens)
+   - The Challenge (why production is complex)
+   - The DAG (visual orchestration demo)
+   - The Concept (what Infra Charts are)
+   - The Impact (customer success story)
+
+3. **Chart Deployment** - Live demo with form + DAG
+
+4. **Infrastructure Ready** - Milestone celebration and segue to Service Hub
+
+**Journey System**: Complex concepts are broken into focused, single-concept screens organized into reusable journeys. See [Demo Journeys](./concepts/demo-journeys.md) for architecture details.
 
 Each flow is defined as an array of screens in `DemoPage.tsx`:
 
@@ -141,11 +177,16 @@ const itConsultingFlow: DemoScreen[] = [
   'lego-catalog',           // Interactive with education
   'component-config',        // Form screen for single component
   'deploy-logs',            // Live deployment of single component
-  'infra-charts-intro',     // Explain Infra Charts concept
+  // Infra Charts Journey (4 focused screens)
+  'infra-charts-challenge', // The problem: production needs many resources
+  'infra-charts-dag',       // Visual: ECS DAG with 9 resources
+  'infra-charts-concept',   // Explain: What Infra Charts are (Helm inspiration)
+  'infra-charts-impact',    // Proof: Real customer success story
   'infra-chart-deploy',     // Deploy complete chart with DAG
+  'infrastructure-ready',   // Infrastructure complete, segue to services
   'service-hub-intro',
   'github-connection',
-  'buildpacks-selection',
+  'no-dockerfile-required', // BuildPacks - automatic containerization
   'service-deployment',
   'service-success-story'
 ];
@@ -329,6 +370,7 @@ src/app/(tour-demo)/demo/
 
 src/components/demo/
 ├── DemoPage.tsx          # Main orchestrator (state, navigation, flows)
+├── journeys.ts           # Journey definitions and helper functions
 ├── demo.css              # Shared styles
 │
 ├── intro/                # Introduction screens
@@ -345,7 +387,14 @@ src/components/demo/
 │   ├── CloudConnections.tsx
 │   ├── LegoCatalog.tsx              # Educational + component selection
 │   ├── ComponentConfiguration.tsx   # Form for selected component
-│   ├── InfraChartsIntro.tsx         # Explains Infra Charts concept
+│   │
+│   │ # Infra Charts Journey (4 focused screens)
+│   ├── InfraChartsChallenge.tsx     # Journey screen 1: The problem
+│   ├── InfraChartsDAG.tsx           # Journey screen 2: Visual demo
+│   ├── InfraChartsConcept.tsx       # Journey screen 3: Explanation
+│   ├── InfraChartsImpact.tsx        # Journey screen 4: Customer success
+│   │
+│   ├── InfraChartsIntro.tsx         # Legacy (deprecated, kept for reference)
 │   ├── InfraChartDeployment.tsx     # Chart deployment: Form + DAG side-by-side
 │   ├── InfrastructureReady.tsx      # Milestone: Infra complete, segue to services
 │   ├── DeploySummary.tsx

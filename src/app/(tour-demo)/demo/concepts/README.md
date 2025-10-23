@@ -83,6 +83,21 @@ Instead of one large README, we break concepts into smaller, focused documents t
 
 ---
 
+### 6. [Demo Journey System](./demo-journeys.md)
+**Topic**: Focused screen architecture and reusable journey patterns
+
+**Key Points**:
+- One screen = One concept (focused learning)
+- Journeys: Reusable sequences of focused screens
+- Infra Charts Journey: Challenge → DAG → Concept → Impact
+- Composable flows from journeys and standalone screens
+- Benefits: Clarity, flexibility, maintainability
+- Creating new journeys
+
+**When to reference**: Refactoring dense screens into focused ones, creating new journey sequences, understanding demo architecture, improving learning comprehension
+
+---
+
 ## How These Concepts Relate
 
 **Product Concepts** (What we built):
@@ -109,15 +124,21 @@ Why Web Technologies
 Demo Narrative Structure
         ↓
     (Storytelling: 3 acts + milestones)
+        ↓
+Demo Journey System
+        ↓
+    (Architecture: Focused screens + reusable journeys)
 ```
 
 ## Using These Documents
 
 ### For Demo Preparation
 1. Read [why-web.md](./why-web.md) to understand our approach
-2. Read [paretos-principle.md](./paretos-principle.md) for foundational insight
-3. Read [deployment-store.md](./deployment-store.md) before showing Lego Catalog
-4. Read [infra-charts.md](./infra-charts.md) before showing charts section
+2. Read [demo-journeys.md](./demo-journeys.md) to understand focused screen architecture
+3. Read [paretos-principle.md](./paretos-principle.md) for foundational insight
+4. Read [deployment-store.md](./deployment-store.md) before showing Lego Catalog
+5. Read [infra-charts.md](./infra-charts.md) before showing charts section
+6. Read [demo-narrative.md](./demo-narrative.md) to understand the story arc
 
 ### For Team Onboarding
 - Start with [why-web.md](./why-web.md) to understand the philosophy
@@ -164,6 +185,8 @@ As we expand the demo, we may add:
 - Educational content design
 - Interactive elements best practices
 - Branching flow patterns
+- Journey composition patterns
+- A/B testing journey screen orders
 
 Each concept deserves its own focused document.
 

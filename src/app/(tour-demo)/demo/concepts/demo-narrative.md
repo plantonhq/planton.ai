@@ -23,7 +23,7 @@ Every effective demo tells a story. Our demo follows a classic narrative arc wit
 
 ## Act 2: Infrastructure Hub (The Foundation)
 
-**Screens**: Cloud Connections → Lego Catalog → Component Config → Deploy Logs → Charts Intro → Chart Deploy → **Infrastructure Ready**
+**Screens**: Cloud Connections → Lego Catalog → Component Config → Deploy Logs → **Infra Charts Journey** (4 screens) → Chart Deploy → **Infrastructure Ready**
 
 **Goal**: Show how to deploy production infrastructure without writing IaC
 
@@ -39,17 +39,39 @@ Every effective demo tells a story. Our demo follows a classic narrative arc wit
 
 **Key Learning**: One Lego Block = One form = One live deployment
 
-### Part B: Understanding Orchestration (Infra Charts)
+### Part B: Understanding Orchestration (Infra Charts Journey)
 
-**Charts Intro** → **Chart Deployment**
+**Infra Charts Journey** → **Chart Deployment**
 
-**Narrative**:
-1. "Real environments need many interconnected resources" (The problem)
-2. "We package them as Infra Charts" (The solution, Helm inspiration)
-3. "7 simple inputs configure 9 resources" (The power of templatization)
-4. "Watch the DAG orchestrate deployment" (Dependencies handled automatically)
+The Infra Charts Journey is a sequence of 4 focused screens, each explaining one concept:
+
+**Screen 1: The Challenge**
+- "Real environments need many interconnected resources" (The problem)
+- Shows 9 resources needed for production ECS
+- One focused message: Complexity of manual deployment
+
+**Screen 2: The DAG**
+- Visual demonstration of orchestration
+- ECS Chart DAG with 9 resources and dependencies
+- Impact: 7 inputs → 9 resources → 20 minutes
+
+**Screen 3: The Concept**
+- "We package them as Infra Charts" (The solution)
+- Helm inspiration: Same pattern for infrastructure
+- How it works: Template → Values → DAG → Deployment
+
+**Screen 4: The Impact**
+- Real customer success story
+- IT Consulting Agency: 3 clients, 20 minutes each
+- Social proof and credibility
+
+**Then: Chart Deployment**
+- Live demonstration: Form with 7 parameters
+- DAG visualization shows all 9 resources
+- Deploy and watch orchestration happen
 
 **Key Learning**: Charts = Multiple Lego Blocks + Orchestration
+**New Approach**: One screen = One concept = Better comprehension
 
 ### Milestone: Infrastructure Ready ✅
 
@@ -204,8 +226,19 @@ This three-act structure, with clear milestones, creates a compelling narrative 
 
 ---
 
+## The Journey System
+
+Starting with Infra Charts, we've introduced a **Journey System** that breaks complex concepts into focused, single-concept screens.
+
+**Why?** Cognitive science shows people process information better in focused chunks.
+
+**How?** Instead of one dense screen with 4 sections, we create 4 focused screens that form a journey.
+
+**Learn more**: [Demo Journeys](./demo-journeys.md) - The architecture behind focused screen sequences
+
 ## Related Concepts
 
+- [Demo Journeys](./demo-journeys.md) - Journey system architecture and focused screens
 - [Why Web](./why-web.md) - Explains why web technologies enable this narrative approach
 - [Deployment Store](./deployment-store.md) - The foundation of Act 2, Part A
 - [Infra Charts](./infra-charts.md) - The foundation of Act 2, Part B
