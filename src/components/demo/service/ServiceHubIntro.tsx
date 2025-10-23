@@ -2,17 +2,26 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Zap, GitBranch, Package, Rocket, CheckCircle } from 'lucide-react';
+import { Zap, GitBranch, Rocket, CheckCircle } from 'lucide-react';
 
 export default function ServiceHubIntro() {
   return (
     <div className="h-full flex flex-col">
       {/* Header */}
-      <div className="px-8 py-6 border-b border-gray-200">
-        <h2 className="text-2xl font-bold text-gray-900">Service Hub</h2>
-        <p className="text-gray-600 mt-1">
-          Vercel for backend, deployed in your cloud
-        </p>
+      <div className="px-8 py-6 border-b border-gray-200 bg-gradient-to-r from-green-50 to-emerald-50">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">Service Hub</h2>
+          <p className="text-xl text-gray-600 mb-2">
+            Vercel for Backend, in Your Cloud
+          </p>
+          <div className="inline-block bg-gradient-to-r from-green-600 to-emerald-600 text-white px-5 py-2 rounded-full text-sm font-bold">
+            ✨ No Dockerfile Required
+          </div>
+        </motion.div>
       </div>
 
       <div className="flex-1 overflow-auto bg-gradient-to-br from-violet-50 via-purple-50 to-pink-50">
@@ -29,9 +38,14 @@ export default function ServiceHubIntro() {
             <h1 className="text-5xl font-extrabold text-gray-900 mb-4">
               Service Hub
             </h1>
-            <p className="text-2xl text-gray-600 font-medium mb-2">
+            <p className="text-2xl text-gray-600 font-medium mb-4">
               Vercel for Backend, in Your Cloud
             </p>
+            <div className="inline-block bg-gradient-to-r from-green-600 to-emerald-600 text-white px-8 py-4 rounded-2xl mb-4 shadow-xl">
+              <p className="text-2xl font-black">
+                No Dockerfile Required
+              </p>
+            </div>
             <p className="text-lg text-gray-500 max-w-2xl mx-auto">
               Drop-in replacement for GitHub Actions and GitLab pipelines. Deploy backend services with zero DevOps overhead.
             </p>
@@ -77,16 +91,16 @@ export default function ServiceHubIntro() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
-              className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200"
+              className="bg-white rounded-2xl p-8 shadow-lg border-2 border-green-200"
             >
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
-                  <Package className="w-6 h-6 text-white" />
+                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
+                  <Zap className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="font-bold text-gray-900 text-lg">BuildPacks Support</h3>
+                <h3 className="font-bold text-gray-900 text-lg">No Dockerfile Required</h3>
               </div>
               <p className="text-gray-600">
-                No Dockerfile needed. Cloud-native BuildPacks automatically detect your tech stack and create optimized container images.
+                Cloud-native BuildPacks automatically detect your tech stack and create optimized container images. Zero Dockerfile knowledge needed.
               </p>
             </motion.div>
 
@@ -128,13 +142,15 @@ export default function ServiceHubIntro() {
                   <li>✓ Multi-stage builds supported</li>
                 </ul>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                <h4 className="font-bold text-lg mb-3">Use BuildPacks</h4>
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border-2 border-green-400">
+                <h4 className="font-bold text-lg mb-1">No Dockerfile Required</h4>
+                <p className="text-xs text-green-200 mb-3">Recommended for most teams</p>
                 <ul className="space-y-2 text-sm text-white/90">
-                  <li>✓ No Dockerfile needed</li>
+                  <li>✓ Zero Dockerfile knowledge needed</li>
                   <li>✓ Auto-detect tech stack</li>
                   <li>✓ Support for Java, Python, Node.js, Go...</li>
                   <li>✓ Best practices built-in</li>
+                  <li>✓ Automatic security updates</li>
                 </ul>
               </div>
             </div>

@@ -2,25 +2,36 @@
 
 A web-based interactive demo platform for Planton Cloud, built entirely with modern web technologies to provide personalized, branching demonstrations based on company type and user needs.
 
-## Philosophy: Why a Web App for Demos?
+## Quick Links
 
-As engineers building Planton Cloud, we tried various presentation and demo tools but found them limiting. Traditional presentation software requires learning new tools and restricts customization. 
+- **Live Demo**: [planton.ai/demo](https://planton.ai/demo)
+- **Coding Guidelines**: [coding-guidelines.md](./coding-guidelines.md)
+- **Concept Docs**: [concepts/](./concepts/)
 
-**Our approach**: Treat the demo itself as a full-blown web application.
+## Philosophy
 
-### Benefits
+**We treat the demo as a full-blown web application** built with React, TypeScript, and Tailwind.
 
-- **Full control**: Use familiar React, TypeScript, and Tailwind instead of learning presentation tools
-- **Complex branching**: Leverage web technologies for dynamic, personalized flows based on user context
-- **Always accessible**: Hosted at [planton.ai/demo](https://planton.ai/demo) for easy sharing
-- **Iterative improvement**: Update and refine continuously based on demo feedback
-- **Engineering-friendly**: Remain in comfort zone of web development workflow
+Why? As engineers, we found traditional presentation tools limiting. Building with web technologies gives us full control, enables complex branching, and keeps us in our workflow comfort zone.
+
+**Read more**: [Why Web Technologies for Demos](./concepts/why-web.md)
 
 ## Project Status
 
-**Current State**: Super Alpha
+**Current State**: Super Alpha - Continuous iteration based on demo feedback
 
-This is a continuous work in progress. The platform is vast and broad - no single linear workflow can demonstrate all capabilities. We're constantly refining based on feedback from each demo session.
+The platform is vast - no single linear workflow can demonstrate all capabilities. We're constantly refining based on each demo session.
+
+## Core Concepts
+
+**Product Concepts** (What we built):
+- **[Pareto's Principle](./concepts/paretos-principle.md)**: 20% of services & configs used 80% of time
+- **[Deployment Component Store](./concepts/deployment-store.md)**: Infrastructure Lego Blocks with form-based configuration
+- **[Infra Charts](./concepts/infra-charts.md)**: Orchestrated bundles of Lego Blocks deployed as a DAG
+
+**Demo Design Concepts** (How we present):
+- **[Why Web Technologies](./concepts/why-web.md)**: Philosophy behind building demo as web app
+- **[Demo Narrative Structure](./concepts/demo-narrative.md)**: Three-act story with milestones
 
 ## Architecture
 
@@ -42,11 +53,12 @@ The demo personalizes the experience based on three distinct company types, each
 
 **Demo Flow Emphasis**:
 - Cloud connections (quick setup)
-- Lego catalog (pre-built modules)
-- Infrastructure builder (rapid assembly)
+- Lego catalog (pre-built modules with educational content)
+- Component configuration (form-based, popular configuration knobs)
 - Deploy logs (live progress visibility)
+- Infrastructure charts (combining multiple Lego blocks)
 - Service Hub (quick CI/CD)
-- GitHub connection + BuildPacks + Deployment
+- GitHub connection + No Dockerfile Required + Deployment
 
 #### 2. Small Product Company
 
@@ -61,8 +73,10 @@ The demo personalizes the experience based on three distinct company types, each
 - Like Vercel, but for backend in your cloud
 
 **Demo Flow Emphasis**:
-- Lego catalog (no expertise needed)
-- Infrastructure builder (visual, no code)
+- Lego catalog (no expertise needed, educational)
+- Component configuration (form-based, no code required)
+- Deploy logs (see deployment happen live)
+- Infrastructure charts (visual composition of blocks)
 - Service Hub (no CI/CD code to write)
 - Service configuration (developer-friendly)
 - Service deployment (one-click deploys)
@@ -81,6 +95,11 @@ The demo personalizes the experience based on three distinct company types, each
 - Compliance and audit trails
 
 **Demo Flow Emphasis**:
+- Cloud connections
+- Lego catalog (educational understanding)
+- Component configuration (popular configuration knobs)
+- Deploy logs (live deployment visibility)
+- Infrastructure charts (combining blocks)
 - Infrastructure visualization (complete visibility)
 - Version history (audit trail and compliance)
 - Edit flow (golden paths and standardization)
@@ -95,10 +114,18 @@ Welcome Screen
     ↓
 Company Type Selection (IT Consulting | Small Product | Established Product)
     ↓
-    ├─→ IT Consulting Flow (15 screens)
-    ├─→ Small Product Flow (14 screens)  
-    └─→ Established Product Flow (14 screens)
+    ├─→ IT Consulting Flow (18 screens)
+    ├─→ Small Product Flow (18 screens)  
+    └─→ Established Product Flow (18 screens)
 ```
+
+**Key Flow Pattern**: All flows follow the product's actual user journey:
+1. **Lego Catalog** - Interactive component selection with educational content
+2. **Component Configuration** - Form to configure the selected component
+3. **Deploy Logs** - Live deployment progress of single component
+4. **Infra Charts Intro** - Explains why we need charts and the problem they solve
+5. **Infra Chart Deployment** - Deploy complete chart with form + DAG side-by-side
+6. **Infrastructure Ready** - Milestone celebration and segue to Service Hub
 
 Each flow is defined as an array of screens in `DemoPage.tsx`:
 
@@ -111,9 +138,11 @@ const itConsultingFlow: DemoScreen[] = [
   'intro-promise',
   'intro-cta',
   'cloud-connections',
-  'lego-catalog',
-  'infra-builder',
-  'deploy-logs',
+  'lego-catalog',           // Interactive with education
+  'component-config',        // Form screen for single component
+  'deploy-logs',            // Live deployment of single component
+  'infra-charts-intro',     // Explain Infra Charts concept
+  'infra-chart-deploy',     // Deploy complete chart with DAG
   'service-hub-intro',
   'github-connection',
   'buildpacks-selection',
@@ -122,13 +151,152 @@ const itConsultingFlow: DemoScreen[] = [
 ];
 ```
 
+### Educational Content: Lego Catalog
+
+The redesigned Lego Catalog screen serves dual purposes:
+
+#### Left Side (40%) - Educational Panel
+Explains key concepts while you present:
+
+1. **Pareto Principle Visual**
+   - 80/20 circular diagram
+   - "20% of cloud services used 80% of time"
+   - "20% of configurations used 80% of time"
+
+2. **What We Built**
+   - Identified popular cloud components
+   - Identified popular configuration knobs
+   - Built technology to capture inputs from developers
+
+3. **How It Works**
+   - Visual flow: Form Inputs → Variables → Terraform/Pulumi Modules
+   - Pre-written modules in Terraform & Pulumi
+   - Open source via Project Planton
+
+#### Right Side (60%) - Component Selection
+- 4 clickable component cards (AWS ALB, RDS, EKS, ECS)
+- Visual selection state with checkmark
+- "Continue" button appears when component selected
+- Seamless transition to configuration form
+
+This design lets you explain the Deployment Component Store concept while simultaneously showing real, selectable components.
+
+### Component Configuration Flow
+
+After selecting a component from the catalog:
+
+1. **Configuration Screen** displays with educational header
+2. User sees the **AWS ALB form** (regardless of component selected for demo simplicity)
+3. Header explains: "Popular configuration knobs identified from 80/20 analysis"
+4. Form auto-fills to demonstrate the experience
+5. Clicking "Deploy ALB" advances to **Deploy Logs** screen
+6. Live deployment progress shown
+7. **Then** Infra Charts introduced to show combining multiple blocks
+
+This sequence matches the actual product experience and reinforces the educational messaging.
+
+### Infra Charts Introduction
+
+After users understand individual Lego Blocks and see one deploy, we introduce Infra Charts:
+
+**Screen Content**:
+1. **The Challenge**: Real environments need many interconnected resources (VPC, security groups, ALB, SSL, DNS, ECS, IAM, etc.)
+2. **The Inspiration**: Kubernetes Helm Charts - package multiple resources as reusable templates
+3. **The Solution**: Infra Charts - orchestrated collections of Lego Blocks deployed as a DAG
+4. **Real Example**: Large, prominent ECS Chart DAG visualization
+   - Full-width display showing 9 interconnected resources
+   - Dependency arrows clearly visible
+   - Header emphasizes: "9 resources from a simple 7-parameter form"
+5. **Customer Impact**: 3 clients, ~20 min deployments, <1 hour code-to-live-URL
+
+**Why This Works**: 
+- Users already understand individual components from previous screens
+- Natural progression: "You've seen one block, now see many blocks working together"
+- Large DAG visualization makes dependencies immediately understandable
+- Shows the complexity being handled automatically
+- Real product screenshot builds credibility
+- Customer success metrics demonstrate value
+
+### Infra Chart Deployment
+
+After explaining what charts are, we show the actual deployment experience:
+
+**Screen Layout** (Side-by-Side):
+
+**Left Side (40%) - Configuration Form**: 
+- Parameters from values.yaml
+- Fields: availability zones, domain name, service name, ECR repo, service port
+- Educational header: "Your inputs will render all Lego Block configurations"
+- "Deploy Chart" button at bottom
+
+**Right Side (60%) - DAG Preview**: 
+- Shows ECS chart DAG with 9 resources
+- Visual representation of dependencies
+- Header: "9 resources will be deployed in dependency order"
+- When Deploy clicked: Stats footer appears showing "Deployment Started"
+- Stats: 9 Resources, ~20 Minutes, In Progress indicator
+
+**Key Points**:
+- Form parameters (7 fields) configure entire environment (9 resources)
+- DAG shows all resources and dependencies before deployment
+- User sees what will be created before clicking Deploy
+- When deployed: Each resource executes when dependencies are satisfied
+- Parallel execution where possible
+- ~20 minutes to production-ready infrastructure
+- At completion, infrastructure ready for ServiceHub
+
+**Visual Impact**: 
+- Side-by-side layout shows the power of templatization (7 inputs → 9 resources)
+- DAG visualization makes complex dependencies understandable
+- Real product screenshot builds credibility
+
+**Segue to ServiceHub**: "Infrastructure is ready. Now let's deploy services to it."
+
+### Infrastructure Ready (Transition Screen)
+
+A celebratory milestone screen that marks the completion of infrastructure setup:
+
+**Visual Design**:
+- Large green checkmark icon (success indicator)
+- Bold headline: "Infrastructure is Production Ready"
+- Subheading: "Your AWS environment is fully configured and ready. Developers can now start deploying services."
+
+**What's Ready (3 cards)**:
+1. **Networking**: VPC, subnets, security groups, load balancer
+2. **Compute**: ECS cluster ready for containerized workloads
+3. **Security**: SSL certificates, DNS, IAM roles configured
+
+**Stats Panel**:
+- 9 Resources Deployed
+- ~20 Minutes Total Time
+- ✓ Production Ready
+
+**Segue to Service Hub**:
+- Purple gradient panel with rocket icon
+- "Next: Deploy Services"
+- "Infrastructure is ready. Let's see how to deploy your applications to this environment."
+- Clear visual cue (arrow) indicating transition
+
+**Purpose**:
+- Provides psychological "checkpoint" after complex infrastructure section
+- Reinforces what was accomplished
+- Creates clear mental transition: Infrastructure → Services
+- Builds momentum toward next section
+
+**Why This Works**:
+- Celebrates achievement (positive reinforcement)
+- Summarizes value (9 resources in 20 minutes)
+- Natural break point in the narrative
+- Explicit handoff between InfraHub and ServiceHub
+
 ### State Management
 
 The demo uses React state to manage:
 
 1. **Current Screen**: Which screen is being displayed
 2. **Company Type**: Selected company type that determines the flow
-3. **Navigation State**: Current position in the flow
+3. **Selected Component**: Which component was chosen from catalog
+4. **Navigation State**: Current position in the flow
 
 **Key Pattern**: When user clicks Home, both current screen AND company type are reset, allowing them to start fresh with a different company type.
 
@@ -136,6 +304,7 @@ The demo uses React state to manage:
 const goToHome = useCallback(() => {
   setCurrentScreen('welcome');
   setCompanyType(null); // Reset company type when going home
+  setSelectedComponent(null); // Reset selected component
 }, []);
 ```
 
@@ -174,8 +343,11 @@ src/components/demo/
 │
 ├── platform/             # Platform/Infrastructure screens
 │   ├── CloudConnections.tsx
-│   ├── LegoCatalog.tsx
-│   ├── InfraChartsBuilder.tsx
+│   ├── LegoCatalog.tsx              # Educational + component selection
+│   ├── ComponentConfiguration.tsx   # Form for selected component
+│   ├── InfraChartsIntro.tsx         # Explains Infra Charts concept
+│   ├── InfraChartDeployment.tsx     # Chart deployment: Form + DAG side-by-side
+│   ├── InfrastructureReady.tsx      # Milestone: Infra complete, segue to services
 │   ├── DeploySummary.tsx
 │   ├── DeployLogs.tsx
 │   ├── InfraVersionHistory.tsx
@@ -185,7 +357,7 @@ src/components/demo/
 ├── service/              # Service deployment screens
 │   ├── ServiceHubIntro.tsx
 │   ├── GitHubConnection.tsx
-│   ├── BuildPacksSelection.tsx
+│   ├── NoDockerfileRequired.tsx     # BuildPacks - automatic containerization
 │   ├── ServiceConfiguration.tsx
 │   ├── ServiceDeployment.tsx
 │   ├── ServiceLiveExample.tsx

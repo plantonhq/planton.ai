@@ -24,7 +24,10 @@ import IntroCTA from './intro/IntroCTA';
 // Import platform components
 import CloudConnections from './platform/CloudConnections';
 import LegoCatalog from './platform/LegoCatalog';
-import InfraChartsBuilder from './platform/InfraChartsBuilder';
+import ComponentConfiguration from './platform/ComponentConfiguration';
+import InfraChartsIntro from './platform/InfraChartsIntro';
+import InfraChartDeployment from './platform/InfraChartDeployment';
+import InfrastructureReady from './platform/InfrastructureReady';
 import DeploySummary from './platform/DeploySummary';
 import DeployLogs from './platform/DeployLogs';
 import InfraVersionHistory from './platform/InfraVersionHistory';
@@ -34,7 +37,7 @@ import InfraEditFlow from './platform/InfraEditFlow';
 // Import service components
 import ServiceHubIntro from './service/ServiceHubIntro';
 import GitHubConnection from './service/GitHubConnection';
-import BuildPacksSelection from './service/BuildPacksSelection';
+import NoDockerfileRequired from './service/NoDockerfileRequired';
 import ServiceConfiguration from './service/ServiceConfiguration';
 import ServiceDeployment from './service/ServiceDeployment';
 import ServiceLiveExample from './service/ServiceLiveExample';
@@ -42,9 +45,9 @@ import ServiceSuccessStory from './service/ServiceSuccessStory';
 import './demo.css';
 
 type DemoScreen = 'welcome' | 'company-selection' | 'intro-problem' | 'intro-stakes' | 'intro-promise' | 'intro-cta' | 
-  'cloud-connections' | 'lego-catalog' | 'infra-builder' | 'deploy-summary' | 'deploy-logs' |
-  'infra-version-history' | 'infra-visualization' | 'infra-edit-flow' |
-  'service-hub-intro' | 'github-connection' | 'buildpacks-selection' | 
+  'cloud-connections' | 'lego-catalog' | 'component-config' | 'infra-charts-intro' | 'infra-chart-deploy' | 'infrastructure-ready' | 
+  'deploy-summary' | 'deploy-logs' | 'infra-version-history' | 'infra-visualization' | 'infra-edit-flow' |
+  'service-hub-intro' | 'github-connection' | 'no-dockerfile-required' | 
   'service-configuration' | 'service-deployment' | 'service-live-example' | 'service-success-story';
 
 // Define demo flows for each company type
@@ -56,12 +59,15 @@ const itConsultingFlow: DemoScreen[] = [
   'intro-promise',
   'intro-cta',
   'cloud-connections',
-  'lego-catalog',
-  'infra-builder',
-  'deploy-logs',
+  'lego-catalog',           // Interactive with education
+  'component-config',        // Form screen for single component
+  'deploy-logs',            // Live deployment of single component
+  'infra-charts-intro',     // Explain Infra Charts concept
+  'infra-chart-deploy',     // Deploy complete chart with DAG
+  'infrastructure-ready',   // Infrastructure complete, segue to services
   'service-hub-intro',
   'github-connection',
-  'buildpacks-selection',
+  'no-dockerfile-required', // BuildPacks - automatic containerization
   'service-deployment',
   'service-success-story'
 ];
@@ -73,8 +79,12 @@ const smallProductFlow: DemoScreen[] = [
   'intro-stakes',
   'intro-promise',
   'intro-cta',
-  'lego-catalog',
-  'infra-builder',
+  'lego-catalog',           // Interactive with education
+  'component-config',        // Form screen for single component
+  'deploy-logs',            // Live deployment of single component
+  'infra-charts-intro',     // Explain Infra Charts concept
+  'infra-chart-deploy',     // Deploy complete chart with DAG
+  'infrastructure-ready',   // Infrastructure complete, segue to services
   'deploy-summary',
   'service-hub-intro',
   'service-configuration',
@@ -91,6 +101,12 @@ const establishedProductFlow: DemoScreen[] = [
   'intro-promise',
   'intro-cta',
   'cloud-connections',
+  'lego-catalog',           // Interactive with education
+  'component-config',        // Form screen for single component
+  'deploy-logs',            // Live deployment of single component
+  'infra-charts-intro',     // Explain Infra Charts concept
+  'infra-chart-deploy',     // Deploy complete chart with DAG
+  'infrastructure-ready',   // Infrastructure complete, segue to services
   'infra-visualization',
   'infra-version-history',
   'infra-edit-flow',
@@ -110,15 +126,18 @@ const defaultDemoScreens: DemoScreen[] = [
   'intro-cta',
   'cloud-connections',
   'lego-catalog',
-  'infra-builder',
-  'deploy-summary',
+  'component-config',
   'deploy-logs',
+  'infra-charts-intro',
+  'infra-chart-deploy',
+  'infrastructure-ready',
+  'deploy-summary',
   'infra-version-history',
   'infra-visualization',
   'infra-edit-flow',
   'service-hub-intro',
   'github-connection',
-  'buildpacks-selection',
+  'no-dockerfile-required',
   'service-configuration',
   'service-deployment',
   'service-live-example',
@@ -128,6 +147,7 @@ const defaultDemoScreens: DemoScreen[] = [
 export default function DemoPage() {
   const [currentScreen, setCurrentScreen] = useState<DemoScreen>('welcome');
   const [companyType, setCompanyType] = useState<CompanyType | null>(null);
+  const [selectedComponent, setSelectedComponent] = useState<string | null>(null);
 
   // Get the appropriate demo flow based on company type
   const getDemoScreens = useCallback((): DemoScreen[] => {
@@ -153,6 +173,7 @@ export default function DemoPage() {
   const goToHome = useCallback(() => {
     setCurrentScreen('welcome');
     setCompanyType(null); // Reset company type when going home
+    setSelectedComponent(null); // Reset selected component
   }, []);
 
   const navigateNext = useCallback(() => {
@@ -198,6 +219,11 @@ export default function DemoPage() {
   }, [navigateNext]);
 
   const handleProviderSelect = useCallback((_provider: string) => {
+    navigateNext();
+  }, [navigateNext]);
+
+  const handleComponentSelect = useCallback((componentId: string) => {
+    setSelectedComponent(componentId);
     navigateNext();
   }, [navigateNext]);
 
@@ -267,10 +293,19 @@ export default function DemoPage() {
         return <CloudConnections />;
       
       case 'lego-catalog':
-        return <LegoCatalog />;
+        return <LegoCatalog onComponentSelect={handleComponentSelect} />;
       
-      case 'infra-builder':
-        return <InfraChartsBuilder />;
+      case 'component-config':
+        return <ComponentConfiguration selectedComponent={selectedComponent} onDeploy={handleDeploy} />;
+      
+      case 'infra-charts-intro':
+        return <InfraChartsIntro />;
+      
+      case 'infra-chart-deploy':
+        return <InfraChartDeployment />;
+      
+      case 'infrastructure-ready':
+        return <InfrastructureReady />;
       
       case 'deploy-summary':
         return <DeploySummary onDeploy={handleDeploy} />;
@@ -293,8 +328,8 @@ export default function DemoPage() {
       case 'github-connection':
         return <GitHubConnection />;
       
-      case 'buildpacks-selection':
-        return <BuildPacksSelection />;
+      case 'no-dockerfile-required':
+        return <NoDockerfileRequired />;
       
       case 'service-configuration':
         return <ServiceConfiguration />;

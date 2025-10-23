@@ -2,14 +2,28 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Package, FileCode, CheckCircle, Sparkles } from 'lucide-react';
+import { Package, FileCode, CheckCircle, Sparkles, Zap } from 'lucide-react';
 
 const buildMethods = [
+  {
+    id: 'buildpacks',
+    title: 'No Dockerfile Required',
+    icon: Zap,
+    description: 'Automatic containerization using Cloud-Native BuildPacks',
+    benefits: [
+      'Zero Dockerfile knowledge needed',
+      'Auto-detect tech stack',
+      'Best practices built-in',
+      'Automatic security updates',
+    ],
+    status: 'Recommended - Detected Java Spring Boot',
+    recommended: true,
+  },
   {
     id: 'dockerfile',
     title: 'Bring Your Dockerfile',
     icon: FileCode,
-    description: 'Use your existing Dockerfile for full control over the build process',
+    description: 'Use your existing Dockerfile for full control',
     benefits: [
       'Complete control over build steps',
       'Custom base images',
@@ -17,20 +31,6 @@ const buildMethods = [
       'Existing Dockerfile compatibility',
     ],
     status: 'No Dockerfile detected in repository',
-  },
-  {
-    id: 'buildpacks',
-    title: 'Use BuildPacks',
-    icon: Package,
-    description: 'Cloud-native technology for converting code to container images',
-    benefits: [
-      'No Dockerfile needed',
-      'Auto-detect tech stack',
-      'Best practices built-in',
-      'Automatic security updates',
-    ],
-    status: 'Recommended for this repository',
-    recommended: true,
   },
 ];
 
@@ -45,21 +45,47 @@ const supportedLanguages = [
   { name: 'Rust', icon: '🦀', color: 'from-orange-500 to-orange-700' },
 ];
 
-export default function BuildPacksSelection() {
+export default function NoDockerfileRequired() {
   const [selectedMethod, setSelectedMethod] = useState<string>('buildpacks');
 
   return (
     <div className="h-full flex flex-col">
       {/* Header */}
-      <div className="px-8 py-6 border-b border-gray-200">
-        <h2 className="text-2xl font-bold text-gray-900">Choose Build Method</h2>
-        <p className="text-gray-600 mt-1">
-          Select how to containerize your application
-        </p>
+      <div className="px-8 py-6 border-b border-gray-200 bg-gradient-to-r from-green-50 to-emerald-50">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">No Dockerfile Required</h2>
+          <p className="text-gray-600 text-lg">
+            Deploy containerized applications without writing or maintaining Dockerfiles
+          </p>
+        </motion.div>
       </div>
 
       <div className="flex-1 overflow-auto">
         <div className="max-w-6xl mx-auto p-8">
+          {/* Value Prop Banner */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="bg-gradient-to-r from-violet-600 to-purple-600 rounded-2xl p-6 text-white mb-8"
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                <Zap className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold mb-1">Like Vercel, But for Backend</h3>
+                <p className="text-white/90 text-sm">
+                  Push your code, we handle containerization, deployment, and scaling—all in your cloud.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
           {/* Build method selection */}
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             {buildMethods.map((method, index) => {
@@ -69,7 +95,7 @@ export default function BuildPacksSelection() {
                   key={method.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ delay: 0.3 + index * 0.1 }}
                   onClick={() => setSelectedMethod(method.id)}
                   className={`
                     relative bg-white border-2 rounded-2xl p-8 cursor-pointer transition-all
@@ -148,17 +174,17 @@ export default function BuildPacksSelection() {
               <div className="bg-gradient-to-r from-violet-50 to-purple-50 border border-violet-200 rounded-xl p-6">
                 <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
                   <Package className="w-5 h-5 text-violet-600" />
-                  What are BuildPacks?
+                  How It Works: Cloud-Native BuildPacks
                 </h3>
                 <p className="text-gray-700 mb-4">
-                  Cloud-native BuildPacks transform your application source code into container images without needing a Dockerfile. 
-                  They&apos;re open source, maintained by the community, and follow best practices for security and performance.
+                  BuildPacks automatically transform your application source code into production-ready container images—no Dockerfile knowledge required. 
+                  They&apos;re open source, maintained by the CNCF community, and follow best practices for security and performance.
                 </p>
                 <div className="bg-white rounded-lg p-4 border border-violet-200">
-                <p className="text-sm text-gray-600">
-                  <strong className="text-gray-900">How it works:</strong> BuildPacks detect your application&apos;s language and framework, 
-                  then automatically install dependencies, compile code, and create an optimized container image.
-                </p>
+                  <p className="text-sm text-gray-600">
+                    <strong className="text-gray-900">The magic:</strong> Push your code → BuildPacks detect language/framework → 
+                    Install dependencies → Compile → Optimize → Create container image. All automatically.
+                  </p>
                 </div>
               </div>
 
@@ -173,7 +199,7 @@ export default function BuildPacksSelection() {
                       key={lang.name}
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.3 + index * 0.05 }}
+                      transition={{ delay: 0.5 + index * 0.05 }}
                       className={`
                         bg-gradient-to-br ${lang.color}
                         rounded-xl p-4 text-center text-white shadow-lg
@@ -194,21 +220,22 @@ export default function BuildPacksSelection() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
+                transition={{ delay: 0.7 }}
                 className="bg-green-50 border border-green-200 rounded-xl p-6"
               >
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
                   <div>
-                    <h4 className="font-bold text-gray-900 mb-2">BuildPacks Selected</h4>
+                    <h4 className="font-bold text-gray-900 mb-2">Auto-Detected: Java Spring Boot</h4>
                     <p className="text-sm text-gray-600 mb-3">
-                      Platform will use Java BuildPack to build your Spring Boot application:
+                      Platform will automatically:
                     </p>
                     <ul className="space-y-1 text-sm text-gray-600">
-                      <li>✓ Auto-detect Java 17 runtime</li>
-                      <li>✓ Maven dependency resolution</li>
-                      <li>✓ Spring Boot optimizations</li>
-                      <li>✓ JVM tuning for containers</li>
+                      <li>✓ Detect Java 17 runtime</li>
+                      <li>✓ Resolve Maven dependencies</li>
+                      <li>✓ Apply Spring Boot optimizations</li>
+                      <li>✓ Tune JVM for container environment</li>
+                      <li>✓ Create optimized, secure container image</li>
                     </ul>
                   </div>
                 </div>
@@ -232,7 +259,7 @@ export default function BuildPacksSelection() {
                   </p>
                   <ul className="space-y-2 text-sm text-gray-600">
                     <li>• Create a Dockerfile in your repository root</li>
-                    <li>• Or switch to BuildPacks for automatic containerization</li>
+                    <li>• Or switch to &ldquo;No Dockerfile Required&rdquo; for automatic containerization</li>
                   </ul>
                 </div>
               </div>

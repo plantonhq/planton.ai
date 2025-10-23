@@ -72,7 +72,11 @@ export default function NewFeature() {
 
 ### Standard Screen Component Pattern
 
-Every demo screen should follow this structure:
+Every demo screen should follow one of these patterns based on its purpose:
+
+#### 1. Standard Content Screen
+
+For educational or informational content:
 
 ```tsx
 'use client';
@@ -105,7 +109,7 @@ export default function ScreenName() {
 }
 ```
 
-### Full-Screen Welcome/Selection Pattern
+#### 2. Full-Screen Welcome/Selection Pattern
 
 For welcome or selection screens that need dark backgrounds:
 
@@ -136,6 +140,73 @@ export default function WelcomeScreen() {
   );
 }
 ```
+
+#### 3. Milestone/Transition Screen Pattern
+
+For celebrating achievements and transitioning between major sections:
+
+```tsx
+'use client';
+
+import React from 'react';
+import { motion } from 'framer-motion';
+import { CheckCircle2, Rocket, ArrowRight } from 'lucide-react';
+
+export default function MilestoneScreen() {
+  return (
+    <div className="h-full flex flex-col justify-center">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="text-center max-w-5xl mx-auto px-8"
+      >
+        {/* Success Badge */}
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 0.2, type: "spring" }}
+          className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full mb-8 shadow-xl"
+        >
+          <CheckCircle2 className="w-12 h-12 text-white" />
+        </motion.div>
+
+        {/* Achievement Message */}
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 mb-6">
+          Section Complete
+        </h1>
+
+        {/* Next Step Segue */}
+        <div className="bg-gradient-to-r from-violet-600 to-purple-600 rounded-2xl p-8 text-white">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Rocket className="w-7 h-7" />
+              <div className="text-left">
+                <h3 className="text-2xl font-black">Next: New Section</h3>
+                <p className="text-white/90 text-sm">Transition message here</p>
+              </div>
+            </div>
+            <ArrowRight className="w-8 h-8" />
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+```
+
+**When to use milestone screens**:
+- After completing a major section (Infrastructure Hub → Service Hub)
+- When transitioning between different product areas
+- To provide mental break in long demos (10+ screens)
+- To celebrate accomplishments and build momentum
+
+**Design elements**:
+- Green colors (success, completion)
+- Checkmark or success icon
+- Stats summarizing what was achieved
+- Clear "What's Next" section with different color (purple/violet)
+- Energizing tone, not exhausting
 
 ---
 

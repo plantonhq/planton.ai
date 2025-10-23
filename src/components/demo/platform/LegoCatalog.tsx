@@ -5,373 +5,333 @@ import { motion } from 'framer-motion';
 import {
   Database,
   Server,
-  Globe,
-  Shield,
-  HardDrive,
-  Cpu,
   Network,
-  Lock,
-  Plus,
+  Box,
   Check,
-  Search,
+  ArrowRight,
+  Zap,
+  Settings,
 } from 'lucide-react';
-import { FormModalRegistry } from '../modals';
-import { TabNavigation, TabItem } from '../forms/TabNavigation';
-import { useAutoModalAndFill } from '../../../hooks/useAutoModalAndFill';
 
-// Constant for auto-clicking the first block on page load
-const AUTO_CLICK_FIRST_BLOCK = true;
+interface LegoCatalogProps {
+  onComponentSelect: (componentId: string) => void;
+}
 
-interface LegoBlock {
+interface Component {
   id: string;
   name: string;
-  category: string;
   description: string;
   icon: React.ComponentType<any>;
   color: string;
-  bgColor: string;
-  isAdded: boolean;
 }
 
-export default function LegoCatalog() {
-  console.log('🚀 Infrastructure Catalog: Component mounting');
-  console.log('🚀 Infrastructure Catalog: AUTO_CLICK_FIRST_BLOCK =', AUTO_CLICK_FIRST_BLOCK);
+const components: Component[] = [
+  {
+    id: 'aws-alb',
+    name: 'AWS ALB',
+    description: 'Application Load Balancer for high availability',
+    icon: Network,
+    color: 'from-orange-500 to-orange-600',
+  },
+  {
+    id: 'aws-rds',
+    name: 'AWS RDS',
+    description: 'Managed relational database service',
+    icon: Database,
+    color: 'from-blue-500 to-blue-600',
+  },
+  {
+    id: 'aws-eks',
+    name: 'AWS EKS',
+    description: 'Managed Kubernetes cluster on AWS',
+    icon: Server,
+    color: 'from-purple-500 to-purple-600',
+  },
+  {
+    id: 'ecs-cluster',
+    name: 'ECS Cluster',
+    description: 'Container orchestration with ECS',
+    icon: Box,
+    color: 'from-green-500 to-green-600',
+  },
+];
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedProvider, setSelectedProvider] = useState<LegoBlock | null>(null);
+export default function LegoCatalog({ onComponentSelect }: LegoCatalogProps) {
+  const [selectedComponent, setSelectedComponent] = useState<string | null>(null);
 
-  const [blocks, setBlocks] = useState<LegoBlock[]>([
-    {
-      id: 'aws-alb',
-      name: 'AWS ALB',
-      category: 'network',
-      description: 'Application Load Balancer for high availability and traffic distribution',
-      icon: Network,
-      color: 'from-orange-500 to-orange-600',
-      bgColor: 'bg-orange-50',
-      isAdded: false,
-    },
-    {
-      id: 'postgres',
-      name: 'Postgres Database',
-      category: 'database',
-      description: 'Scalable PostgreSQL database with automatic backups',
-      icon: Database,
-      color: 'from-blue-500 to-blue-600',
-      bgColor: 'bg-blue-50',
-      isAdded: false,
-    },
-    {
-      id: 'eks',
-      name: 'EKS Cluster',
-      category: 'compute',
-      description: 'Managed Kubernetes cluster on AWS',
-      icon: Server,
-      color: 'from-orange-500 to-orange-600',
-      bgColor: 'bg-orange-50',
-      isAdded: false,
-    },
-    {
-      id: 'r2-bucket',
-      name: 'R2 Storage Bucket',
-      category: 'storage',
-      description: 'Cloudflare R2 object storage, S3-compatible',
-      icon: HardDrive,
-      color: 'from-amber-500 to-amber-600',
-      bgColor: 'bg-amber-50',
-      isAdded: false,
-    },
-    {
-      id: 'cdn',
-      name: 'CDN Distribution',
-      category: 'network',
-      description: 'Global content delivery network',
-      icon: Globe,
-      color: 'from-purple-500 to-purple-600',
-      bgColor: 'bg-purple-50',
-      isAdded: false,
-    },
-    {
-      id: 'waf',
-      name: 'Web Application Firewall',
-      category: 'security',
-      description: 'Protect applications from common attacks',
-      icon: Shield,
-      color: 'from-red-500 to-red-600',
-      bgColor: 'bg-red-50',
-      isAdded: false,
-    },
-    {
-      id: 'redis',
-      name: 'Redis Cache',
-      category: 'database',
-      description: 'In-memory data store for caching',
-      icon: Cpu,
-      color: 'from-green-500 to-green-600',
-      bgColor: 'bg-green-50',
-      isAdded: false,
-    },
-    {
-      id: 'vpc',
-      name: 'Virtual Private Cloud',
-      category: 'network',
-      description: 'Isolated network environment',
-      icon: Network,
-      color: 'from-indigo-500 to-indigo-600',
-      bgColor: 'bg-indigo-50',
-      isAdded: false,
-    },
-    {
-      id: 'secrets',
-      name: 'Secrets Manager',
-      category: 'security',
-      description: 'Secure storage for API keys and credentials',
-      icon: Lock,
-      color: 'from-gray-600 to-gray-700',
-      bgColor: 'bg-gray-50',
-      isAdded: false,
-    },
-  ]);
+  const handleComponentClick = (componentId: string) => {
+    setSelectedComponent(componentId);
+  };
 
-  const categories: TabItem[] = [
-    { id: 'all', label: 'All', count: blocks.length },
-    {
-      id: 'compute',
-      label: 'Compute',
-      count: blocks.filter((b) => b.category === 'compute').length,
-    },
-    {
-      id: 'database',
-      label: 'Database',
-      count: blocks.filter((b) => b.category === 'database').length,
-    },
-    {
-      id: 'storage',
-      label: 'Storage',
-      count: blocks.filter((b) => b.category === 'storage').length,
-    },
-    {
-      id: 'network',
-      label: 'Network',
-      count: blocks.filter((b) => b.category === 'network').length,
-    },
-    {
-      id: 'security',
-      label: 'Security',
-      count: blocks.filter((b) => b.category === 'security').length,
-    },
-  ];
-
-  const handleAddBlock = (blockId: string) => {
-    console.log('handleAddBlock called with blockId:', blockId);
-    const block = blocks.find((b) => b.id === blockId);
-    console.log('Found block:', block);
-    if (block) {
-      if (block.id === 'aws-alb') {
-        // Open modal for AWS ALB
-        console.log('Opening AWS ALB modal');
-        setSelectedProvider(block);
-        setIsModalOpen(true);
-      } else {
-        // Direct add for other blocks
-        setBlocks((prev) => prev.map((b) => (b.id === blockId ? { ...b, isAdded: true } : b)));
-      }
-    } else {
-      console.log('Block not found for id:', blockId);
+  const handleContinue = () => {
+    if (selectedComponent) {
+      onComponentSelect(selectedComponent);
     }
   };
-
-  const handleModalClose = () => {
-    console.log('Infrastructure Catalog: Closing modal');
-    setIsModalOpen(false);
-    setSelectedProvider(null);
-  };
-
-  const handleModalSubmit = async (formData?: any) => {
-    if (!selectedProvider) return;
-
-    try {
-      console.log('Modal submitted for:', selectedProvider.name);
-      if (formData) {
-        console.log('AWS ALB Form Data:', formData);
-      }
-
-      // Mark as added after successful submission
-      setBlocks((prev) =>
-        prev.map((block) =>
-          block.id === selectedProvider.id ? { ...block, isAdded: true } : block
-        )
-      );
-    } catch (error) {
-      console.error('Error submitting form:', error);
-    } finally {
-      handleModalClose();
-    }
-  };
-
-  const filteredBlocks = blocks.filter((block) => {
-    const matchesSearch =
-      block.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      block.description.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || block.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
-
-  const addedCount = blocks.filter((b) => b.isAdded).length;
-
-  // Auto-click the first block on page load using the reusable hook
-  useAutoModalAndFill({
-    enabled: AUTO_CLICK_FIRST_BLOCK,
-    autoClickDelay: 1500, // 1.5 seconds for better responsiveness
-    onAutoClick: () => {
-      handleAddBlock('aws-alb');
-    },
-    debugPrefix: 'Infrastructure Catalog',
-  });
 
   return (
-    <div className="h-full flex flex-col">
-      {/* Header */}
-      <div className="px-8 py-6 border-b border-gray-200">
-        <div className="flex items-center justify-between">
+    <div className="h-full flex">
+      {/* Left Side - Educational Content (40%) */}
+      <div className="w-[40%] bg-gray-50 p-8 overflow-y-auto border-r border-gray-200">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          className="space-y-8"
+        >
+          {/* Header */}
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">Infrastructure Catalog</h2>
-            <p className="text-gray-600 mt-1">Pre-built, production-ready infrastructure blocks</p>
+            <h2 className="text-3xl font-black text-gray-900 mb-3">
+              Deployment Component Store
+            </h2>
+            <p className="text-lg text-gray-600 leading-relaxed">
+              Pre-built infrastructure components based on the Pareto Principle
+            </p>
           </div>
-          <div className="flex items-center gap-4">
-            <div className="text-right">
-              <p className="text-sm text-gray-500">Added to Environment</p>
-              <p className="text-2xl font-bold text-gray-900">{addedCount}</p>
+
+          {/* Section 1: Pareto Principle */}
+          <div className="bg-white rounded-2xl p-6 demo-card-shadow">
+            <div className="flex items-center justify-center mb-6">
+              <div className="relative w-32 h-32">
+                {/* 80/20 Circle Diagram */}
+                <svg className="w-full h-full transform -rotate-90">
+                  <circle
+                    cx="64"
+                    cy="64"
+                    r="56"
+                    fill="none"
+                    stroke="#E5E7EB"
+                    strokeWidth="16"
+                  />
+                  <circle
+                    cx="64"
+                    cy="64"
+                    r="56"
+                    fill="none"
+                    stroke="url(#gradient)"
+                    strokeWidth="16"
+                    strokeDasharray="88 263"
+                    strokeLinecap="round"
+                  />
+                  <defs>
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#3B82F6" />
+                      <stop offset="100%" stopColor="#06B6D4" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-2xl font-black text-violet-600">20%</div>
+                    <div className="text-xs text-gray-500">of services</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div className="bg-blue-50 rounded-lg p-3">
+                <p className="text-sm font-semibold text-blue-900">
+                  20% of cloud services used 80% of time
+                </p>
+              </div>
+              <div className="bg-cyan-50 rounded-lg p-3">
+                <p className="text-sm font-semibold text-cyan-900">
+                  20% of configurations used 80% of time
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Search and Tabs */}
-      <div className="px-8 py-4 border-b border-gray-200" style={{ backgroundColor: '#F9F9F9' }}>
-        <div className="flex items-center gap-6">
-          {/* Search */}
-          <div className="relative w-80">
-            <Search
-              className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4"
-              style={{ color: '#545C66' }}
-            />
-            <input
-              type="text"
-              placeholder="Search blocks..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-3 focus:outline-none"
-              style={{
-                backgroundColor: '#FFFFFF',
-                border: '1px solid #E0E0E0',
-                borderRadius: '6px',
-                minHeight: '34px',
-                fontSize: '12px',
-                fontWeight: 400,
-                padding: '0px 8px',
-                paddingLeft: '32px',
-                transition: 'border-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out',
-              }}
-              onFocus={(e) => {
-                e.target.style.borderColor = '#959595';
-                e.target.style.boxShadow = '0 0 0 3px rgba(66, 89, 161, 0.34)';
-              }}
-              onBlur={(e) => {
-                e.target.style.borderColor = '#E0E0E0';
-                e.target.style.boxShadow = 'none';
-              }}
-            />
+          {/* Section 2: What We Built */}
+          <div className="bg-white rounded-2xl p-6 demo-card-shadow">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 bg-gradient-to-r from-violet-600 to-purple-600 rounded-lg flex items-center justify-center">
+                <Zap className="w-5 h-5 text-white" />
+              </div>
+              <h3 className="font-bold text-lg text-gray-900">What We Built</h3>
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-start gap-2">
+                <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-gray-700">
+                  Identified the most popular cloud components
+                </p>
+              </div>
+              <div className="flex items-start gap-2">
+                <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-gray-700">
+                  Identified popular configuration knobs for each
+                </p>
+              </div>
+              <div className="flex items-start gap-2">
+                <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-gray-700">
+                  Built technology to capture these inputs from developers
+                </p>
+              </div>
+            </div>
           </div>
 
-          {/* Categories Tabs */}
-          <TabNavigation
-            tabs={categories}
-            activeTab={selectedCategory}
-            onTabChange={setSelectedCategory}
-          />
-        </div>
+          {/* Section 3: How It Works */}
+          <div className="bg-white rounded-2xl p-6 demo-card-shadow">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg flex items-center justify-center">
+                <Settings className="w-5 h-5 text-white" />
+              </div>
+              <h3 className="font-bold text-lg text-gray-900">How It Works</h3>
+            </div>
+            <div className="space-y-4">
+              {/* Flow Diagram */}
+              <div className="flex items-center justify-between">
+                <div className="flex-1 text-center">
+                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-2">
+                    <span className="text-2xl">📝</span>
+                  </div>
+                  <p className="text-xs font-medium text-gray-700">Form Inputs</p>
+                </div>
+                <ArrowRight className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                <div className="flex-1 text-center">
+                  <div className="w-12 h-12 bg-cyan-100 rounded-lg flex items-center justify-center mx-auto mb-2">
+                    <span className="text-2xl">⚙️</span>
+                  </div>
+                  <p className="text-xs font-medium text-gray-700">Variables</p>
+                </div>
+                <ArrowRight className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                <div className="flex-1 text-center">
+                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-2">
+                    <span className="text-2xl">🚀</span>
+                  </div>
+                  <p className="text-xs font-medium text-gray-700">Modules</p>
+                </div>
+              </div>
+
+              <div className="space-y-2 pt-2 border-t border-gray-100">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                  <p className="text-sm text-gray-700">Pre-written Terraform & Pulumi modules</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                  <p className="text-sm text-gray-700">Open source via Project Planton</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Call to Action */}
+          <div className="bg-gradient-to-r from-violet-600 to-purple-600 rounded-2xl p-6 text-white">
+            <p className="text-lg font-bold flex items-center gap-2">
+              <span>Select a component to see it in action</span>
+              <ArrowRight className="w-5 h-5" />
+            </p>
+          </div>
+        </motion.div>
       </div>
 
-      {/* Blocks Grid */}
-      <div className="flex-1 overflow-auto p-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredBlocks.map((block, index) => {
-            const Icon = block.icon;
-            return (
-              <motion.div
-                key={block.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
-                className={`bg-white rounded-2xl border ${
-                  block.isAdded ? 'border-green-400' : 'border-gray-200'
-                } demo-card-shadow hover:demo-card-hover transition-all duration-200 h-full`}
-              >
-                <div className="p-6 h-full flex flex-col">
-                  {/* Header with icon */}
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm">
-                      <div
-                        className={`w-10 h-10 bg-gradient-to-br ${block.color} rounded-lg flex items-center justify-center`}
-                      >
-                        <Icon className="w-5 h-5 text-white" />
+      {/* Right Side - Selectable Components (60%) */}
+      <div className="w-[60%] flex flex-col bg-white">
+        <div className="p-8 flex-1 overflow-y-auto">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">
+              Choose a Component
+            </h3>
+
+            {/* Component Grid */}
+            <div className="grid grid-cols-2 gap-6">
+              {components.map((component, index) => {
+                const Icon = component.icon;
+                const isSelected = selectedComponent === component.id;
+
+                return (
+                  <motion.div
+                    key={component.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 + 0.3 }}
+                    onClick={() => handleComponentClick(component.id)}
+                    className={`relative cursor-pointer transition-all duration-300 ${
+                      isSelected ? 'scale-105' : 'hover:scale-105'
+                    }`}
+                  >
+                    <div
+                      className={`bg-white border-2 rounded-2xl p-6 demo-card-shadow hover:demo-card-hover transition-all duration-200 h-full ${
+                        isSelected
+                          ? 'border-violet-500 ring-4 ring-violet-100'
+                          : 'border-gray-200'
+                      }`}
+                    >
+                      {isSelected && (
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          className="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-r from-violet-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg"
+                        >
+                          <Check className="w-5 h-5 text-white" />
+                        </motion.div>
+                      )}
+
+                      <div className="flex flex-col items-center text-center gap-4">
+                        <div
+                          className={`w-16 h-16 bg-gradient-to-br ${component.color} rounded-2xl flex items-center justify-center shadow-lg`}
+                        >
+                          <Icon className="w-8 h-8 text-white" />
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-lg text-gray-900 mb-2">
+                            {component.name}
+                          </h4>
+                          <p className="text-sm text-gray-600 leading-relaxed">
+                            {component.description}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                    {block.isAdded && (
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className="bg-green-100 rounded-full p-2"
-                      >
-                        <Check className="w-4 h-4 text-green-600" />
-                      </motion.div>
-                    )}
-                  </div>
-
-                  {/* Title and description */}
-                  <div className="flex-1 mb-4">
-                    <h3 className="font-semibold text-lg text-gray-900 mb-2">{block.name}</h3>
-                    <p className="text-sm text-gray-600 leading-relaxed">{block.description}</p>
-                  </div>
-
-                  {/* Action button */}
-                  {!block.isAdded ? (
-                    <button onClick={() => handleAddBlock(block.id)} className="w-full demo-button">
-                      <span className="flex items-center justify-center gap-2">
-                        <Plus className="w-4 h-4" />
-                        Add to Environment
-                      </span>
-                    </button>
-                  ) : (
-                    <div className="flex items-center justify-center text-sm">
-                      <span className="text-green-600 font-medium">✓ Added</span>
-                    </div>
-                  )}
-                </div>
-              </motion.div>
-            );
-          })}
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
         </div>
 
-        {filteredBlocks.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500">No blocks found matching your criteria.</p>
-          </div>
-        )}
-      </div>
+        {/* Bottom CTA */}
+        <div className="p-6 border-t border-gray-200 bg-gray-50">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+            className="flex flex-col items-center gap-4"
+          >
+            <button
+              onClick={handleContinue}
+              disabled={!selectedComponent}
+              className={`px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 ${
+                selectedComponent
+                  ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white hover:from-violet-700 hover:to-purple-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'
+                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+              }`}
+            >
+              Continue with{' '}
+              {selectedComponent
+                ? components.find((c) => c.id === selectedComponent)?.name
+                : 'Selection'}
+            </button>
 
-      {/* Modal */}
-      {selectedProvider && (
-        <FormModalRegistry
-          providerId="aws-alb"
-          isOpen={isModalOpen}
-          onClose={handleModalClose}
-          onSubmit={handleModalSubmit}
-        />
-      )}
+            {selectedComponent && (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-sm text-gray-500"
+              >
+                We&apos;ll show you the configuration form next
+              </motion.p>
+            )}
+          </motion.div>
+        </div>
+      </div>
     </div>
   );
 }
