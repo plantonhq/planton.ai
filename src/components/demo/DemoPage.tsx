@@ -25,6 +25,20 @@ import IntroCTA from './intro/IntroCTA';
 import CloudConnections from './platform/CloudConnections';
 import LegoCatalog from './platform/LegoCatalog';
 import ComponentConfiguration from './platform/ComponentConfiguration';
+
+// Deployment Component Store Journey
+import DeploymentStoreProviders from './platform/DeploymentStoreProviders';
+import DeploymentStoreAWS from './platform/DeploymentStoreAWS';
+import DeploymentStoreMultiCloud from './platform/DeploymentStoreMultiCloud';
+import DeploymentStoreForm from './platform/DeploymentStoreForm';
+
+// Project Planton Journey
+import ProjectPlantonIntro from './platform/ProjectPlantonIntro';
+import ProjectPlantonComponents from './platform/ProjectPlantonComponents';
+import ProjectPlantonTerraform from './platform/ProjectPlantonTerraform';
+import ProjectPlantonCLI from './platform/ProjectPlantonCLI';
+
+// Infra Charts Journey
 import InfraChartsIntro from './platform/InfraChartsIntro';
 import InfraChartsChallenge from './platform/InfraChartsChallenge';
 import InfraChartsDAG from './platform/InfraChartsDAG';
@@ -49,10 +63,15 @@ import ServiceSuccessStory from './service/ServiceSuccessStory';
 import './demo.css';
 
 // Import journey definitions
-import { infraChartsJourney } from './journeys';
+import { deploymentStoreJourney, projectPlantonJourney, infraChartsJourney } from './journeys';
 
 type DemoScreen = 'welcome' | 'company-selection' | 'intro-problem' | 'intro-stakes' | 'intro-promise' | 'intro-cta' | 
   'cloud-connections' | 'lego-catalog' | 'component-config' | 
+  // Deployment Store Journey
+  'deployment-store-providers' | 'deployment-store-aws' | 'deployment-store-multi-cloud' | 'deployment-store-form' |
+  // Project Planton Journey
+  'project-planton-intro' | 'project-planton-components' | 'project-planton-terraform' | 'project-planton-cli' |
+  // Infra Charts Journey
   'infra-charts-intro' | 'infra-charts-challenge' | 'infra-charts-dag' | 'infra-charts-concept' | 'infra-charts-impact' |
   'infra-chart-deploy' | 'infrastructure-ready' | 
   'deploy-summary' | 'deploy-logs' | 'infra-version-history' | 'infra-visualization' | 'infra-edit-flow' |
@@ -68,19 +87,28 @@ const itConsultingFlow: DemoScreen[] = [
   'intro-promise',
   'intro-cta',
   'cloud-connections',
-  'lego-catalog',           // Interactive with education
-  'component-config',        // Form screen for single component
-  'deploy-logs',            // Live deployment of single component
+  // Deployment Component Store Journey (4 screens)
+  'deployment-store-providers',  // Multi-cloud/provider breadth
+  'deployment-store-aws',        // AWS components deep dive
+  'deployment-store-multi-cloud', // Unified API across clouds
+  'deployment-store-form',        // Form-based deployment + YAML
+  'component-config',             // User configures selected component
+  'deploy-logs',                  // Watch deployment
+  // Project Planton Journey (4 screens)
+  'project-planton-intro',        // Open-source framework intro
+  'project-planton-components',   // 500+ components catalog
+  'project-planton-terraform',    // Terraform modules
+  'project-planton-cli',          // CLI + YAML deployment
   // Infra Charts Journey (4 focused screens)
-  'infra-charts-challenge', // The problem: production needs many resources
-  'infra-charts-dag',       // Visual: ECS DAG with 9 resources
-  'infra-charts-concept',   // Explain: What Infra Charts are (Helm inspiration)
-  'infra-charts-impact',    // Proof: Real customer success story
-  'infra-chart-deploy',     // Deploy complete chart with DAG
-  'infrastructure-ready',   // Infrastructure complete, segue to services
+  'infra-charts-challenge',       // The problem: production needs many resources
+  'infra-charts-dag',             // Visual: ECS DAG with 9 resources
+  'infra-charts-concept',         // Explain: What Infra Charts are (Helm inspiration)
+  'infra-charts-impact',          // Proof: Real customer success story
+  'infra-chart-deploy',           // Deploy complete chart with DAG
+  'infrastructure-ready',         // Infrastructure complete, segue to services
   'service-hub-intro',
   'github-connection',
-  'no-dockerfile-required', // BuildPacks - automatic containerization
+  'no-dockerfile-required',       // BuildPacks - automatic containerization
   'service-deployment',
   'service-success-story'
 ];
@@ -92,16 +120,25 @@ const smallProductFlow: DemoScreen[] = [
   'intro-stakes',
   'intro-promise',
   'intro-cta',
-  'lego-catalog',           // Interactive with education
-  'component-config',        // Form screen for single component
-  'deploy-logs',            // Live deployment of single component
+  // Deployment Component Store Journey (4 screens)
+  'deployment-store-providers',
+  'deployment-store-aws',
+  'deployment-store-multi-cloud',
+  'deployment-store-form',
+  'component-config',
+  'deploy-logs',
+  // Project Planton Journey (4 screens)
+  'project-planton-intro',
+  'project-planton-components',
+  'project-planton-terraform',
+  'project-planton-cli',
   // Infra Charts Journey (4 focused screens)
-  'infra-charts-challenge', // The problem: production needs many resources
-  'infra-charts-dag',       // Visual: ECS DAG with 9 resources
-  'infra-charts-concept',   // Explain: What Infra Charts are (Helm inspiration)
-  'infra-charts-impact',    // Proof: Real customer success story
-  'infra-chart-deploy',     // Deploy complete chart with DAG
-  'infrastructure-ready',   // Infrastructure complete, segue to services
+  'infra-charts-challenge',
+  'infra-charts-dag',
+  'infra-charts-concept',
+  'infra-charts-impact',
+  'infra-chart-deploy',
+  'infrastructure-ready',
   'deploy-summary',
   'service-hub-intro',
   'service-configuration',
@@ -118,16 +155,25 @@ const establishedProductFlow: DemoScreen[] = [
   'intro-promise',
   'intro-cta',
   'cloud-connections',
-  'lego-catalog',           // Interactive with education
-  'component-config',        // Form screen for single component
-  'deploy-logs',            // Live deployment of single component
+  // Deployment Component Store Journey (4 screens)
+  'deployment-store-providers',
+  'deployment-store-aws',
+  'deployment-store-multi-cloud',
+  'deployment-store-form',
+  'component-config',
+  'deploy-logs',
+  // Project Planton Journey (4 screens)
+  'project-planton-intro',
+  'project-planton-components',
+  'project-planton-terraform',
+  'project-planton-cli',
   // Infra Charts Journey (4 focused screens)
-  'infra-charts-challenge', // The problem: production needs many resources
-  'infra-charts-dag',       // Visual: ECS DAG with 9 resources
-  'infra-charts-concept',   // Explain: What Infra Charts are (Helm inspiration)
-  'infra-charts-impact',    // Proof: Real customer success story
-  'infra-chart-deploy',     // Deploy complete chart with DAG
-  'infrastructure-ready',   // Infrastructure complete, segue to services
+  'infra-charts-challenge',
+  'infra-charts-dag',
+  'infra-charts-concept',
+  'infra-charts-impact',
+  'infra-chart-deploy',
+  'infrastructure-ready',
   'infra-visualization',
   'infra-version-history',
   'infra-edit-flow',
@@ -146,9 +192,18 @@ const defaultDemoScreens: DemoScreen[] = [
   'intro-promise',
   'intro-cta',
   'cloud-connections',
-  'lego-catalog',
+  // Deployment Component Store Journey (4 screens)
+  'deployment-store-providers',
+  'deployment-store-aws',
+  'deployment-store-multi-cloud',
+  'deployment-store-form',
   'component-config',
   'deploy-logs',
+  // Project Planton Journey (4 screens)
+  'project-planton-intro',
+  'project-planton-components',
+  'project-planton-terraform',
+  'project-planton-cli',
   // Infra Charts Journey (4 focused screens)
   'infra-charts-challenge',
   'infra-charts-dag',
@@ -323,6 +378,33 @@ export default function DemoPage() {
       case 'component-config':
         return <ComponentConfiguration selectedComponent={selectedComponent} onDeploy={handleDeploy} />;
       
+      // Deployment Component Store Journey
+      case 'deployment-store-providers':
+        return <DeploymentStoreProviders />;
+      
+      case 'deployment-store-aws':
+        return <DeploymentStoreAWS />;
+      
+      case 'deployment-store-multi-cloud':
+        return <DeploymentStoreMultiCloud />;
+      
+      case 'deployment-store-form':
+        return <DeploymentStoreForm />;
+      
+      // Project Planton Journey
+      case 'project-planton-intro':
+        return <ProjectPlantonIntro />;
+      
+      case 'project-planton-components':
+        return <ProjectPlantonComponents />;
+      
+      case 'project-planton-terraform':
+        return <ProjectPlantonTerraform />;
+      
+      case 'project-planton-cli':
+        return <ProjectPlantonCLI />;
+      
+      // Infra Charts Journey
       case 'infra-charts-intro':
         // Legacy screen - kept for backward compatibility
         return <InfraChartsIntro />;

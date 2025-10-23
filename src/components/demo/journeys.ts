@@ -23,6 +23,18 @@ export type DemoScreen =
   | 'lego-catalog' 
   | 'component-config' 
   
+  // Deployment Component Store Journey screens
+  | 'deployment-store-providers'
+  | 'deployment-store-aws'
+  | 'deployment-store-multi-cloud'
+  | 'deployment-store-form'
+  
+  // Project Planton Journey screens
+  | 'project-planton-intro'
+  | 'project-planton-components'
+  | 'project-planton-terraform'
+  | 'project-planton-cli' 
+  
   // Infra Charts Journey screens (NEW - focused)
   | 'infra-charts-challenge'
   | 'infra-charts-dag'
@@ -96,7 +108,51 @@ export const infraChartsJourney: Journey = {
 };
 
 /**
- * Lego Blocks Journey
+ * Deployment Component Store Journey
+ * 
+ * Shows multi-cloud component library and form-based deployment:
+ * 1. Provider breadth (10+ providers)
+ * 2. AWS components deep dive
+ * 3. Multi-cloud comparison (same pattern, any cloud)
+ * 4. Form-based deployment with YAML preview
+ */
+export const deploymentStoreJourney: Journey = {
+  id: 'deployment-store',
+  name: 'Deployment Component Store Journey',
+  description: '10+ cloud providers, form-based deployment with live YAML preview',
+  screens: [
+    'deployment-store-providers',
+    'deployment-store-aws',
+    'deployment-store-multi-cloud',
+    'deployment-store-form',
+  ],
+  tags: ['infrastructure', 'multi-cloud', 'components'],
+};
+
+/**
+ * Project Planton Journey
+ * 
+ * Shows the open-source foundation powering Planton Cloud:
+ * 1. Introduction to Project Planton (open source framework)
+ * 2. Component catalog (500+ components across 10+ providers)
+ * 3. Terraform modules (production-ready IaC)
+ * 4. CLI and YAML deployment (GitOps workflow)
+ */
+export const projectPlantonJourney: Journey = {
+  id: 'project-planton',
+  name: 'Project Planton Journey',
+  description: 'Open-source framework: 500+ components, Terraform modules, CLI deployment',
+  screens: [
+    'project-planton-intro',
+    'project-planton-components',
+    'project-planton-terraform',
+    'project-planton-cli',
+  ],
+  tags: ['open-source', 'framework', 'cli', 'terraform'],
+};
+
+/**
+ * Lego Blocks Journey (Legacy - will be deprecated)
  * 
  * Demonstrates individual component deployment:
  * 1. Browse the Lego Catalog
@@ -112,7 +168,7 @@ export const legoBlocksJourney: Journey = {
     'component-config',
     'deploy-logs',
   ],
-  tags: ['infrastructure', 'components', 'core-product'],
+  tags: ['infrastructure', 'components', 'core-product', 'legacy'],
 };
 
 /**
@@ -141,6 +197,8 @@ export const serviceDeploymentJourney: Journey = {
  * All available journeys
  */
 export const allJourneys: Journey[] = [
+  deploymentStoreJourney,
+  projectPlantonJourney,
   infraChartsJourney,
   legoBlocksJourney,
   serviceDeploymentJourney,
