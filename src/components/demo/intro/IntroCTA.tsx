@@ -4,8 +4,11 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Check } from 'lucide-react';
 
+export type CompanyType = 'it-consulting' | 'small-product' | 'established-product';
+
 interface IntroCTAProps {
   onProviderSelect: (provider: string) => void;
+  companyType: CompanyType;
 }
 
 // Icon component using real SVG files from planton-cloud
@@ -32,8 +35,35 @@ const ProviderIcon = ({ providerId }: { providerId: string }) => {
   );
 };
 
-export default function IntroCTA({ onProviderSelect }: IntroCTAProps) {
+export default function IntroCTA({ onProviderSelect, companyType }: IntroCTAProps) {
   const [selectedProvider, setSelectedProvider] = useState<string>('');
+
+  // Customize messaging based on company type
+  const getHeadline = () => {
+    switch (companyType) {
+      case 'it-consulting':
+        return 'Choose cloud for your next client project';
+      case 'small-product':
+        return 'Set up your development environment';
+      case 'established-product':
+        return 'Choose your infrastructure platform';
+      default:
+        return 'Choose your cloud provider';
+    }
+  };
+
+  const getSubheadline = () => {
+    switch (companyType) {
+      case 'it-consulting':
+        return 'Deploy production-ready infrastructure in minutes, not weeks. Your client will thank you.';
+      case 'small-product':
+        return 'No DevOps expertise needed. Visual tools that developers actually enjoy using.';
+      case 'established-product':
+        return 'Centralized visibility and governance across all your infrastructure.';
+      default:
+        return "Select where you want to deploy. Don't worry, you can always add more providers later.";
+    }
+  };
 
   const providers = [
     {
@@ -82,11 +112,11 @@ export default function IntroCTA({ onProviderSelect }: IntroCTAProps) {
         </motion.div>
 
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-6 tracking-tight">
-          Choose your cloud provider
+          {getHeadline()}
         </h1>
 
         <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
-          Select where you want to deploy. Don&apos;t worry, you can always add more providers later.
+          {getSubheadline()}
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-3xl mx-auto">

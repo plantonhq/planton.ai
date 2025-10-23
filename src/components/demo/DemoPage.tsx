@@ -12,7 +12,11 @@ import { Card, CardContent } from '@/components/ui/card';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Import intro components
+import CompanyTypeSelection, { type CompanyType } from './intro/CompanyTypeSelection';
 import IntroProblem from './intro/IntroProblem';
+import IntroProblemITConsulting from './intro/IntroProblemITConsulting';
+import IntroProblemSmallProduct from './intro/IntroProblemSmallProduct';
+import IntroProblemEstablished from './intro/IntroProblemEstablished';
 import IntroStakes from './intro/IntroStakes';
 import IntroPromise from './intro/IntroPromise';
 import IntroCTA from './intro/IntroCTA';
@@ -37,14 +41,69 @@ import ServiceLiveExample from './service/ServiceLiveExample';
 import ServiceSuccessStory from './service/ServiceSuccessStory';
 import './demo.css';
 
-type DemoScreen = 'welcome' | 'intro-problem' | 'intro-stakes' | 'intro-promise' | 'intro-cta' | 
+type DemoScreen = 'welcome' | 'company-selection' | 'intro-problem' | 'intro-stakes' | 'intro-promise' | 'intro-cta' | 
   'cloud-connections' | 'lego-catalog' | 'infra-builder' | 'deploy-summary' | 'deploy-logs' |
   'infra-version-history' | 'infra-visualization' | 'infra-edit-flow' |
   'service-hub-intro' | 'github-connection' | 'buildpacks-selection' | 
   'service-configuration' | 'service-deployment' | 'service-live-example' | 'service-success-story';
 
-const demoScreens: DemoScreen[] = [
+// Define demo flows for each company type
+const itConsultingFlow: DemoScreen[] = [
   'welcome',
+  'company-selection',
+  'intro-problem',
+  'intro-stakes',
+  'intro-promise',
+  'intro-cta',
+  'cloud-connections',
+  'lego-catalog',
+  'infra-builder',
+  'deploy-logs',
+  'service-hub-intro',
+  'github-connection',
+  'buildpacks-selection',
+  'service-deployment',
+  'service-success-story'
+];
+
+const smallProductFlow: DemoScreen[] = [
+  'welcome',
+  'company-selection',
+  'intro-problem',
+  'intro-stakes',
+  'intro-promise',
+  'intro-cta',
+  'lego-catalog',
+  'infra-builder',
+  'deploy-summary',
+  'service-hub-intro',
+  'service-configuration',
+  'service-deployment',
+  'service-live-example',
+  'service-success-story'
+];
+
+const establishedProductFlow: DemoScreen[] = [
+  'welcome',
+  'company-selection',
+  'intro-problem',
+  'intro-stakes',
+  'intro-promise',
+  'intro-cta',
+  'cloud-connections',
+  'infra-visualization',
+  'infra-version-history',
+  'infra-edit-flow',
+  'deploy-summary',
+  'service-hub-intro',
+  'service-live-example',
+  'service-success-story'
+];
+
+// Default flow if no company type selected
+const defaultDemoScreens: DemoScreen[] = [
+  'welcome',
+  'company-selection',
   'intro-problem',
   'intro-stakes',
   'intro-promise',
@@ -68,26 +127,45 @@ const demoScreens: DemoScreen[] = [
 
 export default function DemoPage() {
   const [currentScreen, setCurrentScreen] = useState<DemoScreen>('welcome');
+  const [companyType, setCompanyType] = useState<CompanyType | null>(null);
 
+  // Get the appropriate demo flow based on company type
+  const getDemoScreens = useCallback((): DemoScreen[] => {
+    if (!companyType) return defaultDemoScreens;
+    
+    switch (companyType) {
+      case 'it-consulting':
+        return itConsultingFlow;
+      case 'small-product':
+        return smallProductFlow;
+      case 'established-product':
+        return establishedProductFlow;
+      default:
+        return defaultDemoScreens;
+    }
+  }, [companyType]);
+
+  const demoScreens = getDemoScreens();
   const currentScreenIndex = demoScreens.indexOf(currentScreen);
   const isFirstScreen = currentScreenIndex === 0;
   const isLastScreen = currentScreenIndex === demoScreens.length - 1;
 
   const goToHome = useCallback(() => {
     setCurrentScreen('welcome');
+    setCompanyType(null); // Reset company type when going home
   }, []);
 
   const navigateNext = useCallback(() => {
     if (!isLastScreen) {
       setCurrentScreen(demoScreens[currentScreenIndex + 1]);
     }
-  }, [currentScreenIndex, isLastScreen]);
+  }, [currentScreenIndex, isLastScreen, demoScreens]);
 
   const navigatePrev = useCallback(() => {
     if (!isFirstScreen) {
       setCurrentScreen(demoScreens[currentScreenIndex - 1]);
     }
-  }, [currentScreenIndex, isFirstScreen]);
+  }, [currentScreenIndex, isFirstScreen, demoScreens]);
 
   const handleKeyPress = useCallback(
     (e: KeyboardEvent) => {
@@ -114,51 +192,66 @@ export default function DemoPage() {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [handleKeyPress]);
 
-  const handleProviderSelect = (_provider: string) => {
+  const handleCompanyTypeSelect = useCallback((type: CompanyType) => {
+    setCompanyType(type);
     navigateNext();
-  };
+  }, [navigateNext]);
 
-  const handleDeploy = () => {
+  const handleProviderSelect = useCallback((_provider: string) => {
     navigateNext();
-  };
+  }, [navigateNext]);
+
+  const handleDeploy = useCallback(() => {
+    navigateNext();
+  }, [navigateNext]);
 
   // Render current screen component
   const renderCurrentScreen = () => {
     switch (currentScreen) {
       case 'welcome':
-    return (
-      <div className="min-h-screen bg-[#110D1F] flex items-center justify-center p-8">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="w-full max-w-lg mx-auto text-center"
-        >
-          <Card className="bg-white rounded-[var(--radius-2xl)] shadow-card">
-            <CardContent className="p-10">
-              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 btn-gradient">
-                <Play className="w-8 h-8 text-white ml-1" />
-              </div>
-              <h1 className="text-3xl font-extrabold text-gray-900 mb-3">
-                Welcome to Platform Demo
-              </h1>
-              <p className="text-gray-600 mb-8">
-                Discover how our DevOps platform simplifies infrastructure management, deployment,
-                and monitoring with powerful visual tools and integrations.
-              </p>
-              <Button
-                size="lg"
-                className="w-full btn-gradient text-white font-bold"
+        return (
+          <div className="min-h-screen bg-[#110D1F] flex items-center justify-center p-8">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="w-full max-w-lg mx-auto text-center"
+            >
+              <Card className="bg-white rounded-[var(--radius-2xl)] shadow-card">
+                <CardContent className="p-10">
+                  <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 btn-gradient">
+                    <Play className="w-8 h-8 text-white ml-1" />
+                  </div>
+                  <h1 className="text-3xl font-extrabold text-gray-900 mb-3">
+                    Welcome to Planton Cloud Demo
+                  </h1>
+                  <p className="text-gray-600 mb-8">
+                    Experience DevOps-in-a-Box: Deploy infrastructure and services across any cloud with zero DevOps expertise needed.
+                  </p>
+                  <Button
+                    size="lg"
+                    className="w-full btn-gradient text-white font-bold"
                     onClick={navigateNext}
-              >
-                Start Interactive Demo
-              </Button>
-            </CardContent>
-          </Card>
-        </motion.div>
-      </div>
-    );
+                  >
+                    Start Personalized Demo
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        );
+
+      case 'company-selection':
+        return <CompanyTypeSelection onCompanyTypeSelect={handleCompanyTypeSelect} />;
 
       case 'intro-problem':
+        // Render different problem screens based on company type
+        if (companyType === 'it-consulting') {
+          return <IntroProblemITConsulting />;
+        } else if (companyType === 'small-product') {
+          return <IntroProblemSmallProduct />;
+        } else if (companyType === 'established-product') {
+          return <IntroProblemEstablished />;
+        }
         return <IntroProblem />;
       
       case 'intro-stakes':
@@ -168,7 +261,7 @@ export default function DemoPage() {
         return <IntroPromise />;
       
       case 'intro-cta':
-        return <IntroCTA onProviderSelect={handleProviderSelect} />;
+        return <IntroCTA onProviderSelect={handleProviderSelect} companyType={companyType || 'it-consulting'} />;
       
       case 'cloud-connections':
         return <CloudConnections />;
@@ -220,8 +313,8 @@ export default function DemoPage() {
     }
   };
 
-  // For screens that need a different layout (like welcome), render them directly
-  if (currentScreen === 'welcome') {
+  // For screens that need a different layout (like welcome and company-selection), render them directly
+  if (currentScreen === 'welcome' || currentScreen === 'company-selection') {
     return renderCurrentScreen();
   }
 
