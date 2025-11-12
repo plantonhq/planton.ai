@@ -44,7 +44,7 @@ export default function MultiCloud() {
                     <Button
                       className="px-5 py-2 bg-primary-50 text-white rounded-[10px] hover:bg-[#1976D2] transition-colors"
                       LinkComponent={Link}
-                      href="https://console.planton.cloud"
+                      href="https://console.planton.ai"
                       target="_self"
                     >
                       Try Planton Cloud Now
@@ -466,7 +466,7 @@ export default function MultiCloud() {
             <Button
               className="border border-white text-white rounded-[50px] transition-colors w-fit py-2.5 px-4"
               LinkComponent={Link}
-              href="https://console.planton.cloud"
+              href="https://console.planton.ai"
               target="_self"
             >
               Get Started

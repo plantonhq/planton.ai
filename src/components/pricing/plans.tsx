@@ -117,7 +117,7 @@ export const PriceCard: FC<IPlanCard> = ({
         <Button
           className="h-10 px-5 py-3 bg-[#0094ff] rounded-[10px]"
           LinkComponent={Link}
-          href="https://console.planton.cloud"
+          href="https://console.planton.ai"
           target="_self"
         >
           {isFreePlan ? 'Get Started' : 'Subscribe'}

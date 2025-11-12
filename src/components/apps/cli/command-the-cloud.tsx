@@ -28,7 +28,7 @@ export const CommandTheCloud: FC = () => {
           <Button
             className="bg-[#0095FF] px-5 py-3 rounded-[10px] w-fit h-10"
             LinkComponent={Link}
-            href="https://console.planton.cloud"
+            href="https://console.planton.ai"
             target="_self"
           >
             Try Planton Cloud Now

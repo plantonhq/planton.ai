@@ -39,7 +39,7 @@ export default function DevOps() {
                   <Button
                     className="px-5 py-2 bg-primary-50 text-white rounded-[10px] hover:bg-[#1976D2] transition-colors"
                     LinkComponent={Link}
-                    href="https://console.planton.cloud"
+                    href="https://console.planton.ai"
                     target="_self"
                   >
                     Try Planton Cloud Now
@@ -425,7 +425,7 @@ export default function DevOps() {
             <Stack className="flex-row items-center gap-2">
               <Button
                 className="bg-[#0095FF] px-5 py-3 rounded-[10px] w-fit h-[40px]"
-                href="https://console.planton.cloud/"
+                href="https://console.planton.ai/"
                 target="_self"
               >
                 Get Started Free

@@ -42,7 +42,7 @@ Before you begin, make sure you have:
 
 ## Step 1: Sign Up
 
-1. Visit [console.planton.cloud](https://console.planton.cloud)
+1. Visit [console.planton.ai](https://console.planton.ai)
 2. Click "Sign Up" and choose your Git provider
 3. Authorize Planton Cloud to access your repositories
 4. Complete your profile setup
@@ -123,4 +123,4 @@ If you run into any issues:
 
 ---
 
-*Ready to deploy? [Get started now](https://console.planton.cloud)!* 
+*Ready to deploy? [Get started now](https://console.planton.ai)!* 

@@ -18,7 +18,7 @@ export const ReadyToTransformSolution: FC = () => {
           <Button
             className="px-5 py-3 bg-[#0095FF] font-medium h-[40px] rounded-[10px]"
             LinkComponent={Link}
-            href="https://console.planton.cloud"
+            href="https://console.planton.ai"
             target="_self"
           >
             Get Started

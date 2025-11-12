@@ -105,7 +105,7 @@ export const EditKubernetesResources: FC = () => {
           <Button
             className="h-10 px-5 py-3 bg-white rounded-[10px] w-fit"
             LinkComponent={Link}
-            href="https://console.planton.cloud"
+            href="https://console.planton.ai"
             target="_self"
           >
             <TypoB2Medium className="text-black">Try Planton Cloud Now</TypoB2Medium>

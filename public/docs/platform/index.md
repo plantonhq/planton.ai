@@ -220,4 +220,4 @@ Explore each area of the platform:
 
 ---
 
-> **Ready to dive in?** The best way to understand Planton Cloud is to use it. [Sign up for free](https://console.planton.cloud) and follow our [quick start guide](/docs/platform/getting-started) to deploy your first resource in minutes.
+> **Ready to dive in?** The best way to understand Planton Cloud is to use it. [Sign up for free](https://console.planton.ai) and follow our [quick start guide](/docs/platform/getting-started) to deploy your first resource in minutes.

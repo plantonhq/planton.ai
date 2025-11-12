@@ -21,7 +21,7 @@ export const ReadyToTry: FC = () => {
           <Button
             className="h-[35px] w-fit px-4 py-2.5 border border-white bg-[#03a587]/0 rounded-[32px] text-white text-xs font-medium"
             LinkComponent={Link}
-            href="https://console.planton.cloud"
+            href="https://console.planton.ai"
             target="_self"
           >
             Get Started

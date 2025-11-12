@@ -35,7 +35,7 @@ export const TransformEngineering: FC = () => {
           <Button
             className="bg-[#0095FF] px-5 py-3 rounded-[10px] w-fit h-[40px]"
             LinkComponent={Link}
-            href="https://console.planton.cloud"
+            href="https://console.planton.ai"
             target="_self"
           >
             Get Started Free

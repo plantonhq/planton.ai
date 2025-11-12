@@ -205,7 +205,7 @@ const PriceCard: FC<IPriceCard> = ({
       <Button
         className="bg-[#0095FF] px-5 py-3 rounded-[10px] h-10"
         LinkComponent={Link}
-        href="https://console.planton.cloud"
+        href="https://console.planton.ai"
         target="_self"
       >
         Get Started

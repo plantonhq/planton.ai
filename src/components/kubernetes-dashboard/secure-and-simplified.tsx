@@ -34,7 +34,7 @@ export const SecureAndSimplified: FC = () => {
             <Button
               className="bg-[#0095FF] px-5 py-3 rounded-[10px] w-fit"
               LinkComponent={Link}
-              href="https://console.planton.cloud"
+              href="https://console.planton.ai"
               target="_self"
             >
               Get Started for Free

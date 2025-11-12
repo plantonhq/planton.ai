@@ -352,13 +352,13 @@ export function Header() {
         <Btn
           className="text-text-secondary"
           LinkComponent={Link}
-          href="https://console.planton.cloud/"
+          href="https://console.planton.ai/"
           target="_blank"
         >
           Login
         </Btn>
         <JoinBetaBtn className="bg-white text-black !h-8 !px-3 !py-2">Join Beta</JoinBetaBtn>
-        {/* <Link href="https://console.planton.cloud/" target="_blank">
+        {/* <Link href="https://console.planton.ai/" target="_blank">
           <Stack className="flex-row">
             <Typography className="text-sm text-gray-400 font-medium">
               Go To Console
