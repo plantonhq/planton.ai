@@ -204,8 +204,20 @@ export const DocsSidebar: FC<DocsSidebarProps> = ({ onNavigate }) => {
         if (response.ok) {
           const data = await response.json();
           setStructure(data);
-          // Initialize expanded paths: only expand ancestors of current path
+          // Initialize expanded paths with a smarter approach:
+          // 1. Expand all top-level sections (depth 0)
+          // 2. Keep provider subsections collapsed (depth > 1)
+          // 3. Expand ancestors of current path
           const initial = new Set<string>();
+          
+          // Add all top-level directories to expanded paths
+          data.forEach((item: DocItem) => {
+            if (item.type === 'directory') {
+              initial.add(item.path);
+            }
+          });
+          
+          // Also expand ancestors of the current path
           if (currentDocPath) {
             const segments = currentDocPath.split('/').filter(Boolean);
             let acc = '';
@@ -214,6 +226,7 @@ export const DocsSidebar: FC<DocsSidebarProps> = ({ onNavigate }) => {
               initial.add(acc);
             }
           }
+          
           setExpandedPaths(initial);
         }
       } catch (error) {
@@ -227,11 +240,11 @@ export const DocsSidebar: FC<DocsSidebarProps> = ({ onNavigate }) => {
   }, [currentDocPath]);
 
   // Ensure ancestors of the active page are expanded on route change
+  // while preserving the top-level expanded state
   useEffect(() => {
     if (!currentDocPath) return;
-    setExpandedPaths((_prev) => {
-      // Only expand ancestors of the current path - no hardcoded defaults
-      const next = new Set<string>();
+    setExpandedPaths((prev) => {
+      const next = new Set(prev);
       
       // Add ancestors of the current path
       const segments = currentDocPath.split('/').filter(Boolean);

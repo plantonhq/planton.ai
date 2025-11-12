@@ -135,7 +135,7 @@ For developers interested in the implementation details:
 - **API Definitions**: `planton-cloud/apis/cloud/planton/**`
 
 ### Infrastructure Modules
-- **Lego Blocks**: `project-planton/apis/project/planton/provider/<provider>/<legoblock>/`
+- **Lego Blocks**: `project-planton/provider/<provider>/<legoblock>/`
 - **Terraform Modules**: Available for each Lego block
 - **Pulumi Modules**: Go-based infrastructure as code
 

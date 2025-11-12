@@ -168,7 +168,7 @@ Required verification:
 Reference pattern (include these in docs):
 ```
 Based on: `planton-cloud/backend/services/service-hub/...`
-API: `planton-cloud/apis/cloud/planton/apis/servicehub/service/v1/spec.proto`
+API: `planton-cloud/apis/ai/planton/servicehub/service/v1/spec.proto`
 Transcript: `websites/kb.planton.cloud/content/product/service-hub/transcripts/...`
 ```
 

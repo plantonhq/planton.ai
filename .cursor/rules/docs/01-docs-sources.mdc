@@ -9,7 +9,7 @@ Usage: Invoke explicitly as `@docs-sources` before drafting or editing content u
 When documenting a feature, consult these in order. Prefer direct code or READMEs over memory.
 
 1) Project Planton (open-source Lego blocks / cloud resources)
-   - Path: `project-planton/apis/project/planton/provider/<provider>/<legoblock>/`
+   - Path: `project-planton/provider/<provider>/<legoblock>/`
    - Contents per legoblock (cloudresource):
      - Protobuf or schema: API/Spec definition for the resource
      - IaC modules: Pulumi and Terraform implementation
@@ -38,7 +38,7 @@ When documenting a feature, consult these in order. Prefer direct code or README
 ## Infra Hub and ServiceHub Context
 - Infra Hub: Provides one-click provisioning by composing platform APIs with open-source legoblocks from Project Planton. When documenting provisioning workflows, cite both:
   - Platform API(s) under `backend/services/infra-hub` and their protobufs under `apis/cloud/planton/...`
-  - The specific legoblock package(s) under `project-planton/apis/project/planton/provider/...`
+  - The specific legoblock package(s) under `project-planton/provider/...`
 - ServiceHub: Vercel-like DX for backend services. On a commit push, the platform resolves the `Service` for the repo and creates a `Pipeline` (orchestrated by Temporal). When documenting builds/deploys, reference:
   - `backend/services/service-hub` code and README(s)
   - Protobuf definitions for `Service` and `Pipeline` under `apis/cloud/planton/...`
@@ -47,7 +47,7 @@ When documenting a feature, consult these in order. Prefer direct code or README
 - Do not invent behaviors or APIs. Assertions must be backed by one of:
   - Source files (protobuf, Go/Java, TypeScript), READMEs, or IaC modules in this workspace
   - Verbatim transcripts or written specs provided in context
-- Prefer direct citations (paths and identifiers) near claims. Example: “Provision creates `awsekscluster` via `project-planton/apis/project/planton/provider/aws/awsekscluster` and records status via `backend/services/infra-hub`.”
+- Prefer direct citations (paths and identifiers) near claims. Example: “Provision creates `awsekscluster` via `project-planton/provider/aws/awsekscluster` and records status via `backend/services/infra-hub`.”
 - If unsure, read the code. If still unclear, mark as TODO with a precise question instead of guessing.
 
 ## How to Write a New Docs Page Using Sources
@@ -55,7 +55,7 @@ When documenting a feature, consult these in order. Prefer direct code or README
 2) Map to platform APIs (protobufs under `apis/cloud/planton/...`). List objects, fields, and relationships.
 3) Map to implementation:
    - Infra Hub/ServiceHub service logic under `backend/services/...`
-   - Relevant legoblock(s) under `project-planton/apis/project/planton/provider/...` including IaC
+   - Relevant legoblock(s) under `project-planton/provider/...` including IaC
 4) Request for the screenshots or CLI commands to be included in the documentation if they are not already provided in the context. It is not possible to auto-infer those things from the source code. 
 5) Extract accurate parameters, defaults, and constraints from code and IaC.
 6) Produce copy-pastable examples; note any prerequisites.
@@ -75,8 +75,8 @@ When documenting a feature, consult these in order. Prefer direct code or README
 
 ## Examples
 Infra Hub + EKS cluster provisioning (high-level reference):
-- Legoblock: `project-planton/apis/project/planton/provider/aws/awsekscluster`
-- Platform API: `planton-cloud/apis/cloud/planton/apis/...` (domain-specific)
+- Legoblock: `project-planton/provider/aws/awsekscluster`
+- Platform API: `planton-cloud/apis/ai/planton/...` (domain-specific)
 - Orchestration: `planton-cloud/backend/services/infra-hub`
 
 ServiceHub pipeline on commit:

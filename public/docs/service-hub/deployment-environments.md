@@ -403,4 +403,4 @@ Remember that deployment happens in stages:
 ---
 
 *Based on: `planton.ai/workspace/transcripts/service-hub/service-environments.transcript.md`*
-*Source: `planton-cloud/apis/cloud/planton/apis/servicehub/service/v1/spec.proto`*
+*Source: `planton-cloud/apis/ai/planton/servicehub/service/v1/spec.proto`*

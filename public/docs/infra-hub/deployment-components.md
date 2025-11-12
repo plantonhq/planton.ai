@@ -273,7 +273,7 @@ What you get automatically:
 Each component is defined as a Protocol Buffer (protobuf) API:
 
 ```protobuf
-// Located in: project-planton/apis/project/planton/provider/aws/awseks/v1/spec.proto
+// Located in: project-planton/provider/aws/awseks/v1/spec.proto
 message AwsEksClusterSpec {
   // Kubernetes version for the EKS cluster
   string kubernetes_version = 1;
@@ -297,7 +297,7 @@ Each component has Terraform AND Pulumi modules:
 
 ```
 project-planton/
-└── apis/project/planton/provider/aws/awseks/v1/
+└── provider/aws/awseks/v1/
     ├── spec.proto           # API definition
     ├── iac/
     │   ├── tf/             # Terraform module

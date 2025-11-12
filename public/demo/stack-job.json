@@ -35,7 +35,7 @@
                 "id": "fcp_01jwwxp4nnk6h7kyhjyh7ezwqy"
             },
             "providerCredentialInfo": {
-                "kind": "kubernetes_cluster_credential",
+                "kind": "kubernetes_credential",
                 "name": "gke-mumbai-20240816",
                 "id": "k8scred_01jp6qzdsj70s228htskj53214"
             }
