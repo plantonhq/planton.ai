@@ -69,7 +69,7 @@ export default function ProjectPlantonTerraform() {
 
           {/* Features */}
           <div className="bg-white rounded-2xl p-6 demo-card-shadow space-y-4">
-            <h3 className="font-bold text-gray-900 mb-4">What's Included</h3>
+            <h3 className="font-bold text-gray-900 mb-4">What&apos;s Included</h3>
             {[
               'Production-grade Terraform',
               'Best practices built-in',
@@ -118,10 +118,10 @@ export default function ProjectPlantonTerraform() {
           {/* Callouts */}
           <div className="space-y-4">
             <div className="bg-purple-900/30 border border-purple-700 rounded-xl p-6">
-              <h4 className="text-white font-bold mb-2">Don't Write Terraform from Scratch</h4>
+              <h4 className="text-white font-bold mb-2">Don&apos;t Write Terraform from Scratch</h4>
               <p className="text-gray-300 text-sm leading-relaxed">
                 Every component comes with production-ready Terraform modules. 
-                Just provide your values—we've handled the complexity.
+                Just provide your values—we&apos;ve handled the complexity.
               </p>
             </div>
 

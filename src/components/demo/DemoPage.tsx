@@ -62,9 +62,6 @@ import ServiceLiveExample from './service/ServiceLiveExample';
 import ServiceSuccessStory from './service/ServiceSuccessStory';
 import './demo.css';
 
-// Import journey definitions
-import { deploymentStoreJourney, projectPlantonJourney, infraChartsJourney } from './journeys';
-
 type DemoScreen = 'welcome' | 'company-selection' | 'intro-problem' | 'intro-stakes' | 'intro-promise' | 'intro-cta' | 
   'cloud-connections' | 'lego-catalog' | 'component-config' | 
   // Deployment Store Journey
