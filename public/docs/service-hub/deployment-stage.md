@@ -169,6 +169,30 @@ spec:
       maxReplicas: 10
 ```
 
+### Branch-Based Deployment Control
+
+For more granular control over when overlays deploy, you can add the `planton.ai/git-branch` label to your overlay manifests. This label uses glob pattern matching to determine if the overlay should deploy based on the Git commit's branch:
+
+```yaml
+# _kustomize/overlays/dev/service.yaml
+apiVersion: kubernetes.project-planton.org/v1
+kind: MicroserviceKubernetes
+metadata:
+  name: my-service
+  env: dev
+  labels:
+    planton.ai/git-branch: dev-*  # Only deploys for dev-* branches
+spec:
+  # ... configuration
+```
+
+The label supports patterns like:
+- `main` - exact match only
+- `dev-*` - matches dev-feature, dev-hotfix, etc.
+- `feature/*` - matches feature/login, feature/checkout, etc.
+
+When present, this label takes precedence over the service-level `deployment_environments` configuration. See [Deployment Environments](/docs/service-hub/deployment-environments#git-branch-label-repository-level-control) for full details and examples.
+
 ## Supported Deployment Targets
 
 Currently, Planton Cloud supports deploying services to:

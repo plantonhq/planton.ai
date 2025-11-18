@@ -68,6 +68,117 @@ Now, even if your repository has dev, stage, and uat overlays, the service only 
 
 ![Service showing deployment environments configuration](https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/service-hub/deployment-environments/service-showing-deployment-environments.png)
 
+## Git Branch Label: Repository-Level Control
+
+For even more granular control, you can configure branch-based deployments directly in your _kustomize overlay manifests using the `planton.ai/git-branch` label. When present, this label takes precedence over the service-level `deployment_environments` configuration.
+
+### How It Works
+
+Add the `planton.ai/git-branch` label to your overlay's service.yaml `metadata.labels` section:
+
+```yaml
+# _kustomize/overlays/dev/service.yaml
+apiVersion: kubernetes.project-planton.org/v1
+kind: MicroserviceKubernetes
+metadata:
+  name: my-service
+  env: dev
+  labels:
+    planton.ai/git-branch: dev-*  # Matches dev, dev-feature, dev-hotfix
+spec:
+  # ... configuration
+```
+
+### Precedence Order
+
+When determining which overlays to deploy:
+
+1. **Branch Label First**: If `planton.ai/git-branch` exists in an overlay, it must match the commit's branch (using glob pattern matching)
+2. **Fallback to Service Config**: If the label is absent, the overlay is subject to `deployment_environments` filtering
+3. **Default Behavior**: If neither is configured, the overlay deploys
+
+This means you can mix and match: some overlays can use branch labels while others rely on `deployment_environments`.
+
+### Pattern Matching
+
+The label supports glob patterns for flexible branch matching:
+
+**Exact Match**:
+```yaml
+labels:
+  planton.ai/git-branch: main  # Only matches "main"
+```
+
+**Wildcard Suffix**:
+```yaml
+labels:
+  planton.ai/git-branch: dev-*  # Matches dev-feature, dev-hotfix, dev-123
+```
+
+**Wildcard Prefix**:
+```yaml
+labels:
+  planton.ai/git-branch: feature/*  # Matches feature/login, feature/checkout
+```
+
+**Any Branch**:
+```yaml
+labels:
+  planton.ai/git-branch: "*"  # Matches all branches
+```
+
+**Multiple Wildcards**:
+```yaml
+labels:
+  planton.ai/git-branch: release-*-hotfix  # Matches release-1.0-hotfix, release-2.1-hotfix
+```
+
+Matching is **case-sensitive**: `dev` does not match `Dev`.
+
+### Real-World Example
+
+Here's how a microservice might configure different overlays:
+
+```yaml
+# _kustomize/overlays/dev/service.yaml
+metadata:
+  env: dev
+  labels:
+    planton.ai/git-branch: dev-*  # Deploys for any dev-* branch
+
+---
+# _kustomize/overlays/staging/service.yaml
+metadata:
+  env: staging
+  labels:
+    planton.ai/git-branch: main  # Only deploys from main branch
+
+---
+# _kustomize/overlays/prod/service.yaml
+metadata:
+  env: prod
+  labels:
+    planton.ai/git-branch: release-*  # Only deploys from release branches
+```
+
+With this setup:
+- Commit to `dev-feature` → deploys only to dev
+- Commit to `main` → deploys only to staging
+- Commit to `release-1.0` → deploys only to prod
+
+### Troubleshooting
+
+**Overlay not deploying despite matching branch?**
+- Check the label value matches exactly (case-sensitive)
+- Verify the pattern uses valid glob syntax (`*` for any characters, `?` for single character)
+- Ensure there are no extra spaces in the label value
+
+**Need to test pattern matching?**
+The matching follows standard glob conventions:
+- `*` matches zero or more characters
+- `?` matches exactly one character
+- Literal characters must match exactly
+
 ## Understanding the Directory Structure
 
 Let's look at a typical _kustomize structure with multiple environments:
