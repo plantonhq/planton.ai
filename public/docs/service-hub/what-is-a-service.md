@@ -175,8 +175,8 @@ pipeline_configuration:
 
 ```yaml
 pipeline_configuration:
-  pipeline_branch: main  # Only build commits to main
-  # For PRs: only when targeting main + PR deployments enabled
+  pipeline_branches: ["main", "develop"]  # Build commits to main or develop
+  # For PRs: only when targeting any configured branch + PR deployments enabled
 ```
 
 ### Smart Path Filtering

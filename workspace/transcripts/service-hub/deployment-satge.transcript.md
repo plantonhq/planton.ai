@@ -25,7 +25,7 @@ resources:
 
 ## /Users/swarup/scm/github.com/plantoncloud-inc/planton-cloud/backend/services/copilot-agent/_kustomize/base/service.yaml
 apiVersion: kubernetes.project-planton.org/v1
-kind: MicroserviceKubernetes
+kind: KubernetesDeployment
 metadata:
   name: copilot-agent
   org: planton-cloud
@@ -92,7 +92,7 @@ patches:
 
 ## /Users/swarup/scm/github.com/plantoncloud-inc/planton-cloud/backend/services/copilot-agent/_kustomize/overlays/local/service.yaml
 apiVersion: kubernetes.project-planton.org/v1
-kind: MicroserviceKubernetes
+kind: KubernetesDeployment
 metadata:
   name: copilot-agent
 spec:
@@ -129,7 +129,7 @@ patches:
 
 ## /Users/swarup/scm/github.com/plantoncloud-inc/planton-cloud/backend/services/copilot-agent/_kustomize/overlays/prod/service.yaml
 apiVersion: kubernetes.project-planton.org/v1
-kind: MicroserviceKubernetes
+kind: KubernetesDeployment
 metadata:
   name: copilot-agent
   env: app-prod
@@ -173,7 +173,7 @@ local overlay folder is excluded
  ~/scm/github.com/plantoncloud-inc/planton-cloud/backend/services/copilot-agent  main                                                                                                                    11:39:18
 ❯ kustomize build _kustomize/overlays/prod
 apiVersion: kubernetes.project-planton.org/v1
-kind: MicroserviceKubernetes
+kind: KubernetesDeployment
 metadata:
   env: app-prod
   name: copilot-agent

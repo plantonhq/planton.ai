@@ -79,7 +79,7 @@ Add the `planton.ai/git-branch` label to your overlay's service.yaml `metadata.l
 ```yaml
 # _kustomize/overlays/dev/service.yaml
 apiVersion: kubernetes.project-planton.org/v1
-kind: MicroserviceKubernetes
+kind: KubernetesDeployment
 metadata:
   name: my-service
   env: dev
@@ -209,7 +209,7 @@ The base contains common configuration shared across all environments:
 ```yaml
 # _kustomize/base/service.yaml
 apiVersion: kubernetes.project-planton.org/v1
-kind: MicroserviceKubernetes
+kind: KubernetesDeployment
 metadata:
   name: retail-hub-checkout-service
   org: acmecorp
@@ -222,7 +222,7 @@ Each overlay patches the base with environment-specific settings:
 ```yaml
 # _kustomize/overlays/dev/service.yaml
 apiVersion: kubernetes.project-planton.org/v1
-kind: MicroserviceKubernetes
+kind: KubernetesDeployment
 metadata:
   env: dev
   name: retail-hub-checkout-service

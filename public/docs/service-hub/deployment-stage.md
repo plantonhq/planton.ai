@@ -86,7 +86,7 @@ resources:
 ```yaml
 # _kustomize/base/service.yaml
 apiVersion: kubernetes.project-planton.org/v1
-kind: MicroserviceKubernetes
+kind: KubernetesDeployment
 metadata:
   name: my-service
   org: my-org
@@ -142,7 +142,7 @@ patches:
 ```yaml
 # _kustomize/overlays/prod/service.yaml
 apiVersion: kubernetes.project-planton.org/v1
-kind: MicroserviceKubernetes
+kind: KubernetesDeployment
 metadata:
   name: my-service
   env: app-prod  # This is the actual Planton Cloud environment name
@@ -176,7 +176,7 @@ For more granular control over when overlays deploy, you can add the `planton.ai
 ```yaml
 # _kustomize/overlays/dev/service.yaml
 apiVersion: kubernetes.project-planton.org/v1
-kind: MicroserviceKubernetes
+kind: KubernetesDeployment
 metadata:
   name: my-service
   env: dev
@@ -197,7 +197,7 @@ When present, this label takes precedence over the service-level `deployment_env
 
 Currently, Planton Cloud supports deploying services to:
 
-### MicroserviceKubernetes
+### KubernetesDeployment
 Deploy containerized services to Kubernetes clusters with full control over:
 - Resource limits and requests
 - Environment variables and secrets
@@ -279,7 +279,7 @@ The `local` overlay serves a unique purpose - it's never deployed but used exclu
 ```yaml
 # _kustomize/overlays/local/service.yaml
 apiVersion: kubernetes.project-planton.org/v1
-kind: MicroserviceKubernetes
+kind: KubernetesDeployment
 metadata:
   name: my-service
 spec:

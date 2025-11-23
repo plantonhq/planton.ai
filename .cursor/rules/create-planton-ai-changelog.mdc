@@ -1,0 +1,368 @@
+---
+description: Action rule to create a well-structured changelog document capturing meaningful work on Planton.ai website, sized proportionally to the feature's impact and complexity.
+globs: []
+alwaysApply: false
+---
+
+# Rule: Create Planton.ai Changelog (action)
+
+Purpose: When invoked, create a comprehensive changelog document in the `_changelog/` directory that captures the essence, context, and impact of recent work on the Planton.ai website. The changelog should be meaningful, well-structured, and appropriately sized based on the scope and impact of the change.
+
+Usage: Invoke explicitly as `@create-planton-ai-changelog` after completing meaningful work in a conversation.
+
+References: `@understand-cursor-rules`, existing changelogs in `_changelog/`
+
+## ⚠️ CRITICAL: Explicit Invocation Only
+
+**DO NOT** create a changelog automatically or proactively. Changelogs must ONLY be created when the user explicitly invokes this rule with `@create-planton-ai-changelog`.
+
+Never:
+- ❌ Suggest creating a changelog without being asked
+- ❌ Create a changelog at the end of a conversation automatically
+- ❌ Assume the user wants a changelog created
+- ❌ Create a changelog "to be helpful" without explicit request
+
+Always:
+- ✅ Wait for explicit `@create-planton-ai-changelog` invocation
+- ✅ Confirm the request before creating the file
+- ✅ Let the user decide when/if a changelog is needed
+
+**This is a user-controlled action, not an automatic process.**
+
+## When to Create a Changelog
+
+Create a changelog when:
+- ✅ You've completed a meaningful feature, refactoring, or improvement
+- ✅ The work involved multiple components or pages
+- ✅ The change introduces new UI patterns or design decisions
+- ✅ The work took significant time/effort (typically 1+ hours)
+- ✅ The change has notable impact on the website, users, or marketing goals
+- ✅ You want to preserve the context and rationale for future reference
+- ✅ New pages, features, or sections were added
+- ✅ Content strategy or structure changed significantly
+- ✅ Interactive features or demos were enhanced
+- ✅ Performance or SEO improvements were implemented
+
+**Skip changelogs for**:
+- ✋ Trivial typo fixes or copy corrections
+- ✋ Minor styling tweaks
+- ✋ Work-in-progress or incomplete changes
+- ✋ Changes already well-documented in PR descriptions
+- ✋ Simple content updates without structural changes
+
+## Sizing Guidance: Use Your Judgment
+
+**Critical principle**: The changelog length should be **proportional to the feature's complexity and impact**, not artificially constrained or inflated.
+
+### Small Changes (150-300 lines)
+- Single page or component updates
+- Focused bug fixes with clear before/after
+- Minor UI improvements
+- Configuration tweaks
+- Simple content additions
+
+**Example**: Navigation menu enhancement - straightforward problem, clear solution, limited scope
+
+### Medium Changes (300-600 lines)
+- Multi-page refactorings
+- New UI patterns or components
+- Documentation section rewrites
+- Integration work across 2-3 features
+- Interactive feature additions
+
+**Example**: New solutions section - new pages, navigation updates, content structure
+
+### Large Changes (600-1000+ lines)
+- Major website redesigns
+- Framework migrations
+- Comprehensive feature rollouts across many pages
+- Site-wide refactorings with broad impact
+- New interactive experiences
+
+**Example**: Complete website redesign, New documentation system, Interactive demo platform
+
+**Golden rule**: If you're unsure, start shorter and add detail only where it adds real value. Quality over quantity.
+
+## Changelog Structure
+
+### File Naming
+```
+YYYY-MM-DD-HHMMSS-brief-descriptive-slug.md
+```
+
+Examples:
+- `2025-11-23-143022-solutions-pages-redesign.md`
+- `2025-11-23-091545-interactive-demo-platform.md`
+- `2025-11-22-164730-blog-system-with-mdx.md`
+
+**IMPORTANT**: Get the actual current timestamp by running the command `date +"%Y-%m-%d-%H%M%S"` and use that exact output as the prefix for the filename. Do NOT make up or guess the timestamp. Follow with a clear, kebab-case slug describing the change. The timestamp (HHMMSS) ensures automatic chronological sorting when multiple changelogs are created on the same day.
+
+### Required Metadata
+
+Every changelog should start with metadata in this format:
+
+```markdown
+# [Clear, Descriptive Title]
+
+**Date**: [Month Day, Year]
+**Type**: [Feature | Enhancement | Bug Fix | Refactoring | Content | Design]
+**Components**: [Component1, Component2, Component3]
+
+## Summary
+
+[2-4 sentence overview of what was accomplished and why it matters]
+```
+
+**Common Components**:
+- Landing Page
+- Solutions Pages
+- Documentation
+- Blog System
+- Interactive Demo
+- Navigation
+- Features Pages
+- Pricing Page
+- Tour/Walkthrough
+- UI Components
+- Content Management
+- SEO/Performance
+- Build System
+- Design System
+
+### Required Sections
+
+Every changelog should include:
+
+```markdown
+# [Clear, Descriptive Title]
+
+**Date**: [Month Day, Year]
+**Type**: [Type]
+**Components**: [Components]
+
+## Summary
+
+[2-4 sentence overview of what was accomplished and why it matters]
+
+## Problem Statement / Motivation
+
+[Describe the problem or need that motivated this work]
+
+### Pain Points
+
+[Bullet list of specific issues being addressed]
+
+## Solution / What's New
+
+[High-level description of the approach taken]
+
+### [Key Features/Components]
+
+[Screenshots, diagrams, component descriptions as needed]
+
+## Implementation Details
+
+[Technical specifics - code changes, new patterns, key decisions]
+
+## Benefits
+
+[Concrete improvements - metrics, time savings, user experience]
+
+## Impact
+
+[Who/what is affected and how]
+
+## Related Work
+
+[Connect to other changelogs, features, or initiatives]
+
+---
+
+**Status**: ✅ [Live | In Progress | Experimental]
+**Timeline**: [Duration if relevant]
+```
+
+### Optional Sections (Include When Valuable)
+
+Add these sections only when they provide meaningful value:
+
+- **Breaking Changes**: When URLs, APIs, or integrations change
+- **Migration Guide**: When content creators need to adapt
+- **Visual Design**: Screenshots or design rationale
+- **Content Strategy**: When content approach changes
+- **Performance Metrics**: When performance is a key concern
+- **SEO Impact**: For changes affecting search visibility
+- **Known Limitations**: For incomplete implementations
+- **Future Enhancements**: For planned follow-up work
+- **A/B Testing Results**: When testing informed decisions
+- **User Feedback**: When user input drove changes
+- **Design Decisions**: When trade-offs were significant
+- **Accessibility**: When accessibility was a focus
+- **Analytics**: Impact on user behavior or conversions
+
+## Writing Guidelines
+
+### Do:
+- ✅ **Start with context**: Why did this work happen?
+- ✅ **Focus on value**: What problem does this solve for users/visitors?
+- ✅ **Use concrete examples**: Show before/after screenshots, code snippets, URLs
+- ✅ **Include numbers**: Metrics, timelines, page counts (when meaningful)
+- ✅ **Explain decisions**: Why this approach vs alternatives?
+- ✅ **Write for future you**: Capture the thinking, not just the what
+- ✅ **Link to related work**: Connect the dots with other changes
+- ✅ **Use formatting**: Screenshots, code blocks, tables, bullet lists for readability
+- ✅ **Show visual changes**: Screenshots are especially valuable for UI work
+
+### Don't:
+- ❌ **Over-explain the obvious**: Assume the reader is technical
+- ❌ **Include every detail**: Focus on what matters
+- ❌ **Write generic summaries**: Be specific to Planton.ai
+- ❌ **Skip the "why"**: Context is critical for future understanding
+- ❌ **Ignore trade-offs**: Document decisions and their rationale
+- ❌ **Use jargon without context**: Define terms that may be unclear
+
+## Tone and Style
+
+- **Informative, not promotional**: Focus on facts and impact (even though this is a marketing site)
+- **Technical but accessible**: Balance depth with clarity
+- **Professional but human**: You can say "we struggled with X" or "this was tricky"
+- **Present tense for descriptions**: "The website now does X"
+- **Past tense for actions**: "We implemented Y"
+
+## Quality Checklist
+
+Before finalizing a changelog:
+
+- [ ] Title clearly describes the change
+- [ ] Metadata includes Date, Type, and Components
+- [ ] Summary captures essence in 2-4 sentences
+- [ ] Problem statement explains why work was needed
+- [ ] Solution section describes the approach
+- [ ] Implementation details are technical but focused
+- [ ] Benefits are concrete and measurable
+- [ ] Screenshots included for visual changes
+- [ ] Code examples (if any) are actual code, not pseudocode
+- [ ] Related work connects this to other changes
+- [ ] Length is proportional to scope and impact
+- [ ] No sensitive information (credentials, internal URLs, etc.)
+- [ ] File paths reference actual planton.ai structure
+
+## Proportionality Examples
+
+### ✅ Good: Appropriately Sized
+
+**Small feature** (200 lines): 
+- Problem: 1 paragraph
+- Solution: 1-2 paragraphs + screenshots
+- Benefits: 3-5 bullets
+- Impact: 1 paragraph
+
+**Medium feature** (500 lines):
+- Problem: 2-3 paragraphs with pain points
+- Solution: Component descriptions with screenshots
+- Implementation: 3-4 key changes with code snippets
+- Benefits: Categorized list with metrics
+- Impact: User experience + SEO improvements
+
+**Large feature** (900 lines):
+- Problem: Comprehensive context with examples
+- Solution: Full architecture with diagrams and phases
+- Implementation: Detailed technical sections per component
+- Benefits: Quantitative and qualitative analysis
+- Visual Design: Before/after comparisons
+- Impact: Multi-dimensional (users, conversion, SEO)
+
+### ❌ Anti-patterns
+
+- **Over-detailed small change**: 800-line changelog for a typo fix
+- **Under-documented major change**: 150-line changelog for complete redesign
+- **Kitchen sink**: Including every file touched, every line changed
+- **Too abstract**: Generic descriptions without concrete examples or screenshots
+
+## Planton.ai Specific Guidelines
+
+### File Path Examples
+
+When referencing code, use actual planton.ai paths:
+
+```markdown
+**File**: `src/app/solutions/[role]/page.tsx`
+**File**: `src/components/features/InteractiveDemo.tsx`
+**File**: `src/app/docs/[...slug]/page.tsx`
+**File**: `public/docs/getting-started.md`
+**File**: `content/media/images/feature-screenshot.png`
+```
+
+### URL Examples
+
+Always reference actual website URLs:
+
+```markdown
+**Page**: https://planton.ai/solutions/by-role/devops-engineers
+**Page**: https://planton.ai/features/planton-copilot
+**Page**: https://planton.ai/docs/getting-started
+**Demo**: https://planton.ai/demo
+```
+
+### Component Categories
+
+Use these component categories consistently:
+
+**Pages & Routes**:
+- Landing Page, Solutions Pages, Features Pages, Pricing Page, Documentation, Blog System, Tour/Walkthrough
+
+**Interactive Features**:
+- Interactive Demo, Planton Copilot Interface, Resource Explorer, Kubernetes Dashboard
+
+**UI Components**:
+- Navigation, Design System, UI Components, Layout Components
+
+**Content & Media**:
+- Content Management, Media Gallery, Video Players, Code Examples
+
+**Infrastructure**:
+- Build System, SEO/Performance, Analytics Integration, Deployment Pipeline
+
+**Design & UX**:
+- Visual Design, User Experience, Accessibility, Responsive Design
+
+## Automation Notes
+
+When creating the changelog:
+1. **Get current timestamp**: Run `date +"%Y-%m-%d-%H%M%S"` to get the actual current date and time for the filename
+2. **Analyze the conversation**: Extract key decisions, changes, outcomes
+3. **Assess scope**: Count files, pages, components affected
+4. **Determine components**: Map changes to component categories
+5. **Choose type**: Feature, Enhancement, Bug Fix, Refactoring, Content, Design
+6. **Size appropriately**: Match detail level to impact
+7. **Gather screenshots**: Include visual evidence for UI changes
+8. **Write the file**: Create in `_changelog/YYYY-MM/` (year-month directory) with proper naming using the timestamp from step 1
+9. **Confirm creation**: Provide file path and next steps
+
+## Example Invocations
+
+```
+"We just completed the solutions pages redesign. @create-planton-ai-changelog"
+
+"I've finished implementing the interactive demo platform with live API integration. 
+@create-planton-ai-changelog - this was a major change"
+
+"The documentation system migration is done. @create-planton-ai-changelog - 
+include the MDX migration and new content structure"
+```
+
+## Remember
+
+**Changelogs are living documentation** that helps future developers and content creators (including you) understand:
+- What changed on the website
+- Why it changed
+- How it was implemented
+- What the impact was on users and business goals
+
+Write for the person who will need to understand this change in six months. Give them the context they need - no more, no less.
+
+**When in doubt**: Start with the required sections, keep it focused, and add detail only where it truly helps understanding. A clear, concise 300-line changelog is better than a rambling 1000-line document.
+
+---
+
+*"Documentation is a love letter to your future self."* - Damian Conway
