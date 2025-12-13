@@ -19,7 +19,6 @@ import IntroProblemSmallProduct from './intro/IntroProblemSmallProduct';
 import IntroProblemEstablished from './intro/IntroProblemEstablished';
 import IntroStakes from './intro/IntroStakes';
 import IntroPromise from './intro/IntroPromise';
-import IntroCTA from './intro/IntroCTA';
 
 // Import platform components
 import CloudConnections from './platform/CloudConnections';
@@ -62,7 +61,7 @@ import ServiceLiveExample from './service/ServiceLiveExample';
 import ServiceSuccessStory from './service/ServiceSuccessStory';
 import './demo.css';
 
-type DemoScreen = 'welcome' | 'company-selection' | 'intro-problem' | 'intro-stakes' | 'intro-promise' | 'intro-cta' | 
+type DemoScreen = 'welcome' | 'company-selection' | 'intro-problem' | 'intro-stakes' | 'intro-promise' | 
   'cloud-connections' | 'lego-catalog' | 'component-config' | 
   // Deployment Store Journey
   'deployment-store-providers' | 'deployment-store-aws' | 'deployment-store-multi-cloud' | 'deployment-store-form' |
@@ -82,7 +81,6 @@ const itConsultingFlow: DemoScreen[] = [
   'intro-problem',
   'intro-stakes',
   'intro-promise',
-  'intro-cta',
   'cloud-connections',
   // Deployment Component Store Journey (4 screens)
   'deployment-store-providers',  // Multi-cloud/provider breadth
@@ -116,7 +114,6 @@ const smallProductFlow: DemoScreen[] = [
   'intro-problem',
   'intro-stakes',
   'intro-promise',
-  'intro-cta',
   // Deployment Component Store Journey (4 screens)
   'deployment-store-providers',
   'deployment-store-aws',
@@ -150,7 +147,6 @@ const establishedProductFlow: DemoScreen[] = [
   'intro-problem',
   'intro-stakes',
   'intro-promise',
-  'intro-cta',
   'cloud-connections',
   // Deployment Component Store Journey (4 screens)
   'deployment-store-providers',
@@ -187,7 +183,6 @@ const defaultDemoScreens: DemoScreen[] = [
   'intro-problem',
   'intro-stakes',
   'intro-promise',
-  'intro-cta',
   'cloud-connections',
   // Deployment Component Store Journey (4 screens)
   'deployment-store-providers',
@@ -295,10 +290,6 @@ export default function DemoPage() {
     navigateNext();
   }, [navigateNext]);
 
-  const handleProviderSelect = useCallback((_provider: string) => {
-    navigateNext();
-  }, [navigateNext]);
-
   const handleComponentSelect = useCallback((componentId: string) => {
     setSelectedComponent(componentId);
     navigateNext();
@@ -362,9 +353,6 @@ export default function DemoPage() {
       
       case 'intro-promise':
         return <IntroPromise />;
-      
-      case 'intro-cta':
-        return <IntroCTA onProviderSelect={handleProviderSelect} companyType={companyType || 'it-consulting'} />;
       
       case 'cloud-connections':
         return <CloudConnections />;

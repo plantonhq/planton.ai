@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, Cloud, Bot } from 'lucide-react';
+import { CheckCircle, Cloud, Bot, Activity } from 'lucide-react';
 
 const roadmapItems = [
   {
@@ -18,7 +18,19 @@ const roadmapItems = [
     status: 'Live',
   },
   {
-    phase: 'Next 12 Months',
+    phase: 'Q1 2026',
+    title: 'Observability',
+    icon: Activity,
+    color: 'cyan',
+    items: [
+      'Full-stack observability built-in',
+      'Strong demand from early customers',
+      'Design complete, development underway',
+    ],
+    status: 'In Design',
+  },
+  {
+    phase: '2026',
     title: 'AI Agent Fleet',
     icon: Bot,
     color: 'violet',
@@ -56,68 +68,70 @@ export default function SlideRoadmap() {
           Roadmap
         </h2>
         <p className="text-xl text-white/60 mb-12">
-          Three phases to become essential infrastructure
+          Building essential infrastructure, step by step
         </p>
 
         {/* Roadmap Items */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {roadmapItems.map((item, index) => (
-            <motion.div
-              key={item.phase}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * (index + 1) }}
-              className={`bg-white/5 border rounded-2xl p-6 text-left ${
-                item.color === 'emerald'
-                  ? 'border-emerald-500/30'
-                  : item.color === 'violet'
-                  ? 'border-violet-500/30'
-                  : 'border-pink-500/30'
-              }`}
-            >
-              {/* Header */}
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <item.icon className={`w-5 h-5 ${
-                    item.color === 'emerald'
-                      ? 'text-emerald-400'
-                      : item.color === 'violet'
-                      ? 'text-violet-400'
-                      : 'text-pink-400'
-                  }`} />
-                  <span className={`text-xs font-medium px-2 py-1 rounded-full ${
-                    item.color === 'emerald'
-                      ? 'bg-emerald-500/20 text-emerald-400'
-                      : item.color === 'violet'
-                      ? 'bg-violet-500/20 text-violet-400'
-                      : 'bg-pink-500/20 text-pink-400'
-                  }`}>
-                    {item.status}
-                  </span>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {roadmapItems.map((item, index) => {
+            const colorClasses = {
+              emerald: {
+                border: 'border-emerald-500/30',
+                icon: 'text-emerald-400',
+                badge: 'bg-emerald-500/20 text-emerald-400',
+              },
+              cyan: {
+                border: 'border-cyan-500/30',
+                icon: 'text-cyan-400',
+                badge: 'bg-cyan-500/20 text-cyan-400',
+              },
+              violet: {
+                border: 'border-violet-500/30',
+                icon: 'text-violet-400',
+                badge: 'bg-violet-500/20 text-violet-400',
+              },
+              pink: {
+                border: 'border-pink-500/30',
+                icon: 'text-pink-400',
+                badge: 'bg-pink-500/20 text-pink-400',
+              },
+            };
+            const colors = colorClasses[item.color as keyof typeof colorClasses];
+
+            return (
+              <motion.div
+                key={item.phase}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 * (index + 1) }}
+                className={`bg-white/5 border rounded-2xl p-5 text-left ${colors.border}`}
+              >
+                {/* Header */}
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <item.icon className={`w-4 h-4 ${colors.icon}`} />
+                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${colors.badge}`}>
+                      {item.status}
+                    </span>
+                  </div>
                 </div>
-              </div>
 
-              {/* Phase */}
-              <div className="text-sm text-white/50 mb-1">{item.phase}</div>
-              <h3 className="text-xl font-bold text-white mb-4">{item.title}</h3>
+                {/* Phase */}
+                <div className="text-xs text-white/50 mb-1">{item.phase}</div>
+                <h3 className="text-lg font-bold text-white mb-3">{item.title}</h3>
 
-              {/* Items */}
-              <ul className="space-y-2">
-                {item.items.map((listItem, i) => (
-                  <li key={i} className="text-sm text-white/60 flex items-start gap-2">
-                    <span className={`mt-1 ${
-                      item.color === 'emerald'
-                        ? 'text-emerald-400'
-                        : item.color === 'violet'
-                        ? 'text-violet-400'
-                        : 'text-pink-400'
-                    }`}>•</span>
-                    {listItem}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
+                {/* Items */}
+                <ul className="space-y-1.5">
+                  {item.items.map((listItem, i) => (
+                    <li key={i} className="text-xs text-white/60 flex items-start gap-2">
+                      <span className={`mt-0.5 ${colors.icon}`}>•</span>
+                      {listItem}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Vision Statement */}

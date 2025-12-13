@@ -42,12 +42,10 @@ export default function CompanyTypeSelection({ onCompanyTypeSelect }: CompanyTyp
 
   const handleTypeClick = (type: CompanyType) => {
     setSelectedType(type);
-  };
-
-  const handleContinue = () => {
-    if (selectedType) {
-      onCompanyTypeSelect(selectedType);
-    }
+    // Automatically advance to next slide after a brief visual feedback
+    setTimeout(() => {
+      onCompanyTypeSelect(type);
+    }, 400);
   };
 
   return (
@@ -134,19 +132,12 @@ export default function CompanyTypeSelection({ onCompanyTypeSelect }: CompanyTyp
           transition={{ delay: 0.6 }}
           className="flex flex-col items-center gap-4"
         >
-          <button
-            onClick={handleContinue}
-            disabled={!selectedType}
-            className={`px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 ${
-              selectedType
-                ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white hover:from-violet-700 hover:to-purple-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'
-                : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-            }`}
-          >
-            Continue with {companyTypes.find(t => t.id === selectedType)?.name || 'Selection'}
-          </button>
-
           <p className="text-sm text-gray-400">
+            {selectedType 
+              ? 'Starting personalized demo...' 
+              : 'Select an option above to continue'}
+          </p>
+          <p className="text-xs text-gray-500">
             You can switch between different company types anytime by clicking Home
           </p>
         </motion.div>

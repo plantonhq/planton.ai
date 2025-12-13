@@ -29,10 +29,13 @@ export default function SlideSolution() {
             transition={{ delay: 0.2 }}
             className="bg-white/5 backdrop-blur-sm border border-emerald-500/30 rounded-2xl p-8 text-left"
           >
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-3 mb-2">
               <Globe className="w-8 h-8 text-emerald-400" />
               <h3 className="text-2xl font-bold text-white">InfraHub</h3>
             </div>
+            <p className="text-xs text-emerald-400/80 mb-4">
+              Replaces Terraform Enterprise / Pulumi Cloud
+            </p>
             <p className="text-white/70 mb-4">
               Deploy any cloud resource with a single API
             </p>
@@ -59,10 +62,13 @@ export default function SlideSolution() {
             transition={{ delay: 0.3 }}
             className="bg-white/5 backdrop-blur-sm border border-violet-500/30 rounded-2xl p-8 text-left"
           >
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-3 mb-2">
               <Zap className="w-8 h-8 text-violet-400" />
               <h3 className="text-2xl font-bold text-white">ServiceHub</h3>
             </div>
+            <p className="text-xs text-violet-400/80 mb-4">
+              Replaces GitHub Actions / Jenkins / GitLab Pipelines
+            </p>
             <p className="text-white/70 mb-4">
               Vercel-like experience for backend services
             </p>
@@ -95,6 +101,9 @@ export default function SlideSolution() {
           </p>
           <p className="text-white/60 mt-2">
             The simplicity of Vercel. The power of any cloud.
+          </p>
+          <p className="text-sm text-white/40 mt-3">
+            Save $ and eliminate integration chaos
           </p>
         </motion.div>
       </motion.div>

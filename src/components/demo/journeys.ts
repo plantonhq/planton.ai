@@ -16,7 +16,6 @@ export type DemoScreen =
   | 'intro-problem' 
   | 'intro-stakes' 
   | 'intro-promise' 
-  | 'intro-cta' 
   
   // Platform screens
   | 'cloud-connections' 
