@@ -1,0 +1,10 @@
+export { default as TitleSlide } from './TitleSlide';
+export { default as ProblemSlide } from './ProblemSlide';
+export { default as SolutionSlide } from './SolutionSlide';
+export { default as HowItWorksSlide } from './HowItWorksSlide';
+export { default as MarketSlide } from './MarketSlide';
+export { default as TractionSlide } from './TractionSlide';
+export { default as RoadmapSlide } from './RoadmapSlide';
+export { default as TeamSlide } from './TeamSlide';
+export { default as TheAskSlide } from './TheAskSlide';
+export { default as ClosingSlide } from './ClosingSlide';
