@@ -1,0 +1,203 @@
+/* Investor Deck Specific Styles */
+
+.investor-deck-container {
+  min-height: 100vh;
+  background-color: #110D1F;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Card Shadows - Reuse from demo */
+.investor-card-shadow {
+  box-shadow: 
+    0 1px 3px 0 rgb(0 0 0 / 0.1),
+    0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.investor-card-hover {
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+/* Metric Cards */
+.metric-card {
+  @apply bg-white rounded-xl p-6 investor-card-shadow;
+}
+
+.metric-value {
+  @apply text-4xl font-bold text-violet-600;
+}
+
+.metric-label {
+  @apply text-sm text-gray-600 mt-2;
+}
+
+/* Quote Cards */
+.quote-card {
+  @apply bg-gradient-to-br from-violet-50 to-purple-50 rounded-xl p-6 investor-card-shadow;
+  border-left: 4px solid #7c3aed;
+}
+
+.quote-text {
+  @apply text-lg italic text-gray-800;
+}
+
+.quote-author {
+  @apply text-sm text-gray-600 mt-4 font-medium;
+}
+
+/* Progress Bar */
+.investor-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(124, 58, 237, 0.2);
+  z-index: 100;
+}
+
+.investor-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #7c3aed 0%, #a855f7 100%);
+  transition: width 0.3s ease;
+}
+
+/* Navigation Buttons */
+.nav-button {
+  @apply px-6 py-3 rounded-lg font-medium transition-all duration-300;
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3);
+}
+
+.nav-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Home Button */
+.home-button {
+  @apply fixed top-6 right-6 z-50 px-4 py-2 rounded-lg font-medium;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.home-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Team Member Cards */
+.team-member-card {
+  @apply bg-white rounded-xl p-6 investor-card-shadow;
+}
+
+.team-member-avatar {
+  @apply w-20 h-20 rounded-full bg-gradient-to-br from-violet-400 to-purple-500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+}
+
+.team-member-name {
+  @apply text-xl font-bold text-gray-900 mt-4;
+}
+
+.team-member-role {
+  @apply text-sm text-violet-600 font-medium;
+}
+
+.team-member-tenure {
+  @apply text-sm text-gray-500 mt-1;
+}
+
+/* Timeline Visualization */
+.timeline-container {
+  position: relative;
+  padding: 2rem 0;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, #7c3aed 0%, #a855f7 100%);
+  transform: translateX(-50%);
+}
+
+.timeline-item {
+  @apply relative mb-8;
+}
+
+.timeline-marker {
+  @apply w-4 h-4 rounded-full bg-violet-600 absolute left-1/2 transform -translate-x-1/2;
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.2);
+}
+
+.timeline-content {
+  @apply bg-white rounded-xl p-6 investor-card-shadow;
+  width: 45%;
+}
+
+.timeline-item:nth-child(odd) .timeline-content {
+  margin-left: auto;
+}
+
+/* Comparison Matrix */
+.comparison-table {
+  @apply w-full bg-white rounded-xl overflow-hidden investor-card-shadow;
+}
+
+.comparison-header {
+  @apply bg-gradient-to-r from-violet-600 to-purple-600 text-white font-bold p-4;
+}
+
+.comparison-row {
+  @apply border-b border-gray-200 p-4;
+}
+
+.comparison-row:last-child {
+  border-bottom: none;
+}
+
+/* Charts Container */
+.chart-container {
+  @apply bg-white rounded-xl p-6 investor-card-shadow;
+  min-height: 300px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .timeline-content {
+    width: 100%;
+    margin-left: 2rem;
+  }
+  
+  .timeline-line {
+    left: 0;
+  }
+  
+  .timeline-marker {
+    left: 0;
+    transform: translateX(-50%);
+  }
+}
