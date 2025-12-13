@@ -1,0 +1,10 @@
+# Ignore any private/draft versions
+*-private.md
+*-draft.md
+*.local.md
+
+# Ignore any exported PDFs (will be generated)
+*.pdf
+
+# Ignore practice recordings
+recordings/
