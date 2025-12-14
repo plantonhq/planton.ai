@@ -281,3 +281,4 @@ export const TechnologySection = () => {
     </PageSection>
   );
 };
+
