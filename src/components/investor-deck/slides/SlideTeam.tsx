@@ -13,7 +13,7 @@ const teamMembers = [
     highlight: true,
   },
   {
-    name: 'Suresh Ataluri',
+    name: 'Suresh Attaluri',
     role: 'Co-Founder & Backend Engineer',
     icon: Code,
     description: 'College classmate. 10 years collaboration. Backend systems.',
