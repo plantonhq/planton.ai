@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import './investor-deck.css';
+import './invest.css';
 
 export const metadata: Metadata = {
   title: 'Investor Deck - Planton Cloud',
