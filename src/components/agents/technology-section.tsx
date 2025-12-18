@@ -282,3 +282,15 @@ export const TechnologySection = () => {
   );
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
