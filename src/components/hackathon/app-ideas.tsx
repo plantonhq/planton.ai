@@ -70,7 +70,7 @@ export const AppIdeas = () => {
                 Your Idea Here!
               </Typography>
               <Typography fontSize={16} className="text-gray-300 max-w-2xl mx-auto">
-                Have a mobile app idea you've been wanting to build? This is your chance! Whether it's a productivity tool, a hobby project, or something completely new - bring it to the hackathon.
+                Have a mobile app idea you&apos;ve been wanting to build? This is your chance! Whether it&apos;s a productivity tool, a hobby project, or something completely new - bring it to the hackathon.
               </Typography>
             </Box>
           </Box>

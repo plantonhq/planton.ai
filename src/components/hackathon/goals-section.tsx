@@ -30,7 +30,7 @@ export const GoalsSection = () => {
             Why This Hackathon?
           </Typography>
           <Typography fontSize={18} className="text-gray-400 max-w-3xl mx-auto">
-            We've never built mobile apps at Planton Cloud. Through this hackathon, we want to establish that workflow and normalize mobile development so those small ideas can become reality.
+            We&apos;ve never built mobile apps at Planton Cloud. Through this hackathon, we want to establish that workflow and normalize mobile development so those small ideas can become reality.
           </Typography>
         </Stack>
 
@@ -64,7 +64,7 @@ export const GoalsSection = () => {
               The Vision
             </Typography>
             <Typography fontSize={16} className="text-gray-300 leading-relaxed">
-              Just like we've made infrastructure deployment simple with vibe coding, we want to make mobile app development equally accessible. There are so many small ideas that could benefit the team and our community - a mileage tracker, an expense splitter, productivity tools, hobby projects. This hackathon is about removing the friction and making mobile development a normal part of our toolkit.
+              Just like we&apos;ve made infrastructure deployment simple with vibe coding, we want to make mobile app development equally accessible. There are so many small ideas that could benefit the team and our community - a mileage tracker, an expense splitter, productivity tools, hobby projects. This hackathon is about removing the friction and making mobile development a normal part of our toolkit.
             </Typography>
           </Box>
         </Box>

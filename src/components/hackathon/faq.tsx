@@ -19,7 +19,7 @@ export const FAQ = () => {
             Frequently Asked Questions
           </Typography>
           <Typography fontSize={18} className="text-gray-400">
-            Got questions? We've got answers.
+            Got questions? We&apos;ve got answers.
           </Typography>
         </Stack>
 

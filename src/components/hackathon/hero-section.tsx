@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Stack, Button, Typography, Link } from '@mui/material';
+import { Box, Stack, Button, Typography } from '@mui/material';
 import {
   PageSection,
   PageSectionBackgroundContainer,
@@ -44,7 +44,7 @@ export const HeroSection = () => {
             MobileVibe
           </h1>
           <Typography fontSize={24} className="text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            Join us for Planton Cloud's first-ever mobile app hackathon. Build real apps, establish workflows, and normalize mobile development with vibe coding.
+            Join us for Planton Cloud&apos;s first-ever mobile app hackathon. Build real apps, establish workflows, and normalize mobile development with vibe coding.
           </Typography>
           
           {/* Event Badge */}

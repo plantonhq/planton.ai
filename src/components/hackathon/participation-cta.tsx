@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Typography, Button, Stack } from '@mui/material';
+import { Box, Typography, Stack } from '@mui/material';
 import {
   PageSection,
   PageSectionBackgroundContainer,
@@ -31,7 +31,7 @@ export const ParticipationCTA = () => {
           </Typography>
           
           <Typography fontSize={18} className="text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-            It's super simple - no complex registration, no prerequisites, just you and your enthusiasm for building mobile apps!
+            It&apos;s super simple - no complex registration, no prerequisites, just you and your enthusiasm for building mobile apps!
           </Typography>
 
           <Box className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
