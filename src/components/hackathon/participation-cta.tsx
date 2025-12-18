@@ -44,7 +44,7 @@ export const ParticipationCTA = () => {
             <StepCard
               number="2"
               title="Show Up"
-              description="Join us Sunday, Dec 21st at 9:00 AM - in person at the office or remotely from home"
+              description="Join us Monday, Dec 22nd at 9:00 AM - in person at the office or remotely from home"
               icon="🎯"
             />
             <StepCard
