@@ -12,13 +12,13 @@ import {
 export const metadata: Metadata = {
   title: 'MobileVibe Hackathon 2025 | Planton Cloud',
   description:
-    'Join Planton Cloud\'s first-ever mobile app hackathon. Build real apps, establish workflows, and normalize mobile development with vibe coding. December 21, 2025.',
+    'Join Planton Cloud\'s first-ever mobile app hackathon. Build real apps, establish workflows, and normalize mobile development with vibe coding. December 22, 2025.',
   keywords:
     'mobile app hackathon, mobile development, Android, iOS, React Native, Flutter, vibe coding, Planton Cloud, hackathon 2025',
   openGraph: {
     title: 'MobileVibe Hackathon 2025',
     description:
-      'Build real mobile apps, establish workflows, and normalize mobile development at Planton Cloud. Join us December 21, 2025!',
+      'Build real mobile apps, establish workflows, and normalize mobile development at Planton Cloud. Join us December 22, 2025!',
     type: 'website',
     url: 'https://planton.ai/hackathon/mobile-vibe-2025',
   },
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'MobileVibe Hackathon 2025',
     description:
-      'Join Planton Cloud\'s first mobile app hackathon. December 21, 2025 - Hybrid event!',
+      'Join Planton Cloud\'s first mobile app hackathon. December 22, 2025 - Hybrid event!',
   },
 };
 

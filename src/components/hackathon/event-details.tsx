@@ -29,7 +29,7 @@ export const EventDetails = () => {
             icon="📅"
             title="When"
             items={[
-              'Sunday, December 21, 2025',
+              'Monday, December 22, 2025',
               '9:00 AM Start Time',
               'Full Day (8-10 hours)',
               'Flexible breaks throughout'

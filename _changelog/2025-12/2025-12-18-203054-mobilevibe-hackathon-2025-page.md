@@ -94,7 +94,7 @@ All components follow the existing planton.ai patterns:
 
 ### Event Details
 
-- **Date**: Sunday, December 21, 2025
+- **Date**: Monday, December 22, 2025
 - **Time**: 9:00 AM (full day, 8-10 hours)
 - **Format**: Hybrid (in-person at office + remote)
 - **RSVP**: Informal - just show up

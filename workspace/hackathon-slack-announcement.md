@@ -10,7 +10,7 @@ Hey team!
 
 I'm excited to announce our first-ever mobile app hackathon at Planton Cloud!
 
-**📅 When:** Sunday, December 21st, 2025  
+**📅 When:** Monday, December 22nd, 2025  
 **⏰ Time:** 9:00 AM (full day - 8-10 hours)  
 **📍 Format:** Hybrid (join in-person or remote)
 
@@ -50,7 +50,7 @@ Looking forward to building some awesome mobile apps with all of you! 🎉
 
 🚀 **MobileVibe Hackathon 2025**
 
-Sunday, Dec 21st @ 9:00 AM | Hybrid | Full Day
+Monday, Dec 22nd @ 9:00 AM | Hybrid | Full Day
 
 We're establishing a mobile app development workflow at Planton Cloud through hands-on building!
 

@@ -63,7 +63,7 @@ Both include:
 
 **Event Details:**
 - **Name:** MobileVibe Hackathon 2025
-- **Date:** Sunday, December 21, 2025
+- **Date:** Monday, December 22, 2025
 - **Time:** 9:00 AM (Full day, 8-10 hours)
 - **Format:** Hybrid (in-person + remote)
 - **RSVP:** Informal - just show up
