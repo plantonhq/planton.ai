@@ -105,3 +105,4 @@ const DetailCard = ({
     </Stack>
   </Box>
 );
+

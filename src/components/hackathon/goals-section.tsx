@@ -94,3 +94,4 @@ const GoalCard = ({
     </Typography>
   </Box>
 );
+

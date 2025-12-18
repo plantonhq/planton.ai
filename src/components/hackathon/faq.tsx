@@ -82,3 +82,4 @@ const FAQItem = ({
     </Typography>
   </Box>
 );
+

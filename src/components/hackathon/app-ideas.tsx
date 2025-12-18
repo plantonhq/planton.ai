@@ -144,3 +144,4 @@ const AppIdeaCard = ({
     </Box>
   </Box>
 );
+

@@ -55,7 +55,7 @@ export const HeroSection = () => {
                   Date
                 </Typography>
                 <Typography fontSize={20} fontWeight={700} className="text-white">
-                  Dec 21, 2025
+                  Dec 22, 2025
                 </Typography>
               </Box>
               <Box className="w-px h-12 bg-white/20" />
@@ -78,7 +78,7 @@ export const HeroSection = () => {
               </Box>
             </Box>
             <Typography fontSize={14} className="text-purple-300">
-              Sunday • Full Day (8-10 hours) • In-person + Remote
+              Monday • Full Day (8-10 hours) • In-person + Remote
             </Typography>
           </Box>
 
@@ -193,3 +193,4 @@ const PhoneDevice = ({
     </div>
   </div>
 );
+
