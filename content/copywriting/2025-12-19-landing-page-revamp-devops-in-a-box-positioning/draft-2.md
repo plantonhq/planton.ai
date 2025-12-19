@@ -232,28 +232,22 @@ Start on AWS ECS for simplicity. Migrate to GCP Cloud Run for cost optimization.
 
 ---
 
-### Feature 3: Built on Open-Source Tekton
+### Feature 3: Pipeline Workflow
 
-**Headline:** Transparent CI/CD Built on Industry Standards
+**Headline:** From Commit to Deployment—Fully Automated
 
 **Body Copy:**
-Service Hub uses Tekton—the open-source, Kubernetes-native CI/CD framework—as its pipeline engine. We're transparent about our technology choices and believe in giving you full control.
+Every commit triggers an automated pipeline that handles the entire journey from code to running service.
 
-**What This Means:**
-- **No proprietary lock-in** - Tekton is a CNCF graduated project with a large community
-- **Full customization** - Write custom Tekton pipelines when the defaults don't fit your needs
-- **Standard workflows** - Integrates with existing Kubernetes tooling (kubectl, Helm, etc.)
-- **Portable pipelines** - Export and run your Tekton pipelines anywhere Kubernetes runs
-
-**From There:**
+**Pipeline Flow:**
 - Every commit triggers a new pipeline run
 - Live logs stream in real-time
 - Deployment status visible at a glance
 - Failed builds? Logs tell you exactly why
 - Rollback to previous version with one click
 
-**What You Replace:**
-Jenkins, GitHub Actions, GitLab Pipelines, CircleCI, Travis CI—any CI/CD platform focused solely on building and deploying containerized services.
+**Traditional Alternative:**
+Setting up this same workflow manually with Jenkins, GitHub Actions, or GitLab Pipelines typically takes several days to weeks of DevOps work.
 
 ---
 
@@ -284,10 +278,10 @@ Animated flow showing:
 **Built on Open Standards: Works With Your Existing Tooling**
 
 ### Subtitle
-GitHub, Terraform, Pulumi, Tekton—we integrate with what you already use, no proprietary replacements required.
+GitHub, Terraform, Pulumi, Tekton—Planton integrates with what you already use, no proprietary replacements required.
 
 ### Introduction Paragraph
-Most DevOps platforms force you into their proprietary ecosystem. Planton is different. We're built on open standards and industry-leading tools, so you can leverage your existing workflows, scripts, and expertise.
+Planton is built on open standards and industry-leading tools. Leverage your existing workflows, scripts, and expertise without being forced into a proprietary ecosystem.
 
 ---
 
@@ -314,7 +308,7 @@ Your code stays where it is. Your team keeps working the way they're used to. Pl
 **Headline:** Your Infrastructure-as-Code, Your Choice
 
 **Body Copy:**
-Planton supports both Terraform and Pulumi as first-class infrastructure-as-code frameworks. All our deployment components are available in both formats, and you can mix and match based on your team's preferences.
+Planton supports both Terraform and Pulumi as first-class infrastructure-as-code frameworks. All deployment components are available in both formats, and you can mix and match based on your team's preferences.
 
 **What's Open Source:**
 - Every Terraform module in the [Project Planton repository](https://github.com/project-planton/project-planton)
@@ -335,7 +329,7 @@ Planton supports both Terraform and Pulumi as first-class infrastructure-as-code
 **Headline:** Open-Source Kubernetes-Native Pipelines
 
 **Body Copy:**
-Service Hub is powered by Tekton, the CNCF graduated project for Kubernetes-native CI/CD. We don't hide this behind proprietary abstractions—you have full access to customize and extend your pipelines.
+Service Hub is powered by Tekton, the CNCF graduated project for Kubernetes-native CI/CD. Planton provides transparent access to customize and extend your pipelines—no proprietary abstractions hiding the underlying technology.
 
 **Why Tekton:**
 - **Cloud-native** - Runs on Kubernetes, scales automatically
@@ -350,17 +344,17 @@ Service Hub is powered by Tekton, the CNCF graduated project for Kubernetes-nati
 - Export and run pipelines outside Planton platform
 
 **Transparency:**
-We publish our Tekton pipeline definitions openly. You can audit, fork, and customize them. No black boxes, no vendor lock-in.
+Planton publishes all Tekton pipeline definitions openly. Audit, fork, and customize them. No black boxes, no vendor lock-in.
 
 ---
 
 ### Why Open Standards Matter
 
 **w/ Vendor Lock-In Risk:**
-- Proprietary pipeline formats you can't replicate
-- Custom IaC languages that only work on their platform
-- Migration costs measured in engineer-months
-- "Trust us" closed-source implementations
+- Proprietary pipeline formats
+- Custom IaC languages  
+- Migration costs in engineer-months
+- Closed-source implementations
 
 **w/ Planton:**
 - Standard Terraform/Pulumi/Tekton workflows
@@ -369,7 +363,7 @@ We publish our Tekton pipeline definitions openly. You can audit, fork, and cust
 - Works with your existing tools (kubectl, terraform, git)
 
 **The Promise:**
-Use Planton because it accelerates your team—not because you're locked in. Every abstraction we provide has a standard alternative underneath.
+Use Planton because it accelerates your team—not because you're locked in. Every abstraction Planton provides has a standard alternative underneath.
 
 ---
 
@@ -445,7 +439,7 @@ Continue managing your infrastructure using the same YAML manifests:
 **4. Gradual or Immediate Transition**
 - **Overlap period:** Run Planton platform AND independent CLI simultaneously
 - **Zero downtime:** Transition infrastructure management without production disruption
-- **Support available:** We'll help you migrate successfully (Build, Operate, Transfer model)
+- **Support available:** Planton helps you migrate successfully (Build, Operate, Transfer model)
 
 ---
 
@@ -468,16 +462,16 @@ Project Planton isn't just open source—it's community-driven. Found a bug in a
 ### Why This Matters: The Vendor Lock-In Problem
 
 **w/ Vendor Lock-In Risk:**
-- Proprietary infrastructure code you can't audit
-- Custom workflows you can't replicate
-- Migration costs measured in engineer-months
-- "Trust us" security models
+- Proprietary infrastructure code
+- Custom workflows
+- Migration costs in engineer-months
+- Closed-source security models
 
 **w/ Planton:**
 - All code public and auditable
 - Standard Terraform/Pulumi workflows
 - Migration costs measured in hours
-- "Verify, then trust" security model
+- Open security model
 
 **The Promise:**
 Use Planton because it's the best platform for your needs—not because switching is too expensive.
@@ -502,10 +496,10 @@ Specialized agents, not generic copilots. Deterministic outputs, not 80% accurac
 ### Introduction: The Copilot Experiment That Failed
 
 **Honest Context:**
-We spent 8 months building a generic AI copilot for DevOps. It hallucinated constantly. Customers were hesitant to use it for production because accuracy wasn't good enough. DevOps requires deterministic outputs—if you're creating or destroying a database, 80% accuracy isn't acceptable.
+Planton spent 8 months building a generic AI copilot for DevOps. It hallucinated constantly. Customers were hesitant to use it for production because accuracy wasn't good enough. DevOps requires deterministic outputs—if you're creating or destroying a database, 80% accuracy isn't acceptable.
 
 **The Pivot:**
-We learned from Cursor. They proved AI can be deterministic when combined with specialized tooling, deep context, and narrow scope. We rebuilt our AI layer from scratch as "Agent Fleet"—specialized agents for specific DevOps tasks, not a one-size-fits-all chatbot.
+Learning from Cursor's success, Planton rebuilt the AI layer from scratch as "Agent Fleet"—specialized agents for specific DevOps tasks combined with real tooling, deep context, and narrow scope. Not a one-size-fits-all chatbot.
 
 ---
 
@@ -584,7 +578,7 @@ Specialized agents with real tooling produce consistent, reliable results. They 
 Customers trust these agents for real troubleshooting because they behave like experienced DevOps engineers—methodical investigation, root cause analysis, specific fixes.
 
 **Continuously Improving:**
-As we add more specialized agents (Kubernetes Diagnostics, Database Performance, Security Scanner), the fleet becomes more capable without sacrificing accuracy.
+As Planton adds more specialized agents (Kubernetes Diagnostics, Database Performance, Security Scanner), the fleet becomes more capable without sacrificing accuracy.
 
 ---
 
@@ -821,7 +815,7 @@ Distributed team across time zones ensures customer issues get addressed around 
 ### Engineering Philosophy
 
 **Grounded in Reality:**
-We don't chase hype. We solve real problems we've experienced ourselves as DevOps engineers.
+Planton solves real problems experienced by DevOps engineers—no hype, no theoretical solutions.
 
 **Customer-Driven Roadmap:**
 Features are prioritized based on actual customer requests from paying users—not hypothetical use cases or marketing trends.
@@ -988,7 +982,7 @@ Whether using assume role or customer-hosted runner, attach the scoped policy.
 
 ### Compliance Roadmap
 
-Based on customer feedback (especially healthcare and fintech verticals), we're pursuing third-party certifications to enable regulated industry adoption.
+Based on customer feedback (especially healthcare and fintech verticals), Planton is pursuing third-party certifications to enable regulated industry adoption.
 
 ---
 
@@ -1033,8 +1027,8 @@ National Institute of Standards and Technology Cybersecurity Framework. Standard
 - RBAC (Role-Based Access Control) enforced
 - MFA requirements (biometric, token + password)
 
-**Why It's Easier for Planton:**
-Standards don't change frequently. We can codify them once in Terraform modules and apply consistently across all deployments.
+**Why Codification Works:**
+Standards don't change frequently. Planton codifies them once in Terraform modules and applies consistently across all deployments.
 
 ---
 
@@ -1054,7 +1048,7 @@ Threat detection framework mapping adversary tactics and techniques. Helps ident
 ### Compliance as a Vertical Strategy
 
 **Domain-Specific Rules:**
-Following advisory feedback, we're building a rule-based engine for vertical-specific compliance:
+Following advisory feedback, Planton is building a rule-based engine for vertical-specific compliance:
 
 - **Healthcare:** HIPAA + NIST CSF + state regulations
 - **Fintech:** PCI DSS + SOC 2 + SOX compliance
