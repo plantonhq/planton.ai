@@ -2,23 +2,35 @@
 
 import { Box } from '@mui/material';
 import {
-  Conversational,
-  HomeFeatures,
-  HomeIntegratedIAC,
-  ConfigurationAndDebugging,
-  ExperienceTheFuture,
-  StreamlinedKubernetes2,
+  HeroSection,
+  ProblemSolutionSection,
+  InfraHubSection,
+  ServiceHubSection,
+  OpenStandardsSection,
+  OpenSourceSection,
+  AgentFleetSection,
+  CustomerStoriesSection,
+  PricingSection,
+  BuiltByDevOpsSection,
+  SecurityComplianceSection,
+  FinalCTASection,
 } from '@/components';
 
 export default function Home() {
   return (
     <Box>
-      <Conversational />
-      <HomeFeatures />
-      <HomeIntegratedIAC />
-      <StreamlinedKubernetes2 />
-      <ConfigurationAndDebugging />
-      <ExperienceTheFuture />
+      <HeroSection />
+      <ProblemSolutionSection />
+      <InfraHubSection />
+      <ServiceHubSection />
+      <OpenStandardsSection />
+      <OpenSourceSection />
+      <AgentFleetSection />
+      <CustomerStoriesSection />
+      <PricingSection />
+      <BuiltByDevOpsSection />
+      <SecurityComplianceSection />
+      <FinalCTASection />
     </Box>
   );
 }

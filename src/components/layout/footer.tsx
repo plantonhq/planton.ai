@@ -29,53 +29,50 @@ const termsLinks: IMenu[] = [
 
 const groups: IGroup[] = [
   {
-    title: 'Features',
-    id: 'features',
+    title: 'Product',
+    id: 'product',
     items: [
-      { title: 'Planton Copilot', url: '/features/planton-copilot' },
-      { title: 'Self-Service DevOps', url: '/features/self-service-devops' },
+      { title: 'Infra Hub', url: '/features/iac-workflows' },
       { title: 'Service Hub', url: '/features/service-hub' },
-      { title: 'IaC Workflows', url: '/features/iac-workflows' },
-      { title: 'Kubernetes Dashboard', url: '/features/kubernetes-dashboard' },
-      { title: 'Auditable Intelligence', url: '/features/auditable-intelligence' },
+      { title: 'Agent Fleet (Beta)', url: '/agents' },
+      { title: 'Deployment Components', url: 'https://github.com/project-planton/project-planton' },
+      { title: 'Pricing', url: '/pricing' },
+    ],
+  },
+  {
+    title: 'Resources',
+    id: 'resources',
+    items: [
+      { title: 'Documentation', url: '/docs' },
+      { title: 'Customer Stories', url: '/' },
+      { title: 'Blog', url: '/blog' },
     ],
   },
   {
     title: 'Open Source',
     id: 'open_source',
     items: [
-      { title: 'Project Planton', url: '/' },
-      { title: 'Pulumi Modules', url: '/' },
-    ],
-  },
-  {
-    title: 'GET STARTED',
-    id: 'get_started',
-    items: [
-      { title: 'Sign Up', url: '/' },
-      { title: 'Pricing', url: '/pricing' },
-      { title: 'Contact', url: '/' },
+      { title: 'Project Planton', url: 'https://github.com/project-planton/project-planton' },
+      { title: 'GitHub Discussions', url: 'https://github.com/project-planton/project-planton/discussions' },
     ],
   },
   {
     title: 'COMPANY',
     id: 'company',
     items: [
-      { title: 'About Us', url: '/' },
-      { title: 'Customers', url: '/' },
-      { title: 'Partners', url: '/' },
+      { title: 'About', url: '/' },
       { title: 'Careers', url: '/' },
-      { title: 'Press', url: '/' },
-      { title: 'Complaince', url: '/' },
+      { title: 'Contact', url: '/' },
+      { title: 'Support', url: 'mailto:support@planton.ai' },
     ],
   },
   {
-    title: 'Explore',
-    id: 'explore',
+    title: 'Legal',
+    id: 'legal',
     items: [
-      { title: 'All Features', url: '/features' },
-      { title: 'Documentation', url: 'https://planton.ai/docs/' },
-      { title: 'Blog', url: '/blog' },
+      { title: 'Privacy Policy', url: '/' },
+      { title: 'Terms of Service', url: '/' },
+      { title: 'Security', url: '/' },
     ],
   },
 ];
