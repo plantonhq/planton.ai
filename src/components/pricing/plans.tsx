@@ -21,6 +21,7 @@ interface IPlanCard {
   features: string[];
   isMostPopular?: boolean;
   isFreePlan?: boolean;
+  isEnterprise?: boolean;
 }
 
 const plans: IPlanCard[] = [
@@ -65,6 +66,21 @@ const plans: IPlanCard[] = [
       '75-day free trial',
     ],
   },
+  {
+    name: 'Enterprise',
+    shortDesc: '',
+    amount: 'Custom',
+    featureLabel: 'For organizations that need full control.',
+    features: [
+      'Self-hosted deployments',
+      'Deploy to your own cloud or on-premises',
+      'Premium dedicated support',
+      'Custom SLAs',
+      'Security & compliance assistance',
+      'White-glove onboarding',
+    ],
+    isEnterprise: true,
+  },
 ];
 
 export const PriceCard: FC<IPlanCard> = ({
@@ -76,7 +92,19 @@ export const PriceCard: FC<IPlanCard> = ({
   featureLabel,
   features,
   isFreePlan,
+  isEnterprise,
 }) => {
+  const getButtonText = () => {
+    if (isFreePlan) return 'Get Started';
+    if (isEnterprise) return 'Get in Touch';
+    return 'Subscribe';
+  };
+
+  const getButtonHref = () => {
+    if (isEnterprise) return 'https://cal.com/swarup';
+    return 'https://console.planton.ai';
+  };
+
   return (
     <StyledPriceCard
       $isMostPopular={isMostPopular}
@@ -117,10 +145,10 @@ export const PriceCard: FC<IPlanCard> = ({
         <Button
           className="h-10 px-5 py-3 bg-[#0094ff] rounded-[10px]"
           LinkComponent={Link}
-          href="https://console.planton.ai"
-          target="_self"
+          href={getButtonHref()}
+          target={isEnterprise ? '_blank' : '_self'}
         >
-          {isFreePlan ? 'Get Started' : 'Subscribe'}
+          {getButtonText()}
         </Button>
       </Stack>
     </StyledPriceCard>
@@ -129,9 +157,17 @@ export const PriceCard: FC<IPlanCard> = ({
 
 export const Plans: FC = () => {
   return (
-    <Grid2 container columns={3} spacing={4} className="w-full max-w-[1400px] flex items-stretch">
+    <Grid2
+      container
+      spacing={4}
+      className="w-full max-w-[1400px] flex items-stretch px-4"
+    >
       {plans.map((plan, index) => (
-        <Grid2 size={1} key={index} className="flex">
+        <Grid2
+          size={{ xs: 12, sm: 6, lg: 3 }}
+          key={index}
+          className="flex"
+        >
           <PriceCard {...plan} />
         </Grid2>
       ))}

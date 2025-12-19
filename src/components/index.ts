@@ -1,5 +1,6 @@
 export * from "./common";
 export * from "./landing-page";
+export * from "./landing-page-v2";
 export * from "./plantora-ai";
 export * from "./self-service-dev-ops";
 export * from "./pricing";
