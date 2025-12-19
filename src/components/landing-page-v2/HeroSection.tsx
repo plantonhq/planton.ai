@@ -2,13 +2,23 @@
 
 import { Box, Stack, Typography } from '@mui/material';
 import Link from 'next/link';
+import Image from 'next/image';
 import { FC } from 'react';
 import { Badge, PrimaryButton, SecondaryButton, ArrowRightIcon } from './shared';
 
 const trustIndicators = [
-  'Multi-Cloud: AWS • GCP • Azure • Digital Ocean • Cloudflare',
   'Open Source Foundation',
   'Zero Vendor Lock-In',
+];
+
+const cloudProviders = [
+  { src: '/images/providers/aws.svg', alt: 'AWS', name: 'AWS' },
+  { src: '/images/providers/gcp.svg', alt: 'GCP', name: 'GCP' },
+  { src: '/images/providers/azure.svg', alt: 'Azure', name: 'Azure' },
+  { src: '/images/providers/kubernetes.svg', alt: 'Kubernetes', name: 'Kubernetes' },
+  { src: '/images/providers/digital-ocean.svg', alt: 'Digital Ocean', name: 'Digital Ocean' },
+  { src: '/images/providers/civo.svg', alt: 'Civo', name: 'Civo' },
+  { src: '/images/providers/cloudflare.svg', alt: 'Cloudflare', name: 'Cloudflare' },
 ];
 
 export const HeroSection: FC = () => {
@@ -114,6 +124,34 @@ export const HeroSection: FC = () => {
               </Box>
             ))}
           </Stack>
+
+          {/* Cloud provider logos */}
+          <Box className="mt-8 pt-8 border-t border-[#2a2a2a]/50 w-full max-w-4xl">
+            <Typography className="text-sm text-[#666] text-center mb-6">
+              Multi-Cloud Support
+            </Typography>
+            <Box className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
+              {cloudProviders.map((provider, index) => (
+                <Box
+                  key={index}
+                  className="transition-opacity hover:opacity-100 opacity-70"
+                  sx={{ height: { xs: 32, sm: 40 }, width: 'auto' }}
+                >
+                  <Image
+                    src={provider.src}
+                    alt={provider.alt}
+                    width={80}
+                    height={40}
+                    style={{ 
+                      height: '100%', 
+                      width: 'auto',
+                      objectFit: 'contain',
+                    }}
+                  />
+                </Box>
+              ))}
+            </Box>
+          </Box>
 
           {/* Visual placeholder for dashboard preview */}
           <Box className="relative w-full max-w-5xl mt-12">

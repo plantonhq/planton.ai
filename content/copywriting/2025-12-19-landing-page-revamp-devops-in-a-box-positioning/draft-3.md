@@ -1,4 +1,7 @@
-# Planton Cloud - New Landing Page Copy
+# Planton - New Landing Page Copy (Draft 2)
+
+**Date:** December 19, 2025  
+**Revision:** Draft 2 - Incorporating customer corrections and positioning updates
 
 ---
 
@@ -103,7 +106,7 @@ Audit failures, security incidents, hours wasted troubleshooting "who changed wh
 Replaces Terraform Enterprise, Pulumi Cloud, and manual cloud console work
 
 ### Introduction Paragraph
-Infra Hub turns infrastructure deployment from a multi-day marathon into a sub-hour sprint. Deploy individual components or complete environments with zero-configuration CI/CD, live progress visualization, and built-in best practices.
+Infra Hub turns infrastructure deployment from a multi-week manual process into a sub-hour sprint. Deploy individual components or complete environments with zero-configuration CI/CD, live progress visualization, and built-in best practices.
 
 ---
 
@@ -116,7 +119,7 @@ No GitHub Actions to write. No Terraform state buckets to configure. No manual d
 
 **Key Benefits:**
 - **Live Terraform plan/apply visualization** - Watch your infrastructure come to life in real-time
-- **5-10 minute deployments** vs days of manual cloud console work
+- **5-10 minute deployments** vs weeks of manual cloud console work
 - **Version history and rollback** - Every change tracked, easily reversible
 - **Multi-cloud consistency** - Same workflow whether you're on AWS, GCP, or Azure
 
@@ -172,7 +175,7 @@ Every deployment component lives in the [Project Planton repository](https://git
 ### Customer Proof Point
 
 **Real Customer Result:**
-"IOTA Technics deployed a complete GCP Cloud Run environment for their health insurance platform in under 1 hour—with 7 developers managing everything themselves. Previously, this would have required a dedicated DevOps engineer and taken a full day minimum."
+"iorta TechNext deployed a complete AWS ECS environment for their SalesVerse product in under 1 hour—with 7 developers managing everything themselves. Previously, this would have required a dedicated DevOps engineer and taken at least a couple weeks of work."
 
 ---
 
@@ -229,35 +232,29 @@ Start on AWS ECS for simplicity. Migrate to GCP Cloud Run for cost optimization.
 
 ---
 
-### Feature 3: Built-In CI/CD—No Jenkins, No GitHub Actions
+### Feature 3: Pipeline Workflow
 
-**Headline:** Pipeline Management Without the Pipeline Management
+**Headline:** From Commit to Deployment—Fully Automated
 
 **Body Copy:**
-Jenkins requires dedicated infrastructure and constant maintenance. GitHub Actions requires YAML configuration gymnastics. Service Hub requires... a Git connection.
+Every commit triggers an automated pipeline that handles the entire journey from code to running service.
 
-**How It Works:**
-1. **Connect Repository** - One-time GitHub/GitLab OAuth
-2. **Select Target** - Choose AWS ECS, GCP Cloud Run, or any supported platform
-3. **Configure Service** - Environment variables, resource limits, scaling rules
-4. **Deploy** - First deployment kicks off immediately
-
-**From There:**
+**Pipeline Flow:**
 - Every commit triggers a new pipeline run
 - Live logs stream in real-time
 - Deployment status visible at a glance
 - Failed builds? Logs tell you exactly why
 - Rollback to previous version with one click
 
-**What You Replace:**
-Jenkins, GitHub Actions, GitLab Pipelines, CircleCI, Travis CI—any CI/CD platform focused solely on building and deploying containerized services.
+**Traditional Alternative:**
+Setting up this same workflow manually with Jenkins, GitHub Actions, or GitLab Pipelines typically takes several days to weeks of DevOps work.
 
 ---
 
 ### Customer Quote
 
 **"Developers self-onboard their own services. That's a huge win."**
-— Tiny Bay consulting, deploying the Oddwin warehousing platform
+— Tynybay consulting, deploying the Odwen warehousing platform
 
 **Context:**
 3-person team (1 DevOps engineer, 2 developers). Infrastructure setup: <1 hour. Developers now onboard services independently without blocking on DevOps. Multiple environments (QA, staging, prod) managed through simple UI.
@@ -268,14 +265,116 @@ Jenkins, GitHub Actions, GitLab Pipelines, CircleCI, Travis CI—any CI/CD platf
 Animated flow showing:
 1. Developer pushes code to GitHub
 2. Service Hub automatically detects commit
-3. Pipeline builds container image
+3. Tekton pipeline builds container image
 4. Image pushed to registry (ECR/GCR/etc)
 5. Deployment to target (ECS/Cloud Run/etc)
 6. Live service with URL
 
 ---
 
-## Section 5: Open Source Foundation
+## Section 5: Built on Open Standards
+
+### Section Title
+**Built on Open Standards: Works With Your Existing Tooling**
+
+### Subtitle
+GitHub, Terraform, Pulumi, Tekton—Planton integrates with what you already use, no proprietary replacements required.
+
+### Introduction Paragraph
+Planton is built on open standards and industry-leading tools. Leverage your existing workflows, scripts, and expertise without being forced into a proprietary ecosystem.
+
+---
+
+### Standard 1: GitHub & GitLab Native
+
+**Headline:** Works Seamlessly With Your Git Workflow
+
+**Body Copy:**
+Connect your GitHub or GitLab organization via OAuth. No need to migrate repositories or change your branching strategy. Planton integrates with your existing Git workflows—pull requests, branch protection, code reviews—everything stays the same.
+
+**What's Supported:**
+- GitHub repositories (public and private)
+- GitLab repositories (self-hosted and GitLab.com)
+- GitHub Actions (if you want to keep using them)
+- GitLab CI (side-by-side with Planton pipelines)
+
+**Why This Matters:**
+Your code stays where it is. Your team keeps working the way they're used to. Planton adds automation without disrupting your established processes.
+
+---
+
+### Standard 2: Terraform & Pulumi First-Class
+
+**Headline:** Your Infrastructure-as-Code, Your Choice
+
+**Body Copy:**
+Planton supports both Terraform and Pulumi as first-class infrastructure-as-code frameworks. All deployment components are available in both formats, and you can mix and match based on your team's preferences.
+
+**What's Open Source:**
+- Every Terraform module in the [Project Planton repository](https://github.com/project-planton/project-planton)
+- Every Pulumi component (TypeScript, Python, Go)
+- CLI tools for local development and testing
+- Schema definitions and validation rules
+
+**Integration Points:**
+- Use Planton UI for simple deployments
+- Use Terraform/Pulumi CLI directly for complex orchestration
+- Import existing Terraform state
+- Export Planton configurations as standard Terraform/Pulumi code
+
+---
+
+### Standard 3: Tekton-Powered CI/CD
+
+**Headline:** Open-Source Kubernetes-Native Pipelines
+
+**Body Copy:**
+Service Hub is powered by Tekton, the CNCF graduated project for Kubernetes-native CI/CD. Planton provides transparent access to customize and extend your pipelines—no proprietary abstractions hiding the underlying technology.
+
+**Why Tekton:**
+- **Cloud-native** - Runs on Kubernetes, scales automatically
+- **Portable** - Your pipelines work anywhere Kubernetes runs
+- **Extensible** - Rich catalog of community tasks and integrations
+- **Battle-tested** - Used by Google Cloud Build, Red Hat OpenShift Pipelines
+
+**What You Can Do:**
+- Use Planton's zero-config pipelines for common workflows
+- Write custom Tekton Tasks for specialized build steps
+- Integrate with Tekton Catalog for pre-built components
+- Export and run pipelines outside Planton platform
+
+**Transparency:**
+Planton publishes all Tekton pipeline definitions openly. Audit, fork, and customize them. No black boxes, no vendor lock-in.
+
+---
+
+### Why Open Standards Matter
+
+**w/ Vendor Lock-In Risk:**
+- Proprietary pipeline formats
+- Custom IaC languages  
+- Migration costs in engineer-months
+- Closed-source implementations
+
+**w/ Planton:**
+- Standard Terraform/Pulumi/Tekton workflows
+- All code public and auditable
+- Migration costs measured in hours
+- Works with your existing tools (kubectl, terraform, git)
+
+**The Promise:**
+Use Planton because it accelerates your team—not because you're locked in. Every abstraction Planton provides has a standard alternative underneath.
+
+---
+
+### Visual Direction
+- Diagram showing Planton integrations: GitHub ↔ Planton ↔ Terraform/Pulumi ↔ Tekton
+- Side-by-side: "w/ Vendor Lock-In Risk" vs "w/ Planton" comparison table
+- Screenshot of Tekton pipeline definition (showing transparency)
+
+---
+
+## Section 6: Open Source Foundation
 
 ### Section Title
 **Open Source Foundation: Your Infrastructure, Your Code, Your Freedom**
@@ -340,7 +439,7 @@ Continue managing your infrastructure using the same YAML manifests:
 **4. Gradual or Immediate Transition**
 - **Overlap period:** Run Planton platform AND independent CLI simultaneously
 - **Zero downtime:** Transition infrastructure management without production disruption
-- **Support available:** We'll help you migrate successfully (Build, Operate, Transfer model)
+- **Support available:** Planton helps you migrate successfully (Build, Operate, Transfer model)
 
 ---
 
@@ -362,17 +461,17 @@ Project Planton isn't just open source—it's community-driven. Found a bug in a
 
 ### Why This Matters: The Vendor Lock-In Problem
 
-**Most Platforms:**
-- Proprietary infrastructure code you can't audit
-- Custom workflows you can't replicate
-- Migration costs measured in engineer-months
-- "Trust us" security models
+**w/ Vendor Lock-In Risk:**
+- Proprietary infrastructure code
+- Custom workflows
+- Migration costs in engineer-months
+- Closed-source security models
 
-**Planton:**
+**w/ Planton:**
 - All code public and auditable
 - Standard Terraform/Pulumi workflows
 - Migration costs measured in hours
-- "Verify, then trust" security model
+- Open security model
 
 **The Promise:**
 Use Planton because it's the best platform for your needs—not because switching is too expensive.
@@ -381,12 +480,12 @@ Use Planton because it's the best platform for your needs—not because switchin
 
 ### Visual Direction
 - GitHub repository screenshot showing Project Planton repo with stars, forks, recent commits
-- Side-by-side comparison: Proprietary platform (locked) vs Planton (open)
+- Side-by-side comparison: "w/ Vendor Lock-In Risk" vs "w/ Planton"
 - Flow diagram: Export configs → Independent CLI → Continue managing infrastructure
 
 ---
 
-## Section 6: Agent Fleet
+## Section 7: Agent Fleet
 
 ### Section Title
 **Agent Fleet: AI That Actually Works for DevOps**
@@ -397,10 +496,10 @@ Specialized agents, not generic copilots. Deterministic outputs, not 80% accurac
 ### Introduction: The Copilot Experiment That Failed
 
 **Honest Context:**
-We spent 8 months building a generic AI copilot for DevOps. It hallucinated constantly. Customers were hesitant to use it for production because accuracy wasn't good enough. DevOps requires deterministic outputs—if you're creating or destroying a database, 80% accuracy isn't acceptable.
+Planton spent 8 months building a generic AI copilot for DevOps. It hallucinated constantly. Customers were hesitant to use it for production because accuracy wasn't good enough. DevOps requires deterministic outputs—if you're creating or destroying a database, 80% accuracy isn't acceptable.
 
 **The Pivot:**
-We learned from Cursor. They proved AI can be deterministic when combined with specialized tooling, deep context, and narrow scope. We rebuilt our AI layer from scratch as "Agent Fleet"—specialized agents for specific DevOps tasks, not a one-size-fits-all chatbot.
+Learning from Cursor's success, Planton rebuilt the AI layer from scratch as "Agent Fleet"—specialized agents for specific DevOps tasks combined with real tooling, deep context, and narrow scope. Not a one-size-fits-all chatbot.
 
 ---
 
@@ -479,7 +578,7 @@ Specialized agents with real tooling produce consistent, reliable results. They 
 Customers trust these agents for real troubleshooting because they behave like experienced DevOps engineers—methodical investigation, root cause analysis, specific fixes.
 
 **Continuously Improving:**
-As we add more specialized agents (Kubernetes Diagnostics, Database Performance, Security Scanner), the fleet becomes more capable without sacrificing accuracy.
+As Planton adds more specialized agents (Kubernetes Diagnostics, Database Performance, Security Scanner), the fleet becomes more capable without sacrificing accuracy.
 
 ---
 
@@ -516,20 +615,20 @@ Currently available for select customers. Join the waitlist to get priority acce
 
 ---
 
-## Section 7: Customer Stories
+## Section 8: Customer Stories
 
 ### Section Title
 **Real Customers, Real Results**
 
 ### Subtitle
-From consulting firms to health tech platforms—see how teams use Planton to accelerate delivery and eliminate ops bottlenecks.
+From consulting firms to fintech platforms—see how teams use Planton to accelerate delivery and eliminate ops bottlenecks.
 
 ---
 
-### Customer Story 1: Tiny Bay → Oddwin Project
+### Customer Story 1: Tynybay → Odwen Project
 
-**Customer:** Tiny Bay (IT Consulting Firm)  
-**Project:** Oddwin - Online warehousing platform  
+**Customer:** Tynybay (IT Consulting Firm)  
+**Project:** Odwen - Online warehousing platform  
 **Cloud:** Google Cloud Platform  
 **Team Size:** 3 people (1 DevOps engineer, 2 developers)
 
@@ -537,7 +636,7 @@ From consulting firms to health tech platforms—see how teams use Planton to ac
 Tight timeline to deliver a working warehousing platform for their client. Infrastructure setup was blocking developers from making progress on product features.
 
 **Before Planton:**
-- DevOps engineer spent full day setting up GCP Cloud Run environment
+- DevOps engineer spent at least a couple weeks setting up GCP Cloud Run environment
 - Developers waited for infrastructure before writing code
 - Each new environment (QA, staging, prod) required manual replication
 - Service onboarding required DevOps engineer involvement
@@ -555,19 +654,20 @@ The DevOps engineer now focuses on architecture and optimization—not repetitiv
 
 ---
 
-### Customer Story 2: IOTA Technics
+### Customer Story 2: iorta TechNext
 
-**Customer:** IOTA Technics  
-**Industry:** Health Insurance (Philippines)  
+**Customer:** iorta TechNext (via Tynybay consulting)  
+**Product:** SalesVerse - Sales cycle management platform  
+**Industry:** Financial Services (BFSI)  
 **Team Size:** 7 developers  
-**Cloud:** Google Cloud Platform  
+**Cloud:** AWS (ECS)  
 **Monthly Spend:** ~$450 (platform + usage)
 
 **The Challenge:**
-Small team building a health insurance platform without dedicated DevOps resources. Needed secure, compliant infrastructure without the overhead of hiring ops specialists.
+Small team building a sales management platform without dedicated DevOps resources. Needed secure, compliant infrastructure without the overhead of hiring ops specialists.
 
 **Before Planton:**
-- Technical founder managing infrastructure manually through GCP Console
+- Technical founder managing infrastructure manually through AWS Console
 - Inconsistent deployments across environments
 - Limited visibility into what changed and when
 - Slow iteration due to infrastructure being a bottleneck
@@ -585,14 +685,14 @@ Small team building a health insurance platform without dedicated DevOps resourc
 - Total: ~$450/month vs $150K+/year for DevOps engineer
 
 **The Result:**
-IOTA Technics gets enterprise-grade DevOps capabilities at 1/30th the cost of hiring. Team focuses on product, not infrastructure.
+iorta TechNext gets enterprise-grade DevOps capabilities at 1/30th the cost of hiring. Team focuses on product, not infrastructure.
 
 ---
 
 ### Metrics Bar
 
 **Infrastructure Deployment Time:**
-<1 hour (vs 1 day manually, 4 hours with basic automation)
+<1 hour (vs couple weeks manually, days with basic automation)
 
 **Customer Retention:**
 100% (despite platform being less stable at launch—customer loyalty through rapid iteration)
@@ -615,7 +715,7 @@ $20/developer/month + usage
 
 ---
 
-## Section 8: Pricing
+## Section 9: Pricing
 
 ### Section Title
 **Simple, Usage-Based Pricing**
@@ -637,91 +737,17 @@ $0.006 per minute (0.6¢/min)
 
 Metered separately for infrastructure runners and service CI/CD runners, but charged at the same rate.
 
----
-
-### Pricing Tiers
-
-#### Free Tier
-**$0/month**
-
-**Includes:**
-- 100 automation minutes/month (hard cap)
-- Unlimited developers
-- Full platform access (Infra Hub + Service Hub)
-- Community support (Discord, documentation)
-
-**Best For:**
-- Evaluating the platform
-- Side projects and experiments
-- Learning and exploration
-
-**Automation Minutes Usage:**
-- Deploy a small AWS ECS environment: ~10 minutes
-- Build and deploy a backend service: ~5 minutes
-- 100 minutes = ~10 small deployments or 20 service builds
+**For detailed pricing tiers and calculator, visit [planton.ai/pricing](https://planton.ai/pricing)**
 
 ---
 
-#### Plus Tier
-**$20/developer/month**
-
-**Includes:**
-- 300 free automation minutes/month per account
-- Pay-per-use beyond 300 minutes ($0.006/min)
-- Full platform access (Infra Hub + Service Hub)
-- Email support with 24-hour SLA
-- Multi-environment support
-
-**Best For:**
-- Small teams (2-5 developers)
-- Startups in active development
-- Consulting firms with 1-2 client projects
-
-**Example Team:**
-- 3 developers = $60/month base subscription
-- 300 free automation minutes included
-- Typical usage: 400-500 minutes/month
-- Overage: 100-200 minutes × $0.006 = $0.60-$1.20
-- **Total: ~$61-$62/month**
-
----
-
-#### Pro Tier
-**$99/month base + $20/developer**
-
-**Includes:**
-- 1,000 free automation minutes/month
-- Unlimited developers
-- Pay-per-use beyond 1,000 minutes ($0.006/min)
-- Full platform access (Infra Hub + Service Hub)
-- Priority email support with 12-hour SLA
-- Early access to Agent Fleet (beta)
-- Custom deployment runner hosting
-
-**Best For:**
-- Growing teams (5-15 developers)
-- Multiple projects or client engagements
-- High-frequency deployments
-
-**Example Team:**
-- 7 developers = $99 base + ($20 × 7) = $239/month
-- 1,000 free automation minutes included
-- Typical usage: 1,200-1,500 minutes/month
-- Overage: 200-500 minutes × $0.006 = $1.20-$3.00
-- **Total: ~$240-$242/month**
-
----
-
-### Real Customer Example: IOTA Technics
+### Real Customer Example: iorta TechNext
 
 **Team Size:** 7 developers  
-**Subscription:** Pro tier ($99 base + 7 × $20 = $239/month)  
-**Average Usage:** 1,500 automation minutes/month  
-**Overage:** ~500 minutes × $0.006 = $3/month  
-**Total:** ~$450/month on average (including occasional spikes)
+**Monthly Spend:** ~$450 (platform + usage)
 
 **What They Get:**
-- Complete infrastructure management (GCP Cloud Run environment)
+- Complete infrastructure management (AWS ECS environment for SalesVerse)
 - Automated CI/CD for all services
 - Multi-environment deployments (dev, QA, staging, prod)
 - 24/7 support access
@@ -734,100 +760,22 @@ Hiring one DevOps engineer: $150K+/year = $12,500/month
 
 ---
 
-### Automation Minutes: What Do They Cover?
-
-**Infrastructure Runners:**
-- Terraform/Pulumi plan execution
-- Terraform/Pulumi apply execution
-- Infrastructure refresh and state sync
-- Component deployment orchestration (Infra Charts)
-
-**Service CI/CD Runners:**
-- Docker image builds
-- Container registry pushes
-- Service deployments to target platform (ECS, Cloud Run, etc.)
-- Pipeline execution and log streaming
-
-**Example Usage:**
-- Deploy AWS VPC: ~5 minutes
-- Deploy complete Infra Chart (VPC + ALB + ECR + Route53 + certs): ~15 minutes
-- Build and deploy Node.js service to ECS: ~5 minutes
-- Update existing infrastructure: ~3 minutes
-- Destroy infrastructure: ~8 minutes
-
----
-
-### FAQ: Pricing
-
-**Q: What happens when I run out of automation minutes?**  
-**A:** On Free tier, you're hard-capped at 100 minutes. On Plus/Pro, you automatically pay per-use beyond your included minutes at $0.006/min.
-
-**Q: Can I monitor my usage in real-time?**  
-**A:** Yes, the platform shows current month usage and projected costs on your billing dashboard.
-
-**Q: Do I pay for developers who aren't actively using the platform?**  
-**A:** Seat-based pricing counts any developer with platform access. Remove users who aren't actively deploying to reduce costs.
-
-**Q: What if my automation minutes vary month-to-month?**  
-**A:** That's expected. You only pay for what you use. High usage month? Pay a bit more. Low usage month? Stay within free minutes.
-
-**Q: Is there an enterprise tier for larger teams?**  
-**A:** Yes. Contact us for custom pricing on teams with 15+ developers or specialized compliance needs (SOC 2, HIPAA).
-
----
-
 ### CTA
 **Calculate Your Pricing**
 
-Interactive calculator:
-- Slide to select number of developers
-- Estimate automation minutes based on deployment frequency
-- See projected monthly cost
+See exactly what you'll pay based on team size and deployment frequency.
 
-**Start Free Trial**
-No credit card required. 100 automation minutes to test the platform.
+[Visit Pricing Page →](https://planton.ai/pricing)
 
 ---
 
-### Visual Direction
-- Pricing tier comparison table
-- Automation minutes usage examples (visual bar chart)
-- Cost comparison: Planton vs Hiring DevOps engineer
-- Interactive pricing calculator mockup
-
----
-
-## Section 9: Technical Credibility
+## Section 10: Built by DevOps Engineers
 
 ### Section Title
 **Built by DevOps Engineers, For Real-World Use**
 
 ### Subtitle
 Not a theory. Not a prototype. A production platform born from 10+ years of solving infrastructure problems at scale.
-
----
-
-### Founder Story
-
-**Early Kubernetes Adopter**
-
-2015-2016: Most companies were still on VMs. Kubernetes was 1 year old. Our founder deployed Kubernetes on bare metal VMware in a data center—before KOPS, before EKS, before AKS even existed.
-
-**The Manual Years:**
-- Custom cluster bootstrapping scripts
-- Hand-rolled automation for deployments
-- Every environment setup: a multi-day project
-- Repeated the same infrastructure work across multiple startups
-
-**Zillow Cloud Engineering**
-
-2018: Joined Zillow's cloud engineering team working on **Zodiac**—an internal DevOps platform serving 2,000 engineers.
-
-**The Realization:**
-Enterprise teams get self-service ops platforms. Why don't small teams have this?
-
-**The Question That Started Planton:**
-"What if startups and consulting firms had the same self-service infrastructure that enterprises build internally?"
 
 ---
 
@@ -841,39 +789,11 @@ Planton's production infrastructure is 100% managed through Planton itself. Zero
 - **10+ database types:** ClickHouse, Redis, Postgres, MongoDB, and more
 - **Deployment target:** Google Cloud Platform (multi-region)
 - **Orchestration:** All databases run on Kubernetes, deployed via Planton
-- **Service Hub:** All backend services deployed through Planton pipelines
+- **Service Hub:** All backend services deployed through Planton pipelines (Tekton)
 - **Zero manual deployments:** Everything through the platform or CLI
 
 **What This Means:**
 Every feature we ship, we use ourselves. Every bug we fix, we've likely hit in production. Every performance optimization, we've measured on our own infrastructure.
-
----
-
-### Platform Architecture
-
-**Production-Grade Components:**
-
-**Control Plane:**
-- GCP Cloud Run (multi-region for high availability)
-- Horizontal auto-scaling based on load
-- Zero-downtime deployments for platform updates
-
-**Deployment Runners:**
-- Option 1: Planton-hosted runners (fastest onboarding)
-- Option 2: Customer-hosted runners in customer AWS/GCP account (maximum control)
-- Containerized as ECS services or Kubernetes pods
-
-**Databases:**
-- All on Kubernetes via Planton-deployed Helm charts
-- ClickHouse for analytics and audit logs
-- Redis for caching and session management
-- PostgreSQL for relational data
-- MongoDB for document storage
-
-**Service Hub CI/CD:**
-- Tekton-based pipeline execution
-- Containerized build environments
-- Multi-cloud deployment targets (ECS, Cloud Run, EKS, etc.)
 
 ---
 
@@ -895,7 +815,7 @@ Distributed team across time zones ensures customer issues get addressed around 
 ### Engineering Philosophy
 
 **Grounded in Reality:**
-We don't chase hype. We solve real problems we've experienced ourselves as DevOps engineers.
+Planton solves real problems experienced by DevOps engineers—no hype, no theoretical solutions.
 
 **Customer-Driven Roadmap:**
 Features are prioritized based on actual customer requests from paying users—not hypothetical use cases or marketing trends.
@@ -909,20 +829,19 @@ All deployment components open source. Transparent about how things work. No bla
 ---
 
 ### Visual Direction
-- Founder photo with Kubernetes/Zillow background story timeline
-- Architecture diagram showing Control Plane, Runners, Databases
 - Dogfooding visualization: "Planton managing Planton" infrastructure diagram
 - Team photo or distributed team map showing 24/7 support coverage
+- Customer success metrics dashboard
 
 ---
 
-## Section 10: Security & Compliance
+## Section 11: Security & Compliance
 
 ### Section Title
-**Secure by Design, Compliance-Ready**
+**Secure by Design**
 
 ### Subtitle
-Multiple security models, scoped permissions, and clear compliance roadmap—because trust is earned, not assumed.
+Multiple security models and scoped permissions—because trust is earned, not assumed.
 
 ---
 
@@ -1061,89 +980,6 @@ Whether using assume role or customer-hosted runner, attach the scoped policy.
 
 ---
 
-### Compliance Roadmap
-
-Based on customer feedback (especially healthcare and fintech verticals), we're pursuing third-party certifications to enable regulated industry adoption.
-
----
-
-#### SOC 2 Type I (Target: Q1 2026)
-
-**What It Is:**
-Third-party audit of security controls at a point in time. Validates that Planton has appropriate controls for data security, availability, and confidentiality.
-
-**Why It Matters:**
-Many enterprises require all vendors to be SOC 2 certified. Shifts conversation from "prove you're secure" to "here's our certification."
-
-**Status:** Audit partner selected, control documentation in progress
-
----
-
-#### HIPAA BAA (Target: Q2 2026)
-
-**What It Is:**
-Business Associate Agreement required for any vendor handling Protected Health Information (PHI) under HIPAA regulations.
-
-**Why It Matters:**
-Healthcare customers (like IOTA Technics) will require BAA to deploy production workloads handling patient data.
-
-**Requirements:**
-- Encryption at rest and in transit
-- Audit logging of all PHI access
-- Access controls and authentication
-- Breach notification procedures
-
-**Status:** Architecture review in progress, compliance framework being codified
-
----
-
-#### NIST CSF Standards
-
-**What It Is:**
-National Institute of Standards and Technology Cybersecurity Framework. Standardized security controls applicable across industries.
-
-**Implementation Approach:**
-- Base images pre-configured with NIST CSF standards
-- Encryption levels standardized across cloud providers
-- RBAC (Role-Based Access Control) enforced
-- MFA requirements (biometric, token + password)
-
-**Why It's Easier for Planton:**
-Standards don't change frequently. We can codify them once in Terraform modules and apply consistently across all deployments.
-
----
-
-#### MITRE ATT&CK Framework Integration
-
-**What It Is:**
-Threat detection framework mapping adversary tactics and techniques. Helps identify and mitigate security threats.
-
-**Planned Integration:**
-- Automated threat detection in deployment pipelines
-- Security scanning of infrastructure configurations
-- Alerting on known attack patterns
-- Integration with Security Scanner Agent (Agent Fleet roadmap)
-
----
-
-### Compliance as a Vertical Strategy
-
-**Domain-Specific Rules:**
-Following advisory feedback, we're building a rule-based engine for vertical-specific compliance:
-
-- **Healthcare:** HIPAA + NIST CSF + state regulations
-- **Fintech:** PCI DSS + SOC 2 + SOX compliance
-- **Energy:** NERC CIP standards
-- **Government:** FedRAMP requirements
-
-**Why Rule-Based:**
-Standards evolve. Rule engine allows us to update compliance requirements without code changes. Customers select their vertical, platform enforces appropriate controls.
-
-**Pricing Model:**
-Compliance features will be separate add-on tiers. Not every customer needs HIPAA (the bakery in Idaho doesn't care). Domain-specific compliance priced based on value delivered.
-
----
-
 ### Gradual Trust Model for Regulated Industries
 
 **Start Non-Production:**
@@ -1161,18 +997,16 @@ Only after validation cycle, promote to production. Planton supports overlap per
 ### Visual Direction
 - Diagram showing three deployment runner topologies (basic → trust → customer-hosted)
 - Scoped permissions example (IAM policy JSON snippet)
-- Compliance roadmap timeline (Q1 2026: SOC 2, Q2 2026: HIPAA, etc.)
-- Trust indicators: "SOC 2 In Progress | HIPAA-Ready Architecture"
 
 ---
 
-## Section 11: Final CTA
+## Section 12: Final CTA
 
 ### Section Title
 **Ready to Eliminate Your DevOps Bottleneck?**
 
 ### Subtitle
-Join IT consulting firms and startups deploying infrastructure in minutes, not days.
+Join IT consulting firms and startups deploying infrastructure in minutes, not weeks.
 
 ---
 
@@ -1230,10 +1064,10 @@ Display as badges/icons with text:
 ### Customer Proof
 
 **"Developers self-onboard their own services. That's a huge win."**
-— Tiny Bay, deploying Oddwin warehousing platform
+— Tynybay, deploying Odwen warehousing platform
 
-**"Complete GCP Cloud Run environment deployed in under 1 hour with 7 developers managing everything themselves."**
-— IOTA Technics, health insurance platform
+**"Complete AWS ECS environment deployed in under 1 hour with 7 developers managing everything themselves."**
+— iorta TechNext, SalesVerse platform
 
 ---
 
@@ -1275,16 +1109,16 @@ Display as badges/icons with text:
 
 ### Bottom Footer
 
-**Planton Cloud**  
+**Planton**  
 DevOps-in-a-Box: From Code to Cloud in Under an Hour
 
 **Open Source:**  
 [github.com/project-planton/project-planton](https://github.com/project-planton/project-planton)
 
 **Contact:**  
-support@planton.cloud
+support@planton.ai
 
-**© 2025 Planton Cloud. All rights reserved.**
+**© 2025 Planton. All rights reserved.**
 
 ---
 
@@ -1304,7 +1138,7 @@ support@planton.cloud
 ## Implementation Notes for Web Developer
 
 ### Content Structure
-This document provides complete copy for 11 landing page sections. Each section includes:
+This document provides complete copy for 12 landing page sections. Each section includes:
 - Headlines and subheadlines
 - Body copy
 - Bullet points and feature lists
@@ -1323,7 +1157,7 @@ Maintain existing Planton design system:
 
 **Replace:**
 - `conversational.tsx` → Section 1 (Hero)
-- `experience-the-future.tsx` → Section 11 (Final CTA)
+- `experience-the-future.tsx` → Section 12 (Final CTA)
 
 **Evolve:**
 - `home-features.tsx` → Section 3 (Infra Hub)
@@ -1332,53 +1166,67 @@ Maintain existing Planton design system:
 **New:**
 - Section 2 (Problem/Solution)
 - Section 4 (Service Hub) - Critical, currently missing
-- Section 5 (Open Source)
-- Section 6 (Agent Fleet)
-- Section 7 (Customer Stories)
-- Section 8 (Pricing)
-- Section 9 (Technical Credibility)
-- Section 10 (Security & Compliance)
+- Section 5 (Built on Open Standards) - NEW in Draft 2
+- Section 6 (Open Source)
+- Section 7 (Agent Fleet)
+- Section 8 (Customer Stories)
+- Section 9 (Pricing - simplified)
+- Section 10 (Built by DevOps Engineers - simplified, no founder story/architecture)
+- Section 11 (Security & Compliance)
+
+### Key Changes in Draft 2
+
+**Customer Name Corrections:**
+- "IOTA Technics" → "iorta TechNext" (iorta.in subsidiary)
+- "Tiny Bay" → "Tynybay" (consulting firm)
+- "Oddwin" → "Odwen" (odwen.co.in)
+- Tynybay is the consulting company that brought us iorta TechNext and Odwen as clients
+- TechNext deploys SalesVerse product to AWS ECS
+- Odwen deploys to GCP Cloud Run
+
+**Content Updates:**
+- Removed Founder Story subsection
+- Removed Platform Architecture subsection
+- Added new "Built on Open Standards" section highlighting GitHub, Terraform, Pulumi, Tekton transparency
+- Changed "one day" deployment time to "couple weeks" for manual work
+- Changed vendor comparisons from "Most Platforms" vs "Planton" to "w/ Vendor Lock-In Risk" vs "w/ Planton"
+- Changed all "planton.cloud" to "planton.ai"
+- Simplified Pricing section (Section 9) - removed detailed tiers, kept only overview and customer example
+- Added transparency about Tekton being the CI/CD engine behind Service Hub
 
 ### Copy Guidelines
-
-**Length:**
-Copy is intentionally detailed to provide full context. Feel free to:
-- Truncate for mobile views
-- Use progressive disclosure (expand/collapse for details)
-- Split long sections into tabs or accordions
 
 **Tone:**
 - Technical but accessible
 - Honest (no marketing fluff)
 - Grounded in real customer usage
 - Confident but not arrogant
+- Transparent about technology choices
 
 **Emphasis:**
 Bold and italics already applied in markdown. Translate to appropriate HTML/CSS styling.
 
 **Links:**
 - All GitHub links point to `github.com/project-planton/project-planton`
+- All planton links use `planton.ai` domain
 - CTAs should link to:
   - Trial signup flow
   - Demo booking (Calendly or equivalent)
-  - Pricing calculator page
+  - Pricing page at planton.ai/pricing
 
 ### Visual Assets Needed
 
 **Screenshots/Diagrams:**
 - Infra Hub deployment flow (DAG visualization)
-- Service Hub pipeline flow (Git → build → deploy)
+- Service Hub pipeline flow (Git → Tekton → deploy)
 - Deployment Component Store browser
 - Agent Fleet interface
 - Three deployment runner topologies diagram
-- Pricing comparison chart
-- Architecture diagram
+- Open Standards integration diagram (GitHub ↔ Planton ↔ Terraform/Pulumi ↔ Tekton)
+- Tekton pipeline definition screenshot
 
 **Customer Logos:**
-Request from customers (Tiny Bay, IOTA Technics) if available for social proof.
-
-**Founder Photo:**
-Optional for Technical Credibility section, but adds human element.
+Request from customers (Tynybay, iorta TechNext, Odwen) if available for social proof.
 
 ### Metrics to Track
 
@@ -1390,6 +1238,6 @@ Once live, track:
 
 ---
 
-**Ready for Implementation**
+**Ready for Review**
 
-This copy is production-ready. Review, provide feedback, and implement section by section. Prioritize Hero, Problem/Solution, and Service Hub (currently missing entirely).
+This is Draft 2 incorporating all customer corrections and positioning updates. Review, provide feedback, and iterate as needed before final implementation.

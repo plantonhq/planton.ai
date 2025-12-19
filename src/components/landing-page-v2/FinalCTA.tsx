@@ -9,7 +9,6 @@ const trustIndicators = [
   '5 Paying Customers',
   '100% Retention Rate',
   'Open Source Foundation',
-  'Multi-Cloud Support (AWS • GCP • Azure)',
   '24/7 Support Available',
 ];
 

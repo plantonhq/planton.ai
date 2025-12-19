@@ -1,6 +1,7 @@
 'use client';
 
 import { Box, Stack, Typography } from '@mui/material';
+import Image from 'next/image';
 import { FC } from 'react';
 import { Section, SectionTitle, SectionSubtitle, Card, BodyText, CheckIcon, XIcon, Badge } from './shared';
 
@@ -116,14 +117,26 @@ export const OpenStandards: FC = () => {
             <Box className="p-6 bg-[#0a0a0a]">
               <Box className="grid grid-cols-2 gap-4">
                 <Box className="p-4 rounded-lg bg-[#111] border border-[#2a2a2a] text-center">
-                  <Box className="w-12 h-12 mx-auto mb-2 rounded-lg bg-[#7c3aed]/20 flex items-center justify-center">
-                    <Typography className="text-2xl">🔷</Typography>
+                  <Box className="w-12 h-12 mx-auto mb-2 rounded-lg bg-[#7c3aed]/20 flex items-center justify-center p-2">
+                    <Image
+                      src="/images/providers/terraform.svg"
+                      alt="Terraform"
+                      width={48}
+                      height={48}
+                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    />
                   </Box>
                   <Typography className="text-white text-sm font-medium">Terraform</Typography>
                 </Box>
                 <Box className="p-4 rounded-lg bg-[#111] border border-[#2a2a2a] text-center">
-                  <Box className="w-12 h-12 mx-auto mb-2 rounded-lg bg-[#f59e0b]/20 flex items-center justify-center">
-                    <Typography className="text-2xl">🟡</Typography>
+                  <Box className="w-12 h-12 mx-auto mb-2 rounded-lg bg-[#f59e0b]/20 flex items-center justify-center p-2">
+                    <Image
+                      src="/images/providers/pulumi.svg"
+                      alt="Pulumi"
+                      width={48}
+                      height={48}
+                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    />
                   </Box>
                   <Typography className="text-white text-sm font-medium">Pulumi</Typography>
                 </Box>
@@ -159,6 +172,15 @@ export const OpenStandards: FC = () => {
       <Box className="mb-16">
         <Card className="p-8 bg-gradient-to-br from-[#10b981]/10 to-[#0ea5e9]/10 border-[#10b981]/30">
           <Box className="text-center mb-8">
+            <Box className="flex justify-center mb-4">
+              <Image
+                src="/images/tekton.svg"
+                alt="Tekton"
+                width={64}
+                height={64}
+                style={{ width: '64px', height: '64px', objectFit: 'contain' }}
+              />
+            </Box>
             <Badge variant="success" className="mb-4">CNCF GRADUATED PROJECT</Badge>
             <Typography className="text-xl font-semibold text-white mb-2">
               Tekton-Powered CI/CD

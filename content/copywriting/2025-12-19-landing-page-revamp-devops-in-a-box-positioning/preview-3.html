@@ -1038,8 +1038,8 @@
         <!-- Section 11: Security & Compliance -->
         <section>
             <span class="section-number">Section 11</span>
-            <h2>Secure by Design, Compliance-Ready</h2>
-            <p class="subtitle">Multiple security models, scoped permissions, and clear compliance roadmap—because trust is earned, not assumed.</p>
+            <h2>Secure by Design</h2>
+            <p class="subtitle">Multiple security models and scoped permissions—because trust is earned, not assumed.</p>
             
             <h3>Deployment Runner Security Models</h3>
             <p>You Choose Your Security Posture. Planton supports three deployment runner topologies. Start simple, upgrade to more secure models as your requirements grow.</p>
@@ -1088,49 +1088,8 @@
                 <li>No risk of Planton platform over-reaching permissions</li>
             </ul>
             
-            <hr>
-            
-            <h3>Compliance Roadmap</h3>
-            
-            <div class="three-col">
-                <div class="col-card">
-                    <h4>SOC 2 Type I (Target: Q1 2026)</h4>
-                    <p><strong>What It Is:</strong> Third-party audit of security controls at a point in time. Validates that Planton has appropriate controls for data security, availability, and confidentiality.</p>
-                    <p><strong>Status:</strong> Audit partner selected, control documentation in progress</p>
-                </div>
-                
-                <div class="col-card">
-                    <h4>HIPAA BAA (Target: Q2 2026)</h4>
-                    <p><strong>What It Is:</strong> Business Associate Agreement required for any vendor handling Protected Health Information (PHI) under HIPAA regulations.</p>
-                    <p><strong>Why It Matters:</strong> Healthcare customers will require BAA to deploy production workloads handling patient data.</p>
-                    <p><strong>Status:</strong> Architecture review in progress, compliance framework being codified</p>
-                </div>
-                
-                <div class="col-card">
-                    <h4>NIST CSF & MITRE ATT&CK</h4>
-                    <p><strong>Implementation:</strong> Base images pre-configured with NIST CSF standards, encryption levels standardized across cloud providers, RBAC enforced, MFA requirements, automated threat detection in deployment pipelines</p>
-                    <p><strong>Why It's Easier:</strong> Standards don't change frequently. We codify them once in Terraform modules and apply consistently across all deployments.</p>
-                </div>
-            </div>
-            
-            <hr>
-            
-            <h3>Compliance as a Vertical Strategy</h3>
-            
-            <p><strong>Domain-Specific Rules:</strong> Following advisory feedback, we're building a rule-based engine for vertical-specific compliance:</p>
-            <ul>
-                <li><strong>Healthcare:</strong> HIPAA + NIST CSF + state regulations</li>
-                <li><strong>Fintech:</strong> PCI DSS + SOC 2 + SOX compliance</li>
-                <li><strong>Energy:</strong> NERC CIP standards</li>
-                <li><strong>Government:</strong> FedRAMP requirements</li>
-            </ul>
-            
-            <p><strong>Why Rule-Based:</strong> Standards evolve. Rule engine allows us to update compliance requirements without code changes. Customers select their vertical, platform enforces appropriate controls.</p>
-            
-            <p><strong>Pricing Model:</strong> Compliance features will be separate add-on tiers. Not every customer needs HIPAA (the bakery in Idaho doesn't care). Domain-specific compliance priced based on value delivered.</p>
-            
             <div class="visual-note">
-                <strong>Visual Direction:</strong> Diagram showing three deployment runner topologies (basic → trust → customer-hosted). Compliance roadmap timeline (Q1 2026: SOC 2, Q2 2026: HIPAA, etc.)
+                <strong>Visual Direction:</strong> Diagram showing three deployment runner topologies (basic → trust → customer-hosted)
             </div>
         </section>
 

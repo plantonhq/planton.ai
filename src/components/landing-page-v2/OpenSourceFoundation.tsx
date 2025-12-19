@@ -28,7 +28,7 @@ const exitSteps = [
     number: '2',
     title: 'Use the Open Source CLI',
     description: 'The Project Planton CLI is independent of the proprietary platform. Install it anywhere.',
-    code: 'brew install plantoncloud/tap/project-planton',
+    code: 'brew install project-planton/tap/project-planton',
   },
   {
     number: '3',

@@ -1,0 +1,326 @@
+---
+description: Action rule to commit Planton.ai changes with appropriate conventional commit messages
+globs: []
+alwaysApply: false
+---
+
+# Rule: Commit Planton.ai Changes
+
+## Purpose
+
+When triggered, create a Git commit with an appropriate commit message following Conventional Commits format, based on the current conversation context and file changes.
+
+## Rule Type
+
+**Action Rule** - Executes git commit operations
+
+## When to Use
+
+- When user explicitly asks to commit changes
+- After completing a feature or fix that's ready to be committed
+- When wrapping up a development session
+
+## Commit Message Format
+
+Follow Conventional Commits format:
+
+```
+<type>(<scope>): <subject>
+
+[optional body]
+
+[optional footer]
+```
+
+### Types
+
+Use these commit types:
+- `feat`: New feature (pages, components, interactive features)
+- `fix`: Bug fix
+- `refactor`: Code refactoring (no functional changes)
+- `docs`: Documentation changes (README, content pages)
+- `content`: Content updates (copywriting, blog posts, case studies)
+- `style`: UI/UX styling changes (CSS, design updates)
+- `test`: Adding or updating tests
+- `chore`: Build process, tooling, dependencies
+- `perf`: Performance improvements
+- `ci`: CI/CD changes
+- `revert`: Reverting previous commits
+
+### Scope
+
+Determine scope from the affected files/components in Planton.ai:
+
+#### Pages & Routes
+- `landing`: Landing page (`/`, `src/components/landing-page-v2/`)
+- `solutions`: Solutions pages (`/solutions`, `src/app/solutions/`)
+- `features`: Features pages (`/features`, `src/app/features/`)
+- `pricing`: Pricing page (`/pricing`, `src/app/pricing/`)
+- `docs`: Documentation pages (`/docs`, `src/app/docs/`)
+- `blog`: Blog system (`/blog`, `src/app/blog/`)
+- `demo`: Interactive demo (`/demo`, `src/app/demo/`)
+- `tour`: Product tour/walkthrough
+
+#### Components & UI
+- `navigation`: Header, navigation, menus (`src/components/layout/header/`)
+- `ui`: Reusable UI components (`src/components/ui/`)
+- `layout`: Layout components and structure
+- `components`: General component changes
+
+#### Content & Media
+- `copywriting`: Marketing copy and messaging (`content/copywriting/`)
+- `changelog`: Changelog entries (`_changelog/`)
+- `media`: Images, videos, assets (`public/`, `content/media/`)
+
+#### Infrastructure & Build
+- `build`: Build configuration (Next.js config, etc.)
+- `deps`: Dependency updates
+- `config`: Configuration files
+- `seo`: SEO improvements
+- `performance`: Performance optimizations
+- `analytics`: Analytics and tracking
+
+#### Cross-cutting
+- If multiple areas: Use broader scope or omit scope
+- For site-wide changes: Use `site` or omit scope
+
+### Subject
+
+- Use imperative mood ("add" not "added" or "adds")
+- No period at the end
+- Keep under 72 characters
+- Be specific but concise
+
+### Body (Optional)
+
+Add detailed body when:
+- The change is complex and needs explanation
+- Multiple related changes are included
+- There are breaking changes
+- Context would help future developers understand "why"
+
+Body guidelines:
+- Wrap at 72 characters
+- Explain what and why, not how
+- Use bullet points for multiple items
+- Reference issues/tickets if applicable
+
+### Footer (Optional)
+
+Include footer for:
+- `BREAKING CHANGE:` for breaking changes
+- `Closes #123` or `Fixes #123` for issue references
+- Co-authored-by for pair programming
+
+## Execution Steps
+
+1. **Analyze Changes**
+   - Check `git status` to see modified files
+   - Review the conversation context to understand what was changed
+   - Identify the type and scope of changes
+
+2. **Determine Commit Type and Scope**
+   - Map file changes to appropriate type
+   - Determine most relevant scope from file paths
+   - Consider the primary purpose of the changes
+
+3. **Craft Commit Message**
+   - Write concise subject line (< 72 chars)
+   - Decide if detailed body is needed based on:
+     - Complexity of changes
+     - Number of related changes
+     - Need for future context
+   - Add footer if there are breaking changes or issue references
+
+4. **Create Commit**
+   - Stage all changes with `git add -A`
+   - Commit with the crafted message using `git commit -m "subject" [-m "body"]`
+   - Use `-m` flag multiple times for subject + body, or use multiline format
+
+## Examples
+
+### Landing Page Updates
+
+```bash
+git commit -m "feat(landing): add cloud provider logos to hero section"
+```
+
+```bash
+git commit -m "refactor(landing): consolidate compliance sections" \
+  -m "- Remove compliance roadmap from Security section
+- Update section title to 'Secure by Design'
+- Streamline security messaging for current product stage
+- Based on customer feedback"
+```
+
+### Navigation Changes
+
+```bash
+git commit -m "feat(navigation): replace Planton Copilot with Agent Fleet"
+```
+
+```bash
+git commit -m "fix(navigation): improve mobile header button layout" \
+  -m "Mobile header was cramped with three buttons visible.
+Now hides Discord and Login on mobile, shows only Join Beta.
+Added Login and Discord to hamburger menu for mobile access."
+```
+
+### Content Updates
+
+```bash
+git commit -m "content(copywriting): update landing page messaging"
+```
+
+```bash
+git commit -m "docs(changelog): add navigation and UX improvements"
+```
+
+### Component Changes
+
+```bash
+git commit -m "feat(components): add HeroSection cloud provider display" \
+  -m "- Import Next.js Image component
+- Create cloudProviders array with logo paths
+- Replace text-based cloud list with logo grid
+- Add responsive sizing and hover effects"
+```
+
+### Multi-file Refactoring
+
+```bash
+git commit -m "refactor(landing): remove compliance vertical strategy" \
+  -m "Removed sections:
+- Compliance Roadmap (SOC 2, HIPAA, NIST CSF)
+- Compliance as a Vertical Strategy
+- Domain-specific compliance rules
+
+Updated components:
+- SecurityCompliance.tsx: removed unused data arrays
+- draft-3.md and preview-3.html: removed HTML/markdown sections
+- Updated section titles and badges
+
+Rationale: Compliance content was premature for current product
+stage. Focused security messaging on deployment runner models
+and scoped permissions."
+```
+
+### Breaking Change
+
+```bash
+git commit -m "feat(navigation)!: restructure main navigation menu" \
+  -m "BREAKING CHANGE: Navigation menu structure has changed.
+
+Old structure:
+- Features > Product Features
+- Resources > Documentation
+
+New structure:
+- Features > All Features, Explore
+- Solutions > By Use Case, By Size, By Role
+- Resources > Docs, Tutorials, Blog, Tour, Demo
+
+This change improves information architecture and user navigation.
+All old URLs remain accessible via redirects."
+```
+
+### Dependency Update
+
+```bash
+git commit -m "chore(deps): upgrade Next.js to 14.0.4"
+```
+
+### Asset Addition
+
+```bash
+git commit -m "feat(media): add cloud provider logos from project-planton" \
+  -m "Copied 18 cloud provider SVG logos to public/images/providers/:
+- AWS, GCP, Azure, Kubernetes, Digital Ocean, Civo, Cloudflare
+- Plus: Confluent, MongoDB Atlas, Snowflake, Pulumi, Terraform, Docker
+
+These logos create consistent visual language across planton.ai
+and project-planton.org websites."
+```
+
+## Command Patterns
+
+For simple commits:
+```bash
+git add -A && git commit -m "<type>(<scope>): <subject>"
+```
+
+For commits with body:
+```bash
+git add -A && git commit -m "<type>(<scope>): <subject>" -m "<body>"
+```
+
+For commits with multi-paragraph body:
+```bash
+git add -A
+git commit -m "<type>(<scope>): <subject>" \
+  -m "<paragraph 1>" \
+  -m "" \
+  -m "<paragraph 2>"
+```
+
+## Important Notes
+
+- **Always run in planton.ai workspace**: `/Users/swarup/scm/github.com/plantoncloud/planton.ai`
+- **Don't commit without reviewing**: Show the proposed commit message to the user before executing if the changes are significant
+- **Stage selectively if needed**: If only some changes should be committed, stage specific files instead of `git add -A`
+- **Don't skip hooks**: Never use `--no-verify` unless explicitly requested
+- **Check for unstaged changes**: Review `git status` output to ensure all intended changes are staged
+- **Consider changelog updates**: For significant changes, create changelog first with `@create-planton-ai-changelog`
+
+## Error Handling
+
+If commit fails:
+- Check if there are actually changes to commit
+- Verify you're in the correct directory (`planton.ai`)
+- Check if a commit is already in progress (merge/rebase)
+- Ensure commit message format is valid
+- Verify git repository is initialized
+
+## Workflow Integration
+
+This rule works well with:
+- `@create-planton-ai-changelog` - Create changelog before committing major features
+- `@create-planton-ai-pull-request` - Create PR after committing
+- After completing a development task
+- Before creating a pull request
+
+## Typical Workflow
+
+1. Make changes to website (pages, components, content)
+2. Test changes locally
+3. (For significant changes) `@create-planton-ai-changelog`
+4. `@commit-planton-ai-changes` (this rule)
+5. Push to remote branch
+6. `@create-planton-ai-pull-request` (if ready for review)
+
+## Execution
+
+When this rule is triggered:
+
+1. Navigate to planton.ai workspace
+2. Run `git status` to check current changes
+3. Analyze changes and conversation context
+4. Propose commit message following the format above
+5. Execute the commit command
+6. Confirm successful commit with commit SHA
+
+## Quality Checklist
+
+Before committing:
+- [ ] Type is appropriate for the change
+- [ ] Scope accurately reflects affected area
+- [ ] Subject is imperative, lowercase, concise
+- [ ] Message clearly describes the change
+- [ ] No sensitive information in commit message
+- [ ] Changes are related and cohesive
+- [ ] All intended files are staged
+- [ ] Changelog created for significant features
+
+---
+
+**Remember**: Good commit messages help future developers (including yourself) understand what changed and why. Write for clarity and context, not just compliance.

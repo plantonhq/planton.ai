@@ -35,48 +35,21 @@ const securityModels = [
   },
 ];
 
-const compliance = [
-  {
-    title: 'SOC 2 Type I',
-    target: 'Q1 2026',
-    description: 'Third-party audit of security controls. Validates appropriate controls for data security, availability, and confidentiality.',
-    status: 'Audit partner selected, control documentation in progress',
-  },
-  {
-    title: 'HIPAA BAA',
-    target: 'Q2 2026',
-    description: 'Business Associate Agreement for handling Protected Health Information under HIPAA regulations.',
-    status: 'Architecture review in progress, compliance framework being codified',
-  },
-  {
-    title: 'NIST CSF & MITRE ATT&CK',
-    target: 'Ongoing',
-    description: 'Base images pre-configured with NIST CSF standards. Automated threat detection in deployment pipelines.',
-    status: 'Standards codified in Terraform modules',
-  },
-];
-
-const verticals = [
-  { vertical: 'Healthcare', standards: 'HIPAA + NIST CSF + state regulations' },
-  { vertical: 'Fintech', standards: 'PCI DSS + SOC 2 + SOX compliance' },
-  { vertical: 'Energy', standards: 'NERC CIP standards' },
-  { vertical: 'Government', standards: 'FedRAMP requirements' },
-];
 
 export const SecurityCompliance: FC = () => {
   return (
     <Section variant="gradient" id="security">
       {/* Section header */}
       <Stack className="items-center text-center mb-16">
-        <Badge variant="success" className="mb-6">SECURITY & COMPLIANCE</Badge>
+        <Badge variant="success" className="mb-6">SECURITY</Badge>
         <SectionTitle>
-          Secure by Design,{' '}
+          Secure by{' '}
           <span className="bg-gradient-to-r from-[#10b981] to-[#0ea5e9] bg-clip-text text-transparent">
-            Compliance-Ready
+            Design
           </span>
         </SectionTitle>
         <SectionSubtitle className="mx-auto">
-          Multiple security models, scoped permissions, and clear compliance roadmap—
+          Multiple security models and scoped permissions—
           because trust is earned, not assumed.
         </SectionSubtitle>
       </Stack>
@@ -147,7 +120,7 @@ export const SecurityCompliance: FC = () => {
       </Box>
 
       {/* Scoped permissions */}
-      <Card className="mb-20">
+      <Card>
         <Box className="grid lg:grid-cols-2 gap-8 items-center">
           <Box>
             <Typography className="text-xl font-semibold text-white mb-4 flex items-center gap-3">
@@ -191,55 +164,6 @@ export const SecurityCompliance: FC = () => {
             </Box>
           </Box>
         </Box>
-      </Card>
-
-      {/* Compliance roadmap */}
-      <Box className="mb-16">
-        <Typography className="text-xl font-semibold text-white text-center mb-8">
-          Compliance Roadmap
-        </Typography>
-        
-        <Box className="grid md:grid-cols-3 gap-6">
-          {compliance.map((item, index) => (
-            <Card key={index}>
-              <Box className="flex items-center justify-between mb-4">
-                <Typography className="text-white font-semibold">{item.title}</Typography>
-                <Badge variant="purple">{item.target}</Badge>
-              </Box>
-              <BodyText className="text-sm mb-4">{item.description}</BodyText>
-              <Box className="pt-4 border-t border-[#2a2a2a]">
-                <Typography className="text-xs text-[#666]">
-                  <span className="text-[#10b981]">Status:</span> {item.status}
-                </Typography>
-              </Box>
-            </Card>
-          ))}
-        </Box>
-      </Box>
-
-      {/* Vertical compliance */}
-      <Card className="bg-gradient-to-br from-[#7c3aed]/10 to-[#0ea5e9]/10 border-[#7c3aed]/30">
-        <Typography className="text-lg font-semibold text-white mb-4 text-center">
-          Compliance as a Vertical Strategy
-        </Typography>
-        <Typography className="text-[#a0a0a0] text-center mb-6 max-w-2xl mx-auto">
-          Domain-specific compliance rules. Standards evolve—our rule engine updates requirements 
-          without code changes. Select your vertical, platform enforces appropriate controls.
-        </Typography>
-        
-        <Box className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {verticals.map((item, index) => (
-            <Box key={index} className="p-4 rounded-lg bg-[#0a0a0a]/50 border border-[#2a2a2a]">
-              <Typography className="text-white font-medium mb-1">{item.vertical}</Typography>
-              <Typography className="text-xs text-[#a0a0a0]">{item.standards}</Typography>
-            </Box>
-          ))}
-        </Box>
-        
-        <Typography className="text-xs text-[#666] text-center mt-6">
-          Compliance features are separate add-on tiers. Not every customer needs HIPAA—
-          domain-specific compliance priced based on value delivered.
-        </Typography>
       </Card>
     </Section>
   );

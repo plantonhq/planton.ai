@@ -427,7 +427,7 @@ One API call exports all your infrastructure configurations as YAML manifests:
 **2. Use the Open Source CLI**
 The Project Planton CLI is independent of the proprietary platform. Install it anywhere:
 ```bash
-brew install plantoncloud/tap/project-planton
+brew install project-planton/tap/project-planton
 ```
 
 **3. Manage Independently**

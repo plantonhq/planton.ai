@@ -68,7 +68,7 @@ export const HeaderLogo = ({ className }: IHeaderLogo) => {
 
 const MenuSection: FC<MenuSectionProps> = ({ children }) => {
   return (
-    <Stack direction="row" className="items-center gap-3 text-sm">
+    <Stack direction="row" className="items-center gap-2 md:gap-3 text-sm">
       {children}
     </Stack>
   );
@@ -80,10 +80,10 @@ interface IHeaderComputer {
 
 export const menuFeatures: IMenuItems[] = [
   {
-    label: 'Planton Copilot',
-    subLabel: 'Github Copilot, but for DevOps',
+    label: 'Agent Fleet',
+    subLabel: 'Cursor for DevOps',
     icon: <SvgIconSizeResponsive component={CopilotIcon} />,
-    href: '/features/planton-copilot',
+    href: '/agents',
   },
   {
     label: 'Self-Service DevOps',
@@ -166,7 +166,6 @@ export const menuResources: IMenuItems[] = [
   { label: '', subLabel: 'Blog', href: '/blog' },
   { label: '', subLabel: 'Tour', href: '/tour' },
   { label: '', subLabel: 'Demo', href: '/demo' },
-  { label: '', subLabel: 'ACME', href: '/acme' },
 ];
 
 const HeaderComputer: FC<IHeaderComputer> = ({ className }) => {
@@ -335,6 +334,20 @@ const HeaderMobile: FC<IHeaderMobile> = ({ className }) => {
             <Link href="/pricing" className="text-text-secondary text-base font-semibold">
               Pricing
             </Link>
+            <Divider className="border-[#232323]" />
+            <Stack className="gap-3">
+              <JoinDiscordBtn className="text-text-secondary w-full justify-center">
+                Discord
+              </JoinDiscordBtn>
+              <Btn
+                className="text-text-secondary w-full justify-center"
+                LinkComponent={Link}
+                href="https://console.planton.ai/"
+                target="_blank"
+              >
+                Login
+              </Btn>
+            </Stack>
           </Stack>
         </Stack>
       </StyledDrawer>
@@ -348,16 +361,16 @@ export function Header() {
       <HeaderMobile className="md:hidden" />
       <HeaderComputer className="hidden md:flex" />
       <MenuSection>
-        <JoinDiscordBtn className="text-text-secondary">Discord</JoinDiscordBtn>
+        <JoinDiscordBtn className="hidden sm:flex text-text-secondary">Discord</JoinDiscordBtn>
         <Btn
-          className="text-text-secondary"
+          className="hidden sm:flex text-text-secondary"
           LinkComponent={Link}
           href="https://console.planton.ai/"
           target="_blank"
         >
           Login
         </Btn>
-        <JoinBetaBtn className="bg-white text-black !h-8 !px-3 !py-2">Join Beta</JoinBetaBtn>
+        <JoinBetaBtn className="bg-white text-black !h-8 !px-2 sm:!px-3 !py-2 text-xs sm:text-sm whitespace-nowrap">Join Beta</JoinBetaBtn>
         {/* <Link href="https://console.planton.ai/" target="_blank">
           <Stack className="flex-row">
             <Typography className="text-sm text-gray-400 font-medium">
