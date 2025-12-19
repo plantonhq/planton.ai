@@ -75,14 +75,13 @@ export const CustomerStories: FC = () => {
       <Stack className="items-center text-center mb-16">
         <Badge variant="success" className="mb-6">CUSTOMER STORIES</Badge>
         <SectionTitle>
-          Real Customers,{' '}
+          Customer{' '}
           <span className="bg-gradient-to-r from-[#10b981] to-[#0ea5e9] bg-clip-text text-transparent">
-            Real Results
+            Results
           </span>
         </SectionTitle>
         <SectionSubtitle className="mx-auto">
-          From consulting firms to fintech platforms—see how teams use Planton to 
-          accelerate delivery and eliminate ops bottlenecks.
+          See how teams use Planton to accelerate delivery and eliminate ops bottlenecks.
         </SectionSubtitle>
       </Stack>
 

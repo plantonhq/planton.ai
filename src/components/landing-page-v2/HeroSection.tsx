@@ -60,7 +60,7 @@ export const HeroSection: FC = () => {
         <Stack className="items-center text-center gap-8">
           {/* Social proof badge */}
           <Badge variant="purple" className="animate-pulse">
-            Trusted by 5+ IT consulting firms • 100% customer retention
+            Trusted by Tech Teams • 100% customer retention
           </Badge>
 
           {/* Main headline */}

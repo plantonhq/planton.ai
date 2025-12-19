@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { Section, Card, Badge, PrimaryButton, SecondaryButton, Quote, ArrowRightIcon } from './shared';
 
 const trustIndicators = [
-  '5 Paying Customers',
   '100% Retention Rate',
   'Open Source Foundation',
   '24/7 Support Available',
@@ -59,7 +58,7 @@ export const FinalCTA: FC = () => {
             </Typography>
             
             <Typography className="text-lg md:text-xl text-[#a0a0a0] max-w-2xl">
-              Join IT consulting firms and startups deploying infrastructure in minutes, not weeks.
+              Join teams deploying infrastructure in minutes, not weeks.
             </Typography>
 
             {/* Primary CTA */}

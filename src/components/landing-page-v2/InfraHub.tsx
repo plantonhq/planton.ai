@@ -244,7 +244,7 @@ export const InfraHub: FC = () => {
       <Card className="bg-gradient-to-br from-[#7c3aed]/10 to-[#0ea5e9]/10 border-[#7c3aed]/30">
         <Quote
           text="iorta TechNext deployed a complete AWS ECS environment for their SalesVerse product in under 1 hour—with 7 developers managing everything themselves. Previously, this would have required a dedicated DevOps engineer and taken at least a couple weeks of work."
-          author="Real Customer Result"
+          author="Customer Result"
         />
       </Card>
     </Section>
