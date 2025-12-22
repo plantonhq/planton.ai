@@ -25,8 +25,12 @@ export const FAQ = () => {
 
         <Box className="max-w-4xl mx-auto space-y-4">
           <FAQItem
+            question="What happens in Phase 1 vs Phase 2?"
+            answer="Phase 1 (First Half - ~4 hours): Swaroop leads as teacher and technical decision-maker. We make all the foundational choices together: platform (React Native vs Flutter vs Native), dev environment setup, project structure, git workflow, build system, deployment, state management, testing, backend strategy, and common libraries. Everyone leaves with a working dev environment and clear understanding of the full SDLC. Phase 2 (Second Half - ~4-6 hours): Everyone builds using Cursor AI (vibe coding). Apply the Phase 1 decisions to build actual apps - Vehicle Mileage Tracker, Construction Expense Tracker, or your own ideas. Focus exclusively on writing code with AI assistance. Think of Phase 1 as the foundation that enables Phase 2. After this hackathon, you'll only need to worry about writing code to build mobile apps."
+          />
+          <FAQItem
             question="Do I need to know mobile development?"
-            answer="Not at all! This hackathon is about learning together. We'll set up development environments as a group and figure things out collectively. Beginners are absolutely welcome."
+            answer="Not at all! That's exactly why we have Phase 1. Swaroop will teach and guide all the technical decisions - from choosing the platform to setting up your dev environment to understanding the full software development lifecycle. This hackathon draws from a 2020 experience: when Suresh knew zero about building APIs, Swaroop had a 30-minute call explaining all foundational choices (Java, PostgreSQL, gRPC, git workflow). By the end, Suresh only had to worry about writing code. That foundation enabled 5 years of productive API development. We're doing the same for mobile apps. Phase 1 establishes the foundation. Phase 2 is where you write code with Cursor AI. Beginners are absolutely welcome - this is a learning experience."
           />
           <FAQItem
             question="What if I don't have an app idea?"
@@ -49,8 +53,16 @@ export const FAQ = () => {
             answer="Yes! We'll have regular breaks throughout the day. For in-person participants, we'll arrange food. Remote participants, keep your favorite snacks handy!"
           />
           <FAQItem
+            question="What role does Swaroop play?"
+            answer="Swaroop is the teacher and technical decision-maker during Phase 1. He'll guide all foundational choices about platform, tools, workflow, and best practices. Think of him as the technical lead establishing the mobile development standards for Planton Cloud. During Phase 2, he'll be available to help, but everyone works on building their own apps using the foundation from Phase 1."
+          />
+          <FAQItem
+            question="Are these apps related to Planton Cloud?"
+            answer="No! These are generic personal and business apps - a Vehicle Mileage Tracker (for tracking odometer readings) and a Construction Expense Tracker (for real estate construction projects). They're not Planton Cloud product features. The goal is to learn mobile app development by building real, useful apps. If your apps need backends, we'll decide in Phase 1 whether to use local storage or cloud backends like Firebase, Supabase, or custom APIs."
+          />
+          <FAQItem
             question="What platforms are we targeting?"
-            answer="We're aiming for cross-platform development - apps that work on both Android and iOS. We'll explore tools like React Native or Flutter that enable building for both platforms at once."
+            answer="This will be decided during Phase 1! Swaroop will help us choose between React Native, Flutter, or Native iOS/Android development based on our goals and constraints. We're leaning toward cross-platform development (apps that work on both Android and iOS), but the final decision will be made together during the hackathon."
           />
           <FAQItem
             question="Is this competitive or collaborative?"
@@ -82,4 +94,13 @@ const FAQItem = ({
     </Typography>
   </Box>
 );
+
+
+
+
+
+
+
+
+
 

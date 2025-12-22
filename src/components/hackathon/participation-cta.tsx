@@ -34,7 +34,7 @@ export const ParticipationCTA = () => {
             It&apos;s super simple - no complex registration, no prerequisites, just you and your enthusiasm for building mobile apps!
           </Typography>
 
-          <Box className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <Box className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
             <StepCard
               number="1"
               title="React on Slack"
@@ -49,8 +49,14 @@ export const ParticipationCTA = () => {
             />
             <StepCard
               number="3"
-              title="Build Together"
-              description="We'll set up dev environments together and start building awesome mobile apps as a team"
+              title="Learn in Phase 1"
+              description="This is crucial! Swaroop will lead all technical decisions - platform choice, dev setup, workflow, deployment. Take notes, ask questions."
+              icon="📚"
+            />
+            <StepCard
+              number="4"
+              title="Build in Phase 2"
+              description="Apply what you learned and build real apps using Cursor AI. Focus exclusively on writing code."
               icon="🚀"
             />
           </Box>
@@ -77,6 +83,15 @@ export const ParticipationCTA = () => {
                 <Typography fontSize={15} className="text-gray-300">Your enthusiasm</Typography>
               </Box>
             </Stack>
+          </Box>
+
+          <Box className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 backdrop-blur-sm border border-indigo-500/20 rounded-2xl p-6 mb-8">
+            <Typography fontSize={16} fontWeight={600} className="text-indigo-300 mb-2">
+              Important:
+            </Typography>
+            <Typography fontSize={15} className="text-gray-300 leading-relaxed">
+              <strong>Phase 1 is essential for everyone.</strong> Even if you can&apos;t stay for the full day, join Phase 1 to learn the foundation. That&apos;s where Swaroop (teacher/decision-maker) will establish the workflow that enables mobile development at Planton Cloud.
+            </Typography>
           </Box>
 
           <Typography fontSize={14} className="text-gray-500 mb-8">
@@ -114,4 +129,13 @@ const StepCard = ({
     </Typography>
   </Box>
 );
+
+
+
+
+
+
+
+
+
 

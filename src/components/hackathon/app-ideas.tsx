@@ -145,3 +145,11 @@ const AppIdeaCard = ({
   </Box>
 );
 
+
+
+
+
+
+
+
+

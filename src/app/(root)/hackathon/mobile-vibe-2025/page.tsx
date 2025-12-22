@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 import {
   HeroSection,
   EventDetails,
+  EventAgenda,
   GoalsSection,
   AppIdeas,
   ParticipationCTA,
@@ -35,6 +36,7 @@ export default function MobileVibeHackathon() {
     <Box>
       <HeroSection />
       <EventDetails />
+      <EventAgenda />
       <GoalsSection />
       <AppIdeas />
       <ParticipationCTA />
@@ -42,4 +44,13 @@ export default function MobileVibeHackathon() {
     </Box>
   );
 }
+
+
+
+
+
+
+
+
+
 

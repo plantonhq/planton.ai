@@ -106,3 +106,11 @@ const DetailCard = ({
   </Box>
 );
 
+
+
+
+
+
+
+
+

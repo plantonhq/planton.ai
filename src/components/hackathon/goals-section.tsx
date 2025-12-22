@@ -29,31 +29,34 @@ export const GoalsSection = () => {
           >
             Why This Hackathon?
           </Typography>
+          <Typography fontSize={18} className="text-gray-400 max-w-3xl mx-auto mb-4">
+            We&apos;ve never built mobile apps at Planton Cloud. We have ideas - productivity tools, personal utilities, hobby projects - but they stay ideas because we don&apos;t have the workflow established.
+          </Typography>
           <Typography fontSize={18} className="text-gray-400 max-w-3xl mx-auto">
-            We&apos;ve never built mobile apps at Planton Cloud. Through this hackathon, we want to establish that workflow and normalize mobile development so those small ideas can become reality.
+            This hackathon will establish that foundation, just like a foundational 30-minute call in 2020 enabled 5 years of API development at Planton Cloud.
           </Typography>
         </Stack>
 
         <Box className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           <GoalCard
             icon="🚀"
-            title="Establish Workflow"
-            description="Set up and document the mobile app development workflow at Planton Cloud. From setup to deployment, we'll figure it out together."
+            title="Establish Foundation"
+            description="Make all the technical decisions upfront - platform, tools, workflow, deployment. Document everything so it's repeatable."
           />
           <GoalCard
             icon="⚡"
             title="Normalize Building"
-            description="Make mobile app building as simple and natural as vibe coding. Enable quick prototyping and rapid iteration."
+            description="Make mobile app building as natural as vibe coding APIs. After this hackathon, you'll only worry about writing code."
           />
           <GoalCard
             icon="💡"
             title="Enable Quick Ideas"
-            description="Turn those small app ideas into reality. No more 'I wish I could build this' - just build it!"
+            description="Turn those small app ideas into reality. No more 'I wish I could build this' - just build it using Cursor AI."
           />
           <GoalCard
             icon="🤝"
             title="Learn Together"
-            description="Share knowledge, solve problems as a team, and build our mobile development muscle collectively."
+            description="Share knowledge, solve problems as a team. Swaroop leads the technical decisions, we all learn and grow."
           />
         </Box>
 
@@ -94,4 +97,13 @@ const GoalCard = ({
     </Typography>
   </Box>
 );
+
+
+
+
+
+
+
+
+
 
