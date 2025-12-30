@@ -16,14 +16,14 @@ _kustomize
 
 5 directories, 6 files
 
-## /Users/swarup/scm/github.com/plantoncloud-inc/planton-cloud/backend/services/copilot-agent/_kustomize/base/kustomization.yaml
+## ~/scm/github.com/plantoncloud-inc/planton-cloud/backend/services/copilot-agent/_kustomize/base/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
   - service.yaml
 
-## /Users/swarup/scm/github.com/plantoncloud-inc/planton-cloud/backend/services/copilot-agent/_kustomize/base/service.yaml
+## ~/scm/github.com/plantoncloud-inc/planton-cloud/backend/services/copilot-agent/_kustomize/base/service.yaml
 apiVersion: kubernetes.project-planton.org/v1
 kind: KubernetesDeployment
 metadata:
@@ -80,7 +80,7 @@ spec:
       isEnabled: false
   version: main
 
-## /Users/swarup/scm/github.com/plantoncloud-inc/planton-cloud/backend/services/copilot-agent/_kustomize/overlays/local/kustomization.yaml
+## ~/scm/github.com/plantoncloud-inc/planton-cloud/backend/services/copilot-agent/_kustomize/overlays/local/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -90,7 +90,7 @@ resources:
 patches:
   - path: service.yaml
 
-## /Users/swarup/scm/github.com/plantoncloud-inc/planton-cloud/backend/services/copilot-agent/_kustomize/overlays/local/service.yaml
+## ~/scm/github.com/plantoncloud-inc/planton-cloud/backend/services/copilot-agent/_kustomize/overlays/local/service.yaml
 apiVersion: kubernetes.project-planton.org/v1
 kind: KubernetesDeployment
 metadata:
@@ -117,7 +117,7 @@ spec:
           COPILOT_AGENT_RUNTIME: "test"
           COPILOT_AGENT_RUNTIME_ORG: "planton-cloud"
 
-## /Users/swarup/scm/github.com/plantoncloud-inc/planton-cloud/backend/services/copilot-agent/_kustomize/overlays/prod/kustomization.yaml
+## ~/scm/github.com/plantoncloud-inc/planton-cloud/backend/services/copilot-agent/_kustomize/overlays/prod/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -127,7 +127,7 @@ resources:
 patches:
   - path: service.yaml
 
-## /Users/swarup/scm/github.com/plantoncloud-inc/planton-cloud/backend/services/copilot-agent/_kustomize/overlays/prod/service.yaml
+## ~/scm/github.com/plantoncloud-inc/planton-cloud/backend/services/copilot-agent/_kustomize/overlays/prod/service.yaml
 apiVersion: kubernetes.project-planton.org/v1
 kind: KubernetesDeployment
 metadata:
