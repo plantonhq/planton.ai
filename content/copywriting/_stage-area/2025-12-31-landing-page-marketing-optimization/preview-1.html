@@ -443,20 +443,11 @@
             
             <h3>Main Headline (Choose One)</h3>
             
-            <h4>Option A: Lead with Outcome (RECOMMENDED)</h4>
-            <div style="font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #7c3aed, #0ea5e9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem;">
-                Deploy Production Infrastructure in Minutes, Not Weeks
-            </div>
-            
-            <h4>Option B: Lead with Cost</h4>
-            <div style="font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #7c3aed, #0ea5e9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem;">
-                Your DevOps Team in a Platform—$450/Month Instead of $150K/Year
-            </div>
-            
-            <h4>Option C: Lead with Pain Point</h4>
+            <h4>PRIMARY HEADLINE (User's Choice)</h4>
             <div style="font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #7c3aed, #0ea5e9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem;">
                 What if DevOps Didn't Block Your Developers?
             </div>
+            <p style="color: #10b981; margin-top: 0.5rem;"><strong>Rationale</strong>: Leads with the pain point that resonates deeply. Questions make readers think about their current bottleneck immediately.</p>
             
             <h3>Subheadline</h3>
             <p style="font-size: 1.25rem;">Multi-cloud infrastructure automation that eliminates DevOps bottlenecks. No ops team required. No vendor lock-in. 100% open source.</p>
@@ -509,10 +500,19 @@
             <h3>Trusted by Fast-Moving Teams</h3>
             
             <div style="display: flex; justify-content: space-around; align-items: center; margin: 2rem 0; flex-wrap: wrap; gap: 2rem;">
+                <div style="color: #888; font-weight: 600;">[Jai.CX]</div>
+                <div style="color: #888; font-weight: 600;">[TynyBay]</div>
                 <div style="color: #888; font-weight: 600;">[iorta TechNext]</div>
-                <div style="color: #888; font-weight: 600;">[Tynybay]</div>
                 <div style="color: #888; font-weight: 600;">[Odwen]</div>
-                <div style="color: #888; font-weight: 600;">[+ 8 more in beta]</div>
+                <div style="color: #888; font-weight: 600;">[+ others in beta]</div>
+            </div>
+            
+            <div style="margin-top: 1rem; padding: 1rem; background: #1a1a1a; border-radius: 8px; font-size: 0.9rem; color: #888;">
+                <strong style="color: #10b981;">Customer Websites:</strong><br>
+                • <strong>Jai.CX</strong>: https://jai.cx/ (AI-native copilot for founders)<br>
+                • <strong>TynyBay</strong>: https://tynybay.com (IT consulting firm)<br>
+                • <strong>iorta TechNext</strong>: https://iorta.in (BFSI platform, SalesVerse)<br>
+                • <strong>Odwen</strong>: https://odwen.co.in (Online warehousing platform)
             </div>
             
             <h3>Metrics Bar</h3>
@@ -614,23 +614,44 @@
                         </tr>
                         <tr>
                             <td><strong>Backend CI/CD</strong></td>
-                            <td><span class="checkmark-green">✅</span> Included</td>
+                            <td><span class="checkmark-green">✅</span> Included (ServiceHub)</td>
                             <td><span class="x-red">❌</span> Build yourself</td>
                             <td><span class="x-red">❌</span> Build yourself</td>
                             <td><span class="x-red">❌</span> Build yourself</td>
                         </tr>
                         <tr>
-                            <td><strong>Open Source</strong></td>
-                            <td><span class="checkmark-green">✅</span> Full transparency</td>
-                            <td><span class="warning-amber">⚠️</span> Partial</td>
-                            <td><span class="warning-amber">⚠️</span> Partial</td>
+                            <td><strong>Out-of-the-Box Infra</strong></td>
+                            <td><span class="checkmark-green">✅</span> 120+ deployment components</td>
+                            <td><span class="warning-amber">⚠️</span> Limited</td>
+                            <td><span class="warning-amber">⚠️</span> Limited (some efforts)</td>
+                            <td><span class="x-red">❌</span> Write everything</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CLI Open Source</strong></td>
+                            <td><span class="checkmark-green">✅</span> Yes (project-planton)</td>
+                            <td><span class="checkmark-green">✅</span> Yes (terraform)</td>
+                            <td><span class="checkmark-green">✅</span> Yes (pulumi)</td>
                             <td>N/A</td>
                         </tr>
                         <tr>
-                            <td><strong>AI Assistance</strong></td>
-                            <td><span class="checkmark-green">✅</span> Beta agents</td>
+                            <td><strong>Deployment Modules Open Source</strong></td>
+                            <td><span class="checkmark-green">✅</span> Yes (100% on GitHub)</td>
+                            <td><span class="x-red">❌</span> You write & maintain</td>
+                            <td><span class="x-red">❌</span> You write & maintain</td>
+                            <td>N/A</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Platform (SaaS) Open Source</strong></td>
+                            <td><span class="x-red">❌</span> No (like competitors)</td>
                             <td><span class="x-red">❌</span> No</td>
                             <td><span class="x-red">❌</span> No</td>
+                            <td>N/A</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AI Assistance Scope</strong></td>
+                            <td><span class="checkmark-green">✅</span> Full SDLC (infra + services)</td>
+                            <td><span class="x-red">❌</span> No AI</td>
+                            <td><span class="warning-amber">⚠️</span> Infra-only (Pulumi AI)</td>
                             <td><span class="x-red">❌</span> No</td>
                         </tr>
                         <tr>
@@ -644,12 +665,138 @@
                 </table>
             </div>
             
+            <div style="margin-top: 2rem; padding: 1.5rem; background: #1a1a1a; border-radius: 8px; border-left: 4px solid #10b981;">
+                <h4 style="margin-top: 0; color: #10b981;">KEY DIFFERENTIATOR: Deployment Modules</h4>
+                <p style="color: #d0d0d0;">
+                    <strong>All three platforms have SaaS offerings that are NOT open source.</strong> That's standard.
+                </p>
+                <p style="color: #d0d0d0;">
+                    But with Planton, the <strong>infrastructure modules that deploy YOUR resources are 100% open source</strong> on GitHub (Project Planton).
+                </p>
+                <p style="color: #d0d0d0;">
+                    With Terraform Cloud or Pulumi Cloud, <strong>you still need to write and maintain all those modules yourself</strong>.
+                </p>
+                <p style="color: #10b981; font-weight: 600;">
+                    Planton = Out-of-the-box infrastructure + Full transparency
+                </p>
+            </div>
+            
             <div class="visual-note">
                 <strong>Visual Direction:</strong> Responsive table with Planton column highlighted via gradient background. On mobile: convert to cards (one per platform). Use color-coded icons (✅ green, ❌ red, ⚠️ amber).
             </div>
             
             <div class="component-note">
                 <strong>Component Mapping:</strong> NEW component <code>ComparisonTable.tsx</code>
+            </div>
+            
+            <h3>Planton vs. PaaS Platforms (Vercel, Heroku, Render, Railway)</h3>
+            
+            <p style="font-size: 1.15rem; text-align: center; margin-bottom: 2rem;">
+                Planton sits at a unique intersection: <strong>Platform-as-a-Service (like Vercel/Heroku) + 
+                Infrastructure-as-Code (like Terraform/Pulumi) in YOUR cloud</strong>.
+            </p>
+            
+            <div class="comparison-table" style="margin-bottom: 2rem;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);">Planton</th>
+                            <th>Vercel</th>
+                            <th>Heroku</th>
+                            <th>Render</th>
+                            <th>Railway</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Service Deployment</strong></td>
+                            <td><span class="checkmark-green">✅</span> Backend services</td>
+                            <td><span class="warning-amber">⚠️</span> Next.js only</td>
+                            <td><span class="checkmark-green">✅</span> Backend services</td>
+                            <td><span class="checkmark-green">✅</span> Backend services</td>
+                            <td><span class="checkmark-green">✅</span> Backend services</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Infrastructure Deployment</strong></td>
+                            <td><span class="checkmark-green">✅</span> Full automation</td>
+                            <td><span class="x-red">❌</span> No infrastructure</td>
+                            <td><span class="x-red">❌</span> No infrastructure</td>
+                            <td><span class="x-red">❌</span> No infrastructure</td>
+                            <td><span class="x-red">❌</span> No infrastructure</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Infrastructure Control</strong></td>
+                            <td><span class="checkmark-green">✅</span> Full (your cloud)</td>
+                            <td><span class="x-red">❌</span> Zero control</td>
+                            <td><span class="x-red">❌</span> Zero control</td>
+                            <td><span class="x-red">❌</span> Zero control</td>
+                            <td><span class="x-red">❌</span> Zero control</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cloud Provider</strong></td>
+                            <td><span class="checkmark-green">✅</span> YOUR cloud (AWS/GCP/Azure)</td>
+                            <td><span class="x-red">❌</span> Vercel's cloud only</td>
+                            <td><span class="x-red">❌</span> Heroku's cloud only</td>
+                            <td><span class="x-red">❌</span> Render's cloud only</td>
+                            <td><span class="x-red">❌</span> Railway's cloud only</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IaC Code Access</strong></td>
+                            <td><span class="checkmark-green">✅</span> 100% open source</td>
+                            <td><span class="x-red">❌</span> No IaC (black box)</td>
+                            <td><span class="x-red">❌</span> No IaC (black box)</td>
+                            <td><span class="x-red">❌</span> No IaC (black box)</td>
+                            <td><span class="x-red">❌</span> No IaC (black box)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #1a2a1a 0%, #162a1e 100%); padding: 2rem; border-radius: 12px; border: 2px solid #10b981; margin: 2rem 0;">
+                <h4 style="color: #10b981; margin-top: 0;">🎯 UNIQUE POSITIONING</h4>
+                <p style="font-size: 1.1rem;">
+                    <strong>Planton is the ONLY platform that combines:</strong>
+                </p>
+                <ul style="font-size: 1.05rem; color: #d0d0d0;">
+                    <li>✅ Out-of-the-box service deployment (like Vercel/Heroku)</li>
+                    <li>✅ Infrastructure automation (like Terraform/Pulumi)</li>
+                    <li>✅ In YOUR cloud account (full control)</li>
+                    <li>✅ No vendor lock-in (100% open source deployment modules)</li>
+                </ul>
+                <p style="font-size: 1.1rem; color: #10b981; font-weight: 600; margin-bottom: 0;">
+                    You get Vercel's developer experience without giving up infrastructure control 
+                    or getting locked into their platform.
+                </p>
+            </div>
+            
+            <h4>The Planton Difference</h4>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+                <div style="background: #1a1a1a; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #ef4444;">
+                    <h5 style="color: #ef4444; margin-top: 0;">PaaS Platforms (Vercel/Heroku)</h5>
+                    <p style="color: #10b981;">✅ Great developer experience</p>
+                    <p style="color: #ef4444;">❌ No infrastructure automation</p>
+                    <p style="color: #ef4444;">❌ No infrastructure control (their cloud)</p>
+                    <p style="color: #ef4444;">❌ Vendor lock-in (rebuild to leave)</p>
+                </div>
+                
+                <div style="background: #1a1a1a; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                    <h5 style="color: #f59e0b; margin-top: 0;">IaC Platforms (Terraform/Pulumi)</h5>
+                    <p style="color: #10b981;">✅ Infrastructure automation</p>
+                    <p style="color: #10b981;">✅ Runs in your cloud</p>
+                    <p style="color: #ef4444;">❌ No service deployment (build CI/CD yourself)</p>
+                    <p style="color: #ef4444;">❌ Write all infrastructure modules yourself</p>
+                </div>
+                
+                <div style="background: #1a1a1a; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #10b981;">
+                    <h5 style="color: #10b981; margin-top: 0;">Planton (Best of Both Worlds)</h5>
+                    <p style="color: #10b981;">✅ Great developer experience</p>
+                    <p style="color: #10b981;">✅ Infrastructure automation (120+ components)</p>
+                    <p style="color: #10b981;">✅ Service deployment (ServiceHub)</p>
+                    <p style="color: #10b981;">✅ Runs in YOUR cloud (full control)</p>
+                    <p style="color: #10b981;">✅ No vendor lock-in</p>
+                </div>
             </div>
         </div>
         
@@ -664,67 +811,56 @@
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
                 <div class="testimonial-card">
                     <div class="testimonial-quote">
-                        "Planton let us deploy client infrastructure in under an hour instead of weeks. Game changer for consulting firms."
+                        "As Planton's first user, I filled out forms one by one for VPC, ECS, Route 53, certificates. That led to Infra Charts—now I deploy complete environments in a single form. Weeks of Terraform → under 1 hr."
                     </div>
                     <div class="testimonial-author">
-                        👤 <strong>Swarup Donepudi</strong><br>
-                        Founder & CEO, Tynybay<br>
-                        🏢 Tynybay • 🌍 India
+                        👤 <strong>Harsha CH</strong><br>
+                        Solo Developer, Jai.CX<br>
+                        🏢 Jai.CX • 🌍 USA/India
                     </div>
                 </div>
                 
                 <div class="testimonial-card">
                     <div class="testimonial-quote">
-                        "7 developers managing AWS ECS production without a DevOps hire. Planton saves us $12,000/month."
+                        "For a client in regulated industry (BFSI) who mandated GCP, Planton delivered the entire infra despite zero GCP experience on our team. Mature infrastructure out-of-the-box. Using Planton for all future client projects."
                     </div>
                     <div class="testimonial-author">
-                        👤 <strong>Tech Lead</strong><br>
-                        iorta TechNext<br>
-                        🏢 iorta TechNext • 🌍 India
+                        👤 <strong>Rohit Reddy Gopy</strong><br>
+                        CEO, TynyBay<br>
+                        🏢 TynyBay • 🌍 India
                     </div>
                 </div>
                 
                 <div class="testimonial-card">
                     <div class="testimonial-quote">
-                        "Infrastructure setup: 47 minutes with Planton vs 3 days with manual Terraform. No comparison."
+                        "I handle 8+ client projects with Planton—no more rewriting Terraform between clients. My efficiency has improved dramatically, and I provide far better experience to all our developers."
                     </div>
                     <div class="testimonial-author">
-                        👤 <strong>Engineering Manager</strong><br>
-                        Odwen<br>
-                        🏢 Odwen • 🌍 India
+                        👤 <strong>Balaji Borra</strong><br>
+                        DevOps Engineer, TynyBay<br>
+                        🏢 TynyBay • 🌍 India
                     </div>
                 </div>
                 
                 <div class="testimonial-card">
                     <div class="testimonial-quote">
-                        "I can deploy backend services without waiting for DevOps tickets. Self-service infrastructure is incredible."
+                        "I can now update service configurations and deploy to dev, staging, and prod—all without waiting on DevOps. Self-service infrastructure through ServiceHub is a game changer for productivity."
                     </div>
                     <div class="testimonial-author">
-                        👤 <strong>Senior Developer</strong><br>
-                        SalesVerse (via iorta TechNext)<br>
-                        🏢 SalesVerse • 🌍 India
+                        👤 <strong>Rakesh Kandhi</strong><br>
+                        Senior Developer, TynyBay<br>
+                        🏢 TynyBay • 🌍 India
                     </div>
                 </div>
                 
                 <div class="testimonial-card">
                     <div class="testimonial-quote">
-                        "Finally, a platform that doesn't try to hide what it's doing. Every Terraform module is on GitHub. That's trust."
+                        "Planton enabled me to provide a mature developer experience to our 7-person team without requiring deep AWS expertise. They deploy to multiple environments independently and manage the entire infrastructure lifecycle themselves."
                     </div>
                     <div class="testimonial-author">
-                        👤 <strong>DevOps Engineer</strong><br>
-                        Beta Program Participant<br>
-                        🏢 Confidential • 🌍 USA
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-quote">
-                        "We're a 5-person team. Planton gives us the infrastructure capabilities of a 50-person company. Essential for lean startups."
-                    </div>
-                    <div class="testimonial-author">
-                        👤 <strong>CTO</strong><br>
-                        Startup (Beta Program)<br>
-                        🏢 Confidential • 🌍 Europe
+                        👤 <strong>Sai Saketh</strong><br>
+                        Junior DevOps Engineer, iorta TechNext<br>
+                        🏢 iorta TechNext (SalesVerse) • 🌍 India
                     </div>
                 </div>
             </div>

@@ -32,27 +32,12 @@ status: draft
 
 ### Main Headline
 
-**Option A** (Lead with outcome - RECOMMENDED):
-```
-Deploy Production Infrastructure in Minutes, Not Weeks
-```
-
-**Option B** (Lead with cost benefit):
-```
-Your DevOps Team in a Platform—$450/Month Instead of $150K/Year
-```
-
-**Option C** (Lead with pain point):
+**PRIMARY** (User's Choice):
 ```
 What if DevOps Didn't Block Your Developers?
 ```
 
-**Option D** (Current - for comparison):
-```
-DevOps-in-a-Box—From Code to Cloud in Under an Hour
-```
-
-**Recommendation**: Use Option A or B. Lead with the outcome (speed) or economic benefit (cost), not the feature ("DevOps-in-a-Box").
+**Rationale**: Leads with the pain point that resonates deeply with target customers (IT consulting firms, startups, established teams). Questions are powerful—they make readers think about their current bottleneck immediately.
 
 ### Subheadline
 
@@ -149,8 +134,14 @@ Trusted by Fast-Moving Teams
 Display in single row, grayscale with color on hover:
 
 ```
-[iorta TechNext]  [Tynybay]  [Odwen]  [+ 8 more in beta]
+[Jai.CX]  [TynyBay]  [iorta TechNext]  [Odwen]  [+ others in beta]
 ```
+
+**Customer Websites**:
+- **Jai.CX**: https://jai.cx/ (AI-native copilot for founders)
+- **TynyBay**: https://tynybay.com (IT consulting firm)
+- **iorta TechNext**: https://iorta.in (BFSI platform, SalesVerse)
+- **Odwen**: https://odwen.co.in (Online warehousing platform)
 
 **Visual Direction**:
 - Grayscale logos by default
@@ -295,12 +286,14 @@ multi-cloud, and built with a no-lock-in philosophy from day one.
 |---------|---------|-----------------|--------------|---------------|
 | **Setup Time** | <1 hour | 1-2 days | 1-2 days | 1-2 weeks |
 | **Monthly Cost (7 devs)** | $450 | $1,200+ | $1,000+ | $12,500 (salary) |
-| **Backend CI/CD** | ✅ Included | ❌ Build yourself | ❌ Build yourself | ❌ Build yourself |
-| **Open Source** | ✅ Full transparency | ⚠️ Partial | ⚠️ Partial | N/A |
-| **AI Assistance** | ✅ Beta agents | ❌ No | ❌ No | ❌ No |
+| **Backend CI/CD** | ✅ Included (ServiceHub) | ❌ Build yourself | ❌ Build yourself | ❌ Build yourself |
+| **Out-of-the-Box Infra** | ✅ 120+ deployment components | ⚠️ Limited (Pulumi ESC) | ⚠️ Limited (some efforts) | ❌ Write everything |
+| **CLI Open Source** | ✅ Yes (project-planton) | ✅ Yes (terraform) | ✅ Yes (pulumi) | N/A |
+| **Deployment Modules Open Source** | ✅ Yes (100% on GitHub) | ❌ You write & maintain | ❌ You write & maintain | N/A |
+| **Platform (SaaS) Open Source** | ❌ No (like competitors) | ❌ No | ❌ No | N/A |
+| **AI Assistance Scope** | ✅ Full SDLC (infra + services) | ⚠️ Infra-only (Pulumi AI) | ⚠️ Infra-only | ❌ No |
 | **Exit Strategy** | ✅ Export everything | ⚠️ Migration cost | ⚠️ Migration cost | N/A |
 | **Multi-Cloud** | ✅ AWS, GCP, Azure, Cloudflare | ✅ Yes | ✅ Yes | ✅ Yes |
-| **Vendor Lock-In Risk** | ✅ None (open source) | ⚠️ Moderate | ⚠️ Moderate | N/A |
 
 **Visual Direction**:
 - Responsive table with alternating row backgrounds
@@ -325,10 +318,45 @@ Planton includes Service Hub—a Vercel-like experience for backend deployments 
 Cloud Run, etc. Terraform/Pulumi handle infrastructure only—you build CI/CD separately.
 ```
 
-**Open Source**: 
+**Out-of-the-Box Infrastructure**:
 ```
-Every Planton deployment component is auditable on GitHub (Project Planton). 
-Terraform/Pulumi have open CLIs but proprietary cloud platforms.
+Planton provides 120+ pre-built deployment components (AWS ECS Environment, GKE Cluster, 
+PostgreSQL RDS, Redis, Kafka, MongoDB, etc.) ready to use. With Terraform Cloud or Pulumi Cloud, 
+you still need to write all the infrastructure modules yourself. Pulumi has some efforts (Pulumi ESC) 
+but nothing like Planton's comprehensive out-of-the-box experience.
+```
+
+**Open Source Breakdown**:
+```
+CLI Tools (All Open Source):
+• Terraform CLI: ✅ Open source
+• Pulumi CLI: ✅ Open source  
+• project-planton CLI: ✅ Open source
+
+SaaS Platforms (None Open Source):
+• Terraform Cloud: ❌ Proprietary
+• Pulumi Cloud: ❌ Proprietary
+• Planton Cloud: ❌ Proprietary
+
+Deployment Modules (Only Planton Open Source):
+• Planton: ✅ All 120+ deployment components on GitHub (Project Planton)
+• Terraform Cloud: ❌ You write and maintain your own modules
+• Pulumi Cloud: ❌ You write and maintain your own modules
+
+This is Planton's key differentiator: The infrastructure that deploys YOUR cloud resources 
+is 100% auditable and open source. Competitors force you to write and maintain those modules yourself.
+```
+
+**AI Assistance Scope**:
+```
+Planton's AI agents have full SDLC context (Infra Hub + Service Hub). They understand:
+• Infrastructure deployments (like Pulumi AI)
+• Service pipelines and CI/CD workflows
+• Multi-environment configurations
+• Deployment history and patterns
+
+Pulumi AI only understands infrastructure. Planton agents understand the entire DevOps lifecycle, 
+making them far more capable for end-to-end troubleshooting and automation.
 ```
 
 **Exit Strategy**: 
@@ -339,6 +367,206 @@ No vendor lock-in by design.
 ```
 
 **Component Mapping**: NEW component `src/components/landing-page-v2/ComparisonTable.tsx`
+
+---
+
+### Comparison vs. PaaS Platforms (NEW - CRITICAL)
+
+**Placement**: Immediately after IaC platform comparison
+
+Planton sits at a unique intersection: **Platform-as-a-Service (like Vercel/Heroku) + Infrastructure-as-Code (like Terraform/Pulumi) in YOUR cloud**.
+
+#### Headline
+
+```
+Planton vs. Vercel, Heroku, Render, Railway
+```
+
+#### Subheadline
+
+```
+Great developer experience without giving up infrastructure control
+```
+
+#### Comparison Table
+
+| Feature | Planton | Vercel | Heroku | Render | Railway |
+|---------|---------|--------|--------|--------|---------|
+| **Service Deployment** | ✅ Backend services | ⚠️ Next.js only | ✅ Backend services | ✅ Backend services | ✅ Backend services |
+| **Infrastructure Deployment** | ✅ Full automation | ❌ No infrastructure | ❌ No infrastructure | ❌ No infrastructure | ❌ No infrastructure |
+| **Infrastructure Control** | ✅ Full control (your cloud) | ❌ Zero control | ❌ Zero control | ❌ Zero control | ❌ Zero control |
+| **Multi-Language Support** | ✅ Any language/framework | ⚠️ Next.js optimized | ✅ Multi-language | ✅ Multi-language | ✅ Multi-language |
+| **Cloud Provider** | ✅ YOUR cloud (AWS/GCP/Azure) | ❌ Vercel's cloud only | ❌ Heroku's cloud only | ❌ Render's cloud only | ❌ Railway's cloud only |
+| **Custom Infrastructure** | ✅ VPC, databases, queues, etc. | ❌ Not available | ❌ Not available | ❌ Limited add-ons | ❌ Limited add-ons |
+| **No Config Deployment** | ✅ Yes (ServiceHub) | ✅ Yes (Next.js) | ✅ Yes | ✅ Yes | ✅ Yes |
+| **IaC Code Access** | ✅ 100% open source | ❌ No IaC (black box) | ❌ No IaC (black box) | ❌ No IaC (black box) | ❌ No IaC (black box) |
+| **Exit Strategy** | ✅ Export everything | ⚠️ Rebuild elsewhere | ⚠️ Rebuild elsewhere | ⚠️ Rebuild elsewhere | ⚠️ Rebuild elsewhere |
+| **Monthly Cost (7 devs)** | $450 | $20-200+ (scales fast) | $175-500+ | $85-400+ | $100-500+ |
+
+### Feature Explanations
+
+**Service Deployment**:
+```
+Vercel: Exceptional experience but ONLY for Next.js projects. No backend services, no APIs.
+Heroku/Render/Railway: Great for backend services (Node.js, Python, Go, etc.).
+Planton: Backend services (like Heroku) + Next.js frontends (like Vercel) + Infrastructure.
+```
+
+**Infrastructure Deployment**:
+```
+Vercel/Heroku/Render/Railway: ZERO infrastructure automation. You can't deploy VPCs, databases, 
+queues, DNS, or any cloud resources. They provide managed add-ons but no infrastructure control.
+
+Planton: Deploy complete infrastructure (VPC, ALB, RDS PostgreSQL, Elasticache Redis, Kafka, 
+Route 53, ACM certificates, etc.) alongside your services.
+```
+
+**Infrastructure Control**:
+```
+Vercel/Heroku/Render/Railway: Run in THEIR cloud. You have zero visibility or control over 
+the underlying infrastructure.
+
+Planton: Deploys in YOUR AWS/GCP/Azure account. You own the infrastructure, see every resource, 
+and can access it directly via AWS/GCP/Azure consoles.
+```
+
+**The Planton Difference**:
+```
+PaaS Platforms (Vercel/Heroku/Render/Railway):
+✅ Great developer experience (no Terraform, no CI/CD files)
+❌ No infrastructure automation
+❌ No infrastructure control (their cloud, not yours)
+❌ Vendor lock-in (rebuild required to leave)
+
+IaC Platforms (Terraform Cloud/Pulumi Cloud):
+✅ Infrastructure automation
+✅ Runs in your cloud
+❌ No service deployment (you build CI/CD yourself)
+❌ Write all infrastructure modules yourself
+
+Planton (Best of Both Worlds):
+✅ Great developer experience (no Terraform, no CI/CD files)
+✅ Infrastructure automation (120+ deployment components)
+✅ Service deployment (ServiceHub - Vercel-like for backend)
+✅ Runs in YOUR cloud (full control and visibility)
+✅ No vendor lock-in (export everything)
+```
+
+### Visual Direction
+
+**Three-Circle Venn Diagram**:
+```
+┌─────────────────────────────────────────────────────┐
+│                                                     │
+│    PaaS                                IaC         │
+│  (Vercel/Heroku)              (Terraform/Pulumi)   │
+│         ○                              ○           │
+│          ╲                            ╱            │
+│           ╲                          ╱             │
+│            ╲                        ╱              │
+│             ╲        ●            ╱               │
+│              ╲     PLANTON      ╱                │
+│               ○─────────────────○                 │
+│                                                    │
+│  Great DX          Full Control                   │
+│  No Infra          Your Cloud                     │
+│                                                    │
+└─────────────────────────────────────────────────────┘
+
+Planton = Vercel/Heroku DX + Terraform/Pulumi Infrastructure + Your Cloud
+```
+
+**Key Callout Box**:
+```
+┌────────────────────────────────────────────────────────────────┐
+│ 🎯 UNIQUE POSITIONING                                          │
+│                                                                │
+│ Planton is the ONLY platform that combines:                   │
+│                                                                │
+│ ✅ Out-of-the-box service deployment (like Vercel/Heroku)     │
+│ ✅ Infrastructure automation (like Terraform/Pulumi)           │
+│ ✅ In YOUR cloud account (full control)                        │
+│ ✅ No vendor lock-in (100% open source deployment modules)    │
+│                                                                │
+│ You get Vercel's developer experience without giving up       │
+│ infrastructure control or getting locked into their platform. │
+└────────────────────────────────────────────────────────────────┘
+```
+
+### Real-World Use Case Examples
+
+**Use Case 1: Startup Deploying SaaS Product**
+
+**With Heroku**:
+```
+✅ Fast backend deployment
+❌ Can't customize VPC networking
+❌ Can't use AWS RDS (stuck with Heroku Postgres add-on)
+❌ Can't deploy Redis cluster with specific configuration
+❌ No multi-region support
+❌ Expensive as you scale (database add-ons cost $$)
+```
+
+**With Planton**:
+```
+✅ Fast backend deployment (ServiceHub)
+✅ Custom VPC with private subnets
+✅ RDS PostgreSQL with your desired instance type and configuration
+✅ Elasticache Redis with clustering
+✅ Multi-region capability when ready
+✅ Pay AWS directly for infrastructure (often 90%+ cheaper)
+```
+
+---
+
+**Use Case 2: Frontend Team Using Vercel**
+
+**With Vercel Only**:
+```
+✅ Great Next.js deployment experience
+❌ Can't deploy backend APIs (need separate platform)
+❌ Can't deploy databases (need separate managed service)
+❌ Can't deploy queues, caches, or other infrastructure
+❌ Everything locked in Vercel's cloud
+```
+
+**With Planton**:
+```
+✅ Deploy Next.js frontend (static export to S3 + CloudFront)
+✅ Deploy backend APIs (ServiceHub to ECS/Cloud Run)
+✅ Deploy PostgreSQL, Redis, Kafka, etc. (Infra Hub)
+✅ All in YOUR AWS/GCP account
+✅ Full-stack deployment in one platform
+```
+
+---
+
+**Use Case 3: Team Migrating from Heroku (Cost Savings)**
+
+**Heroku Costs** (typical 7-developer team):
+```
+• 7 dynos (Standard 2X): $350/month
+• Postgres Essential-1: $200/month
+• Redis Premium-2: $300/month
+• Total: $850/month (and scaling costs explode)
+```
+
+**Planton + AWS Costs** (same 7-developer team):
+```
+• Planton platform: $450/month
+• AWS ECS (Fargate): ~$100/month
+• RDS PostgreSQL (db.t3.medium): ~$60/month
+• Elasticache Redis (cache.t3.medium): ~$40/month
+• Total: ~$650/month (38% savings, better performance)
+```
+
+**Plus**:
+- ✅ Full infrastructure control
+- ✅ Can scale to enterprise without platform limits
+- ✅ Can customize every aspect of infrastructure
+- ✅ No vendor lock-in
+
+**Component Mapping**: Update `src/components/landing-page-v2/ComparisonTable.tsx` to include PaaS comparison section
 
 ---
 
@@ -368,7 +596,7 @@ Cloud Storage in 47 minutes. Our previous setup with manual Terraform took 3 day
 
 **Feature 3: Deployment Component Store**
 - Keep existing content
-- Add: "Browse 50+ components on GitHub →" (link to Project Planton)
+- Add: "Browse 120+ components on GitHub →" (link to Project Planton)
 
 **Component Mapping**: Update `src/components/landing-page-v2/InfraHub.tsx`
 
@@ -434,85 +662,80 @@ Real feedback from teams using Planton in production
 
 Display in 3-column grid (2 on tablet, 1 on mobile), masonry layout:
 
-#### Card 1
+#### Card 1: Harsha CH (Jai.CX - First User)
 ```
 ┌─────────────────────────────────────────────────────┐
-│ 👤 Swarup Donepudi                                  │
-│    Founder & CEO, Tynybay                           │
+│ 👤 Harsha CH                                         │
+│    Solo Developer, Jai.CX                            │
 │                                                      │
-│ "Planton let us deploy client infrastructure in     │
-│  under an hour instead of weeks. Game changer for   │
-│  consulting firms."                                  │
+│ "As Planton's first user, I filled out forms one by │
+│  one for VPC, ECS, Route 53, certificates. That led │
+│  to Infra Charts—now I deploy complete environments │
+│  in a single form. Weeks of Terraform → under 1 hr."│
 │                                                      │
-│ 🏢 Tynybay • 🌍 India                               │
+│ 🏢 Jai.CX • 🌍 USA/India                            │
 └─────────────────────────────────────────────────────┘
 ```
 
-#### Card 2
+#### Card 2: Rohit Reddy Gopy (TynyBay CEO)
 ```
 ┌─────────────────────────────────────────────────────┐
-│ 👤 Tech Lead                                         │
-│    iorta TechNext                                    │
+│ 👤 Rohit Reddy Gopy                                  │
+│    CEO, TynyBay                                      │
 │                                                      │
-│ "7 developers managing AWS ECS production without   │
-│  a DevOps hire. Planton saves us $12,000/month."    │
+│ "For a client in regulated industry (BFSI) who      │
+│  mandated GCP, Planton delivered the entire infra   │
+│  despite zero GCP experience on our team. Mature    │
+│  infrastructure out-of-the-box. Using Planton for   │
+│  all future client projects."                        │
 │                                                      │
-│ 🏢 iorta TechNext • 🌍 India                        │
+│ 🏢 TynyBay • 🌍 India                               │
 └─────────────────────────────────────────────────────┘
 ```
 
-#### Card 3
+#### Card 3: Balaji Borra (TynyBay DevOps)
 ```
 ┌─────────────────────────────────────────────────────┐
-│ 👤 Engineering Manager                               │
-│    Odwen                                             │
+│ 👤 Balaji Borra                                      │
+│    DevOps Engineer, TynyBay                          │
 │                                                      │
-│ "Infrastructure setup: 47 minutes with Planton vs   │
-│  3 days with manual Terraform. No comparison."      │
+│ "I handle 8+ client projects with Planton—no more   │
+│  rewriting Terraform between clients. My efficiency │
+│  has improved dramatically, and I provide far better│
+│  experience to all our developers."                  │
 │                                                      │
-│ 🏢 Odwen • 🌍 India                                 │
+│ 🏢 TynyBay • 🌍 India                               │
 └─────────────────────────────────────────────────────┘
 ```
 
-#### Card 4
+#### Card 4: Rakesh Kandhi (TynyBay Senior Developer)
 ```
 ┌─────────────────────────────────────────────────────┐
-│ 👤 Senior Developer                                  │
-│    SalesVerse (via iorta TechNext)                   │
+│ 👤 Rakesh Kandhi                                     │
+│    Senior Developer, TynyBay                         │
 │                                                      │
-│ "I can deploy backend services without waiting for  │
-│  DevOps tickets. Self-service infrastructure is     │
-│  incredible."                                        │
+│ "I can now update service configurations and deploy │
+│  to dev, staging, and prod—all without waiting on   │
+│  DevOps. Self-service infrastructure through        │
+│  ServiceHub is a game changer for productivity."    │
 │                                                      │
-│ 🏢 SalesVerse • 🌍 India                            │
+│ 🏢 TynyBay • 🌍 India                               │
 └─────────────────────────────────────────────────────┘
 ```
 
-#### Card 5
+#### Card 5: Sai Saketh (iorta TechNext Junior DevOps)
 ```
 ┌─────────────────────────────────────────────────────┐
-│ 👤 DevOps Engineer                                   │
-│    Beta Program Participant                          │
+│ 👤 Sai Saketh                                        │
+│    Junior DevOps Engineer, iorta TechNext            │
 │                                                      │
-│ "Finally, a platform that doesn't try to hide what  │
-│  it's doing. Every Terraform module is on GitHub.   │
-│  That's trust."                                      │
+│ "Planton enabled me to provide a mature developer   │
+│  experience to our 7-person team without requiring  │
+│  deep AWS expertise. They deploy to multiple        │
+│  environments independently and manage the entire   │
+│  infrastructure lifecycle themselves."              │
 │                                                      │
-│ 🏢 Confidential • 🌍 USA                            │
-└─────────────────────────────────────────────────────┘
-```
-
-#### Card 6
-```
-┌─────────────────────────────────────────────────────┐
-│ 👤 CTO                                               │
-│    Startup (Beta Program)                            │
-│                                                      │
-│ "We're a 5-person team. Planton gives us the        │
-│  infrastructure capabilities of a 50-person company. │
-│  Essential for lean startups."                       │
-│                                                      │
-│ 🏢 Confidential • 🌍 Europe                         │
+│ 🏢 iorta TechNext (SalesVerse) • 🌍 India          │
 └─────────────────────────────────────────────────────┘
 ```
 
@@ -530,11 +753,161 @@ Display in 3-column grid (2 on tablet, 1 on mobile), masonry layout:
 
 ## Section 8: Customer Stories (Expanded)
 
-*Keep existing Tynybay and iorta TechNext stories from December 19 draft.*
+**Note**: These are authentic customer stories with real names, metrics, and permissions for use.
 
-**Enhancement**: Expand from 2 to 4-5 stories. Add 2-3 additional stories:
+### Story 1: Harsha CH (Jai.CX) - First User, Infra Charts Pioneer
 
-### Story 3: Odwen - GCP Cloud Run Deployment
+**Company**: Jai.CX (https://jai.cx/ - formerly D33)  
+**Industry**: AI-Native Copilot for Founders  
+**Cloud**: AWS (ECS)  
+**Team Size**: 1 developer (solo founding engineer)
+
+#### Before Planton
+```
+• Hand-rolled Terraform modules: Weeks of infrastructure setup work
+• Three environments (dev, staging, prod) manually configured
+• Brittle GitHub Actions → aws ecs run-task deployment
+• Solo engineer spending days on infrastructure vs. product
+```
+
+#### After Planton
+```
+• Complete ECS environment (VPC, ALB, Route 53, ACM, ECS): <1 hour
+• Eliminated hand-written Terraform entirely
+• Robust Tekton CI/CD with automatic rollback
+• Production deployment in <1 engineer-week (vs. multi-week ramp-up)
+```
+
+#### Key Contribution
+```
+🎯 First User: Filled infrastructure forms one-by-one during onboarding
+💡 Infra Charts Creator: His feedback led to bundling forms into complete environments
+⚡ Now: What took him form-by-form filling deploys in single Infra Chart
+```
+
+#### Quote
+```
+"As Planton's first user, I filled out forms one by one—VPC, Security Groups, ECS, 
+Route 53, certificates. That tedious process led to Infra Charts, which now deploy 
+complete environments in a single form. I went from weeks of Terraform work to 
+deploying production infrastructure in under an hour."
+— Harsha CH, Solo Developer, Jai.CX
+```
+
+**Special Recognition**: Harsha's detailed onboarding feedback directly shaped Planton's most popular feature (Infra Charts).
+
+---
+
+### Story 2: TynyBay - IT Consulting Firm Multi-Client Success
+
+**Company**: TynyBay (https://tynybay.com)  
+**Industry**: IT Consulting  
+**Cloud**: AWS, GCP (multi-cloud)  
+**Team**: 1 DevOps Engineer (Balaji Borra) + Senior Developer (Rakesh Kandhi)  
+**CEO**: Rohit Reddy Gopy  
+**Client Projects**: 8+ concurrent clients managed
+
+#### Before Planton
+```
+• 1-2 weeks non-billable infrastructure setup per client project
+• DevOps engineer (Balaji) context-switching across 3 concurrent clients
+• Rewriting Terraform configurations between every client
+• Developer bottleneck for every config change or service deployment
+```
+
+#### After Planton
+```
+• <1 hour infrastructure setup per client
+• Same 1 DevOps engineer now handles 8+ concurrent clients
+• Consistent Infra Charts across all client projects
+• Developers (like Rakesh) self-service via ServiceHub .files feature
+```
+
+#### Key Metrics
+```
+⚡ 90% reduction in non-billable infrastructure time
+💰 2.5x client capacity (3 → 8+ clients) with same DevOps headcount
+🚀 GCP projects successful despite zero GCP expertise on team
+📈 Using Planton for all future client projects (CEO commitment)
+```
+
+#### Quotes
+
+**Rohit Reddy Gopy (CEO)**:
+```
+"For a client in regulated industry (BFSI) who mandated GCP, Planton delivered the 
+entire infrastructure despite zero GCP experience on our team. Planton provides mature 
+infrastructure out-of-the-box that covers compliance concerns. We're using Planton for 
+all future client projects."
+```
+
+**Balaji Borra (DevOps Engineer)**:
+```
+"I handle 8+ client projects with Planton—no more rewriting Terraform between clients. 
+My efficiency has improved dramatically, and I provide far better developer experience 
+to all our teams."
+```
+
+**Rakesh Kandhi (Senior Developer)**:
+```
+"I can now update service configurations and deploy to dev, staging, and prod—all 
+without waiting on DevOps. Self-service infrastructure through ServiceHub is a 
+game changer for developer productivity."
+```
+
+**Business Impact**: TynyBay scaled from 3 to 8+ concurrent client projects without hiring additional DevOps resources.
+
+---
+
+### Story 3: iorta TechNext (SalesVerse) - Junior DevOps → Senior Outcomes
+
+**Company**: iorta TechNext (https://iorta.in)  
+**Industry**: BFSI (Financial Services)  
+**Product**: SalesVerse - Sales cycle management platform  
+**Cloud**: AWS (ECS)  
+**Team Size**: 7 developers  
+**DevOps**: Sai Saketh (Junior DevOps Engineer)
+
+#### Before Planton
+```
+• Team lacked deep AWS expertise
+• 7 developers dependent on single junior DevOps resource
+• No budget for senior DevOps hire ($150K/year)
+• Needed multi-environment support (dev, staging, prod)
+• BFSI compliance requirements
+```
+
+#### After Planton
+```
+• Complete AWS ECS environment: <1 hour
+• Junior DevOps provides senior-level developer experience
+• 7 developers self-service their deployments
+• Multi-environment support without deep AWS expertise
+• Mature infrastructure meeting regulated industry requirements
+```
+
+#### Key Metrics
+```
+💰 $144,600/year savings vs. hiring senior DevOps engineer (96% cost reduction)
+👥 7 developers managing complete infrastructure lifecycle
+🚀 Highest platform usage customer (~51 hours automation time/month)
+⚡ $450/month total cost (vs. $12,500/month for DevOps salary)
+```
+
+#### Quote
+```
+"Planton enabled me to provide a mature developer experience to our entire 7-person dev 
+team without requiring deep AWS expertise. They can quickly deploy services to multiple 
+environments independently, and I don't have to deal with rewriting complex infrastructure 
+code. The platform handles complexity so I can focus on supporting the team."
+— Sai Saketh, Junior DevOps Engineer, iorta TechNext (SalesVerse)
+```
+
+**Strategic Value**: Proves that product teams can operate with junior DevOps + Planton instead of expensive senior hires.
+
+---
+
+### Story 4: Odwen - GCP Cloud Run Deployment
 
 **Company**: Odwen (odwen.co.in)  
 **Industry**: Logistics & Warehousing  
@@ -861,17 +1234,54 @@ Use Planton because it accelerates your team—not because you're trapped.
 ### NEW Headline (Stronger Positioning)
 
 ```
-The Only Truly Open DevOps Platform
+Open Infrastructure Modules—Not a Black Box
 ```
 
-### NEW Opening Statement (Lead with Differentiation)
+### NEW Opening Statement (Lead with Differentiation + Precision)
 
 ```
-Every line of infrastructure code? Open source.
-Every deployment module? Auditable on GitHub.
-Every credential? Stays in your control.
+Planton Cloud (the platform) is a SaaS product—just like Terraform Cloud and Pulumi Cloud.
+
+But here's the difference: Every infrastructure module that deploys YOUR resources? 
+100% open source on GitHub.
+
+With Terraform Cloud or Pulumi Cloud, you write and maintain those modules yourself.
+With Planton, they're built, maintained, and auditable by the community.
 
 No black boxes. No vendor lock-in. No surprises.
+```
+
+### Clarification: What's Open Source vs. What's Not
+
+**Open Source** (100% Auditable):
+```
+✅ All 120+ Deployment Components (AWS ECS, GKE, PostgreSQL, Redis, Kafka, MongoDB, etc.)
+✅ Pulumi/Terraform modules that deploy your infrastructure
+✅ project-planton CLI (independent of platform)
+✅ Infrastructure-as-code that runs in your cloud account
+```
+
+**Not Open Source** (Like All SaaS Platforms):
+```
+❌ Planton Cloud platform (web console, APIs, databases)
+❌ ServiceHub pipeline orchestration
+❌ Copilot/Agent infrastructure
+
+Just like:
+❌ Terraform Cloud (platform) is not open source
+❌ Pulumi Cloud (platform) is not open source
+```
+
+**Why This Matters**:
+```
+When you use Planton, the Terraform/Pulumi code that creates your VPCs, databases, 
+load balancers, and services is FULLY AUDITABLE on GitHub.
+
+With competitors, you're either:
+1. Writing those modules yourself (time-consuming, error-prone)
+2. Using proprietary modules you can't audit (black box)
+
+Planton gives you out-of-the-box infrastructure with full transparency.
 ```
 
 ### Three Pillars (Keep Existing Content)
@@ -942,13 +1352,43 @@ Update comparison to focus on "Truly Open" differentiation:
 
 ---
 
-## Section 13: Agent Fleet (Keep Existing)
+## Section 13: Agent Fleet (Enhanced - Add Competitive Context)
 
-*Keep existing content from December 19 draft - no changes needed.*
+*Keep existing content from December 19 draft (honest copilot failure narrative, emerging capability positioning).*
 
-Existing positioning is good: honest about copilot failure, positioned as emerging capability, not oversold.
+**Enhancement**: Add competitive differentiation context
 
-**Component Mapping**: Keep `src/components/landing-page-v2/AgentFleet.tsx` as-is
+### Why Planton Agents Are More Capable (NEW)
+
+**Add after existing Agent Fleet content**:
+
+```
+Why Full SDLC Context Matters
+
+Pulumi has AI capabilities (Pulumi AI). But Pulumi is only an infrastructure platform.
+Their AI can help you manage infrastructure code—that's it.
+
+Planton agents understand the ENTIRE DevOps lifecycle:
+✅ Infrastructure deployments (Infra Hub)
+✅ Service pipelines and CI/CD workflows (ServiceHub)  
+✅ Multi-environment configurations (dev, staging, prod)
+✅ Deployment history and failure patterns
+✅ Service dependencies and integration points
+
+This extended context makes Planton agents far more effective for:
+• End-to-end troubleshooting (not just infra, but also service deployments)
+• Cross-stack debugging (how infra affects services, how services interact)
+• Deployment optimization (analyzing both infra and service performance)
+• Root cause analysis (correlating infra changes with service issues)
+
+Specialized agents with full SDLC awareness > Generic copilot with limited context
+```
+
+**Visual Direction**: 
+- Diagram showing Planton's full SDLC context (Infra Hub + ServiceHub) vs. Pulumi's infra-only context
+- Highlight the "extended platform" advantage
+
+**Component Mapping**: Update `src/components/landing-page-v2/AgentFleet.tsx` with competitive context section
 
 ---
 
@@ -1020,22 +1460,35 @@ Join 5+ IT consulting firms and startups already deploying in minutes
 
 ### Add Customer Quote Carousel
 
-Rotate between top 3 quotes:
+Rotate between top 5 real customer quotes:
 
 ```
 Carousel (auto-rotate every 5 seconds):
 
 Slide 1:
-"Developers self-onboard their own services. That's a huge win."
-— Engineering Lead, Tynybay
+"As Planton's first user filling forms one-by-one led to Infra Charts—now I deploy 
+complete environments in a single form. Weeks of Terraform → under 1 hour."
+— Harsha CH, Solo Developer, Jai.CX
 
 Slide 2:
-"We scaled from 3 to 8 clients without hiring more DevOps engineers."
-— Managing Partner, IT Consulting Firm
+"For a BFSI client who mandated GCP, Planton delivered the entire infrastructure 
+despite zero GCP experience on our team. Using Planton for all future client projects."
+— Rohit Reddy Gopy, CEO, TynyBay
 
 Slide 3:
-"Complete AWS ECS environment deployed in under 1 hour. Game changer."
-— Tech Lead, iorta TechNext
+"I handle 8+ client projects—no more rewriting Terraform. My efficiency improved 
+dramatically. I provide far better experience to all our teams."
+— Balaji Borra, DevOps Engineer, TynyBay
+
+Slide 4:
+"I can now update service configurations and deploy to dev, staging, and prod—all 
+without waiting on DevOps. Self-service infrastructure is a game changer for productivity."
+— Rakesh Kandhi, Senior Developer, TynyBay
+
+Slide 5:
+"Planton enabled me to provide mature developer experience to our 7-person team without 
+requiring deep AWS expertise. They deploy independently and manage infrastructure themselves."
+— Sai Saketh, Junior DevOps Engineer, iorta TechNext
 ```
 
 **Visual Direction**: Fade transition between quotes, pause on hover

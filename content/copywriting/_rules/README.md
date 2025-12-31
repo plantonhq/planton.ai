@@ -8,6 +8,32 @@ Cursor rules in this directory provide structured, repeatable workflows for cont
 
 ## Available Rules
 
+### Two-Rule System for Two-LLM Workflow
+
+The copywriting workflow uses **two specialized cursor rules** for two specialized LLMs:
+
+1. **`update-planton-ai-copy-writing.mdc`** - Copywriting phase (content creation)
+2. **`implement-planton-ai-copy-writing.mdc`** - Implementation phase (code updates)
+
+**Which Rule to Use?**
+
+| Situation | Rule to Use |
+|-----------|-------------|
+| Starting a new copywriting update | `@update-planton-ai-copy-writing` |
+| Have feedback materials to analyze | `@update-planton-ai-copy-writing` |
+| Creating content drafts | `@update-planton-ai-copy-writing` |
+| Iterating on copy based on review | `@update-planton-ai-copy-writing` |
+| **Received handoff.md, ready to code** | `@implement-planton-ai-copy-writing` |
+| Updating React components | `@implement-planton-ai-copy-writing` |
+| Need to verify build | `@implement-planton-ai-copy-writing` |
+| Creating changelog from template | `@implement-planton-ai-copy-writing` |
+
+**Simple Rule**: 
+- **Content work** → Use `@update-planton-ai-copy-writing`
+- **Code work** → Use `@implement-planton-ai-copy-writing`
+
+---
+
 ### `update-planton-ai-copy-writing.mdc`
 
 **Type**: Action Rule (Copywriting-Focused LLM)
@@ -181,6 +207,88 @@ python3 content/copywriting/_rules/pdf_converter/convert_pdf.py
 
 **For Details**: See [`pdf_converter/README.md`](pdf_converter/README.md)
 
+---
+
+### `implement-planton-ai-copy-writing.mdc`
+
+**Type**: Action Rule (Implementation-Focused LLM)
+
+**Purpose**: Implement approved copywriting changes by updating React components based on handoff documents from the copywriting phase.
+
+**When to Use**:
+
+- After receiving `handoff.md` from copywriting phase
+- Ready to update React components in `src/`
+- Need to implement approved content changes
+- Want to verify build and deploy changes
+
+**Quick Start**:
+
+```mermaid
+flowchart TD
+    Start[Trigger Rule<br/>Provide handoff.md] --> Read[Read Handoff Document]
+    Read --> Understand[Understand Objective<br/>& Context]
+    Understand --> Plan[Create Implementation Plan]
+    Plan --> Approve{User Approves<br/>Plan?}
+    Approve -->|Yes| Implement[Update React Components]
+    Approve -->|No| Revise[Revise Plan]
+    Revise --> Plan
+    Implement --> Test[Test Locally<br/>yarn dev]
+    Test --> Build[Verify Build<br/>make build]
+    Build --> BuildOK{Build<br/>Passes?}
+    BuildOK -->|No| Fix[Fix Errors]
+    Fix --> Build
+    BuildOK -->|Yes| Changelog[Create Changelog]
+    Changelog --> Cleanup[Clean _workspace]
+    Cleanup --> Done[✅ Complete]
+```
+
+**Basic Usage**:
+
+```
+1. Receive handoff document from copywriting phase
+   Location: content/copywriting/_stage-area/YYYY-MM-DD-description/handoff.md
+
+2. Trigger the rule:
+   @implement-planton-ai-copy-writing
+   
+   Stage folder: content/copywriting/_stage-area/YYYY-MM-DD-description/
+   
+   Please implement the changes described in the handoff document.
+
+3. Review implementation plan (presented by rule)
+
+4. Approve plan - rule updates React components
+
+5. Automatic execution:
+   - Updates src/ components
+   - Tests locally (yarn dev)
+   - Verifies build (make build)
+   - Creates changelog
+   - Cleans workspace
+   
+6. Review summary and test changes
+```
+
+**What This Rule Handles**:
+
+- ✅ Reads and understands handoff document
+- ✅ Creates detailed implementation plan
+- ✅ Updates React components in `src/`
+- ✅ Maintains TypeScript types and MUI patterns
+- ✅ Preserves design system consistency
+- ✅ Tests locally (yarn dev)
+- ✅ Verifies build passes (make build)
+- ✅ Creates changelog from template
+- ✅ Cleans workspace automatically
+- ✅ Provides comprehensive implementation summary
+
+**Files Modified**: Components in `src/components/` and `src/app/`
+
+**Handoff Document Required**: This rule expects `handoff.md` created by the copywriting rule
+
+---
+
 ## Handoff Document
 
 ### What is handoff.md?
@@ -332,44 +440,140 @@ The handoff document is a **self-contained implementation guide** created automa
 
 **Output**: Verified changes, documented, workspace cleaned
 
-## Common Use Cases
+## Complete End-to-End Example
 
-### 1. Hero Section Update
+### Scenario: Landing Page Hero Security Update
 
-**Scenario**: Advisory feedback suggests emphasizing security for healthcare market.
+**Complete workflow using both rules:**
 
-**Materials**: Advisory feedback PDF, meeting transcript
-
-**Steps**:
+#### Step 1: Copywriting Phase (Copywriting LLM)
 
 ```bash
-# 1. Prepare
+# Prepare materials
 cp ~/feedback/advisory-healthcare.pdf content/copywriting/_workspace/
 
-# 2. Trigger
+# Trigger copywriting rule
 @update-planton-ai-copy-writing
 
 Update landing page hero to emphasize security and compliance.
 Target: Hero section only.
 Reason: Healthcare vertical feedback from advisory session.
 
-# 3. Review preview-1.html, iterate, approve
-# 4. Implementation updates: src/components/landing-page-v2/HeroSection.tsx
+# Copywriting LLM:
+# - Converts PDF to Markdown automatically
+# - Analyzes feedback
+# - Creates draft-1.md + preview-1.html
+# - User reviews: "Too technical, simplify for business buyers"
+# - Updates draft-1.md with simpler messaging
+# - User approves: "Perfect!"
+# - Creates handoff.md automatically
+
+✅ Handoff document created!
+Location: _stage-area/2025-12-31-hero-security/handoff.md
+Ready for implementation LLM.
 ```
 
-### 2. Complete Page Redesign
+#### Step 2: LLM Switch
+
+```
+User opens new chat or switches to implementation-focused LLM
+```
+
+#### Step 3: Implementation Phase (Implementation LLM)
+
+```bash
+# Trigger implementation rule
+@implement-planton-ai-copy-writing
+
+Stage folder: content/copywriting/_stage-area/2025-12-31-hero-security/
+Please implement the changes described in the handoff document.
+
+# Implementation LLM:
+# - Reads handoff.md
+# - Creates implementation plan
+# - Presents plan: "Update HeroSection.tsx with security badges"
+# - User approves plan
+# - Updates src/components/landing-page-v2/HeroSection.tsx
+# - Tests locally (yarn dev)
+# - Runs make build ✅
+# - Creates changelog
+# - Cleans workspace
+
+✅ Implementation complete!
+Updated: HeroSection.tsx
+Build: Passed
+Changelog: _changelog/2025-12/2025-12-31-123045-hero-security.md
+```
+
+#### Step 4: Deploy
+
+```bash
+# Commit and push (or create PR)
+@commit-planton-ai-changes
+git push origin main
+
+# GitHub Pages deploys automatically
+# Live at https://planton.ai in 3-5 minutes
+```
+
+**Total Time**: 
+- Copywriting phase: 1-2 hours (review and iteration)
+- Implementation phase: 15-30 minutes (code updates and verification)
+- **Total**: ~2-2.5 hours (vs 4-6 hours with single LLM)
+
+**Quality**:
+- Better content (specialized copywriting LLM)
+- Better code (specialized implementation LLM)
+- Fewer errors (clear handoff document)
+- Complete documentation (handoff + changelog)
+
+---
+
+## Common Use Cases
+
+### 1. Hero Section Update (Single Component)
+
+**Scenario**: Advisory feedback suggests emphasizing security for healthcare market.
+
+**Materials**: Advisory feedback PDF, meeting transcript
+
+**Copywriting Phase**:
+
+```bash
+cp ~/feedback/advisory-healthcare.pdf content/copywriting/_workspace/
+
+@update-planton-ai-copy-writing
+
+Update landing page hero to emphasize security and compliance.
+Target: Hero section only.
+Reason: Healthcare vertical feedback from advisory session.
+
+# Review → Iterate → Approve → handoff.md created
+```
+
+**Implementation Phase** (New LLM Session):
+
+```bash
+@implement-planton-ai-copy-writing
+
+Stage folder: content/copywriting/_stage-area/2025-12-31-hero-security/
+
+# Plan → Approve → Updates HeroSection.tsx → Build ✅ → Done
+```
+
+**Result**: Single component updated in ~30 minutes
+
+### 2. Complete Page Redesign (Multiple Components)
 
 **Scenario**: Competitor analysis drives pricing page restructure.
 
 **Materials**: Competitor screenshots, pricing analysis, market research
 
-**Steps**:
+**Copywriting Phase** (Expect multiple iterations):
 
 ```bash
-# 1. Prepare multiple materials
 cp ~/research/* content/copywriting/_workspace/
 
-# 2. Trigger with comprehensive context
 @update-planton-ai-copy-writing
 
 Complete pricing page redesign based on competitive analysis.
@@ -380,20 +584,32 @@ Key changes:
 - ROI calculator prominence
 - Usage metering clarity
 
-# 3. Expect multiple iteration rounds (draft-2, draft-3)
-# 4. Implementation updates multiple components in src/components/pricing/
+# Multiple iterations: draft-1 → draft-2 → draft-3
+# Final approval → handoff.md created
 ```
 
-### 3. Customer Story Addition
+**Implementation Phase** (New LLM Session):
+
+```bash
+@implement-planton-ai-copy-writing
+
+Stage folder: content/copywriting/_stage-area/2025-12-31-pricing-redesign/
+
+# Plan shows multiple components (plans.tsx, calculator.tsx, faqs.tsx)
+# Approve → Updates all components → Build ✅ → Done
+```
+
+**Result**: Multiple components updated in ~1-2 hours
+
+### 3. Customer Story Addition (Focused Update)
 
 **Scenario**: New customer success story needs to be featured.
 
 **Materials**: Customer interview notes, metrics, quotes
 
-**Steps**:
+**Copywriting Phase** (Quick iteration):
 
 ```bash
-# 1. Create customer story document
 cat > content/copywriting/_workspace/customer-story.md << EOF
 # RAD Cube Technologies
 - IT consulting firm
@@ -401,16 +617,28 @@ cat > content/copywriting/_workspace/customer-story.md << EOF
 - Quote: "Planton eliminated DevOps bottlenecks"
 EOF
 
-# 2. Trigger
 @update-planton-ai-copy-writing
 
 Add new customer story to landing page.
 Customer: RAD Cube Technologies
 Placement: Customer Stories section
 
-# 3. Simple approval flow (usually single draft)
-# 4. Implementation: src/components/landing-page-v2/CustomerStories.tsx
+# Single draft usually sufficient
+# Approve → handoff.md created
 ```
+
+**Implementation Phase** (New LLM Session):
+
+```bash
+@implement-planton-ai-copy-writing
+
+Stage folder: content/copywriting/_stage-area/2025-12-31-customer-story-rad-cube/
+
+# Simple plan: Add story to CustomerStories.tsx
+# Approve → Updates component → Build ✅ → Done
+```
+
+**Result**: Focused update completed in ~20-30 minutes
 
 ## Tips for Effective Usage
 
@@ -701,12 +929,30 @@ Changes deploy automatically via GitHub Pages workflow:
 
 ## Rule Metadata
 
+### Copywriting Rule
+
 **File**: `update-planton-ai-copy-writing.mdc`  
-**Type**: Action Rule  
-**Scope**: Website copywriting automation  
-**Phases**: 5 (Analysis → Staging → Iteration → Implementation → Verification)  
-**Automation Level**: High (manual review at iteration phase)  
-**Git Integration**: Yes (auto-cleanup workspace, creates stage folders, generates changelogs)
+**Type**: Action Rule (Copywriting-Focused LLM)  
+**Scope**: Content creation and handoff document generation  
+**Phases**: 4 (PDF Conversion → Analysis → Staging/Iteration → Handoff)  
+**Output**: handoff.md (self-contained implementation guide)  
+**LLM**: Specialized for content, messaging, brand voice
+
+### Implementation Rule
+
+**File**: `implement-planton-ai-copy-writing.mdc`  
+**Type**: Action Rule (Implementation-Focused LLM)  
+**Scope**: React component updates and build verification  
+**Phases**: 6 (Understanding → Planning → Implementation → Testing → Documentation → Cleanup)  
+**Input**: handoff.md from copywriting phase  
+**Output**: Updated src/ components, changelog, cleaned workspace  
+**LLM**: Specialized for React, TypeScript, build systems
+
+### Combined Workflow
+
+**Automation Level**: High (manual review at iteration and plan approval)  
+**Git Integration**: Yes (auto-cleanup workspace, creates changelogs, stage folders)  
+**Two-LLM Architecture**: Clean separation between content and code
 
 ## Support
 
