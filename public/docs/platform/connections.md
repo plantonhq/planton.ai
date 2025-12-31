@@ -84,7 +84,7 @@ These let Planton Cloud create and manage infrastructure in your cloud accounts.
 - Manage S3 buckets, Lambda functions
 - Configure load balancers, Route53
 
-![AWS connection form](https://assets.planton.ai/site/images/aws-credentials_123456789012_aws_dev-account.png)
+![AWS connection form](https://assets.planton.ai/site/images/docs/platform/aws-credentials_123456789012_aws_dev-account.png)
 
 #### Google Cloud Platform (GCP)
 **Purpose**: Deploy resources to Google Cloud
@@ -197,7 +197,7 @@ Connect to existing Kubernetes clusters.
 3. Existing connections listed separately
 
 > **Screenshot Placeholder**: Connections page overview
-![Connections page showing existing AWS dev account](https://assets.planton.ai/site/images/existing-connections_dev-account_24-08-2025_aws-credential.png)
+![Connections page showing existing AWS dev account](https://assets.planton.ai/site/images/docs/platform/existing-connections_dev-account_24-08-2025_aws-credential.png)
 
 ### Step 2: Create a Connection
 
@@ -219,7 +219,7 @@ Example: Connecting AWS
 4. Click **"Submit"**
 
 > **Screenshot Placeholder**: Filled AWS connection form with environment checkboxes
-![Filled AWS connection form with environment authorization](https://assets.planton.ai/site/images/aws-credentials_123456789012_aws_dev-account.png)
+![Filled AWS connection form with environment authorization](https://assets.planton.ai/site/images/docs/platform/aws-credentials_123456789012_aws_dev-account.png)
 
 ### Step 3: Verify Connection
 
@@ -230,7 +230,7 @@ After creation:
 - Shows connection health status
 
 > **Screenshot Placeholder**: Existing connections list
-![Existing connections list with AWS dev account](https://assets.planton.ai/site/images/existing-connections_dev-account_24-08-2025_aws-credential.png)
+![Existing connections list with AWS dev account](https://assets.planton.ai/site/images/docs/platform/existing-connections_dev-account_24-08-2025_aws-credential.png)
 
 ### Managing Existing Connections
 
@@ -241,7 +241,7 @@ Click on any connection to:
 - View usage history
 - Delete connection
 
-![Connection details page showing AWS dev account details](https://assets.planton.ai/site/images/aws-dev-account-details_123456789012_24-08-2025.png)
+![Connection details page showing AWS dev account details](https://assets.planton.ai/site/images/docs/platform/aws-dev-account-details_123456789012_24-08-2025.png)
 
 ## Environment Authorization
 

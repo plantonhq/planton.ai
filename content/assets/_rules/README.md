@@ -10,7 +10,75 @@ This folder contains cursor rules that automate asset management workflows. Thes
 
 | Rule | Purpose |
 |------|---------|
-| `process-planton-ai-images.mdc` | Process images from inbox: compress, rename, organize, upload to R2 |
+| `process-planton-ai-images.mdc` | Process images from inbox: compress, rename, organize by URL structure, upload to R2 |
+
+## Core Principle: URL-Mirrored Organization
+
+**The folder structure for images mirrors the website URL where they are used.**
+
+This is the single most important organizational principle. It creates a deterministic, predictable system where:
+
+1. Given a page URL, you know exactly where its images live
+2. Given an image path, you know exactly which page uses it
+3. Cursor can infer the correct destination from context alone
+
+### URL-to-Folder Mapping
+
+```mermaid
+flowchart LR
+    subgraph website [Website URL]
+        W1[planton.ai/docs/service-hub/deployment-environments]
+        W2[planton.ai/docs/platform/connections]
+        W3[planton.ai/blog/my-post]
+        W4[planton.ai/]
+    end
+    
+    subgraph images [Image Folder]
+        I1[images/docs/service-hub/deployment-environments/]
+        I2[images/docs/platform/connections/]
+        I3[images/blog/my-post/]
+        I4[images/landing/]
+    end
+    
+    subgraph r2 [R2 URL]
+        R1[assets.planton.ai/site/images/docs/service-hub/deployment-environments/]
+        R2[assets.planton.ai/site/images/docs/platform/connections/]
+        R3[assets.planton.ai/site/images/blog/my-post/]
+        R4[assets.planton.ai/site/images/landing/]
+    end
+    
+    W1 --> I1 --> R1
+    W2 --> I2 --> R2
+    W3 --> I3 --> R3
+    W4 --> I4 --> R4
+```
+
+### Mapping Table
+
+| Website URL | Local Image Folder | R2 URL |
+|-------------|-------------------|--------|
+| `planton.ai/docs/service-hub/deployment-environments` | `content/assets/images/docs/service-hub/deployment-environments/` | `assets.planton.ai/site/images/docs/service-hub/deployment-environments/` |
+| `planton.ai/docs/platform/connections` | `content/assets/images/docs/platform/connections/` | `assets.planton.ai/site/images/docs/platform/connections/` |
+| `planton.ai/docs/service-hub/kubernetes-dashboard` | `content/assets/images/docs/service-hub/kubernetes-dashboard/` | `assets.planton.ai/site/images/docs/service-hub/kubernetes-dashboard/` |
+| `planton.ai/blog/2025-01-my-post` | `content/assets/images/blog/2025-01-my-post/` | `assets.planton.ai/site/images/blog/2025-01-my-post/` |
+| `planton.ai/` (landing) | `content/assets/images/landing/` | `assets.planton.ai/site/images/landing/` |
+
+### Why This Matters
+
+**For Humans:**
+- Easy to find images for any page
+- Clear organization without memorizing arbitrary conventions
+- Simple cleanup when pages are removed
+
+**For AI (Cursor):**
+- Deterministic destination inference from context
+- No guessing or ambiguity
+- Better accuracy when processing images
+
+**For Maintenance:**
+- Images move with pages during refactoring
+- Dead images are easy to identify
+- Audit trails are natural
 
 ## Architecture
 
@@ -20,22 +88,26 @@ flowchart TD
         A[Raw screenshots] --> B[content/assets/_inbox/]
     end
     
-    subgraph trigger [2. Invoke Rule]
+    subgraph trigger [2. Invoke Rule with Page Context]
         B --> C[Trigger @process-planton-ai-images]
-        C --> D[Provide context about images]
+        C --> D["Provide context: 'for deployment-environments docs'"]
     end
     
-    subgraph process [3. Python Tool Executes]
-        D --> E[Preflight checks]
-        E --> F[Compress images]
-        F --> G[Generate names]
-        G --> H[Move to destination]
-        H --> I[Upload to R2]
+    subgraph infer [3. AI Infers Destination]
+        D --> E["Page URL: /docs/service-hub/deployment-environments"]
+        E --> F["Image path: images/docs/service-hub/deployment-environments/"]
     end
     
-    subgraph result [4. Ready to Use]
-        I --> J[Images at assets.planton.ai]
-        J --> K[Use in docs/website]
+    subgraph process [4. Python Tool Executes]
+        F --> G[Compress images]
+        G --> H[Generate timestamped names]
+        H --> I[Move to destination folder]
+        I --> J[Upload to R2]
+    end
+    
+    subgraph result [5. Ready to Use]
+        J --> K["R2: assets.planton.ai/site/images/docs/service-hub/deployment-environments/"]
+        K --> L[Embed in docs page]
     end
 ```
 
@@ -50,83 +122,102 @@ content/assets/_inbox/
 
 This folder is gitignored (except README and .gitignore), so raw images won't bloat the repository.
 
-### Step 2: Invoke the Rule with Context
+### Step 2: Invoke the Rule with Page Context
 
-In Cursor chat, invoke the rule and describe what the images are:
+In Cursor chat, invoke the rule and specify which page the images are for:
 
 ```
 @process-planton-ai-images
 
-I've added 3 screenshots showing the new deployment pipeline feature in Service Hub.
-These are for the deployment-environments documentation page.
+I've added 3 screenshots for the deployment environments documentation page.
+These show the pipeline configuration and environment selector modal.
 ```
+
+**Key context to provide:**
+- Which page/URL the images are for
+- What the images show (for naming)
 
 ### Step 3: AI Determines Organization
 
-Based on your context, the rule determines:
-- **Context prefix**: e.g., `service-hub`
-- **Description suffix**: e.g., `deployment-pipeline-overview`
-- **Destination folder**: e.g., `content/assets/images/service-hub/deployment-environments/`
+Based on your context, the rule:
+
+1. **Identifies the target page URL**: `/docs/service-hub/deployment-environments`
+2. **Mirrors the URL to image path**: `images/docs/service-hub/deployment-environments/`
+3. **Generates descriptive filenames**: `2025-12-31-103045-pipeline-configuration.png`
 
 ### Step 4: Processing Happens
 
 The Python tool:
 1. **Checks prerequisites** (jpegoptim, pngquant, R2 access)
 2. **Compresses images** (lossless for JPEG, lossy for PNG)
-3. **Renames with convention**: `YYYY-MM-DD-HHMMSS-context-description.ext`
-4. **Moves to destination folder**
+3. **Renames with convention**: `YYYY-MM-DD-HHMMSS-description.ext`
+4. **Moves to URL-mirrored folder**
 5. **Uploads to R2**
 
 ### Step 5: Get URLs
 
-After processing, you receive R2 URLs ready for use:
+After processing, you receive R2 URLs that match the URL structure:
 ```
-https://assets.planton.ai/site/images/service-hub/deployment-environments/2025-12-31-103045-service-hub-pipeline-overview.png
+https://assets.planton.ai/site/images/docs/service-hub/deployment-environments/2025-12-31-103045-pipeline-configuration.png
 ```
+
+Use this directly in your documentation page at `/docs/service-hub/deployment-environments`.
 
 ## Naming Convention
 
 ```
-YYYY-MM-DD-HHMMSS-context-description.ext
-│          │       │       │
-│          │       │       └── What the image shows
-│          │       └── Feature area (e.g., service-hub, kubernetes-dashboard)
+YYYY-MM-DD-HHMMSS-description.ext
+│          │       │
+│          │       └── What the image shows
 │          └── Timestamp (HHMMSS)
 └── Date (YYYY-MM-DD)
 ```
 
+**Note:** Context (feature area) is encoded in the folder path, not the filename.
+
 **Examples:**
-- `2025-12-31-103045-service-hub-deployment-pipeline-overview.png`
-- `2025-12-31-143500-kubernetes-dashboard-pod-exec-terminal.png`
-- `2025-12-31-201530-landing-page-hero-section.gif`
+- `2025-12-31-103045-pipeline-overview.png`
+- `2025-12-31-143500-pod-exec-terminal.png`
+- `2025-12-31-201530-hero-animation.gif`
 
 ## Folder Structure
 
 ```
 content/assets/
-├── _inbox/               # Drop zone for raw images (gitignored)
+├── _inbox/                         # Drop zone (gitignored)
 │   ├── .gitignore
 │   └── README.md
-├── _rules/               # This folder - cursor rules
-│   ├── process-images.mdc
+├── _rules/                         # Cursor rules (this folder)
+│   ├── process-planton-ai-images.mdc
 │   └── README.md
-└── images/               # Organized, processed images
-    ├── service-hub/
-    │   └── deployment-environments/
-    ├── kubernetes-dashboard/
-    ├── infra-hub/
-    └── landing-page/
+└── images/                         # URL-mirrored organization
+    ├── docs/                       # Documentation pages
+    │   ├── platform/
+    │   │   ├── getting-started/
+    │   │   ├── core-concepts/
+    │   │   ├── connections/
+    │   │   └── platform-tour/
+    │   └── service-hub/
+    │       ├── deployment-environments/
+    │       └── kubernetes-dashboard/
+    ├── blog/                       # Blog posts
+    │   └── 2025-01-my-post/
+    └── landing/                    # Landing page
 ```
 
 ## R2 Bucket Mirror
 
-The assets folder mirrors to R2:
+The assets folder mirrors to R2 with a consistent path:
 
 | Local Path | R2 URL |
 |------------|--------|
-| `content/assets/images/service-hub/x.png` | `https://assets.planton.ai/site/images/service-hub/x.png` |
+| `content/assets/images/docs/service-hub/deployment-environments/x.png` | `assets.planton.ai/site/images/docs/service-hub/deployment-environments/x.png` |
 
-**Mental model**: If it's in `content/assets/`, it's available at `assets.planton.ai/site/`.
+**Mental model**: 
+- Website URL: `planton.ai/docs/service-hub/deployment-environments`
+- Image URL: `assets.planton.ai/site/images/docs/service-hub/deployment-environments/x.png`
+
+The `docs/service-hub/deployment-environments` part is identical.
 
 ## Prerequisites
 
@@ -177,6 +268,16 @@ Ensure images are directly in `_inbox/`, not in a subdirectory.
 1. Verify AWS CLI profile: `aws configure list --profile r2`
 2. Test bucket access: `aws s3 ls s3://planton-assets --profile r2 --endpoint-url https://074755a78d8e8f77c119a90a125e8a06.r2.cloudflarestorage.com`
 
+### Wrong Destination Folder
+
+If images end up in the wrong folder, provide more specific context about which page they're for. Example:
+```
+@process-planton-ai-images
+
+These screenshots are specifically for the /docs/platform/connections page,
+showing the AWS credential creation flow.
+```
+
 ## Manual Commands
 
 For manual control, use the Python tool directly:
@@ -188,8 +289,10 @@ python -m tools.image_processor check
 # List inbox contents
 python -m tools.image_processor inbox
 
-# Process with specific context
-python -m tools.image_processor process -c "service-hub" -d "feature-name"
+# Process with URL-mirrored path
+python -m tools.image_processor process \
+  --context "docs/service-hub/deployment-environments" \
+  --description "pipeline-overview"
 
 # Sync assets to R2 (without processing)
 python -m tools.image_processor sync
@@ -199,4 +302,3 @@ make check-images
 make inbox
 make sync-assets
 ```
-

@@ -55,7 +55,7 @@ Every platform has its own vocabulary—concepts that, once understood, make eve
 4. Fill out the form
 5. Watch it build
 
-![Lego Blocks in Component Store showing various AWS resources](https://assets.planton.ai/site/images/component_AWS-VPC_AWS.png)
+![Lego Blocks in Component Store showing various AWS resources](https://assets.planton.ai/site/images/docs/platform/component_AWS-VPC_AWS.png)
 
 ### Infra Charts
 
@@ -84,7 +84,7 @@ Every platform has its own vocabulary—concepts that, once understood, make eve
 - Need standard infrastructure quickly
 - Want platform best practices built-in
 
-![Infra Chart deployment and progress](https://assets.planton.ai/site/images/deploy-aws-vpc_dev-1.png)
+![Infra Chart deployment and progress](https://assets.planton.ai/site/images/docs/platform/deploy-aws-vpc_dev-1.png)
 
 ### Infra Projects
 

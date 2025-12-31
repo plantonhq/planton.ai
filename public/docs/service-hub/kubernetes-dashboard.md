@@ -29,7 +29,7 @@ In this guide, you'll discover how to:
 
 After your service deploys, you'll notice a Kubernetes icon in the details pane. This icon appears not just for services, but for any Planton Cloud resource (Lego block) deployed to Kubernetes. Click it, and welcome to a whole new way of interacting with your deployments.
 
-![Kubernetes Icon in Service Details](https://assets.planton.ai/site/images/kubernetes-dashboard/Service-details-Kubernetes-icon.png)
+![Kubernetes Icon in Service Details](https://assets.planton.ai/site/images/docs/service-hub/kubernetes-dashboard/Service-details-Kubernetes-icon.png)
 
 ### Service-Scoped Views
 
@@ -47,7 +47,7 @@ This approach:
 
 When you open the Kubernetes Dashboard, you're greeted with a directed acyclic graph (DAG) showing all Kubernetes resources created for your service. The interactive visual graph displays your resources and their relationships:
 
-![Kubernetes Dashboard Tab](https://assets.planton.ai/site/images/kubernetes-dashboard/Dashboard-tag.png)
+![Kubernetes Dashboard Tab](https://assets.planton.ai/site/images/docs/service-hub/kubernetes-dashboard/Dashboard-tag.png)
 
 Each node in the graph represents a Kubernetes resource, with lines showing dependencies and relationships. This visual representation makes it immediately clear how your service is structured in Kubernetes. The actual dashboard provides an interactive experience where you can click on each node to explore and manage resources.
 
@@ -55,7 +55,7 @@ Each node in the graph represents a Kubernetes resource, with lines showing depe
 
 Click on any resource node to reveal available actions:
 
-![Resource Action Icons](https://assets.planton.ai/site/images/kubernetes-dashboard/Object-View-Icon.png)
+![Resource Action Icons](https://assets.planton.ai/site/images/docs/service-hub/kubernetes-dashboard/Object-View-Icon.png)
 
 ### For All Resources
 - **View Details**: See `kubectl describe` output and full YAML
@@ -67,7 +67,7 @@ Click on any resource node to reveal available actions:
 - **Stream Logs**: View real-time logs from the pod
 - **View Container Details**: Inspect container-specific configuration
 
-![Pod Exec Action](https://assets.planton.ai/site/images/kubernetes-dashboard/pod-exec-icon.png)
+![Pod Exec Action](https://assets.planton.ai/site/images/docs/service-hub/kubernetes-dashboard/pod-exec-icon.png)
 
 ## Day 2 Operations Made Simple
 
@@ -86,7 +86,7 @@ Annotations:  deployment.kubernetes.io/revision: 3
 
 2. **Full YAML**: The complete resource definition in YAML format
 
-![Deployment YAML View](https://assets.planton.ai/site/images/kubernetes-dashboard/Deployment-yaml.png)
+![Deployment YAML View](https://assets.planton.ai/site/images/docs/service-hub/kubernetes-dashboard/Deployment-yaml.png)
 
 ### Editing Resources
 
@@ -112,7 +112,7 @@ One of the most powerful features is browser-based pod access:
 4. **Select Shell**: Choose bash, sh, or another available shell
 5. **Run Commands**: Full terminal access in your browser
 
-![Pod Exec Shell](https://assets.planton.ai/site/images/kubernetes-dashboard/pod-Exec-Shell.png)
+![Pod Exec Shell](https://assets.planton.ai/site/images/docs/service-hub/kubernetes-dashboard/pod-Exec-Shell.png)
 
 Example use cases:
 ```bash
