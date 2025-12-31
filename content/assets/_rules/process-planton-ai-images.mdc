@@ -1,0 +1,135 @@
+---
+description: Process images from the inbox, compress them, organize with proper naming, and upload to R2
+globs:
+alwaysApply: false
+---
+
+# Process Planton.ai Images
+
+Action rule to process images placed in the planton.ai inbox folder. Takes context about the images to determine appropriate naming and organization.
+
+## When to Use
+
+Invoke this rule when you have placed screenshots or images in `content/assets/_inbox/` and want to:
+- Compress them for optimal file size
+- Name them following the project convention
+- Organize them in the correct folder
+- Upload to Cloudflare R2
+
+## Workflow
+
+1. Drop images in `content/assets/_inbox/`
+2. Invoke this rule with context about what the images are
+3. AI determines appropriate naming and destination based on context
+4. Python tool compresses, renames, moves, and uploads
+
+## Context Requirements
+
+When invoking this rule, provide:
+- **Feature area**: What part of Planton these images relate to (e.g., "service-hub", "kubernetes-dashboard", "landing-page")
+- **Purpose**: What the images show or document
+- **Strategic importance**: How they fit into the website or documentation
+
+## Naming Convention
+
+Images are named following this pattern:
+```
+YYYY-MM-DD-HHMMSS-context-description.ext
+```
+
+Examples:
+- `2025-12-31-103045-service-hub-deployment-pipeline-overview.png`
+- `2025-12-31-143500-kubernetes-dashboard-pod-exec-terminal.png`
+- `2025-12-31-201530-landing-page-hero-animation.gif`
+
+## Destination Folders
+
+Common destinations within `content/assets/images/`:
+- `service-hub/` - Service Hub features
+- `service-hub/deployment-environments/` - Deployment environment screenshots
+- `kubernetes-dashboard/` - Kubernetes dashboard features
+- `infra-hub/` - Infrastructure Hub features
+- `landing-page/` - Marketing website images
+- `docs/` - General documentation images
+
+## Instructions
+
+<rule>
+name: process-planton-ai-images
+description: Process planton.ai inbox images with compression and organization
+
+filters:
+  - type: manual
+    description: Triggered manually with context about images
+
+actions:
+  - type: analyze
+    description: |
+      1. List images currently in inbox by running:
+         ```bash
+         cd /Users/swarup/scm/github.com/plantoncloud/planton.ai
+         source .venv/bin/activate
+         python -m tools.image_processor inbox
+         ```
+
+      2. Based on the user's context, determine:
+         - Context prefix (e.g., "service-hub", "kubernetes-dashboard")
+         - Description suffix for each image
+         - Destination folder path
+
+  - type: execute
+    description: |
+      Run the image processor with determined parameters:
+      
+      ```bash
+      cd /Users/swarup/scm/github.com/plantoncloud/planton.ai
+      source .venv/bin/activate
+      python -m tools.image_processor process \
+        --context "<CONTEXT>" \
+        --description "<DESCRIPTION>"
+      ```
+
+      Replace:
+      - `<CONTEXT>`: The feature area (e.g., "service-hub/deployment-environments")
+      - `<DESCRIPTION>`: Description of what the images show
+
+  - type: report
+    description: |
+      After processing, report:
+      - How many images were processed
+      - Compression savings achieved
+      - Final R2 URLs for use in docs/website
+      - Any markdown snippets for embedding the images
+
+examples:
+  - trigger: "Process these screenshots of the deployment pipeline feature"
+    context: "User dropped 3 screenshots showing the new deployment pipeline UI"
+    action: |
+      python -m tools.image_processor process \
+        --context "service-hub" \
+        --description "deployment-pipeline-ui"
+    
+  - trigger: "Process the kubernetes pod logs screenshots"
+    context: "User dropped screenshots of the pod logs feature in k8s dashboard"
+    action: |
+      python -m tools.image_processor process \
+        --context "kubernetes-dashboard" \
+        --description "pod-logs-streaming"
+</rule>
+
+## Troubleshooting
+
+If the tool fails, check:
+
+1. **Preflight errors**: Run `python -m tools.image_processor check` to verify all tools are installed
+2. **No images found**: Ensure images are in `content/assets/_inbox/` (not a subdirectory)
+3. **R2 access denied**: Verify AWS CLI is configured with the `r2` profile
+
+## R2 URLs
+
+After processing, images are available at:
+```
+https://assets.planton.ai/site/images/{path}/{filename}
+```
+
+This mirrors the local path structure for predictability.

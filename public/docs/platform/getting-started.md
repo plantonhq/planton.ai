@@ -115,7 +115,7 @@ Before deploying infrastructure, connect your cloud provider account. This gives
    - Registries: Docker, ECR, GCR
    - Others: Kubernetes, Terraform backends
 
-![Connections page showing provider cards with Connect buttons](https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/existing-connections_dev-account_24-08-2025_aws-credential.png)
+![Connections page showing provider cards with Connect buttons](https://assets.planton.ai/site/images/existing-connections_dev-account_24-08-2025_aws-credential.png)
 
 ### Connect AWS (Example)
 
@@ -131,13 +131,13 @@ Let's connect an AWS account:
    - Check the box next to "development"
    - This allows the environment to use these credentials
 
-![AWS connection form with environment authorization checkboxes](https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/aws-credentials_123456789012_aws_dev-account.png)
+![AWS connection form with environment authorization checkboxes](https://assets.planton.ai/site/images/aws-credentials_123456789012_aws_dev-account.png)
 
 4. Click **"Submit"**
 
 **Success!** Your AWS account appears in "Existing Connections" and is ready to use.
 
-![Existing connections list showing the newly connected AWS account](https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/existing-connections_dev-account_24-08-2025_aws-credential.png)
+![Existing connections list showing the newly connected AWS account](https://assets.planton.ai/site/images/existing-connections_dev-account_24-08-2025_aws-credential.png)
 
 ### Connect Other Providers
 
@@ -157,7 +157,7 @@ Now for the exciting part—deploying real infrastructure! We'll start with some
    - **Lego Blocks**: Individual resources
    - **Infra Charts**: Collections of resources
 
-![Deployment Component Store with Lego Blocks tab selected](https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/deployment-component-store_aws.png)
+![Deployment Component Store with Lego Blocks tab selected](https://assets.planton.ai/site/images/deployment-component-store_aws.png)
 
 ### Find and Deploy a VPC
 
@@ -165,7 +165,7 @@ Now for the exciting part—deploying real infrastructure! We'll start with some
 2. Filter by provider "AWS" to narrow results
 3. Click on **AWS VPC** to see details
 
-![Search results showing AWS VPC component](https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/aws-vpc-overview_aws.png)
+![Search results showing AWS VPC component](https://assets.planton.ai/site/images/aws-vpc-overview_aws.png)
 
 4. Click **"Deploy"** button
 5. Fill in the configuration form:
@@ -173,7 +173,7 @@ Now for the exciting part—deploying real infrastructure! We'll start with some
    - **CIDR Block**: "10.0.0.0/16" (or keep default)
    - **Other settings**: Keep defaults for now
 
-![VPC deployment form with configuration options](https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/deploy-aws-vpc_dev.png)
+![VPC deployment form with configuration options](https://assets.planton.ai/site/images/deploy-aws-vpc_dev.png)
 
 6. Click **"Deploy"**
 
@@ -186,7 +186,7 @@ After clicking deploy:
 3. See each resource being created
 4. Get outputs when complete
 
-![Stack Job progress showing VPC creation steps](https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/deploy-aws-vpc_dev-1.png)
+![Stack Job progress showing VPC creation steps](https://assets.planton.ai/site/images/deploy-aws-vpc_dev-1.png)
 
 **Typical duration**: 2-3 minutes for a VPC
 
@@ -198,7 +198,7 @@ After clicking deploy:
 2. Click **"Cloud Resources"** tab
 3. You'll see your VPC listed
 
-![Cloud Resources list showing the deployed VPC](https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/aws-vpc-overview_aws.png)
+![Cloud Resources list showing the deployed VPC](https://assets.planton.ai/site/images/aws-vpc-overview_aws.png)
 
 Click on the VPC to see:
 - Full configuration

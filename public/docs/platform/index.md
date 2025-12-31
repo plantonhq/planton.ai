@@ -91,7 +91,7 @@ Here's how developers typically experience Planton Cloud:
 3. **Watch the deployment** progress in real-time
 4. **Access your resource** immediately
 
-![Deployment Component Store with search and filter options](https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/deployment-component-store_aws.png)
+![Deployment Component Store with search and filter options](https://assets.planton.ai/site/images/deployment-component-store_aws.png)
 
 ### Day 3: First Application
 1. **Connect GitHub or GitLab** with OAuth

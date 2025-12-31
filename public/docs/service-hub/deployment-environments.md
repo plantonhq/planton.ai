@@ -66,7 +66,7 @@ spec:
 
 Now, even if your repository has dev, stage, and uat overlays, the service only deploys to dev and stage.
 
-![Service showing deployment environments configuration](https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/service-hub/deployment-environments/service-showing-deployment-environments.png)
+![Service showing deployment environments configuration](https://assets.planton.ai/site/images/service-hub/deployment-environments/service-showing-deployment-environments.png)
 
 ## Git Branch Label: Repository-Level Control
 
@@ -327,7 +327,7 @@ When a pipeline runs, it respects your deployment environment configuration:
 2. **Deployment Task Creation**: Only creates tasks for configured environments
 3. **Selective Deployment**: Skips environments not in the list
 
-![Pipeline showing deployment tasks](https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/service-hub/deployment-environments/pipeline-detail-showing-the-deployment-task.png)
+![Pipeline showing deployment tasks](https://assets.planton.ai/site/images/service-hub/deployment-environments/pipeline-detail-showing-the-deployment-task.png)
 
 In this example, even though the repository has dev, stage, and uat overlays, the pipeline only creates deployment tasks for the configured environments.
 
@@ -340,7 +340,7 @@ In this example, even though the repository has dev, stage, and uat overlays, th
 3. Choose which environments to deploy to
 4. Save your changes
 
-![Deployment environment selector](https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/service-hub/deployment-environments/deployment-environment-selector-model-with-dev-and-stage-selected.png)
+![Deployment environment selector](https://assets.planton.ai/site/images/service-hub/deployment-environments/deployment-environment-selector-model-with-dev-and-stage-selected.png)
 
 ### Through the CLI
 
@@ -497,7 +497,7 @@ Remember that deployment happens in stages:
 2. Then, deployment tasks are created based on your configuration
 3. The pipeline UI shows which tasks were actually created
 
-![Pipeline with selective deployment](https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/service-hub/deployment-environments/pipeline-detail-showing-dev-and-stage-deployment-tasks.png)
+![Pipeline with selective deployment](https://assets.planton.ai/site/images/service-hub/deployment-environments/pipeline-detail-showing-dev-and-stage-deployment-tasks.png)
 
 ## Next Steps
 

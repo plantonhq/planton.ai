@@ -19,6 +19,7 @@ This is the repository for the planton.ai website. It contains:
 - [Contributing](#contributing)
  - [Cursor rules for docs](#cursor-rules-for-docs)
  - [Cursor rules for pull requests](#cursor-rules-for-pull-requests)
+- [Media management](#media-management)
 
 ## Quick start
 
@@ -72,7 +73,7 @@ yarn start
 - Docs: Markdown files under `public/docs/**`
 - Blog: MD/MDX under `public/blog/**`
 - Static assets: `public/`
-- Media (images, videos): See Media management below
+- Media (images, videos): See [Media management](#media-management) below
 
 The app uses file system–based routing and content rendering. To add a new page:
 1) Create a Markdown/MDX file under `public/docs` or `public/blog`
@@ -113,7 +114,7 @@ We use Cursor as a native part of our workflow for writing docs and blog posts. 
 How to use (in Cursor Chat):
 - `@docs-style`: Apply the docs/blog style and tone (voice, IA, frontmatter templates)
 - `@docs-sources`: Ground content in source code across repos (Project Planton legoblocks, Planton Cloud APIs and services, CLI-first flows)
-- `@docs-media`: Ensure all images use Cloudflare R2 URLs (https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/)
+- `@docs-media`: Ensure all images use Cloudflare R2 URLs (https://assets.planton.ai/site/)
 
 Why we do this: we want our documentation to be accurate, humble, and useful. That means grounding every page in real code (protobufs, IaC, backend/CLI), and writing in a reader-first tone. The rules above encode that process so contributors can open PRs with confidence.
 
@@ -147,60 +148,106 @@ Prereqs:
 - `python3` installed
 - Writable `origin` remote
 
-## Media management (images via Cloudflare R2)
+## Media management
 
-We store screenshots and other image assets in Cloudflare R2 instead of baking them into the static Next.js export. This keeps the repo lean as the volume grows, gives us CDN-like delivery (with a custom domain soon), and lets us manage caching independently.
+We store screenshots and image assets in Cloudflare R2, mirrored from the `content/` folder. This keeps the repo lean, provides CDN delivery, and ensures predictable URLs.
 
-### Summary
-- Author images locally under `content/media/images/` in this repo
-- Sync images to Cloudflare R2 with `make sync-media` (uses `rclone`)
-- Reference images in docs/blog via the public R2 URL (temporary dev URL now; custom domain coming)
-- Keep a copy in-repo for now to aid local authoring and preview
+### Architecture
+
+```
+content/
+├── assets/
+│   ├── _inbox/           # Drop zone for raw images (gitignored)
+│   ├── _rules/           # Cursor rules for asset management
+│   └── images/           # Organized, processed images
+└── ...
+
+↓ syncs to ↓
+
+assets.planton.ai/site/
+├── assets/
+│   └── images/           # Same structure as local
+└── ...
+```
+
+**Mental model**: Everything in `content/assets/` is available at `https://assets.planton.ai/site/`.
+
+### Adding images (recommended workflow)
+
+1. **Drop images** in `content/assets/_inbox/`
+
+2. **Invoke the cursor rule** with context:
+   ```
+   @process-planton-ai-images
+   
+   I've added screenshots of the deployment pipeline feature for Service Hub docs.
+   ```
+
+3. **The tool processes images**:
+   - Compresses (jpegoptim for JPEG, pngquant for PNG)
+   - Renames following convention: `YYYY-MM-DD-HHMMSS-context-description.ext`
+   - Moves to appropriate folder
+   - Uploads to R2
+
+4. **Use the R2 URL** in docs/blog:
+   ```md
+   ![Pipeline overview](https://assets.planton.ai/site/images/service-hub/2025-12-31-103045-service-hub-pipeline-overview.png)
+   ```
 
 ### One-time setup
-1. Install rclone
-   ```bash
-   brew install rclone
-   ```
-2. Configure the `r2` remote in `~/.config/rclone/rclone.conf` (ask an admin for credentials)
-   ```ini
-   [r2]
-   type = s3
-   provider = Cloudflare
-   access_key_id = <from Cloudflare>
-   secret_access_key = <from Cloudflare>
-   endpoint = https://074755a78d8e8f77c119a90a125e8a06.r2.cloudflarestorage.com
-   acl = private
-   ```
-   - Bucket: `planton-ai-media`
-   - Public dev base URL: `https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/`
 
-### Daily workflow
-1. Add or update images under `content/media/images/`
-2. Sync to R2:
-   ```bash
-   make sync-media
-   ```
-   This runs:
-   ```bash
-   rclone sync content/media/ r2:planton-ai-media --progress --transfers 8 --checkers 16 --s3-acl private
-   ```
-3. Reference images from docs/blog using the public URL:
-   ```md
-   ![Alt text](https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/my-screenshot.png)
-   ```
+```bash
+# Install CLI tools
+brew install jpegoptim pngquant awscli
 
-### Conventions
-- Filenames: lowercase, hyphens, contextual suffixes when helpful, e.g., `aws-credentials_123456789012_dev.png`
-- Keep `content/media/` committed for now. We’ll revisit once the public endpoint is on a custom domain with caching configured.
-- Videos: will be handled via Cloudflare Stream; a separate section will be added later.
+# Create virtual environment and install Python dependencies
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r tools/image_processor/requirements.txt
+
+# Configure R2 access (get credentials from Cloudflare dashboard)
+aws configure --profile r2
+```
+
+### Manual commands
+
+```bash
+# Activate virtual environment first
+source .venv/bin/activate
+
+# Check prerequisites
+make check-images
+
+# List inbox contents
+make inbox
+
+# Sync assets to R2
+make sync-assets
+
+# Process images with specific context
+python -m tools.image_processor process -c "service-hub" -d "feature-name"
+```
+
+### Naming convention
+
+```
+YYYY-MM-DD-HHMMSS-context-description.ext
+```
+
+Examples:
+- `2025-12-31-103045-service-hub-deployment-pipeline.png`
+- `2025-12-31-143500-kubernetes-dashboard-pod-logs.png`
+
+### Folder structure
+
+| Local Path | R2 URL |
+|------------|--------|
+| `content/assets/images/service-hub/x.png` | `https://assets.planton.ai/site/images/service-hub/x.png` |
 
 ### Troubleshooting
-- Verify connectivity: `rclone tree r2:` or `rclone ls r2:planton-ai-media`
-- 403/URL issues: confirm object path matches, and that the public dev gateway is enabled for the bucket/prefix.
-- Long syncs: tune `--transfers`/`--checkers` in the Makefile target.
 
-### Roadmap
-- Move to a custom domain for R2 public access and enable caching headers.
-- Optional helper to transform local paths to R2 URLs during authoring.
+- **Preflight check fails**: Run `make check-images` to see what's missing
+- **R2 access denied**: Verify `aws configure list --profile r2` shows credentials
+- **No images found**: Ensure images are in `content/assets/_inbox/` (not a subdirectory)
 
+For detailed documentation, see `content/assets/_rules/README.md`.
