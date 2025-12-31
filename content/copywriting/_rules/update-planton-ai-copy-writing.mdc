@@ -1,7 +1,11 @@
 # Rule: Update Planton.ai Copywriting
 
-**Type**: Action Rule  
-**Purpose**: Automate copywriting updates for planton.ai website through staged drafts, HTML previews, and React component implementation.
+**Type**: Action Rule (Copywriting-Focused LLM)  
+**Purpose**: Automate copywriting updates for planton.ai through content creation, iteration, and handoff document generation. This rule does NOT implement changes - it creates a comprehensive handoff document for a separate implementation-focused LLM.
+
+**Architecture**: Two-LLM workflow for specialized expertise:
+- **LLM 1** (This Rule): Content analysis, draft creation, stakeholder review, handoff document
+- **LLM 2** (Separate): React component implementation, build verification, deployment
 
 ## When to Use This Rule
 
@@ -31,11 +35,32 @@ Before triggering this rule:
 
 ## Workflow Overview
 
+### Two-LLM Architecture
+
+This workflow uses **two specialized LLMs**:
+
+**LLM 1: Copywriting** (Phases 1-4)
+- Content analysis and understanding
+- Draft creation and iteration
+- Stakeholder review management
+- Handoff document generation
+
+**LLM 2: Implementation** (Separate session)
+- React component updates
+- Build verification
+- Changelog generation
+- Workspace cleanup
+
+### Copywriting LLM Workflow (This Rule)
+
 ```mermaid
 flowchart TD
-    Start[Trigger Rule] --> Analyze[Analyze _workspace Content]
-    Analyze --> Context[Understand Target & Changes]
-    Context --> CreateFolder[Create Dated Stage Folder]
+    Start[Trigger Rule] --> PDFCheck{PDFs in<br/>_workspace?}
+    PDFCheck -->|Yes| ConvertPDF[Convert PDFs to Markdown]
+    PDFCheck -->|No| Analyze
+    ConvertPDF --> Analyze[Phase 1: Analysis<br/>Read & understand materials]
+    Analyze --> Context[Understand target & changes]
+    Context --> CreateFolder[Phase 2: Staging<br/>Create dated folder]
     CreateFolder --> Draft1[Generate draft-1.md]
     Draft1 --> HTML1[Generate preview-1.html]
     HTML1 --> Review{User Reviews}
@@ -43,24 +68,69 @@ flowchart TD
     Review -->|Minor Changes| UpdateDraft1[Update draft-1.md + preview-1.html]
     Draft2 --> Review
     UpdateDraft1 --> Review
-    Review -->|Approved| AskImplement{Ask: Implement?}
-    AskImplement -->|Yes| MapComponents[Map to React Components]
-    MapComponents --> UpdateSource[Update src/ Components]
-    UpdateSource --> Verify[Verify Build]
-    Verify --> Changelog[Create Changelog]
+    Review -->|Approved| Handoff[Phase 4: Handoff<br/>Create handoff.md]
+    Handoff --> NotifyUser[Notify user:<br/>Ready for Implementation LLM]
+    NotifyUser --> EndCopywriting[🎉 Copywriting Complete]
+```
+
+### Implementation LLM Workflow (Separate Session)
+
+```mermaid
+flowchart TD
+    Start[User switches to<br/>Implementation LLM] --> Provide[User provides<br/>handoff.md]
+    Provide --> Read[Read handoff document]
+    Read --> Understand[Understand context<br/>& requirements]
+    Understand --> Implement[Update React components<br/>per instructions]
+    Implement --> LocalTest[Test locally:<br/>yarn dev]
+    LocalTest --> Build[Run make build]
+    Build --> BuildOK{Build<br/>Passes?}
+    BuildOK -->|No| Fix[Fix errors]
+    Fix --> Build
+    BuildOK -->|Yes| Changelog[Create changelog<br/>from template]
     Changelog --> Cleanup[Clean _workspace]
-    Cleanup --> End[Done]
-    AskImplement -->|No| End
+    Cleanup --> Summary[Provide implementation<br/>summary]
+    Summary --> End[✅ Implementation Complete]
 ```
 
 ## Phase 1: Analysis
+
+### PDF Conversion (Automatic)
+
+**Before analyzing workspace content, check for PDF files and convert them to Markdown.**
+
+1. **Check for PDF files** in `content/copywriting/_workspace/`
+   ```bash
+   ls content/copywriting/_workspace/*.pdf 2>/dev/null
+   ```
+
+2. **If PDFs exist, run converter**:
+   ```bash
+   python3 content/copywriting/_rules/pdf_converter/convert_pdf.py
+   ```
+
+3. **Verify conversion**:
+   - Check that `.md` files were created
+   - If conversion fails, report error to user with instructions
+   - Proceed with analysis using the generated Markdown files
+
+**Why this step**: The AI cannot directly read PDF files. PDFs must be converted to Markdown first for text extraction and analysis.
+
+**Tool Details**: See `content/copywriting/_rules/pdf_converter/README.md`
+
+**Dependencies** (user must install):
+- Poppler (`brew install poppler`)
+- Pandoc (`brew install pandoc`)
+
+**Error Handling**:
+- If dependencies missing, show clear error message
+- User installs dependencies and re-runs rule
+- If PDF is scanned (OCR needed), note the limitation
 
 ### Workspace Content Analysis
 
 1. **List all files** in `content/copywriting/_workspace/`
 2. **Read and parse** each file:
-   - Markdown files: Extract text content
-   - PDF files: Read and extract text
+   - Markdown files: Extract text content (including converted PDFs)
    - Images: Note presence for context (OCR if text-heavy)
    - Other formats: Handle appropriately
 
@@ -658,27 +728,513 @@ Response: "✅ Updated draft-1.md:
 Refresh preview-1.html to review."
 ```
 
-## Phase 4: Implementation
+## Phase 4: Handoff Document Generation
 
-### Approval and Confirmation
+### Two-LLM Workflow
 
-When user indicates approval (e.g., "looks good", "approved", "let's implement"), ask:
+**Important**: This copywriting workflow uses a **two-LLM approach**:
+
+1. **LLM 1 (Copywriting)**: Content creation, iteration, approval (Phases 1-3)
+2. **LLM 2 (Implementation)**: React component updates, build verification (separate session)
+
+**Why**: Specialized LLMs excel at different tasks. Content creation requires different expertise than code implementation.
+
+### Approval and Handoff Document Creation
+
+When user indicates approval (e.g., "looks good", "approved", "ready for implementation"), respond:
 
 ```
-The draft is approved. Would you like me to implement these changes to the website source code?
+✅ Draft approved! 
 
-This will:
-1. Map draft content to React components
-2. Update existing components or create new ones
-3. Maintain design system consistency
-4. Verify build passes
-5. Generate changelog entry
-6. Clean up _workspace
+Creating handoff document for implementation LLM...
+```
 
-Reply "yes" to proceed with implementation.
+Then **automatically create a context-focused handoff document** in the stage area folder.
+
+---
+
+## 🎯 CRITICAL REMINDER: Handoff Document Philosophy
+
+### What the Handoff Document Should Be
+
+**CONTEXT and GUIDANCE**, not code prescriptions.
+
+**Think of it as a brief for a senior developer**, not step-by-step instructions for a junior.
+
+### What to Include
+
+✅ **Historical Context**:
+- Where did feedback come from? (advisory session, customer feedback, research)
+- What materials were analyzed?
+- What insights drove the changes?
+
+✅ **Iteration Journey**:
+- How many drafts were created?
+- What changed between drafts?
+- Why did it change?
+- What was finally approved?
+
+✅ **References to Approved Content**:
+- "See `draft-N.md` for complete approved copy"
+- "See `preview-N.html` for visual representation"
+- "Analyze existing components to determine implementation approach"
+
+✅ **Component Mapping** (Just file paths):
+- Which files to update
+- What sections they correspond to
+- NO code snippets or implementation details
+
+✅ **Business Objectives**:
+- Why this change matters
+- Target audience impact
+- Success criteria
+
+✅ **Content Guidance**:
+- Key messages to emphasize
+- Tone and voice considerations
+- Content priorities
+
+### What NOT to Include
+
+❌ **Code Snippets**:
+- No TypeScript examples
+- No JSX code blocks
+- No "change line X to Y" prescriptions
+
+❌ **Implementation Details**:
+- No specific MUI components to use
+- No layout structure prescriptions
+- No prop interface definitions
+- No styling or CSS suggestions
+
+❌ **Technical Prescriptions**:
+- No "use Badge component from shared.tsx"
+- No "create array with these values"
+- No "add this import statement"
+
+### Why This Matters
+
+**The implementation LLM is an expert** at:
+- Analyzing React codebases
+- Understanding TypeScript patterns
+- Reading design systems
+- Choosing appropriate components
+- Structuring code optimally
+
+**Let them do their job**. Your job is to provide:
+- Context (why)
+- Objectives (what outcome)
+- References (where to find approved content)
+
+**Not your job**:
+- Prescribe how to code
+- Choose components
+- Define structure
+- Write implementation steps
+
+### Example: Wrong vs Right
+
+**❌ WRONG (Too Prescriptive)**:
+```markdown
+## Implementation Instructions
+
+1. Open src/components/landing-page-v2/HeroSection.tsx
+2. On line 42, change:
+   ```typescript
+   <SectionTitle>Old headline</SectionTitle>
+   ```
+   To:
+   ```typescript
+   <SectionTitle>New headline</SectionTitle>
+   ```
+3. Add security badges using Badge component:
+   ```typescript
+   import { Badge } from './shared';
+   <Badge variant="success">SOC 2</Badge>
+   ```
+```
+
+**✅ RIGHT (Context and Guidance)**:
+```markdown
+## What Was Approved
+
+**Target**: Landing page hero section
+
+**Approved Content**: See `draft-3.md` for complete copy
+- New headline emphasizes security
+- Added security trust indicators
+- Updated subheadline for healthcare audience
+
+**Visual Guide**: See `preview-3.html` for layout
+
+**Component to Update**: `src/components/landing-page-v2/HeroSection.tsx`
+
+**Guidance**:
+- Analyze existing component structure
+- Apply approved headline from draft-3.md
+- Add security badges/indicators as shown in preview
+- Maintain existing design system patterns
+- Preserve responsive layouts
+
+**Business Goal**: Emphasize security for healthcare vertical prospects
+```
+
+---
+
+## Remember: Trust the Implementation Agent
+
+They are experts at React, TypeScript, and component architecture.
+
+**Provide**:
+- Context (why this change)
+- Objectives (what outcome)
+- References (draft-N.md, preview-N.html)
+- File paths (which components)
+
+**Don't Provide**:
+- Code snippets
+- Implementation steps
+- Technical prescriptions
+- Architectural decisions
+
+**Let them**:
+- Analyze the codebase
+- Determine implementation approach
+- Choose appropriate patterns
+- Make code structure decisions
+
+---
+
+### Handoff Document Structure
+
+**File Location**: `_stage-area/YYYY-MM-DD-description/handoff.md`
+
+**Purpose**: Provide context, guidance, and objectives for the implementation LLM. NOT a detailed code prescription.
+
+## ⚠️ CRITICAL: Handoff Philosophy
+
+**The handoff document provides CONTEXT and GUIDANCE, not code.**
+
+**Why**: The implementation LLM is highly capable at:
+- Analyzing React components in `src/` directories
+- Understanding existing TypeScript patterns and structures
+- Reading and applying the design system
+- Determining the optimal implementation approach
+- Making architectural decisions about code structure
+
+**Your Role (Copywriting LLM)**:
+- Provide the historical context
+- Explain what feedback drove the changes
+- Document the iteration journey
+- Point to approved content
+- State the business objectives
+
+**Implementation LLM's Role**:
+- Analyze existing source code
+- Determine implementation strategy
+- Choose appropriate patterns
+- Update components correctly
+- Verify build and functionality
+
+### Handoff Document Template
+
+**IMPORTANT**: This template focuses on CONTEXT, not CODE.
+
+```markdown
+# Implementation Handoff: [Brief Description]
+
+**Date**: [Date]  
+**Stage Folder**: `_stage-area/YYYY-MM-DD-description/`  
+**Approved Draft**: `draft-N.md`  
+**HTML Preview**: `preview-N.html`  
+**Status**: Ready for Implementation
+
+---
+
+## Overview
+
+[2-3 sentence summary of what needs to be implemented]
+
+Example: "Update landing page hero section to emphasize security and compliance capabilities for healthcare vertical targeting."
+
+---
+
+## Historical Context
+
+### Feedback Source
+
+[Where did the feedback come from?]
+
+Examples:
+- "Advisory session on December 13, 2025 with Ruchi, Bala, and Murali"
+- "Customer feedback from iorta TechNext about security messaging"
+- "Competitive analysis of Qovery and Terraform Cloud"
+- "Internal product repositioning from AI Copilot to DevOps-in-a-Box"
+
+### Materials Analyzed
+
+[What materials were provided in workspace?]
+
+Examples:
+- Advisory feedback PDF (converted to Markdown)
+- Meeting transcript
+- Customer interview notes
+- Competitive research documents
+
+### Key Insights from Analysis
+
+[What were the main themes and findings?]
+
+Bullet list of insights that drove the copywriting decisions.
+
+---
+
+## Iteration Journey
+
+### Draft 1
+
+**Approach**: [What was the initial approach?]
+
+**User Feedback**: [What feedback was provided?]
+
+**Outcome**: [Updated to draft-2 or approved?]
+
+### Draft 2 (if applicable)
+
+**Changes from Draft 1**: [What changed in the approach?]
+
+**User Feedback**: [What feedback was provided?]
+
+**Outcome**: [Updated to draft-3 or approved?]
+
+### Final Approved Draft
+
+**Version**: `draft-N.md`  
+**Approval Date**: [Date]  
+**Key Decisions**: [Major messaging decisions that were finalized]
+
+---
+
+## What Was Approved
+
+### Target Page(s)
+
+[Which page(s) are being updated?]
+
+Examples:
+- Landing page (`src/app/(root)/page.tsx`)
+- Pricing page (`src/app/(root)/pricing/page.tsx`)
+- Features page
+
+### Sections to Update
+
+[Which sections within those pages?]
+
+Examples:
+- Hero section
+- Problem/Solution section
+- Customer Stories section
+- Pricing section
+
+### Content References
+
+**Complete approved content**: See `draft-N.md` in this folder
+
+**Visual representation**: See `preview-N.html` in this folder
+
+**How to use these**:
+- `draft-N.md` contains the final approved copy for all sections
+- `preview-N.html` shows visual layout and hierarchy
+- Analyze existing components in `src/` to understand current structure
+- Apply approved content using patterns you find in existing code
+
+---
+
+## Component Mapping
+
+### Files to Update
+
+| Section | Component Path | Guidance |
+|---------|----------------|----------|
+| Hero | `src/components/landing-page-v2/HeroSection.tsx` | Update headline and subheadline per draft |
+| Problem/Solution | `src/components/landing-page-v2/ProblemSolution.tsx` | Update problem statements and metrics |
+| Customer Stories | `src/components/landing-page-v2/CustomerStories.tsx` | Add new customer story |
+
+**Note**: Analyze each component to understand its current structure before making changes.
+
+### New Components Needed
+
+[List if any new components need to be created - specify what they should do, not how to code them]
+
+---
+
+## Content Guidance
+
+### Key Messages to Emphasize
+
+[What are the most important messages in this update?]
+
+Examples:
+- Security and compliance for healthcare vertical
+- Multi-cloud capability vs competitors
+- Cost savings ($450/month vs $12,500/month)
+- Speed (< 1 hour vs weeks)
+
+### Tone and Voice
+
+[Any specific tone considerations?]
+
+Examples:
+- Technical but accessible
+- Confident without being arrogant
+- Customer-focused (their success, not our features)
+- Honest about limitations
+
+### Content Priorities
+
+[What matters most in this update?]
+
+Ranked list of priorities.
+
+---
+
+## Business Objectives
+
+### Why This Change Matters
+
+[Strategic reason for this update]
+
+### Target Audience Impact
+
+[How will visitors experience this differently?]
+
+### Success Criteria
+
+[How will we know this update succeeded?]
+
+Examples:
+- Clearer value proposition for healthcare prospects
+- Improved conversion on demo booking CTA
+- Better competitive differentiation
+
+---
+
+## Implementation Guidance
+
+### Where to Find Existing Code
+
+**Components**: `src/components/landing-page-v2/`  
+**Page Routes**: `src/app/(root)/`  
+**Design System**: `src/components/landing-page-v2/shared.tsx`
+
+**Analyze these directories** to understand:
+- Component structure and patterns
+- TypeScript interfaces being used
+- MUI components and layouts
+- Design system usage
+
+### Content Source
+
+**Approved Copy**: `draft-N.md` (in this stage folder)  
+**Visual Guide**: `preview-N.html` (in this stage folder)
+
+**Use these files** to:
+- Get exact approved text
+- Understand visual hierarchy
+- See content structure and organization
+
+**Implementation Strategy**: Up to you! Analyze existing code and determine the best approach.
+
+---
+
+## Verification Expectations
+
+After implementation, verify:
+
+1. **Build passes**: Run `make build` with no errors
+2. **Visual accuracy**: Compare with `preview-N.html`
+3. **Content accuracy**: Cross-check with `draft-N.md`
+4. **Responsive**: Test mobile, tablet, desktop
+5. **Functionality**: All links and CTAs work
+6. **Design system**: Colors, typography, spacing consistent
+
+---
+
+## Changelog Template
+
+[Pre-written changelog structure - fill in implementation-specific details]
+
+```markdown
+# [Title Based on Changes]
+
+**Date**: [Date]
+**Type**: Content | Feature | Enhancement
+**Components**: [List components updated]
+
+## Summary
+[2-4 sentences about what was implemented]
+
+## Problem Statement / Motivation
+[Context from this handoff - why feedback section]
+
+## Solution / What's New
+[What was implemented - reference approved draft]
+
+## Implementation Details
+[Files modified, approach taken]
+
+## Benefits
+[Impact on users and business]
+
+## Related Work
+- Source: Copywriting phase handoff
+- Stage folder: `_stage-area/YYYY-MM-DD-description/`
+- Approved draft: `draft-N.md`
+- Preview: `preview-N.html`
+
+---
+
+**Status**: ✅ Live (development)
+**Timeline**: [Duration]
+```
+
+---
+
+## Reference Materials in This Folder
+
+- **`draft-N.md`**: Complete approved content with all copy
+- **`preview-N.html`**: Visual representation of approved content
+- **Earlier drafts** (if any): `draft-1.md`, `draft-2.md` showing iteration evolution
+
+**For Implementation**: Refer to these files for exact content and structure. Analyze `src/` components to determine how to implement.
+
+---
+
+## Implementation Agent Instructions
+
+**Your task**: Update React components in `src/` to reflect the approved content in `draft-N.md`.
+
+**Your approach**:
+1. Read this handoff document for context
+2. Review `draft-N.md` for approved content
+3. View `preview-N.html` for visual understanding
+4. Analyze existing components in `src/` (file paths listed above)
+5. Determine best implementation approach
+6. Update components maintaining existing patterns
+7. Verify build and functionality
+8. Create changelog using template above
+9. Clean workspace
+
+**You are the expert on code**. This handoff provides context and objectives. The implementation details are yours to determine based on analyzing the existing codebase.
+
+---
+
+**This document provides guidance, not prescription.** Trust the implementation agent's expertise in React, TypeScript, and component architecture.
 ```
 
 ### Component Mapping Strategy
+
+**This section is now embedded in the handoff document above, but kept here for reference:**
 
 **Step 1: Analyze existing component structure**
 
@@ -719,118 +1275,131 @@ Read relevant directories:
 - Create new route in `src/app/(root)/[page-name]/page.tsx`
 - Create components in `src/components/[page-name]/`
 
-**Step 3: Implementation approach**
+### Generating the Handoff Document
 
-**Updating Existing Components**:
-1. Read current component code
-2. Identify sections to update (headlines, body text, bullet points, CTAs)
-3. Preserve:
-   - Component structure (React functional components)
-   - TypeScript types and interfaces
-   - MUI component usage
-   - Responsive layouts (Grid2, Box, Stack)
-   - Design system imports from `shared.tsx`
-   - Event handlers and interactivity
-4. Update:
-   - Text content (headlines, paragraphs, lists)
-   - Badges and labels
-   - Links and CTAs
-   - Customer quotes and metrics
+**When to create**: Immediately after user approves the draft.
 
-**Creating New Components**:
-1. Follow patterns from existing components
-2. Import from design system (`shared.tsx`):
-   ```typescript
-   import {
-     Section,
-     SectionTitle,
-     SectionSubtitle,
-     FeatureTitle,
-     BodyText,
-     PrimaryButton,
-     SecondaryButton,
-     Card,
-     Badge,
-     Grid,
-     Quote,
-     Metric,
-   } from './shared';
+**CRITICAL: Handoff Document Philosophy**
+
+The handoff document should provide **CONTEXT and GUIDANCE**, NOT actual code.
+
+**Why**: The implementation LLM is fully capable of:
+- Analyzing existing React components in `src/`
+- Understanding TypeScript patterns
+- Reading the design system (`shared.tsx`)
+- Determining the best way to implement changes
+
+**Your job**: Provide the "what" and "why", not the "how"
+
+**Do Include**:
+- ✅ Historical context (where feedback came from)
+- ✅ Iteration summary (what versions were created, what changed)
+- ✅ What was approved (reference `draft-N.md` and `preview-N.html`)
+- ✅ Which components to update (file paths)
+- ✅ Business objectives and user impact
+- ✅ Content guidance (tone, emphasis, key messages)
+
+**Do NOT Include**:
+- ❌ Actual code snippets or examples
+- ❌ Specific line numbers to change
+- ❌ Implementation prescriptions ("use this component")
+- ❌ Technical implementation details
+- ❌ Code structure suggestions
+
+**Let the implementation agent**:
+- Analyze the existing codebase
+- Determine optimal implementation approach
+- Choose appropriate components from design system
+- Decide on TypeScript patterns
+- Figure out the best way to structure changes
+
+### Handoff Document Process
+
+1. **Create file**: `_stage-area/YYYY-MM-DD-description/handoff.md`
+
+2. **Populate with CONTEXT and GUIDANCE**:
+   - Overview and objective
+   - Historical context (feedback source, iterations)
+   - What was approved (point to draft-N.md and preview-N.html)
+   - Component mapping (which files to update - just paths)
+   - Content guidance (what messages to emphasize)
+   - Business goals and user impact
+   - Verification expectations
+
+3. **Reference approved materials**:
+   - "See `draft-N.md` for complete approved content"
+   - "See `preview-N.html` for visual representation"
+   - "Refer to these files for exact copy and structure"
+
+4. **Notify user**:
    ```
-3. Use Material-UI components consistently:
-   - `Box` for layout containers
-   - `Stack` for vertical/horizontal stacking
-   - `Grid2` for responsive grids
-   - `Typography` for custom text styles
-4. Maintain TypeScript typing:
-   ```typescript
-   interface ComponentProps {
-     // Define props
-   }
+   ✅ Handoff document created!
    
-   export const ComponentName: React.FC<ComponentProps> = ({ ...props }) => {
-     // Component implementation
-   };
+   Location: _stage-area/YYYY-MM-DD-description/handoff.md
+   
+   This document is ready for the implementation LLM. It contains:
+   - Complete implementation context
+   - Component mapping
+   - Detailed instructions
+   - Verification checklist
+   - Changelog template
+   
+   Next steps:
+   1. Switch to implementation-focused LLM
+   2. Provide handoff.md as context
+   3. Request implementation following the handoff document
+   
+   The copywriting phase is complete! 🎉
    ```
-5. Export from index file:
-   ```typescript
-   // In src/components/landing-page-v2/index.ts
-   export { ComponentName } from './ComponentName';
-   ```
 
-**Design System Consistency**:
+### End of Copywriting Workflow
 
-Reference `src/components/landing-page-v2/shared.tsx` for:
-- **Colors**: Primary gradient (`#7c3aed` to `#0ea5e9`), accent green (`#10b981`)
-- **Typography**: Section titles (2.5rem), feature titles (1.5rem), body text (1.05rem)
-- **Spacing**: Section padding (6rem vertical, 2rem horizontal), element margins
-- **Borders**: Rounded corners (12px for cards, 8px for buttons)
-- **Hover effects**: Border color transitions, subtle scale transforms
-- **Responsive breakpoints**: MUI breakpoints (xs, sm, md, lg, xl)
+**This is where the copywriting LLM's work ends.**
 
-### Implementation Example
+The handoff document provides everything the implementation LLM needs:
+- ✅ What to change
+- ✅ Why it's changing
+- ✅ Complete approved content
+- ✅ Which files to modify
+- ✅ How to implement correctly
+- ✅ How to verify success
 
-**Scenario**: Update Hero section headline
+**The implementation LLM will handle**:
+- Reading the handoff document
+- Updating React components
+- Running build verification
+- Creating changelog
+- Cleaning workspace
 
-**Current code** (`src/components/landing-page-v2/HeroSection.tsx`):
-```typescript
-<SectionTitle>
-  DevOps-in-a-Box—From Code to Cloud in Under an Hour
-</SectionTitle>
-```
+**User workflow**:
+1. Copywriting LLM: Content creation and approval → handoff.md created
+2. **Switch context/LLM**
+3. Implementation LLM: Receives handoff.md → implements changes → verifies build
 
-**Draft content**:
-```markdown
-## Section 1: Hero
+---
 
-### Headline
-DevOps-in-a-Box—Deploy Infrastructure in Under an Hour, No DevOps Team Required
-```
+## Implementation Phase (Separate LLM Session)
 
-**Updated code**:
-```typescript
-<SectionTitle>
-  DevOps-in-a-Box—Deploy Infrastructure in Under an Hour, No DevOps Team Required
-</SectionTitle>
-```
+**Note**: This section documents what the implementation LLM should do. The copywriting LLM does NOT execute this phase.
 
-**Scenario**: Add new customer quote
+### Reading the Handoff Document
 
-**Draft content**:
-```markdown
-**Customer Quote**: "We deployed our entire AWS ECS environment in 45 minutes. 
-Our developers now self-onboard services without waiting on DevOps." - iorta TechNext
-```
+1. **Receive handoff.md** from user
+2. **Read completely** to understand:
+   - Objective and context
+   - Approved content for each section
+   - Component mapping
+   - Implementation instructions
+3. **Ask for clarification** if anything is unclear (should be rare if handoff is complete)
 
-**New code** (in appropriate component):
-```typescript
-<Quote
-  text="We deployed our entire AWS ECS environment in 45 minutes. Our developers now self-onboard services without waiting on DevOps."
-  author="iorta TechNext"
-  role="CTO"
-/>
-```
+### Implementing Changes
 
-## Phase 5: Verification & Cleanup
+Follow the detailed instructions in `handoff.md`:
+
+1. **Update each component** listed in the mapping table
+2. **Preserve structure** (TypeScript, MUI, responsive layouts)
+3. **Maintain design system** consistency
+4. **Test locally** with `yarn dev`
 
 ### Build Verification
 
@@ -868,7 +1437,7 @@ After implementing changes:
 
 ### Generate Changelog Entry
 
-Create changelog file in `_changelog/YYYY-MM/YYYY-MM-DD-HHMMSS-description.md`
+Use the template from `handoff.md` to create changelog in `_changelog/YYYY-MM/YYYY-MM-DD-HHMMSS-description.md`
 
 **Changelog Structure**:
 

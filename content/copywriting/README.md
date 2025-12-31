@@ -6,10 +6,11 @@ This directory manages the copywriting workflow for the planton.ai website. It p
 
 The copywriting management system enables:
 
-- **Systematic content updates**: Structured workflow from feedback to implementation
+- **Systematic content updates**: Structured workflow from feedback to handoff document
 - **Version control for copy**: Historical record of copywriting iterations
 - **Review-friendly process**: HTML previews for non-technical stakeholders
-- **Automated implementation**: Direct mapping from approved drafts to React components
+- **Two-LLM architecture**: Specialized LLMs for content creation vs code implementation
+- **Clean handoff**: Self-contained implementation documents for seamless transition
 
 ## Directory Structure
 
@@ -31,6 +32,8 @@ content/copywriting/
 
 ## Workflow Overview
 
+**Copywriting LLM → Implementation LLM**:
+
 ```mermaid
 flowchart LR
     subgraph Input
@@ -41,19 +44,22 @@ flowchart LR
         Dump[_workspace/<br/>Temporary Storage]
     end
 
-    subgraph Staging
-        StageArea[_stage-area/YYYY-MM-DD-description/]
+    subgraph CopywritingLLM[Copywriting LLM Phase]
+        Stage[_stage-area/<br/>YYYY-MM-DD-description/]
         Draft[draft-N.md<br/>Content Drafts]
         Preview[preview-N.html<br/>Visual Previews]
+        Review{Review &<br/>Feedback}
+        Handoff[handoff.md<br/>Implementation Guide]
     end
 
-    subgraph Review
-        Feedback{Review & Feedback}
+    subgraph Transition[LLM Switch]
+        Switch[User switches<br/>to Implementation LLM]
     end
 
-    subgraph Source
-        Components[src/components/<br/>React Components]
-        Pages[src/app/<br/>Page Routes]
+    subgraph ImplementationLLM[Implementation LLM Phase]
+        Read[Read handoff.md]
+        Components[Update React<br/>Components]
+        Verify[Verify Build]
     end
 
     subgraph Output
@@ -61,20 +67,69 @@ flowchart LR
     end
 
     Materials --> Dump
-    Dump --> StageArea
-    StageArea --> Draft
+    Dump --> Stage
+    Stage --> Draft
     Draft --> Preview
-    Preview --> Feedback
-    Feedback -->|Iterate| Draft
-    Feedback -->|Approved| Components
-    Feedback -->|Approved| Pages
-    Components --> Website
-    Pages --> Website
+    Preview --> Review
+    Review -->|Iterate| Draft
+    Review -->|Approved| Handoff
+    Handoff --> Switch
+    Switch --> Read
+    Read --> Components
+    Components --> Verify
+    Verify --> Website
 ```
 
-## The Five-Phase Process
+## Two-LLM Architecture
 
-### Phase 1: Preparation
+This system uses **two specialized LLMs** for optimal results:
+
+### LLM 1: Copywriting-Focused
+
+**Expertise**: Content creation, messaging, brand voice, stakeholder communication
+
+**Responsibilities**:
+- Analyze feedback materials
+- Create content drafts
+- Generate HTML previews
+- Iterate based on feedback
+- Create handoff documents
+
+**Phases**: 1-4 (Preparation → Analysis → Staging/Iteration → Handoff)
+
+### LLM 2: Implementation-Focused
+
+**Expertise**: React development, TypeScript, component architecture, build systems
+
+**Responsibilities**:
+- Read handoff documents
+- Update React components
+- Maintain design system consistency
+- Verify builds
+- Generate changelogs
+- Clean workspace
+
+**Phases**: 5-6 (Implementation → Verification)
+
+### Why Two LLMs?
+
+**Better Results**: Each LLM focuses on what it does best
+- Content LLM doesn't need to understand React internals
+- Implementation LLM doesn't need copywriting context
+
+**Clean Separation**: Handoff document provides complete context transfer
+- No lost context between phases
+- Self-contained implementation guide
+- Clear ownership and responsibilities
+
+**Flexible Workflow**: User controls the transition
+- Review handoff document before switching
+- Can pause between phases
+- Different timezones or team members can handle each phase
+
+## The Six-Phase Process
+
+### Phase 1: Preparation (User)
 
 **What**: Gather all materials related to the copywriting update
 
@@ -157,21 +212,49 @@ and compliance based on the healthcare vertical feedback.
 4. Rule updates or creates new draft
 5. Repeat until approved
 
-### Phase 4: Implementation
+### Phase 4: Handoff Document Generation (Copywriting LLM)
 
-**What**: Map approved content to React components and update source code
+**What**: Create self-contained implementation guide
 
-**Trigger**: Approve draft and confirm implementation
+**Trigger**: User approves final draft
 
 **What Happens**:
 
-- Rule analyzes existing component structure
+- Rule creates `handoff.md` in stage folder
+- Includes complete context and objectives
+- Embeds all approved content
+- Provides component mapping table
+- Documents implementation instructions
+- Includes verification checklist
+- Pre-writes changelog template
+
+**Output**: `_stage-area/YYYY-MM-DD-description/handoff.md`
+
+**End of Copywriting Phase**: User switches to implementation-focused LLM
+
+---
+
+## Implementation Phase (Separate LLM)
+
+**Architecture**: Two-LLM workflow for specialized expertise.
+
+**Why**: Content creation requires different skills than code implementation. Using specialized LLMs for each phase produces better results.
+
+### Phase 5: Component Implementation (Implementation LLM)
+
+**What**: Update React components based on handoff document
+
+**Input**: `handoff.md` provided by user
+
+**Process**:
+
+- Implementation LLM reads handoff document
 - Maps draft sections to React components
-- Updates or creates components
+- Updates or creates components in `src/`
 - Maintains design system consistency
 - Preserves TypeScript types and MUI patterns
 
-**Example Mapping**:
+**Example Mapping** (from handoff.md):
 
 | Draft Section    | Component File                                       |
 | ---------------- | ---------------------------------------------------- |
@@ -182,14 +265,14 @@ and compliance based on the healthcare vertical feedback.
 | Customer Stories | `src/components/landing-page-v2/CustomerStories.tsx` |
 | Pricing          | `src/components/pricing/plans.tsx`                   |
 
-### Phase 5: Verification
+### Phase 6: Verification (Implementation LLM)
 
 **What**: Ensure changes work correctly and document them
 
 **Steps**:
 
 1. **Build Verification**: Run `make build` to check for errors
-2. **Changelog Generation**: Create entry in `_changelog/YYYY-MM/`
+2. **Changelog Generation**: Use template from `handoff.md`
 3. **Workspace Cleanup**: Remove files from `_workspace/` (keep .gitignore and README.md)
 4. **Summary**: Provide overview of changes and next steps
 
@@ -241,17 +324,30 @@ git push origin main
    - Minor changes: Rule updates existing draft
    - Major changes: Rule creates new draft
 
-5. **Approve and implement**:
+5. **Approve draft**:
 
    ```
-   Looks good! Let's implement this.
+   Looks good! Approved for implementation.
    ```
 
-6. **Confirm implementation**:
-   ```
-   Yes
-   ```
-   (When rule asks: "Would you like me to implement these changes to the website source code?")
+6. **Handoff document created**:
+
+   - Rule automatically creates `handoff.md` 
+   - Contains complete implementation context
+   - Ready for implementation LLM
+
+7. **Switch to implementation LLM**:
+
+   - Open new chat or switch LLM model
+   - Provide `handoff.md` as context
+   - Request implementation
+
+8. **Implementation LLM executes**:
+
+   - Updates React components
+   - Verifies build
+   - Creates changelog
+   - Cleans workspace
 
 ### Example Scenarios
 

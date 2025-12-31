@@ -10,6 +10,24 @@ The stage area serves as a **review and iteration space** between analyzing feed
 - **Iterate safely**: Refine drafts without touching source code
 - **Maintain history**: All iterations are preserved as dated folders
 - **Get stakeholder approval**: Non-technical reviewers can read HTML previews
+- **Enable LLM handoff**: Creates self-contained implementation guides for code-focused LLM
+
+## Two-LLM Architecture
+
+This system uses specialized LLMs:
+
+**Copywriting LLM** (Content Creation):
+- Analyzes feedback materials
+- Creates drafts and HTML previews
+- Iterates based on feedback
+- **Generates handoff.md** when approved
+
+**Implementation LLM** (Code Implementation):
+- **Receives handoff.md** as input
+- Updates React components
+- Verifies builds and deploys
+
+**Handoff Document**: Bridge between phases, containing everything the implementation LLM needs without requiring copywriting conversation context.
 
 ## What's Inside
 
@@ -21,13 +39,16 @@ _stage-area/
 │   ├── draft-1.md
 │   ├── preview-1.html
 │   ├── draft-2.md
-│   └── preview-2.html
+│   ├── preview-2.html
+│   └── handoff.md          # Implementation guide
 ├── 2025-12-31-hero-security-compliance/
 │   ├── draft-1.md
-│   └── preview-1.html
+│   ├── preview-1.html
+│   └── handoff.md          # Implementation guide
 └── 2026-01-05-pricing-page-enterprise-focus/
     ├── draft-1.md
-    └── preview-1.html
+    ├── preview-1.html
+    └── handoff.md          # Implementation guide
 ```
 
 ### Folder Naming
@@ -60,11 +81,26 @@ _stage-area/
 - No external dependencies (inline CSS)
 - Open directly in browser for review
 
+**Handoff Document** (`handoff.md`):
+
+- Created automatically after draft approval
+- Self-contained implementation guide for code-focused LLM
+- Includes:
+  - Complete context and objectives
+  - All approved content from drafts
+  - Component mapping table (which files to update)
+  - Detailed implementation instructions
+  - Design system reference
+  - Verification checklist
+  - Pre-written changelog template
+- Purpose: Enable clean handoff from copywriting LLM to implementation LLM
+- No conversation history needed - everything is in this one file
+
 ## Workflow Integration
 
 ```mermaid
 flowchart LR
-    Workspace[_workspace/<br/>Materials] --> Analysis[Analysis]
+    Workspace[_workspace/<br/>Materials] --> Analysis[Analysis<br/>Copywriting LLM]
     Analysis --> Stage[_stage-area/<br/>Create Folder]
     Stage --> Draft1[draft-1.md +<br/>preview-1.html]
     Draft1 --> Review{Review}
@@ -72,7 +108,9 @@ flowchart LR
     Review -->|Major Changes| Draft2[draft-2.md +<br/>preview-2.html]
     Update --> Review
     Draft2 --> Review
-    Review -->|Approved| Implement[Implement to src/]
+    Review -->|Approved| Handoff[handoff.md<br/>Created]
+    Handoff --> Switch[User switches to<br/>Implementation LLM]
+    Switch --> Implement[Implement to src/<br/>Implementation LLM]
 ```
 
 ### Iteration Logic

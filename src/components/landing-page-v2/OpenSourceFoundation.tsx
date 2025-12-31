@@ -49,15 +49,35 @@ export const OpenSourceFoundation: FC = () => {
       <Stack className="items-center text-center mb-16">
         <Badge variant="purple" className="mb-6">OPEN SOURCE</Badge>
         <SectionTitle>
-          Your Infrastructure, Your Code,{' '}
+          Open Infrastructure Modules—
           <span className="bg-gradient-to-r from-[#7c3aed] to-[#a78bfa] bg-clip-text text-transparent">
-            Your Freedom
+            Not a Black Box
           </span>
         </SectionTitle>
         <SectionSubtitle className="mx-auto">
-          Project Planton - All deployment components publicly available. No vendor lock-in, ever.
+          120+ deployment components on GitHub. Fully auditable. Fork anytime. No vendor lock-in, ever.
         </SectionSubtitle>
       </Stack>
+
+      {/* Key Differentiator Callout */}
+      <Box className="max-w-4xl mx-auto mb-16 p-6 md:p-8 rounded-2xl bg-gradient-to-r from-[#7c3aed]/10 to-[#10b981]/10 border border-[#7c3aed]/30">
+        <Stack direction={{ xs: 'column', md: 'row' }} className="items-center gap-6">
+          <Box className="flex-shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-[#7c3aed] to-[#10b981] flex items-center justify-center">
+            <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </Box>
+          <Box className="flex-1 text-center md:text-left">
+            <Typography className="text-lg md:text-xl font-semibold text-white mb-2">
+              The Critical Difference
+            </Typography>
+            <Typography className="text-[#b0b0b0]">
+              <span className="text-[#ef4444]">With competitors</span>, you write Terraform/Pulumi modules yourself, maintain them, and own all the complexity.{' '}
+              <span className="text-[#10b981]">With Planton</span>, the modules are built, maintained, tested, and auditable—you just use them.
+            </Typography>
+          </Box>
+        </Stack>
+      </Box>
 
       {/* Intro */}
       <Box className="max-w-3xl mx-auto text-center mb-16">

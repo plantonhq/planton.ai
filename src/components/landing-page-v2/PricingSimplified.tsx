@@ -8,6 +8,20 @@ import { Section, SectionTitle, SectionSubtitle, Card, CheckIcon, Badge, Primary
 export const PricingSimplified: FC = () => {
   return (
     <Section id="pricing">
+      {/* Early Adopter Banner */}
+      <Box className="mb-8 p-4 rounded-xl bg-gradient-to-r from-[#f59e0b]/20 to-[#ef4444]/20 border border-[#f59e0b]/30">
+        <Stack direction={{ xs: 'column', md: 'row' }} className="items-center justify-center gap-4">
+          <Badge variant="warning" className="animate-pulse">🔥 EARLY ADOPTER PRICING</Badge>
+          <Typography className="text-sm md:text-base text-center">
+            <span className="text-white font-semibold">Lock in $20/dev/month forever</span>
+            <span className="text-[#a0a0a0]"> • Regular pricing: $35/dev/month after GA</span>
+          </Typography>
+          <Badge variant="default" className="whitespace-nowrap">
+            63 slots remaining
+          </Badge>
+        </Stack>
+      </Box>
+
       {/* Section header */}
       <Stack className="items-center text-center mb-16">
         <Badge variant="purple" className="mb-6">PRICING</Badge>
@@ -127,13 +141,16 @@ export const PricingSimplified: FC = () => {
             View Full Pricing Details →
           </PrimaryButton>
         </Link>
-        <Box className="mt-4">
+        <Stack direction={{ xs: 'column', sm: 'row' }} className="justify-center gap-4 mt-4">
+          <Link href="#roi-calculator" className="text-[#10b981] hover:text-white transition-colors text-sm font-medium">
+            Calculate Your ROI →
+          </Link>
           <Link href="https://docs.google.com/forms/d/17tEVBbpIGl0AR4M75IOBYj4Ywap1RPCzZc4HMWA-67U" target="_blank">
             <SecondaryButton>
               Request a Demo
             </SecondaryButton>
           </Link>
-        </Box>
+        </Stack>
       </Box>
     </Section>
   );

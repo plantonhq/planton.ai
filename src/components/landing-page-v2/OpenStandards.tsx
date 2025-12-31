@@ -47,14 +47,14 @@ export const OpenStandards: FC = () => {
       <Stack className="items-center text-center mb-16">
         <Badge variant="purple" className="mb-6">OPEN STANDARDS</Badge>
         <SectionTitle>
-          Built on Open Standards:{' '}
+          Built on Open Standards—
           <span className="bg-gradient-to-r from-[#10b981] to-[#0ea5e9] bg-clip-text text-transparent">
-            Works With Your Existing Tooling
+            Not Proprietary Lock-In
           </span>
         </SectionTitle>
         <SectionSubtitle className="mx-auto">
-          GitHub, Terraform, Pulumi, Tekton—Planton integrates with what you already use, 
-          no proprietary replacements required.
+          GitHub, Terraform, Pulumi, Tekton—your code stays portable. No proprietary formats. 
+          No rewriting when you leave. The same tools you already know and trust.
         </SectionSubtitle>
       </Stack>
 
