@@ -80,6 +80,57 @@ export const AgentFleet: FC = () => {
         </SectionSubtitle>
       </Stack>
 
+      {/* Why Full SDLC Context Matters - NEW */}
+      <Card className="mb-16 bg-gradient-to-br from-[#10b981]/10 to-[#0ea5e9]/10 border-[#10b981]/30">
+        <Box className="text-center mb-8">
+          <Badge variant="success" className="mb-4">COMPETITIVE ADVANTAGE</Badge>
+          <Typography className="text-xl md:text-2xl font-semibold text-white mb-2">
+            Why Full SDLC Context Matters
+          </Typography>
+          <BodyText className="max-w-2xl mx-auto">
+            Most AI tools have narrow scope. Planton&apos;s agents see the complete picture.
+          </BodyText>
+        </Box>
+        
+        <Box className="grid md:grid-cols-2 gap-6">
+          <Box className="p-5 rounded-xl bg-[#0a0a0a] border border-[#2a2a2a]">
+            <Typography className="text-[#a0a0a0] text-sm font-medium mb-3">
+              Pulumi AI (Competitors)
+            </Typography>
+            <Typography className="text-white font-medium mb-3">Infra-only context</Typography>
+            <Stack className="gap-2">
+              <Typography className="text-sm text-[#666]">• Sees: Infrastructure state</Typography>
+              <Typography className="text-sm text-[#666]">• Missing: Service deployments</Typography>
+              <Typography className="text-sm text-[#666]">• Missing: Multi-env configs</Typography>
+              <Typography className="text-sm text-[#666]">• Missing: Deployment history</Typography>
+              <Typography className="text-sm text-[#666]">• Missing: Service dependencies</Typography>
+            </Stack>
+          </Box>
+          
+          <Box className="p-5 rounded-xl bg-gradient-to-br from-[#10b981]/10 to-[#0ea5e9]/10 border border-[#10b981]/30">
+            <Typography className="text-[#10b981] text-sm font-medium mb-3">
+              Planton Agent Fleet
+            </Typography>
+            <Typography className="text-white font-medium mb-3">Full SDLC context</Typography>
+            <Stack className="gap-2">
+              <Typography className="text-sm text-[#10b981]">✓ Infrastructure deployments</Typography>
+              <Typography className="text-sm text-[#10b981]">✓ Service pipelines & builds</Typography>
+              <Typography className="text-sm text-[#10b981]">✓ Multi-environment configs</Typography>
+              <Typography className="text-sm text-[#10b981]">✓ Complete deployment history</Typography>
+              <Typography className="text-sm text-[#10b981]">✓ Service dependencies & graphs</Typography>
+            </Stack>
+          </Box>
+        </Box>
+        
+        <Box className="mt-6 p-4 rounded-lg bg-[#0a0a0a]/50 text-center">
+          <Typography className="text-sm text-[#a0a0a0]">
+            <span className="text-white font-medium">Result:</span> When debugging a production issue, 
+            Planton&apos;s agents understand not just the infrastructure, but the entire context—which commit 
+            triggered the deployment, what changed since last success, and how services depend on each other.
+          </Typography>
+        </Box>
+      </Card>
+
       {/* Honest context */}
       <Card className="mb-16 bg-gradient-to-br from-[#f59e0b]/10 to-[#ef4444]/10 border-[#f59e0b]/30">
         <Box className="grid lg:grid-cols-2 gap-8">

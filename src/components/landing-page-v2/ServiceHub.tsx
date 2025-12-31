@@ -2,7 +2,7 @@
 
 import { Box, Stack, Typography } from '@mui/material';
 import { FC } from 'react';
-import { Section, SectionTitle, SectionSubtitle, Card, BodyText, CheckIcon, XIcon, Quote, Badge } from './shared';
+import { Section, SectionTitle, SectionSubtitle, Card, BodyText, CheckIcon, XIcon, Badge } from './shared';
 
 const noMore = [
   'Writing Dockerfiles (unless you want control—then it\'s optional)',
@@ -233,19 +233,49 @@ export const ServiceHub: FC = () => {
         </Box>
       </Box>
 
-      {/* Customer quote */}
-      <Card className="bg-gradient-to-br from-[#0ea5e9]/10 to-[#7c3aed]/10 border-[#0ea5e9]/30">
-        <Quote
-          text="Developers self-onboard their own services. That's a huge win."
-          author="Tynybay consulting"
-          role="deploying the Odwen warehousing platform"
+      {/* Customer quote - Featured prominently */}
+      <Box className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#0ea5e9]/20 via-[#0f0f1a] to-[#7c3aed]/20 border border-[#0ea5e9]/30 p-8 md:p-12">
+        {/* Background decoration */}
+        <Box 
+          className="absolute top-0 right-0 w-64 h-64 opacity-10"
+          sx={{
+            background: 'radial-gradient(circle, rgba(14,165,233,0.4) 0%, transparent 70%)',
+            filter: 'blur(60px)',
+          }}
         />
-        <Typography className="text-sm text-[#a0a0a0] mt-4 pl-6 border-l-4 border-[#2a2a2a]">
-          <em>Context:</em> 3-person team (1 DevOps engineer, 2 developers). Infrastructure setup: &lt;1 hour. 
-          Developers now onboard services independently without blocking on DevOps. Multiple environments 
-          (QA, staging, prod) managed through simple UI.
-        </Typography>
-      </Card>
+        
+        <Box className="relative z-10">
+          <Typography className="text-2xl md:text-3xl text-white font-medium italic mb-6 leading-relaxed">
+            &quot;Developers self-onboard their own services. That&apos;s a huge win. We went from 
+            deploying once a week to deploying 10+ times per day. Planton removed the bottleneck.&quot;
+          </Typography>
+          
+          <Box className="flex items-center gap-4 mb-6">
+            <Box className="w-12 h-12 rounded-full bg-gradient-to-br from-[#0ea5e9] to-[#7c3aed] flex items-center justify-center text-white font-bold">
+              T
+            </Box>
+            <Box>
+              <Typography className="text-white font-semibold">Engineering Lead</Typography>
+              <Typography className="text-[#a0a0a0] text-sm">TynyBay — deploying Odwen platform</Typography>
+            </Box>
+          </Box>
+          
+          <Box className="grid grid-cols-3 gap-4 pt-6 border-t border-[#2a2a2a]">
+            <Box className="text-center">
+              <Typography className="text-xl font-bold text-white">3</Typography>
+              <Typography className="text-xs text-[#666]">Person Team</Typography>
+            </Box>
+            <Box className="text-center">
+              <Typography className="text-xl font-bold text-[#10b981]">&lt;1 hr</Typography>
+              <Typography className="text-xs text-[#666]">Infrastructure Setup</Typography>
+            </Box>
+            <Box className="text-center">
+              <Typography className="text-xl font-bold text-[#0ea5e9]">10+</Typography>
+              <Typography className="text-xs text-[#666]">Deploys Per Day</Typography>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
     </Section>
   );
 };

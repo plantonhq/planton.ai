@@ -30,6 +30,7 @@ export const colors = {
   accentBlue: '#0ea5e9',
   accentGreen: '#10b981',
   accentRed: '#ef4444',
+  accentAmber: '#f59e0b',
   
   // Borders
   border: '#2a2a2a',
@@ -389,4 +390,231 @@ export const Metric: FC<MetricProps> = ({ value, label, className = '' }) => (
       {label}
     </Typography>
   </Box>
+);
+
+// ============================================================================
+// TESTIMONIAL CARD (Twitter-style)
+// ============================================================================
+
+interface TestimonialCardProps {
+  name: string;
+  role: string;
+  company: string;
+  quote: string;
+  location?: string;
+  className?: string;
+}
+
+export const TestimonialCard: FC<TestimonialCardProps> = ({
+  name,
+  role,
+  company,
+  quote,
+  location,
+  className = '',
+}) => (
+  <Box
+    className={`
+      rounded-xl bg-[#1a1a1a] border border-[#2a2a2a]
+      p-6 transition-all duration-300
+      hover:border-[#3a3a3a] hover:translate-y-[-4px]
+      hover:shadow-lg hover:shadow-purple-500/10
+      ${className}
+    `}
+  >
+    {/* Header with avatar and name */}
+    <Box className="flex items-center gap-3 mb-4">
+      <Box className="w-10 h-10 rounded-full bg-gradient-to-br from-[#7c3aed] to-[#0ea5e9] flex items-center justify-center text-white font-semibold text-sm">
+        {name.split(' ').map(n => n[0]).join('')}
+      </Box>
+      <Box>
+        <Typography className="text-white font-medium text-sm">
+          {name}
+        </Typography>
+        <Typography className="text-[#666] text-xs">
+          {role}, {company}
+        </Typography>
+      </Box>
+    </Box>
+    
+    {/* Quote */}
+    <Typography className="text-[#b0b0b0] text-sm leading-relaxed mb-4">
+      &quot;{quote}&quot;
+    </Typography>
+    
+    {/* Footer */}
+    <Box className="flex items-center gap-2 text-xs text-[#666]">
+      <span>🏢 {company}</span>
+      {location && (
+        <>
+          <span>•</span>
+          <span>🌍 {location}</span>
+        </>
+      )}
+    </Box>
+  </Box>
+);
+
+// ============================================================================
+// TERMINAL WINDOW
+// ============================================================================
+
+interface TerminalWindowProps {
+  children: ReactNode;
+  className?: string;
+  title?: string;
+}
+
+export const TerminalWindow: FC<TerminalWindowProps> = ({
+  children,
+  className = '',
+  title = 'Terminal',
+}) => (
+  <Box
+    className={`
+      rounded-xl bg-[#1a1a1a] border border-[#2a2a2a]
+      overflow-hidden
+      ${className}
+    `}
+  >
+    {/* Title bar */}
+    <Box className="flex items-center gap-2 px-4 py-3 bg-[#2a2a2a] border-b border-[#3a3a3a]">
+      <Box className="w-3 h-3 rounded-full bg-[#ef4444]" />
+      <Box className="w-3 h-3 rounded-full bg-[#f59e0b]" />
+      <Box className="w-3 h-3 rounded-full bg-[#10b981]" />
+      <Typography className="ml-3 text-xs text-[#666]">{title}</Typography>
+    </Box>
+    
+    {/* Terminal content */}
+    <Box className="p-4 font-mono text-sm">
+      {children}
+    </Box>
+  </Box>
+);
+
+// ============================================================================
+// COMPARISON ICONS
+// ============================================================================
+
+export const WarningIcon = () => (
+  <svg className="w-5 h-5 text-[#f59e0b]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+  </svg>
+);
+
+// ============================================================================
+// COMPARISON CELL
+// ============================================================================
+
+type ComparisonStatus = 'yes' | 'no' | 'partial' | 'na';
+
+interface ComparisonCellProps {
+  status: ComparisonStatus;
+  text?: string;
+  className?: string;
+}
+
+export const ComparisonCell: FC<ComparisonCellProps> = ({
+  status,
+  text,
+  className = '',
+}) => {
+  const getStatusDisplay = () => {
+    switch (status) {
+      case 'yes':
+        return <CheckIcon />;
+      case 'no':
+        return <XIcon />;
+      case 'partial':
+        return <WarningIcon />;
+      case 'na':
+        return <span className="text-[#666]">N/A</span>;
+    }
+  };
+
+  return (
+    <Box className={`flex items-center gap-2 ${className}`}>
+      {getStatusDisplay()}
+      {text && <span className="text-sm text-[#b0b0b0]">{text}</span>}
+    </Box>
+  );
+};
+
+// ============================================================================
+// STEP INDICATOR
+// ============================================================================
+
+interface StepProps {
+  number: number;
+  title: string;
+  description: string;
+  icon: ReactNode;
+  isLast?: boolean;
+}
+
+export const Step: FC<StepProps> = ({
+  number,
+  title,
+  description,
+  icon,
+  isLast = false,
+}) => (
+  <Box className="flex-1 relative">
+    {/* Connector line */}
+    {!isLast && (
+      <Box className="hidden lg:block absolute top-12 left-[calc(50%+40px)] w-[calc(100%-80px)] h-0.5 bg-gradient-to-r from-[#7c3aed]/50 to-[#0ea5e9]/50" />
+    )}
+    
+    <Box className="flex flex-col items-center text-center">
+      {/* Icon container */}
+      <Box className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#7c3aed]/20 to-[#0ea5e9]/20 border border-[#7c3aed]/30 flex items-center justify-center mb-4 text-[#a78bfa]">
+        {icon}
+      </Box>
+      
+      {/* Step number */}
+      <Badge variant="purple" className="mb-3">Step {number}</Badge>
+      
+      {/* Title */}
+      <Typography className="text-lg font-semibold text-white mb-2">
+        {title}
+      </Typography>
+      
+      {/* Description */}
+      <Typography className="text-sm text-[#a0a0a0] max-w-xs">
+        {description}
+      </Typography>
+    </Box>
+  </Box>
+);
+
+// ============================================================================
+// METRIC CARD (Enhanced)
+// ============================================================================
+
+interface MetricCardProps {
+  value: string;
+  label: string;
+  sublabel?: string;
+  className?: string;
+}
+
+export const MetricCard: FC<MetricCardProps> = ({
+  value,
+  label,
+  sublabel,
+  className = '',
+}) => (
+  <Card className={`text-center p-6 ${className}`}>
+    <Typography className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-[#7c3aed] to-[#0ea5e9] bg-clip-text text-transparent">
+      {value}
+    </Typography>
+    <Typography className="text-sm text-[#a0a0a0] mt-2">
+      {label}
+    </Typography>
+    {sublabel && (
+      <Typography className="text-xs text-[#666] mt-1">
+        {sublabel}
+      </Typography>
+    )}
+  </Card>
 );

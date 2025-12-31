@@ -3,12 +3,14 @@
 import { Box, Stack, Typography } from '@mui/material';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FC } from 'react';
-import { Badge, PrimaryButton, SecondaryButton, ArrowRightIcon } from './shared';
+import { FC, useState, useEffect } from 'react';
+import { Badge, PrimaryButton, ArrowRightIcon, TerminalWindow } from './shared';
 
 const trustIndicators = [
+  'Multi-Cloud (AWS, GCP, Azure)',
   'Open Source Foundation',
   'Zero Vendor Lock-In',
+  'Standards-Based',
 ];
 
 const cloudProviders = [
@@ -16,10 +18,91 @@ const cloudProviders = [
   { src: '/images/providers/gcp.svg', alt: 'GCP', name: 'GCP' },
   { src: '/images/providers/azure.svg', alt: 'Azure', name: 'Azure' },
   { src: '/images/providers/kubernetes.svg', alt: 'Kubernetes', name: 'Kubernetes' },
-  { src: '/images/providers/digital-ocean.svg', alt: 'Digital Ocean', name: 'Digital Ocean' },
-  { src: '/images/providers/civo.svg', alt: 'Civo', name: 'Civo' },
   { src: '/images/providers/cloudflare.svg', alt: 'Cloudflare', name: 'Cloudflare' },
 ];
+
+const socialProofPoints = [
+  { text: '7 developers managing production on AWS without a DevOps hire', icon: '👥' },
+  { text: '<1 hour infrastructure setup (vs. couple weeks manual)', icon: '⚡' },
+  { text: '100% customer retention since launch', icon: '✓' },
+];
+
+const terminalLines = [
+  { type: 'command', text: '$ planton infra-chart deploy aws-ecs-environment' },
+  { type: 'output', text: '', delay: 500 },
+  { type: 'success', text: '✓ VPC created (15s)', delay: 800 },
+  { type: 'success', text: '✓ Load Balancer configured (22s)', delay: 600 },
+  { type: 'success', text: '✓ ECR registry ready (8s)', delay: 500 },
+  { type: 'success', text: '✓ SSL certificates issued (35s)', delay: 700 },
+  { type: 'success', text: '✓ DNS configured (12s)', delay: 600 },
+  { type: 'output', text: '', delay: 300 },
+  { type: 'final', text: '⚡ Complete in 52 seconds', delay: 500 },
+];
+
+const AnimatedTerminal: FC = () => {
+  const [visibleLines, setVisibleLines] = useState<number>(0);
+
+  useEffect(() => {
+    let currentLine = 0;
+    let totalDelay = 0;
+
+    const showNextLine = () => {
+      if (currentLine < terminalLines.length) {
+        const line = terminalLines[currentLine];
+        totalDelay += line.delay || 400;
+        
+        setTimeout(() => {
+          setVisibleLines(prev => prev + 1);
+        }, totalDelay);
+        
+        currentLine++;
+        showNextLine();
+      } else {
+        // Reset after 3 seconds
+        setTimeout(() => {
+          setVisibleLines(0);
+          currentLine = 0;
+          totalDelay = 0;
+          showNextLine();
+        }, 3000 + totalDelay);
+      }
+    };
+
+    showNextLine();
+  }, []);
+
+  return (
+    <TerminalWindow title="Terminal" className="text-left">
+      {terminalLines.slice(0, visibleLines).map((line, index) => (
+        <Box key={index} className="mb-1">
+          {line.type === 'command' && (
+            <Typography className="font-mono text-sm text-[#0ea5e9]">
+              {line.text}
+            </Typography>
+          )}
+          {line.type === 'success' && (
+            <Typography className="font-mono text-sm text-[#10b981]">
+              {line.text}
+            </Typography>
+          )}
+          {line.type === 'final' && (
+            <Typography className="font-mono text-sm text-[#f59e0b] font-bold">
+              {line.text}
+            </Typography>
+          )}
+          {line.type === 'output' && (
+            <Box className="h-2" />
+          )}
+        </Box>
+      ))}
+      {visibleLines > 0 && visibleLines < terminalLines.length && (
+        <Box className="animate-pulse">
+          <Typography className="font-mono text-sm text-[#666]">_</Typography>
+        </Box>
+      )}
+    </TerminalWindow>
+  );
+};
 
 export const HeroSection: FC = () => {
   return (
@@ -63,62 +146,86 @@ export const HeroSection: FC = () => {
             Trusted by Tech Teams • 100% customer retention
           </Badge>
 
-          {/* Main headline */}
+          {/* Main headline - UPDATED */}
           <Typography
             variant="h1"
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] max-w-5xl"
           >
-            DevOps-in-a-Box
+            What if DevOps
             <br />
             <span className="bg-gradient-to-r from-[#7c3aed] via-[#a78bfa] to-[#0ea5e9] bg-clip-text text-transparent">
-              From Code to Cloud
+              Didn&apos;t Block
             </span>
             <br />
-            in Under an Hour
+            Your Developers?
           </Typography>
 
-          {/* Subheadline */}
+          {/* Subheadline - UPDATED */}
           <Typography className="text-lg md:text-xl lg:text-2xl text-[#a0a0a0] max-w-3xl leading-relaxed">
-            Multi-cloud automation platform that eliminates DevOps bottlenecks. 
-            Deploy infrastructure and backend services in minutes—no scripts, 
-            no waiting, no dedicated ops team required.
+            Multi-cloud infrastructure automation that eliminates DevOps bottlenecks.
+            No ops team required. No vendor lock-in. 100% open source.
           </Typography>
 
-          {/* CTA buttons */}
-          <Stack 
-            direction={{ xs: 'column', sm: 'row' }} 
-            className="gap-4 mt-4"
-          >
+          {/* Quantified Social Proof - NEW */}
+          <Box className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl w-full">
+            {socialProofPoints.map((point, index) => (
+              <Box
+                key={index}
+                className="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#151515] border border-[#2a2a2a]"
+              >
+                <span className="text-xl">{point.icon}</span>
+                <Typography className="text-sm text-[#b0b0b0] text-left">
+                  {point.text}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+
+          {/* CTA buttons - SIMPLIFIED HIERARCHY */}
+          <Stack className="items-center gap-4 mt-4">
+            {/* Primary CTA */}
             <Link href="https://console.planton.ai/" target="_blank">
-              <PrimaryButton className="text-base md:text-lg px-8 py-4">
+              <PrimaryButton className="text-lg md:text-xl px-10 py-5 shadow-2xl shadow-purple-500/30">
                 Start Free Trial
                 <ArrowRightIcon />
               </PrimaryButton>
             </Link>
-            <Link href="https://docs.google.com/forms/d/17tEVBbpIGl0AR4M75IOBYj4Ywap1RPCzZc4HMWA-67U" target="_blank">
-              <SecondaryButton className="text-base md:text-lg px-8 py-4">
-                Request Demo
-              </SecondaryButton>
-            </Link>
+            
+            {/* Free trial note */}
+            <Typography className="text-sm text-[#666]">
+              100 automation minutes free • No credit card required
+            </Typography>
+
+            {/* Secondary CTAs */}
+            <Stack direction="row" className="gap-4 mt-2">
+              <Link 
+                href="https://docs.google.com/forms/d/17tEVBbpIGl0AR4M75IOBYj4Ywap1RPCzZc4HMWA-67U" 
+                target="_blank"
+                className="text-[#a78bfa] hover:text-white transition-colors text-sm font-medium"
+              >
+                Watch 5-Min Demo →
+              </Link>
+              <Link 
+                href="#pricing"
+                className="text-[#a0a0a0] hover:text-white transition-colors text-sm"
+              >
+                See Pricing
+              </Link>
+            </Stack>
           </Stack>
 
-          {/* Free trial note */}
-          <Typography className="text-sm text-[#666]">
-            100 automation minutes, no credit card required
-          </Typography>
-
-          {/* Trust indicators */}
+          {/* Trust indicators - UPDATED */}
           <Stack 
-            direction={{ xs: 'column', md: 'row' }} 
-            className="gap-3 md:gap-4 mt-8 flex-wrap justify-center"
+            direction="row" 
+            className="gap-2 md:gap-3 mt-8 flex-wrap justify-center"
           >
             {trustIndicators.map((indicator, index) => (
               <Box
                 key={index}
-                className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#2a2a2a] bg-[#111]/50"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#2a2a2a] bg-[#111]/50"
               >
-                <Box className="w-2 h-2 rounded-full bg-[#10b981]" />
-                <Typography className="text-sm text-[#a0a0a0]">
+                <Box className="w-1.5 h-1.5 rounded-full bg-[#10b981]" />
+                <Typography className="text-xs text-[#a0a0a0]">
                   {indicator}
                 </Typography>
               </Box>
@@ -153,76 +260,9 @@ export const HeroSection: FC = () => {
             </Box>
           </Box>
 
-          {/* Visual placeholder for dashboard preview */}
-          <Box className="relative w-full max-w-5xl mt-12">
-            <Box 
-              className="aspect-[16/9] rounded-xl border border-[#2a2a2a] bg-gradient-to-br from-[#151515] to-[#0a0a0a] overflow-hidden"
-              sx={{
-                boxShadow: '0 40px 80px -20px rgba(124,58,237,0.2), 0 20px 40px -10px rgba(0,0,0,0.5)',
-              }}
-            >
-              {/* Mock dashboard UI */}
-              <Box className="p-4 md:p-6 h-full flex flex-col">
-                {/* Top bar */}
-                <Box className="flex items-center gap-2 mb-4">
-                  <Box className="w-3 h-3 rounded-full bg-[#ef4444]" />
-                  <Box className="w-3 h-3 rounded-full bg-[#f59e0b]" />
-                  <Box className="w-3 h-3 rounded-full bg-[#10b981]" />
-                  <Box className="ml-4 flex-1 h-6 rounded bg-[#1a1a1a]" />
-                </Box>
-                
-                {/* Split view mock */}
-                <Box className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Left panel - Infra Hub */}
-                  <Box className="rounded-lg border border-[#2a2a2a] bg-[#0f0f0f] p-4">
-                    <Box className="flex items-center gap-2 mb-4">
-                      <Box className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#7c3aed] to-[#a78bfa]" />
-                      <Typography className="text-sm font-medium text-white">Infra Hub</Typography>
-                    </Box>
-                    <Stack className="gap-2">
-                      {['VPC Created', 'Load Balancer', 'ECR Registry'].map((item, i) => (
-                        <Box key={i} className="flex items-center gap-2">
-                          <Box className="w-4 h-4 rounded-full bg-[#10b981] flex items-center justify-center">
-                            <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                            </svg>
-                          </Box>
-                          <Typography className="text-xs text-[#a0a0a0]">{item}</Typography>
-                        </Box>
-                      ))}
-                    </Stack>
-                  </Box>
-                  
-                  {/* Right panel - Service Hub */}
-                  <Box className="rounded-lg border border-[#2a2a2a] bg-[#0f0f0f] p-4">
-                    <Box className="flex items-center gap-2 mb-4">
-                      <Box className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#0ea5e9] to-[#38bdf8]" />
-                      <Typography className="text-sm font-medium text-white">Service Hub</Typography>
-                    </Box>
-                    <Stack className="gap-2">
-                      {['Build: Success', 'Push: Complete', 'Deploy: Running'].map((item, i) => (
-                        <Box key={i} className="flex items-center gap-2">
-                          <Box 
-                            className={`w-4 h-4 rounded-full flex items-center justify-center ${
-                              i === 2 ? 'bg-[#0ea5e9] animate-pulse' : 'bg-[#10b981]'
-                            }`}
-                          >
-                            {i === 2 ? (
-                              <Box className="w-2 h-2 rounded-full bg-white" />
-                            ) : (
-                              <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                              </svg>
-                            )}
-                          </Box>
-                          <Typography className="text-xs text-[#a0a0a0]">{item}</Typography>
-                        </Box>
-                      ))}
-                    </Stack>
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
+          {/* Animated Terminal Preview - NEW */}
+          <Box className="relative w-full max-w-3xl mt-12">
+            <AnimatedTerminal />
             
             {/* Glow effect beneath */}
             <Box 
