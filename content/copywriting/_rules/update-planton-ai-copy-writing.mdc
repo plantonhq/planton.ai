@@ -1,0 +1,1284 @@
+# Rule: Update Planton.ai Copywriting
+
+**Type**: Action Rule  
+**Purpose**: Automate copywriting updates for planton.ai website through staged drafts, HTML previews, and React component implementation.
+
+## When to Use This Rule
+
+Trigger this rule when you need to update website copy due to:
+
+- **Product repositioning**: Core value proposition or messaging changes
+- **New capabilities**: Features added to the platform that need to be communicated
+- **Feedback-driven improvements**: Advisory feedback, customer insights, or market research
+- **Competitive positioning**: Updates based on competitive landscape analysis
+- **Content quality improvements**: Refinement of existing copy for clarity or impact
+
+## Prerequisites
+
+Before triggering this rule:
+
+1. **Prepare workspace**: Dump all relevant materials into `content/copywriting/_workspace/`
+   - Meeting transcripts (Markdown, TXT)
+   - Advisory feedback (PDF, DOCX, Markdown)
+   - Images or screenshots
+   - Research notes
+   - Any other context documents
+
+2. **Provide context**: When triggering the rule, specify:
+   - Which page(s) need updating (landing, pricing, about, features, etc.)
+   - What aspect needs to change (hero messaging, feature descriptions, customer stories, etc.)
+   - Why the change is needed (brief context)
+
+## Workflow Overview
+
+```mermaid
+flowchart TD
+    Start[Trigger Rule] --> Analyze[Analyze _workspace Content]
+    Analyze --> Context[Understand Target & Changes]
+    Context --> CreateFolder[Create Dated Stage Folder]
+    CreateFolder --> Draft1[Generate draft-1.md]
+    Draft1 --> HTML1[Generate preview-1.html]
+    HTML1 --> Review{User Reviews}
+    Review -->|Major Changes| Draft2[Generate draft-2.md + preview-2.html]
+    Review -->|Minor Changes| UpdateDraft1[Update draft-1.md + preview-1.html]
+    Draft2 --> Review
+    UpdateDraft1 --> Review
+    Review -->|Approved| AskImplement{Ask: Implement?}
+    AskImplement -->|Yes| MapComponents[Map to React Components]
+    MapComponents --> UpdateSource[Update src/ Components]
+    UpdateSource --> Verify[Verify Build]
+    Verify --> Changelog[Create Changelog]
+    Changelog --> Cleanup[Clean _workspace]
+    Cleanup --> End[Done]
+    AskImplement -->|No| End
+```
+
+## Phase 1: Analysis
+
+### Workspace Content Analysis
+
+1. **List all files** in `content/copywriting/_workspace/`
+2. **Read and parse** each file:
+   - Markdown files: Extract text content
+   - PDF files: Read and extract text
+   - Images: Note presence for context (OCR if text-heavy)
+   - Other formats: Handle appropriately
+
+3. **Extract key insights**:
+   - What needs to change? (specific sections, messaging, tone)
+   - Which page(s)? (landing, pricing, about, features, blog posts, etc.)
+   - Why? (product evolution, feedback, repositioning)
+   - Target audience considerations? (IT consulting firms, startups, enterprises)
+   - Competitive context? (vs Qovery, Terraform Cloud, Vercel, etc.)
+
+4. **Summarize findings** for user confirmation:
+   ```
+   ## Analysis Summary
+   
+   **Materials Analyzed**: [list files]
+   
+   **Key Insights**:
+   - [Insight 1]
+   - [Insight 2]
+   - [Insight 3]
+   
+   **Target Page(s)**: [landing page, pricing, etc.]
+   
+   **Sections to Update**: [hero, features, customer stories, etc.]
+   
+   **Reason for Update**: [brief explanation]
+   
+   **Proposed Approach**: [high-level strategy]
+   ```
+
+5. **Confirm with user** before proceeding to staging
+
+### Target Page Identification
+
+**Common pages and their typical sections**:
+
+**Landing Page** (`src/app/(root)/page.tsx`, components in `src/components/landing-page-v2/`):
+- Hero Section
+- Problem/Solution
+- Infra Hub
+- Service Hub
+- Open Standards
+- Open Source Foundation
+- Agent Fleet
+- Customer Stories
+- Pricing (simplified)
+- Built by DevOps Engineers
+- Security & Compliance
+- Final CTA
+
+**Pricing Page** (`src/app/(root)/pricing/page.tsx`, components in `src/components/pricing/`):
+- Pricing tiers (Free, Plus, Pro, Enterprise)
+- Usage metering explanation
+- Cost comparison calculator
+- FAQs
+
+**About Page** (if exists):
+- Company story
+- Team
+- Mission/vision
+- Contact information
+
+**Features Page** (if exists):
+- Detailed feature breakdowns
+- Use cases
+- Technical specifications
+
+**Blog Posts** (`src/app/(root)/blog/`):
+- Individual post content
+
+## Phase 2: Staging
+
+### Create Stage Folder
+
+1. **Generate folder name**: `content/copywriting/_stage-area/YYYY-MM-DD-description/`
+   - Date: Current date (YYYY-MM-DD format)
+   - Description: Kebab-case meaningful description (e.g., `landing-hero-security-focus`)
+   - Max description length: 50 characters
+
+2. **Create folder** if it doesn't exist
+
+### Generate Draft Markdown
+
+Create `draft-1.md` with the following structure:
+
+```markdown
+---
+page: [target page name]
+sections: [list of sections]
+date: YYYY-MM-DD
+version: 1
+status: draft
+---
+
+# [Page Name] Copywriting Update
+
+## Metadata
+
+- **Target Page**: [Landing Page / Pricing Page / etc.]
+- **Sections Updated**: [Hero, Problem/Solution, etc.]
+- **Reason**: [Brief explanation of why this update is needed]
+- **Key Changes**: [Bullet list of major changes]
+
+---
+
+## Section 1: [Section Name]
+
+### [Subsection if needed]
+
+[Content here following @general-writing-guidelines.mdc principles]
+
+**Visual Direction**: [Notes for web developer about visual elements, animations, layouts]
+
+**Component Mapping**: [Notes about which React component this maps to]
+
+---
+
+## Section 2: [Section Name]
+
+[Continue for all sections...]
+
+---
+
+## Implementation Notes
+
+### Component Changes Required
+
+- **New Components**: [List any new components needed]
+- **Updated Components**: [List existing components to update]
+- **Design System Elements**: [Any new design system components needed]
+
+### Content Strategy
+
+- [Key messaging decisions]
+- [Tone and voice considerations]
+- [Audience targeting notes]
+
+---
+
+## Changelog Entry Draft
+
+[Pre-written changelog content for when implementation is complete]
+```
+
+**Writing Principles** (from `@general-writing-guidelines.mdc`):
+
+1. **Grounded in Truth**:
+   - Base content on actual customer usage, real metrics
+   - No speculation ("might", "could") without evidence
+   - Use concrete examples from real customers (Tynybay, iorta TechNext, Odwen)
+
+2. **Developer-Friendly**:
+   - Technical accuracy with business benefits
+   - Use proper terminology without dumbing down
+   - Include code examples where relevant
+   - Analogies that clarify (not confuse)
+
+3. **Balanced Depth**:
+   - Start with summary (2-4 sentences)
+   - Progressive disclosure (high-level → details)
+   - Use bullets and tables to compress information
+   - Cut anything that doesn't add value
+
+4. **Timeless**:
+   - Explain concepts and systems (not conversations)
+   - Avoid temporal language ("recently", "we just", "after discussing")
+   - Exception: Changelogs and post-mortems are inherently temporal
+
+5. **Context Before Details**:
+   - What is this? (one sentence)
+   - Why does it exist? (the problem)
+   - How does it work? (the solution)
+   - Details (technical specifics)
+
+### Generate HTML Preview
+
+Create `preview-1.html` using this template:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview: [Page Name] - [Description]</title>
+    <style>
+        /* Simple, professional styling - dark theme, readable typography */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0f0f0f;
+            color: #e0e0e0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            border: 1px solid #2a2a3e;
+        }
+        
+        .metadata {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .meta-item {
+            background: #1a1a1a;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #2a2a2a;
+        }
+        
+        .meta-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #888;
+            margin-bottom: 0.25rem;
+        }
+        
+        .meta-value {
+            font-size: 0.95rem;
+            color: #fff;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #7c3aed, #0ea5e9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #2a2a2a;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+            color: #e0e0e0;
+        }
+        
+        h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #d0d0d0;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            color: #b0b0b0;
+            font-size: 1.05rem;
+        }
+        
+        ul, ol {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            color: #b0b0b0;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        strong {
+            color: #fff;
+            font-weight: 600;
+        }
+        
+        em {
+            color: #10b981;
+            font-style: italic;
+        }
+        
+        code {
+            background: #1a1a1a;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: #10b981;
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        pre {
+            background: #1a1a1a;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+            border: 1px solid #2a2a2a;
+        }
+        
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        blockquote {
+            border-left: 4px solid #7c3aed;
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: #a0a0a0;
+            background: #1a1a1a;
+            padding: 1rem;
+            padding-left: 1.5rem;
+            border-radius: 4px;
+        }
+        
+        .section {
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background: #1a1a1a;
+            border-radius: 12px;
+            border: 1px solid #2a2a2a;
+        }
+        
+        .visual-note {
+            background: #1a2a1a;
+            border-left: 4px solid #10b981;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        
+        .visual-note strong {
+            color: #10b981;
+        }
+        
+        .component-note {
+            background: #1a1a2a;
+            border-left: 4px solid #0ea5e9;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        
+        .component-note strong {
+            color: #0ea5e9;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .badge-draft {
+            background: #7c3aed22;
+            color: #7c3aed;
+            border: 1px solid #7c3aed44;
+        }
+        
+        .badge-new {
+            background: #10b98122;
+            color: #10b981;
+            border: 1px solid #10b98144;
+        }
+        
+        .badge-update {
+            background: #0ea5e922;
+            color: #0ea5e9;
+            border: 1px solid #0ea5e944;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #2a2a2a;
+        }
+        
+        th {
+            background: #1a1a1a;
+            color: #fff;
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background: #1a1a1a;
+        }
+        
+        a {
+            color: #0ea5e9;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        hr {
+            border: none;
+            border-top: 1px solid #2a2a2a;
+            margin: 2rem 0;
+        }
+        
+        .toc {
+            background: #1a1a1a;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 1px solid #2a2a2a;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .toc a {
+            color: #b0b0b0;
+        }
+        
+        .toc a:hover {
+            color: #0ea5e9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header with metadata -->
+        <div class="header">
+            <div class="metadata">
+                <!-- Metadata items will be injected here -->
+            </div>
+            <h1><!-- Page title will be injected here --></h1>
+        </div>
+        
+        <!-- Main content will be injected here -->
+        
+    </div>
+</body>
+</html>
+```
+
+**HTML Generation Process**:
+
+1. Parse the markdown file
+2. Convert markdown to HTML using standard markdown parser
+3. Inject into template:
+   - Metadata section with page, sections, date, version
+   - Main content area with converted HTML
+   - Special handling for:
+     - Visual Direction notes → `.visual-note` class
+     - Component Mapping notes → `.component-note` class
+     - Badges for status indicators
+4. Ensure proper escaping of HTML entities
+5. Validate well-formed HTML
+
+**Present to user**:
+```
+✅ Stage folder created: content/copywriting/_stage-area/YYYY-MM-DD-description/
+
+📄 Generated files:
+- draft-1.md (XXX lines)
+- preview-1.html
+
+Please review the HTML preview in your browser:
+file:///path/to/content/copywriting/_stage-area/YYYY-MM-DD-description/preview-1.html
+
+Once you've reviewed, provide feedback or approve for implementation.
+```
+
+## Phase 3: Iteration
+
+### Handling User Feedback
+
+After presenting the draft, wait for user feedback. The feedback will fall into one of these categories:
+
+**Category 1: Major Redo** (Create draft-2.md)
+
+Indicators:
+- User says: "completely redo", "different angle", "start over", "wrong approach"
+- Feedback affects >50% of content
+- Fundamental messaging shift required
+- Different structure or flow needed
+
+Actions:
+1. Create `draft-2.md` with new approach
+2. Create `preview-2.html` with updated content
+3. Keep draft-1 for reference
+4. Present draft-2 for review
+
+**Category 2: Minor Edits** (Update draft-1.md)
+
+Indicators:
+- User says: "fix this", "update that", "change wording", "clarify", "tweak"
+- Feedback affects <50% of content
+- Same overall approach, refinement needed
+- Specific corrections or additions
+
+Actions:
+1. Update `draft-1.md` with changes
+2. Regenerate `preview-1.html` with updates
+3. Notify user to refresh preview
+4. Wait for next round of feedback
+
+**Category 3: Uncertainty**
+
+If unclear which category, ask user:
+```
+I see feedback about [summarize feedback]. This could be handled as:
+
+A) Major redo - create draft-2.md with a new approach
+B) Minor edits - update draft-1.md with refinements
+
+Which would you prefer?
+```
+
+### Iteration Examples
+
+**Example 1: Minor Edit**
+```
+User: "The security messaging is too technical. Simplify it for business buyers."
+
+[Update draft-1.md, regenerate preview-1.html]
+
+Response: "✅ Updated draft-1.md with simplified security messaging. 
+Please refresh preview-1.html to see changes."
+```
+
+**Example 2: Major Redo**
+```
+User: "This approach focuses too much on technical details. Let's completely redo 
+it with business value first, then technical capabilities."
+
+[Create draft-2.md with business-first approach, generate preview-2.html]
+
+Response: "✅ Created draft-2.md with business-value-first approach. 
+Please review preview-2.html."
+```
+
+**Example 3: Incremental Refinement**
+```
+User: "Good direction. Three changes:
+1. Hero headline - emphasize 'under an hour' more
+2. Customer stories - add more specific metrics
+3. Pricing - clarify the usage metering"
+
+[Update draft-1.md with all three changes, regenerate preview-1.html]
+
+Response: "✅ Updated draft-1.md:
+- Hero headline emphasizes deployment speed
+- Customer stories include deployment times and cost savings
+- Pricing section clarifies per-minute metering
+
+Refresh preview-1.html to review."
+```
+
+## Phase 4: Implementation
+
+### Approval and Confirmation
+
+When user indicates approval (e.g., "looks good", "approved", "let's implement"), ask:
+
+```
+The draft is approved. Would you like me to implement these changes to the website source code?
+
+This will:
+1. Map draft content to React components
+2. Update existing components or create new ones
+3. Maintain design system consistency
+4. Verify build passes
+5. Generate changelog entry
+6. Clean up _workspace
+
+Reply "yes" to proceed with implementation.
+```
+
+### Component Mapping Strategy
+
+**Step 1: Analyze existing component structure**
+
+Read relevant directories:
+- `src/components/landing-page-v2/` (landing page components)
+- `src/components/pricing/` (pricing components)
+- `src/app/(root)/` (page routes)
+- `src/components/` (other shared components)
+
+**Step 2: Map draft sections to components**
+
+**For Landing Page**:
+
+| Draft Section | Component File |
+|--------------|----------------|
+| Hero | `src/components/landing-page-v2/HeroSection.tsx` |
+| Problem/Solution | `src/components/landing-page-v2/ProblemSolution.tsx` |
+| Infra Hub | `src/components/landing-page-v2/InfraHub.tsx` |
+| Service Hub | `src/components/landing-page-v2/ServiceHub.tsx` |
+| Open Standards | `src/components/landing-page-v2/OpenStandards.tsx` |
+| Open Source Foundation | `src/components/landing-page-v2/OpenSourceFoundation.tsx` |
+| Agent Fleet | `src/components/landing-page-v2/AgentFleet.tsx` |
+| Customer Stories | `src/components/landing-page-v2/CustomerStories.tsx` |
+| Pricing | `src/components/landing-page-v2/PricingSimplified.tsx` |
+| Built by DevOps | `src/components/landing-page-v2/BuiltByDevOps.tsx` |
+| Security & Compliance | `src/components/landing-page-v2/SecurityCompliance.tsx` |
+| Final CTA | `src/components/landing-page-v2/FinalCTA.tsx` |
+
+**For Pricing Page**:
+
+| Draft Section | Component File |
+|--------------|----------------|
+| Pricing Tiers | `src/components/pricing/plans.tsx` |
+| Calculator | `src/components/pricing/calculator.tsx` |
+| FAQs | `src/components/pricing/faqs.tsx` |
+
+**For New Pages**:
+- Create new route in `src/app/(root)/[page-name]/page.tsx`
+- Create components in `src/components/[page-name]/`
+
+**Step 3: Implementation approach**
+
+**Updating Existing Components**:
+1. Read current component code
+2. Identify sections to update (headlines, body text, bullet points, CTAs)
+3. Preserve:
+   - Component structure (React functional components)
+   - TypeScript types and interfaces
+   - MUI component usage
+   - Responsive layouts (Grid2, Box, Stack)
+   - Design system imports from `shared.tsx`
+   - Event handlers and interactivity
+4. Update:
+   - Text content (headlines, paragraphs, lists)
+   - Badges and labels
+   - Links and CTAs
+   - Customer quotes and metrics
+
+**Creating New Components**:
+1. Follow patterns from existing components
+2. Import from design system (`shared.tsx`):
+   ```typescript
+   import {
+     Section,
+     SectionTitle,
+     SectionSubtitle,
+     FeatureTitle,
+     BodyText,
+     PrimaryButton,
+     SecondaryButton,
+     Card,
+     Badge,
+     Grid,
+     Quote,
+     Metric,
+   } from './shared';
+   ```
+3. Use Material-UI components consistently:
+   - `Box` for layout containers
+   - `Stack` for vertical/horizontal stacking
+   - `Grid2` for responsive grids
+   - `Typography` for custom text styles
+4. Maintain TypeScript typing:
+   ```typescript
+   interface ComponentProps {
+     // Define props
+   }
+   
+   export const ComponentName: React.FC<ComponentProps> = ({ ...props }) => {
+     // Component implementation
+   };
+   ```
+5. Export from index file:
+   ```typescript
+   // In src/components/landing-page-v2/index.ts
+   export { ComponentName } from './ComponentName';
+   ```
+
+**Design System Consistency**:
+
+Reference `src/components/landing-page-v2/shared.tsx` for:
+- **Colors**: Primary gradient (`#7c3aed` to `#0ea5e9`), accent green (`#10b981`)
+- **Typography**: Section titles (2.5rem), feature titles (1.5rem), body text (1.05rem)
+- **Spacing**: Section padding (6rem vertical, 2rem horizontal), element margins
+- **Borders**: Rounded corners (12px for cards, 8px for buttons)
+- **Hover effects**: Border color transitions, subtle scale transforms
+- **Responsive breakpoints**: MUI breakpoints (xs, sm, md, lg, xl)
+
+### Implementation Example
+
+**Scenario**: Update Hero section headline
+
+**Current code** (`src/components/landing-page-v2/HeroSection.tsx`):
+```typescript
+<SectionTitle>
+  DevOps-in-a-Box—From Code to Cloud in Under an Hour
+</SectionTitle>
+```
+
+**Draft content**:
+```markdown
+## Section 1: Hero
+
+### Headline
+DevOps-in-a-Box—Deploy Infrastructure in Under an Hour, No DevOps Team Required
+```
+
+**Updated code**:
+```typescript
+<SectionTitle>
+  DevOps-in-a-Box—Deploy Infrastructure in Under an Hour, No DevOps Team Required
+</SectionTitle>
+```
+
+**Scenario**: Add new customer quote
+
+**Draft content**:
+```markdown
+**Customer Quote**: "We deployed our entire AWS ECS environment in 45 minutes. 
+Our developers now self-onboard services without waiting on DevOps." - iorta TechNext
+```
+
+**New code** (in appropriate component):
+```typescript
+<Quote
+  text="We deployed our entire AWS ECS environment in 45 minutes. Our developers now self-onboard services without waiting on DevOps."
+  author="iorta TechNext"
+  role="CTO"
+/>
+```
+
+## Phase 5: Verification & Cleanup
+
+### Build Verification
+
+After implementing changes:
+
+1. **Run build command**:
+   ```bash
+   cd /path/to/planton.ai
+   make build
+   ```
+
+2. **Check for errors**:
+   - TypeScript compilation errors
+   - Missing imports
+   - Type mismatches
+   - Build failures
+
+3. **If errors occur**:
+   - Fix issues one by one
+   - Re-run build after each fix
+   - Continue until build succeeds
+
+4. **Success message**:
+   ```
+   ✅ Build verification passed
+   
+   Updated components:
+   - src/components/landing-page-v2/HeroSection.tsx
+   - src/components/landing-page-v2/CustomerStories.tsx
+   
+   Build output:
+   - No TypeScript errors
+   - Static export completed successfully
+   ```
+
+### Generate Changelog Entry
+
+Create changelog file in `_changelog/YYYY-MM/YYYY-MM-DD-HHMMSS-description.md`
+
+**Changelog Structure**:
+
+```markdown
+# [Title of Change]
+
+**Date**: December 31, 2025  
+**Type**: [Content | Feature | Design]  
+**Components**: [List of affected components]
+
+## Summary
+
+[2-4 sentence summary of what changed and why]
+
+## Problem Statement / Motivation
+
+### [Context Section]
+
+[Detailed explanation of why this change was needed]
+
+### Pain Points
+
+[Bullet list of specific pain points addressed]
+
+## Solution / What's New
+
+### [Key Change 1]
+
+[Detailed description]
+
+### [Key Change 2]
+
+[Detailed description]
+
+## Implementation Details
+
+### Files Modified
+
+[List of all files changed with brief descriptions]
+
+### Key Changes
+
+[Detailed breakdown of changes]
+
+## Benefits
+
+### For [Audience 1]
+
+[Benefits for this audience]
+
+### For [Audience 2]
+
+[Benefits for this audience]
+
+## Impact
+
+[Description of expected impact]
+
+## Related Work
+
+[Links to related changelogs, meetings, or documents]
+
+---
+
+**Status**: ✅ Live (development)  
+**Timeline**: [Duration]  
+**Pages**: [URLs affected]
+```
+
+**Example**:
+```markdown
+# Landing Page Hero Section Security Emphasis
+
+**Date**: December 31, 2025  
+**Type**: Content  
+**Components**: Landing Page (Hero Section)
+
+## Summary
+
+Updated the landing page hero section to emphasize security and compliance capabilities, 
+targeting healthcare and fintech verticals based on advisory feedback from December 13, 2025 
+meeting with Ruchi and strategic advisors.
+
+## Problem Statement / Motivation
+
+### Healthcare Vertical Opportunity
+
+Advisory feedback indicated strong opportunity in healthcare and fintech markets, but current 
+landing page messaging doesn't address security and compliance concerns prominent in these 
+industries.
+
+### Pain Points
+
+- No mention of SOC 2, HIPAA, or compliance certifications in hero
+- Security capabilities buried in lower sections
+- Enterprise buyers (healthcare, fintech) couldn't quickly assess compliance fit
+
+## Solution / What's New
+
+### Updated Hero Headline
+
+Changed from generic "DevOps-in-a-Box" to compliance-focused:
+
+**Before**: "DevOps-in-a-Box—From Code to Cloud in Under an Hour"
+
+**After**: "DevOps-in-a-Box with Enterprise Security—Deploy Compliant Infrastructure in Under an Hour"
+
+### Added Security Trust Badges
+
+New trust indicator badges in hero:
+- SOC 2 Type I (Q1 2026)
+- HIPAA BAA Ready
+- Customer-Hosted Deployment Options
+
+## Implementation Details
+
+### Files Modified
+
+- `src/components/landing-page-v2/HeroSection.tsx`: Updated headline, added security badges
+
+### Key Changes
+
+1. Headline text updated (line 42)
+2. Security badge array added (lines 55-59)
+3. Trust indicators section expanded (lines 78-95)
+
+## Benefits
+
+### For Healthcare Prospects
+
+- Immediately see compliance capabilities
+- Understand HIPAA readiness
+- Identify self-hosted deployment option
+
+### For Fintech Prospects
+
+- SOC 2 certification visibility
+- Security-first messaging
+- Enterprise deployment models clear
+
+## Impact
+
+Landing page now addresses enterprise security concerns upfront, reducing friction for 
+healthcare and fintech prospects. Expected to improve demo booking conversion for 
+enterprise segment.
+
+## Related Work
+
+- Source: December 13, 2025 Product Demo & Advisory Feedback Session
+- Related: Upcoming SOC 2 Type I certification (Q1 2026)
+- Workspace materials: `content/copywriting/_workspace/advisory-feedback-healthcare.pdf`
+
+---
+
+**Status**: ✅ Live (development)  
+**Timeline**: 2 hours  
+**Pages**: https://planton.ai/
+```
+
+### Clean Workspace
+
+After successful implementation:
+
+1. **List files in `_workspace/`**:
+   ```bash
+   ls -la content/copywriting/_workspace/
+   ```
+
+2. **Remove all files except**:
+   - `.gitignore`
+   - `README.md`
+
+3. **Confirmation**:
+   ```
+   🧹 Cleaned workspace:
+   
+   Removed files:
+   - advisory-feedback.pdf
+   - meeting-transcript.md
+   - notes.txt
+   
+   Preserved:
+   - .gitignore
+   - README.md
+   
+   Workspace ready for next iteration.
+   ```
+
+### Final Summary
+
+Provide comprehensive summary:
+
+```
+✅ Copywriting update complete!
+
+## Stage Folder
+content/copywriting/_stage-area/YYYY-MM-DD-description/
+- draft-N.md (final version)
+- preview-N.html (final version)
+
+## Source Code Changes
+- src/components/landing-page-v2/HeroSection.tsx
+- src/components/landing-page-v2/CustomerStories.tsx
+- [other files...]
+
+## Verification
+✅ Build passed successfully
+✅ No TypeScript errors
+✅ Static export generated
+
+## Changelog
+_changelog/YYYY-MM/YYYY-MM-DD-HHMMSS-description.md
+
+## Workspace
+🧹 Cleaned and ready for next iteration
+
+## Next Steps
+1. Review changes locally: yarn dev
+2. Test in browser: http://localhost:3000
+3. When satisfied, commit changes
+4. Push to main branch to trigger GitHub Pages deployment
+
+The updated website will be live at https://planton.ai/ after deployment completes.
+```
+
+## Best Practices
+
+### Writing Quality
+
+1. **Follow @general-writing-guidelines.mdc**:
+   - Grounded in truth (no speculation)
+   - Developer-friendly (technical + accessible)
+   - Balanced depth (concise but complete)
+   - Timeless (explain concepts, not conversations)
+   - Context before details (why before how)
+
+2. **Use real customer data**:
+   - Tynybay (IT consulting, Odwen project, GCP Cloud Run)
+   - iorta TechNext (7 developers, SalesVerse, AWS ECS, $450/month)
+   - Specific metrics (<1 hour deployment, 96% cost savings, 100% retention)
+
+3. **Maintain consistent voice**:
+   - Use "Planton" (not "we")
+   - Direct and technical (not marketing fluff)
+   - Honest about trade-offs and limitations
+   - Focus on capabilities (not aspirations)
+
+### Technical Consistency
+
+1. **Preserve component patterns**:
+   - React functional components with TypeScript
+   - MUI components (Box, Stack, Grid2, Typography)
+   - Design system imports from `shared.tsx`
+   - Responsive layouts with breakpoints
+
+2. **Maintain design system**:
+   - Colors: Primary gradient, accent green, consistent backgrounds
+   - Typography: Established size hierarchy
+   - Spacing: Consistent padding and margins
+   - Borders: Standard border radius values
+
+3. **Test thoroughly**:
+   - Build verification (make build)
+   - Local testing (yarn dev)
+   - Responsive testing (mobile, tablet, desktop)
+
+### Process Efficiency
+
+1. **Clear communication**:
+   - Summarize analysis before proceeding
+   - Confirm understanding with user
+   - Explain decisions and rationale
+   - Provide clear next steps
+
+2. **Iterative refinement**:
+   - Don't assume first draft is perfect
+   - Expect feedback and iteration
+   - Distinguish major vs minor changes
+   - Update efficiently based on feedback type
+
+3. **Comprehensive documentation**:
+   - Detailed changelogs for all changes
+   - Implementation notes in drafts
+   - Visual direction for designers
+   - Component mapping for developers
+
+## Common Scenarios
+
+### Scenario 1: Update Single Section
+
+**User**: "Update the hero section headline to emphasize multi-cloud capabilities"
+
+**Process**:
+1. Analyze: Single section, minor content change
+2. Stage: Create folder, generate draft-1.md with updated hero
+3. Implement: Update `HeroSection.tsx` only
+4. Verify: Quick build check
+5. Changelog: Brief entry focused on hero change
+
+### Scenario 2: Complete Page Redesign
+
+**User**: "Completely redesign the pricing page based on competitor analysis in workspace"
+
+**Process**:
+1. Analyze: Full page, major structural change
+2. Stage: Create folder, comprehensive draft-1.md covering all pricing sections
+3. Iterate: Expect multiple rounds of feedback (draft-2, draft-3)
+4. Implement: Update multiple components in `src/components/pricing/`
+5. Verify: Thorough build and visual testing
+6. Changelog: Comprehensive entry documenting full redesign
+
+### Scenario 3: New Customer Story Addition
+
+**User**: "Add new customer story from RAD Cube Technologies"
+
+**Process**:
+1. Analyze: Single new element, moderate change
+2. Stage: Draft showing updated customer stories section
+3. Implement: Add to `CustomerStories.tsx` component
+4. Verify: Build check, visual review
+5. Changelog: Entry focused on customer story addition
+
+### Scenario 4: Product Repositioning
+
+**User**: "Major repositioning based on advisory feedback - emphasize compliance and security"
+
+**Process**:
+1. Analyze: Multiple sections affected, strategic change
+2. Stage: Comprehensive draft touching hero, features, security sections
+3. Iterate: Multiple feedback rounds expected
+4. Implement: Update multiple components across landing page
+5. Verify: Thorough testing of all changes
+6. Changelog: Strategic-level entry explaining repositioning
+
+## Troubleshooting
+
+### Issue: Build Fails After Implementation
+
+**Symptoms**:
+- TypeScript compilation errors
+- Missing imports
+- Type mismatches
+
+**Resolution**:
+1. Read error messages carefully
+2. Fix imports (check exact export names from `shared.tsx`)
+3. Verify TypeScript types match component props
+4. Check for typos in component names
+5. Ensure all required props are provided
+6. Re-run build after each fix
+
+### Issue: HTML Preview Not Displaying Correctly
+
+**Symptoms**:
+- Broken layout
+- Missing styles
+- Content not visible
+
+**Resolution**:
+1. Validate HTML is well-formed (no unclosed tags)
+2. Check CSS template is applied correctly
+3. Ensure markdown conversion includes proper structure
+4. Test in different browsers
+5. Check browser console for errors
+
+### Issue: User Feedback Unclear
+
+**Symptoms**:
+- Ambiguous feedback
+- Conflicting requirements
+- Uncertain scope
+
+**Resolution**:
+1. Ask clarifying questions
+2. Provide examples of different approaches
+3. Offer A/B options for user to choose
+4. Summarize understanding and confirm
+5. Don't proceed until clarity achieved
+
+### Issue: Cannot Map Draft to Components
+
+**Symptoms**:
+- Unclear which component handles content
+- New section doesn't fit existing structure
+- Multiple components could apply
+
+**Resolution**:
+1. Read existing component files
+2. Check page route structure
+3. Look for similar patterns in codebase
+4. Ask user if new component needed
+5. Propose component mapping for confirmation
+
+## Rule Metadata
+
+**File**: `content/copywriting/_rules/update-planton-ai-copy-writing.mdc`  
+**Version**: 1.0  
+**Created**: December 31, 2025  
+**Type**: Action Rule  
+**Scope**: Planton.ai website copywriting updates
+
+## Related Documentation
+
+- **Writing Guidelines**: `planton-cloud/.cursor/rules/writing/general-writing-guidelines.mdc`
+- **Copywriting Directory**: `planton.ai/content/copywriting/README.md`
+- **Workspace README**: `planton.ai/content/copywriting/_workspace/README.md`
+- **Positioning Document**: `planton-cloud/_business/marketing/positioning/what-is-planton.md`
+- **Design System**: `planton.ai/src/components/landing-page-v2/shared.tsx`
+- **Example Changelogs**: `planton.ai/_changelog/2025-12/`
+
+---
+
+**Usage**: Trigger with `@update-planton-ai-copy-writing` and provide context about what needs to be updated and why.

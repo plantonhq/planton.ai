@@ -119,9 +119,114 @@ If context is insufficient to infer details, choose the best effort scope from f
 <!-- Optionally: Closes #123 -->
 ```
 
-@README.md
+## Examples
 
-<!-- Optionally: Closes #123 -->
+### Example 1: Landing Page Update
+
+**Title:**
+```text
+feat(website/landing): add security badges to hero section
 ```
 
-@README.md
+**Description:**
+```markdown
+## Summary
+
+Added SOC 2, HIPAA, and customer-hosted deployment badges to the landing page hero section to emphasize security capabilities for healthcare and fintech prospects.
+
+## Context
+
+Advisory feedback indicated that healthcare vertical prospects need upfront security messaging. Current hero section doesn't address compliance concerns prominently.
+
+## Changes
+
+- Added security badge array to HeroSection component
+- Created Badge component for trust indicators
+- Updated hero layout to accommodate badges
+- Added responsive styling for mobile
+
+## Implementation notes
+
+- Badges use SVG icons from design system
+- Conditional rendering based on certification status
+- Mobile layout stacks badges vertically
+
+## Breaking changes
+
+None
+
+## Test plan
+
+- Tested on desktop (Chrome, Firefox, Safari)
+- Tested on mobile (iOS Safari, Chrome Android)
+- Verified responsive breakpoints
+- Screenshots attached in PR
+
+## Risks
+
+Low risk - additive change to existing component
+
+## Checklist
+
+- [x] Docs updated (if needed)
+- [x] Tests added/updated (if needed)
+- [x] Backward compatible
+```
+
+### Example 2: Multi-area Content Update
+
+**Title:**
+```text
+content(website): update copywriting across landing and pricing pages
+```
+
+**Description:**
+```markdown
+## Summary
+
+Updated messaging across landing page and pricing page to reflect DevOps-in-a-Box positioning based on customer feedback and competitive analysis.
+
+## Context
+
+Customer interviews and advisory session revealed messaging gaps. Current copy emphasizes AI copilot (pivoted away from) vs infrastructure automation (actual product value).
+
+## Changes
+
+- Landing page: Updated hero, problem/solution, customer stories
+- Pricing page: Clarified usage metering, added enterprise tier
+- Consistent terminology across both pages
+- Real customer metrics (iorta TechNext, Tynybay)
+
+## Implementation notes
+
+- Content changes only, no component structure modifications
+- Followed @general-writing-guidelines for consistency
+- Customer names and metrics verified with sales team
+
+## Breaking changes
+
+None - URLs and page structure unchanged
+
+## Test plan
+
+- Content reviewed by advisory board
+- Copywriting validated against brand guidelines
+- All links and CTAs verified functional
+- Build passes without errors
+
+## Risks
+
+None - content-only changes
+
+## Checklist
+
+- [x] Docs updated (if needed)
+- [ ] Tests added/updated (if needed)
+- [x] Backward compatible
+
+Closes #156
+```
+
+---
+
+**Remember**: This is an ask-only rule. Output exactly two code blocks (title + description), nothing else. No file modifications, no commands.
