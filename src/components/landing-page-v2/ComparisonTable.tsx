@@ -1,7 +1,7 @@
 'use client';
 
 import { Box, Stack, Typography } from '@mui/material';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Section, SectionTitle, SectionSubtitle, Badge, CheckIcon, XIcon, WarningIcon, Card } from './shared';
 
 type ComparisonStatus = 'yes' | 'no' | 'partial' | 'na';
@@ -168,11 +168,20 @@ const StatusCell: FC<{ status: ComparisonStatus; text?: string; isPlanton?: bool
 interface ComparisonTableViewProps {
   data: ComparisonRow[];
   headers: string[];
+  title: string;
+  titleColor: string;
 }
 
-const ComparisonTableView: FC<ComparisonTableViewProps> = ({ data, headers }) => {
+const ComparisonTableView: FC<ComparisonTableViewProps> = ({ data, headers, title, titleColor }) => {
   return (
-    <>
+    <Box className="rounded-xl border border-[#2a2a2a] overflow-hidden bg-[#0a0a0a]">
+      {/* Table Title Header */}
+      <Box className={`p-4 border-b border-[#2a2a2a] bg-gradient-to-r ${titleColor}`}>
+        <Typography className="text-lg font-semibold text-white text-center">
+          {title}
+        </Typography>
+      </Box>
+      
       {/* Desktop Table */}
       <Box className="hidden md:block overflow-x-auto">
         <table className="w-full border-collapse">
@@ -186,7 +195,7 @@ const ComparisonTableView: FC<ComparisonTableViewProps> = ({ data, headers }) =>
                   key={i} 
                   className={`text-left py-4 px-4 text-sm font-semibold ${
                     i === 0 
-                      ? 'text-white bg-gradient-to-r from-[#7c3aed]/20 to-[#0ea5e9]/20 rounded-t-lg' 
+                      ? 'text-white bg-gradient-to-r from-[#7c3aed]/20 to-[#0ea5e9]/20' 
                       : 'text-[#a0a0a0]'
                   }`}
                 >
@@ -238,7 +247,7 @@ const ComparisonTableView: FC<ComparisonTableViewProps> = ({ data, headers }) =>
       </Box>
 
       {/* Mobile Cards */}
-      <Box className="md:hidden space-y-4">
+      <Box className="md:hidden space-y-4 p-4">
         {data.map((row, rowIndex) => (
           <Card key={rowIndex} className="p-4">
             <Typography className="text-sm font-semibold text-white mb-3">
@@ -265,13 +274,11 @@ const ComparisonTableView: FC<ComparisonTableViewProps> = ({ data, headers }) =>
           </Card>
         ))}
       </Box>
-    </>
+    </Box>
   );
 };
 
 export const ComparisonTable: FC = () => {
-  const [activeTab, setActiveTab] = useState<'iac' | 'paas'>('iac');
-
   return (
     <Section id="comparison">
       {/* Section header */}
@@ -290,54 +297,32 @@ export const ComparisonTable: FC = () => {
         </SectionSubtitle>
       </Stack>
 
-      {/* Tabs */}
-      <Stack direction="row" className="justify-center gap-2 mb-8">
-        <button
-          onClick={() => setActiveTab('iac')}
-          className={`
-            px-6 py-3 rounded-lg font-medium text-sm transition-all duration-300
-            ${activeTab === 'iac'
-              ? 'bg-gradient-to-r from-[#7c3aed] to-[#0ea5e9] text-white'
-              : 'bg-[#1a1a1a] text-[#a0a0a0] border border-[#2a2a2a] hover:border-[#3a3a3a]'
-            }
-          `}
-        >
-          vs IaC Platforms
-        </button>
-        <button
-          onClick={() => setActiveTab('paas')}
-          className={`
-            px-6 py-3 rounded-lg font-medium text-sm transition-all duration-300
-            ${activeTab === 'paas'
-              ? 'bg-gradient-to-r from-[#7c3aed] to-[#0ea5e9] text-white'
-              : 'bg-[#1a1a1a] text-[#a0a0a0] border border-[#2a2a2a] hover:border-[#3a3a3a]'
-            }
-          `}
-        >
-          vs PaaS Platforms
-        </button>
-      </Stack>
+      {/* Both Comparison Tables - Stacked */}
+      <Stack className="gap-8">
+        {/* IaC Platforms Comparison */}
+        <ComparisonTableView 
+          data={iacComparisonData}
+          headers={['Planton', 'Terraform Cloud', 'Pulumi Cloud', 'Manual DevOps']}
+          title="vs IaC Platforms"
+          titleColor="from-[#7c3aed]/30 to-[#a78bfa]/30"
+        />
 
-      {/* Comparison Table */}
-      <Box className="rounded-xl border border-[#2a2a2a] overflow-hidden bg-[#0a0a0a]">
-        {activeTab === 'iac' ? (
-          <ComparisonTableView 
-            data={iacComparisonData}
-            headers={['Planton', 'Terraform Cloud', 'Pulumi Cloud', 'Manual DevOps']}
-          />
-        ) : (
-          <ComparisonTableView 
-            data={paasComparisonData}
-            headers={['Planton', 'Vercel', 'Heroku', 'Render']}
-          />
-        )}
-      </Box>
+        {/* PaaS Platforms Comparison */}
+        <ComparisonTableView 
+          data={paasComparisonData}
+          headers={['Planton', 'Vercel', 'Heroku', 'Render']}
+          title="vs PaaS Platforms"
+          titleColor="from-[#0ea5e9]/30 to-[#38bdf8]/30"
+        />
+      </Stack>
 
       {/* Key differentiator callout */}
       <Box className="mt-8 p-6 rounded-xl bg-gradient-to-r from-[#7c3aed]/10 to-[#0ea5e9]/10 border border-[#7c3aed]/30">
         <Stack direction={{ xs: 'column', md: 'row' }} className="items-center gap-4">
-          <Box className="flex-shrink-0">
-            <Badge variant="success">UNIQUE POSITIONING</Badge>
+          <Box className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-[#7c3aed] to-[#0ea5e9] flex items-center justify-center">
+            <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+            </svg>
           </Box>
           <Typography className="text-sm md:text-base text-[#b0b0b0] text-center md:text-left">
             <span className="text-white font-medium">Planton</span> is the only platform that combines 
@@ -350,4 +335,3 @@ export const ComparisonTable: FC = () => {
     </Section>
   );
 };
-

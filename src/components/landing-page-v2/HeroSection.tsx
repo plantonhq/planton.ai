@@ -4,7 +4,7 @@ import { Box, Stack, Typography } from '@mui/material';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FC, useState, useEffect } from 'react';
-import { Badge, PrimaryButton, ArrowRightIcon, TerminalWindow } from './shared';
+import { Badge, PrimaryButton, ArrowRightIcon } from './shared';
 
 const trustIndicators = [
   'Multi-Cloud (AWS, GCP, Azure)',
@@ -17,6 +17,8 @@ const cloudProviders = [
   { src: '/images/providers/aws.svg', alt: 'AWS', name: 'AWS' },
   { src: '/images/providers/gcp.svg', alt: 'GCP', name: 'GCP' },
   { src: '/images/providers/azure.svg', alt: 'Azure', name: 'Azure' },
+  { src: '/images/providers/digital-ocean.svg', alt: 'DigitalOcean', name: 'DigitalOcean' },
+  { src: '/images/providers/civo.svg', alt: 'Civo', name: 'Civo' },
   { src: '/images/providers/kubernetes.svg', alt: 'Kubernetes', name: 'Kubernetes' },
   { src: '/images/providers/cloudflare.svg', alt: 'Cloudflare', name: 'Cloudflare' },
 ];
@@ -27,80 +29,187 @@ const socialProofPoints = [
   { text: '100% customer retention since launch', icon: '✓' },
 ];
 
-const terminalLines = [
-  { type: 'command', text: '$ planton infra-chart deploy aws-ecs-environment' },
-  { type: 'output', text: '', delay: 500 },
-  { type: 'success', text: '✓ VPC created (15s)', delay: 800 },
-  { type: 'success', text: '✓ Load Balancer configured (22s)', delay: 600 },
-  { type: 'success', text: '✓ ECR registry ready (8s)', delay: 500 },
-  { type: 'success', text: '✓ SSL certificates issued (35s)', delay: 700 },
-  { type: 'success', text: '✓ DNS configured (12s)', delay: 600 },
+const cloudScenarios = [
+  {
+    command: 'planton chart install aws-ecs --name api --env dev --values values.yaml',
+    info: 'Installing aws-ecs chart...',
+    steps: [
+      '✓ VPC created (15s)',
+      '✓ Load Balancer configured (22s)',
+      '✓ ECR registry ready (8s)',
+      '✓ SSL certificates issued (35s)',
+      '✓ DNS configured (12s)',
+    ],
+    time: '52 seconds',
+    endpoint: 'https://api.dev.acmecorp.io',
+  },
+  {
+    command: 'planton chart install gcp-cloud-run --name api --env staging --values values.yaml',
+    info: 'Installing gcp-cloud-run chart...',
+    steps: [
+      '✓ VPC network created (12s)',
+      '✓ Cloud Run service deployed (18s)',
+      '✓ Artifact Registry ready (6s)',
+      '✓ SSL certificates issued (25s)',
+      '✓ Cloud DNS configured (8s)',
+    ],
+    time: '38 seconds',
+    endpoint: 'https://api.staging.acmecorp.dev',
+  },
+  {
+    command: 'planton chart install azure-container-apps --name api --env prod --values values.yaml',
+    info: 'Installing azure-container-apps chart...',
+    steps: [
+      '✓ Resource Group created (8s)',
+      '✓ Container Apps Environment ready (20s)',
+      '✓ Container Registry configured (10s)',
+      '✓ Managed Identity assigned (5s)',
+      '✓ Custom domain verified (15s)',
+    ],
+    time: '45 seconds',
+    endpoint: 'https://api.acmecorp.com',
+  },
+  {
+    command: 'planton chart install digitalocean-app-platform --name api --env preview --values values.yaml',
+    info: 'Installing digitalocean-app-platform chart...',
+    steps: [
+      '✓ App Platform app created (10s)',
+      '✓ Container Registry linked (8s)',
+      '✓ Load Balancer provisioned (12s)',
+      '✓ SSL certificate issued (20s)',
+      '✓ Domain configured (6s)',
+    ],
+    time: '35 seconds',
+    endpoint: 'https://api.preview.acmecorp.io',
+  },
+];
+
+const getTerminalLines = (scenario: typeof cloudScenarios[0]) => [
+  { type: 'command', text: scenario.command, delay: 600 },
+  { type: 'output', text: '', delay: 400 },
+  { type: 'info', text: scenario.info, delay: 300 },
   { type: 'output', text: '', delay: 300 },
-  { type: 'final', text: '⚡ Complete in 52 seconds', delay: 500 },
+  ...scenario.steps.map((step, i) => ({ 
+    type: 'success', 
+    text: step, 
+    delay: 500 + (i * 100) 
+  })),
+  { type: 'output', text: '', delay: 300 },
+  { type: 'final', text: `⚡ Complete in ${scenario.time}`, delay: 400 },
+  { type: 'output', text: '', delay: 300 },
+  { type: 'endpoint', text: `→ ${scenario.endpoint}`, delay: 400 },
 ];
 
 const AnimatedTerminal: FC = () => {
   const [visibleLines, setVisibleLines] = useState<number>(0);
+  const [scenarioIndex, setScenarioIndex] = useState(0);
+
+  const currentScenario = cloudScenarios[scenarioIndex];
+  const terminalLines = getTerminalLines(currentScenario);
 
   useEffect(() => {
+    const scenario = cloudScenarios[scenarioIndex];
+    const lines = getTerminalLines(scenario);
+    
     let currentLine = 0;
     let totalDelay = 0;
+    const timeoutIds: NodeJS.Timeout[] = [];
 
     const showNextLine = () => {
-      if (currentLine < terminalLines.length) {
-        const line = terminalLines[currentLine];
+      if (currentLine < lines.length) {
+        const line = lines[currentLine];
         totalDelay += line.delay || 400;
         
-        setTimeout(() => {
+        const timeoutId = setTimeout(() => {
           setVisibleLines(prev => prev + 1);
         }, totalDelay);
+        timeoutIds.push(timeoutId);
         
         currentLine++;
         showNextLine();
       } else {
-        // Reset after 3 seconds
-        setTimeout(() => {
+        // After 4 seconds, switch to next scenario
+        const resetTimeout = setTimeout(() => {
           setVisibleLines(0);
-          currentLine = 0;
-          totalDelay = 0;
-          showNextLine();
-        }, 3000 + totalDelay);
+          setScenarioIndex(prev => (prev + 1) % cloudScenarios.length);
+        }, 4000 + totalDelay);
+        timeoutIds.push(resetTimeout);
       }
     };
 
     showNextLine();
-  }, []);
+
+    return () => {
+      timeoutIds.forEach(id => clearTimeout(id));
+    };
+  }, [scenarioIndex]);
 
   return (
-    <TerminalWindow title="Terminal" className="text-left">
-      {terminalLines.slice(0, visibleLines).map((line, index) => (
-        <Box key={index} className="mb-1">
-          {line.type === 'command' && (
-            <Typography className="font-mono text-sm text-[#0ea5e9]">
-              {line.text}
-            </Typography>
-          )}
-          {line.type === 'success' && (
-            <Typography className="font-mono text-sm text-[#10b981]">
-              {line.text}
-            </Typography>
-          )}
-          {line.type === 'final' && (
-            <Typography className="font-mono text-sm text-[#f59e0b] font-bold">
-              {line.text}
-            </Typography>
-          )}
-          {line.type === 'output' && (
-            <Box className="h-2" />
-          )}
+    <Box className="rounded-lg overflow-hidden border border-cyan-500/30 bg-black/60 backdrop-blur-sm text-left">
+      {/* Terminal header */}
+      <Box className="flex items-center px-4 py-2.5 bg-gray-900/80 border-b border-cyan-500/20">
+        <Box className="flex items-center gap-3">
+          <Box className="flex gap-1.5">
+            <Box className="w-3 h-3 rounded-full bg-red-500/80" />
+            <Box className="w-3 h-3 rounded-full bg-yellow-500/80" />
+            <Box className="w-3 h-3 rounded-full bg-green-500/80" />
+          </Box>
+          <Box className="flex items-center gap-1.5 text-sm text-gray-400">
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span>Terminal</span>
+          </Box>
         </Box>
-      ))}
-      {visibleLines > 0 && visibleLines < terminalLines.length && (
-        <Box className="animate-pulse">
-          <Typography className="font-mono text-sm text-[#666]">_</Typography>
-        </Box>
-      )}
-    </TerminalWindow>
+      </Box>
+
+      {/* Terminal content */}
+      <Box className="p-4 font-mono text-sm min-h-[200px]">
+        {terminalLines.slice(0, visibleLines).map((line, index) => (
+          <Box key={index} className="mb-1.5">
+            {line.type === 'command' && (
+              <Box className="flex items-start gap-2">
+                <span className="text-green-400 select-none">$</span>
+                <code className="text-gray-100 break-all">{line.text}</code>
+              </Box>
+            )}
+            {line.type === 'info' && (
+              <Typography className="text-cyan-400 text-sm">
+                {line.text}
+              </Typography>
+            )}
+            {line.type === 'success' && (
+              <Typography className="text-green-400 text-sm">
+                {line.text}
+              </Typography>
+            )}
+            {line.type === 'final' && (
+              <Typography className="text-amber-400 text-sm font-semibold">
+                {line.text}
+              </Typography>
+            )}
+            {line.type === 'endpoint' && (
+              <Typography className="text-purple-400 text-sm font-medium">
+                {line.text}
+              </Typography>
+            )}
+            {line.type === 'output' && (
+              <Box className="h-2" />
+            )}
+          </Box>
+        ))}
+        {visibleLines > 0 && visibleLines < terminalLines.length && (
+          <Box className="inline-block animate-pulse">
+            <span className="text-cyan-400">▊</span>
+          </Box>
+        )}
+        {visibleLines === 0 && (
+          <Box className="inline-block animate-pulse">
+            <span className="text-cyan-400">▊</span>
+          </Box>
+        )}
+      </Box>
+    </Box>
   );
 };
 
@@ -190,11 +299,11 @@ export const HeroSection: FC = () => {
                 <ArrowRightIcon />
               </PrimaryButton>
             </Link>
-            
-            {/* Free trial note */}
-            <Typography className="text-sm text-[#666]">
+
+          {/* Free trial note */}
+          <Typography className="text-sm text-[#666]">
               100 automation minutes free • No credit card required
-            </Typography>
+          </Typography>
 
             {/* Secondary CTAs */}
             <Stack direction="row" className="gap-4 mt-2">

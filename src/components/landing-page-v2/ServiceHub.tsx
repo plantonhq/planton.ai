@@ -248,7 +248,7 @@ export const ServiceHub: FC = () => {
           <Typography className="text-2xl md:text-3xl text-white font-medium italic mb-6 leading-relaxed">
             &quot;Developers self-onboard their own services. That&apos;s a huge win. We went from 
             deploying once a week to deploying 10+ times per day. Planton removed the bottleneck.&quot;
-          </Typography>
+        </Typography>
           
           <Box className="flex items-center gap-4 mb-6">
             <Box className="w-12 h-12 rounded-full bg-gradient-to-br from-[#0ea5e9] to-[#7c3aed] flex items-center justify-center text-white font-bold">

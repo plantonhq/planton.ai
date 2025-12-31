@@ -48,10 +48,12 @@ export const HowItWorks: FC = () => {
       </Stack>
 
       {/* Steps */}
-      <Box className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16 relative">
-        {/* Connector lines (desktop only) */}
-        <Box className="hidden lg:block absolute top-16 left-[calc(33.33%+16px)] w-[calc(33.33%-32px)] h-0.5 bg-gradient-to-r from-[#7c3aed]/50 to-[#0ea5e9]/50" />
-        <Box className="hidden lg:block absolute top-16 left-[calc(66.66%+16px)] w-[calc(33.33%-32px)] h-0.5 bg-gradient-to-r from-[#0ea5e9]/50 to-[#10b981]/50" />
+      <Box className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16 relative overflow-hidden">
+        {/* Connector lines (desktop only) - positioned at icon center (40px), spanning between icons */}
+        {/* Line 1: from right edge of icon 1 (16.66% + 56px) to left edge of icon 2 (50% - 56px) */}
+        <Box className="hidden lg:block absolute top-10 left-[calc(16.66%+56px)] w-[calc(33.34%-112px)] h-0.5 bg-gradient-to-r from-[#7c3aed]/50 to-[#0ea5e9]/50" />
+        {/* Line 2: from right edge of icon 2 (50% + 56px) to left edge of icon 3 (83.33% - 56px) */}
+        <Box className="hidden lg:block absolute top-10 left-[calc(50%+56px)] w-[calc(33.34%-112px)] h-0.5 bg-gradient-to-r from-[#0ea5e9]/50 to-[#10b981]/50" />
         
         {steps.map((step, index) => (
           <Box key={index} className="relative">
@@ -96,7 +98,7 @@ export const HowItWorks: FC = () => {
       {/* CTAs */}
       <Stack 
         direction={{ xs: 'column', sm: 'row' }} 
-        className="justify-center gap-4"
+        className="justify-center items-center gap-4"
       >
         <Link href="https://console.planton.ai/" target="_blank">
           <PrimaryButton className="px-8 py-4">
