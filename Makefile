@@ -49,6 +49,7 @@ sync-assets:
 	aws s3 sync content/assets/ s3://$(R2_BUCKET)/site/ \
 		--profile $(R2_PROFILE) \
 		--endpoint-url $(R2_ENDPOINT) \
+		--delete \
 		--exclude "_inbox/*" \
 		--exclude "_rules/*" \
 		--exclude "*.md" \
