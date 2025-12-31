@@ -145,7 +145,7 @@ const AnimatedTerminal: FC = () => {
   }, [scenarioIndex]);
 
   return (
-    <Box className="rounded-lg overflow-hidden border border-cyan-500/30 bg-black/60 backdrop-blur-sm text-left max-w-full">
+    <Box className="rounded-lg overflow-hidden border border-cyan-500/30 bg-black/60 backdrop-blur-sm text-left w-full">
       {/* Terminal header */}
       <Box className="flex items-center px-4 py-2.5 bg-gray-900/80 border-b border-cyan-500/20">
         <Box className="flex items-center gap-3">
@@ -164,13 +164,13 @@ const AnimatedTerminal: FC = () => {
       </Box>
 
       {/* Terminal content - fixed height to prevent layout shifts */}
-      <Box className="p-4 font-mono text-sm h-[280px] overflow-hidden">
+      <Box className="p-4 font-mono text-xs sm:text-sm h-[280px] overflow-hidden">
         {terminalLines.slice(0, visibleLines).map((line, index) => (
           <Box key={index} className="mb-1.5">
             {line.type === 'command' && (
-              <Box className="flex items-start gap-2">
-                <span className="text-green-400 select-none">$</span>
-                <code className="text-gray-100 break-all">{line.text}</code>
+              <Box className="flex items-start gap-2 overflow-hidden">
+                <span className="text-green-400 select-none flex-shrink-0">$</span>
+                <code className="text-gray-100 break-words overflow-hidden">{line.text}</code>
               </Box>
             )}
             {line.type === 'info' && (

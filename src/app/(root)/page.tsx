@@ -24,7 +24,7 @@ import {
 
 export default function Home() {
   return (
-    <Box>
+    <Box className="overflow-x-hidden">
       {/* 1. Hero Section - Enhanced with new headline, animated terminal */}
       <HeroSection />
       

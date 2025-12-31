@@ -64,9 +64,9 @@ export const Section: FC<SectionProps> = ({
     <Box 
       component="section" 
       id={id}
-      className={`w-full py-16 md:py-24 px-4 md:px-8 ${bgClass} ${className}`}
+      className={`w-full py-16 md:py-24 px-4 md:px-8 overflow-x-hidden ${bgClass} ${className}`}
     >
-      <Box className="max-w-7xl mx-auto">
+      <Box className="max-w-7xl mx-auto overflow-hidden">
         {children}
       </Box>
     </Box>
