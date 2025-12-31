@@ -1,6 +1,7 @@
 'use client';
 
 import { Box, Stack, Typography } from '@mui/material';
+import Image from 'next/image';
 import { FC } from 'react';
 import { Section, Badge } from './shared';
 
@@ -8,18 +9,26 @@ const customers = [
   {
     name: 'Jai.CX',
     url: 'https://jai.cx/',
+    logo: '/images/customers/logos/jai-cx.svg',
+    logoClass: 'max-h-8',
   },
   {
     name: 'TynyBay',
     url: 'https://tynybay.com',
+    logo: '/images/customers/logos/tynybay.png',
+    logoClass: 'max-h-14', // Larger to compensate for logo padding
   },
   {
     name: 'iorta TechNext',
     url: 'https://iorta.in',
+    logo: '/images/customers/logos/iorta.svg',
+    logoClass: 'max-h-8',
   },
   {
     name: 'Odwen',
     url: 'https://odwen.co.in',
+    logo: '/images/customers/logos/odwen.svg',
+    logoClass: 'max-h-8',
   },
 ];
 
@@ -64,18 +73,21 @@ export const SocialProofBar: FC = () => {
           >
             <Box
               className="
-                px-6 py-3 rounded-lg
-                border border-[#2a2a2a] bg-[#151515]
+                px-6 py-3 rounded-lg h-14
+                border border-[#2a2a2a] bg-[#1a1a1a]
                 transition-all duration-300
-                opacity-70 grayscale
-                hover:opacity-100 hover:grayscale-0
                 hover:border-[#7c3aed]/50
                 hover:shadow-lg hover:shadow-purple-500/10
+                flex items-center justify-center
               "
             >
-              <Typography className="text-sm md:text-base font-medium text-[#a0a0a0] group-hover:text-white transition-colors">
-                {customer.name}
-              </Typography>
+              <Image
+                src={customer.logo}
+                alt={customer.name}
+                width={120}
+                height={40}
+                className={`${customer.logoClass} w-auto object-contain brightness-0 invert opacity-80 group-hover:opacity-100 transition-opacity`}
+              />
             </Box>
           </a>
         ))}

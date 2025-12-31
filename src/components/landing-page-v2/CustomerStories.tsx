@@ -7,6 +7,7 @@ import { Section, SectionTitle, SectionSubtitle, Card, CheckIcon, Quote, Badge }
 const customers = [
   {
     company: 'Jai.CX',
+    companyLogo: '/images/customers/logos/jai-cx.svg',
     type: 'AI Copilot for Founders',
     project: 'Jai Platform',
     projectDescription: 'AI-native copilot for founders',
@@ -31,6 +32,7 @@ const customers = [
   },
   {
     company: 'TynyBay',
+    companyLogo: '/images/customers/logos/tynybay.png',
     type: 'IT Consulting Firm',
     project: 'Multi-Client Projects',
     projectDescription: 'AWS & GCP infrastructure for 8+ clients',
@@ -61,6 +63,7 @@ const customers = [
   },
   {
     company: 'iorta TechNext',
+    companyLogo: '/images/customers/logos/iorta.svg',
     type: 'BFSI Product Company',
     project: 'SalesVerse',
     projectDescription: 'Sales cycle management platform',
@@ -125,16 +128,25 @@ export const CustomerStories: FC = () => {
             {/* Header */}
             <Box className="p-6 border-b border-[#2a2a2a] bg-[#0f0f0f]">
               <Box className="flex flex-wrap items-center justify-between gap-4">
-                <Box>
-                  <Typography className="text-xl font-semibold text-white">
-                    {customer.company}
-                    <span className="text-[#a0a0a0] font-normal text-base ml-2">
-                      → {customer.project}
-                    </span>
-                  </Typography>
-                  <Typography className="text-sm text-[#666] mt-1">
-                    {customer.type} • {customer.projectDescription}
-                  </Typography>
+                <Box className="flex items-center gap-4">
+                  <Box className="w-12 h-12 rounded-lg bg-[#1a1a1a] p-2 flex items-center justify-center flex-shrink-0">
+                    <img 
+                      src={customer.companyLogo} 
+                      alt={customer.company} 
+                      className="w-full h-full object-contain brightness-0 invert"
+                    />
+                  </Box>
+                  <Box>
+                    <Typography className="text-xl font-semibold text-white">
+                      {customer.company}
+                      <span className="text-[#a0a0a0] font-normal text-base ml-2">
+                        → {customer.project}
+                      </span>
+                    </Typography>
+                    <Typography className="text-sm text-[#666] mt-1">
+                      {customer.type} • {customer.projectDescription}
+                    </Typography>
+                  </Box>
                 </Box>
                 <Box className="flex flex-wrap gap-2">
                   <Badge variant="purple">{customer.cloud}</Badge>
@@ -227,7 +239,11 @@ export const CustomerStories: FC = () => {
               
               {/* Quote */}
               {customer.quote && (
-                <Quote text={customer.quote} author={customer.company} />
+                <Quote 
+                  text={customer.quote} 
+                  author={customer.company} 
+                  companyLogo={customer.companyLogo}
+                />
               )}
               
               {/* Result */}

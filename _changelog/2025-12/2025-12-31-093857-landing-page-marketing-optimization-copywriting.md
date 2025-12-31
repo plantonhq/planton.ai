@@ -142,7 +142,7 @@ The December 19 work established solid foundation:
 - **Company**: IT consulting firm (https://tynybay.com)
 - **3 Primary Users Documented**:
   
-  **Rohit Reddy Gopy** (CEO):
+  **Rohit Reddy Gopu** (CEO):
   - Champions Planton throughout network
   - Committed to using Planton for all future client projects
   - **GCP Success Story**: Client mandated GCP despite team having zero GCP expertise—Planton delivered successfully
@@ -172,7 +172,7 @@ The December 19 work established solid foundation:
 
 **Contents**:
 - **Company**: BFSI platform (https://iorta.in), SalesVerse product
-- **Client of**: TynyBay (managed by Rohit Reddy Gopy)
+- **Client of**: TynyBay (managed by Rohit Reddy Gopu)
 - **Primary User Documented**:
   
   **Sai Saketh** (Junior DevOps Engineer):
@@ -307,7 +307,7 @@ Planton = Vercel/Heroku DX + Terraform/Pulumi Infrastructure + Your Cloud
 **Contents**:
 - **5 Authentic Testimonials** in Twitter-style cards:
   1. **Harsha CH** (Solo Developer, Jai.CX) - First user, Infra Charts origin story
-  2. **Rohit Reddy Gopy** (CEO, TynyBay) - GCP success, regulated industry value, future commitment
+  2. **Rohit Reddy Gopu** (CEO, TynyBay) - GCP success, regulated industry value, future commitment
   3. **Balaji Borra** (DevOps Engineer, TynyBay) - 8+ client projects efficiency
   4. **Rakesh Kandhi** (Senior Developer, TynyBay) - Self-service infrastructure transformation
   5. **Sai Saketh** (Junior DevOps Engineer, iorta TechNext) - Enabling team without deep AWS expertise
@@ -643,7 +643,7 @@ Only platform combining:
 - Odwen: https://odwen.co.in
 
 **Customer Images Needed** (for Wall of Love):
-- Harsha CH, Rohit Reddy Gopy, Balaji Borra, Rakesh Kandhi, Sai Saketh
+- Harsha CH, Rohit Reddy Gopu, Balaji Borra, Rakesh Kandhi, Sai Saketh
 - *Alternative: Placeholder avatars if photos not immediately available*
 
 **Icons/Graphics Needed**:
@@ -1275,7 +1275,7 @@ Based on competitive analysis feedback, future work may include:
    - Harsha CH (Solo Developer, First User, Infra Charts Pioneer)
    
 2. `/planton-cloud/_business/customers/tynybay/README.md` (216 lines)
-   - Rohit Reddy Gopy (CEO), Balaji Borra (DevOps), Rakesh Kandhi (Developer)
+   - Rohit Reddy Gopu (CEO), Balaji Borra (DevOps), Rakesh Kandhi (Developer)
    - Multi-client IT consulting success, 2.5x scaling
    
 3. `/planton-cloud/_business/customers/iorta-tech-next/README.md` (250 lines)

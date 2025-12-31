@@ -14,29 +14,34 @@ const metrics = [
 
 const quotes = [
   {
+    text: 'For a client in regulated industry (BFSI) who mandated GCP, Planton delivered the entire infra despite zero GCP experience on our team. Mature infrastructure out-of-the-box. Using Planton for all future client projects.',
+    author: 'Rohith Reddy Gopu',
+    role: 'CEO, TynyBay',
+    avatar: '/images/customers/people/rohith-reddy-gopu.jpeg',
+  },
+  {
     text: "As Planton's first user, I filled out forms one by one for VPC, ECS, Route 53, certificates. That led to Infra Charts—now I deploy complete environments in a single form.",
     author: 'Harsha CH',
     role: 'Solo Developer, Jai.CX',
-  },
-  {
-    text: 'For a client in regulated industry (BFSI) who mandated GCP, Planton delivered the entire infra despite zero GCP experience on our team.',
-    author: 'Rohit Reddy Gopy',
-    role: 'CEO, TynyBay',
+    avatar: '/images/customers/people/harsha-ch.jpeg',
   },
   {
     text: 'I handle 8+ client projects with Planton—no more rewriting Terraform between clients. My efficiency has improved dramatically.',
     author: 'Balaji Borra',
     role: 'DevOps Engineer, TynyBay',
+    avatar: '/images/customers/people/balaji-borra.png',
   },
   {
     text: 'I can now update service configurations and deploy to dev, staging, and prod—all without waiting on DevOps.',
     author: 'Rakesh Kandhi',
     role: 'Senior Developer, TynyBay',
+    avatar: '/images/customers/people/rakesh-kandhi.jpeg',
   },
   {
     text: 'Planton enabled me to provide a mature developer experience to our 7-person team without requiring deep AWS expertise.',
     author: 'Sai Saketh',
     role: 'Junior DevOps, iorta TechNext',
+    avatar: null,
   },
 ];
 
@@ -72,20 +77,30 @@ const QuoteCarousel: FC = () => {
             }`}
           >
             <Card className="h-full bg-gradient-to-br from-[#151515] to-[#0a0a0a]">
-              <Typography className="text-lg md:text-xl text-white italic leading-relaxed mb-6">
+              <Box component="p" className="text-lg md:text-xl text-white italic leading-relaxed mb-6">
                 &quot;{quote.text}&quot;
-              </Typography>
+              </Box>
               <Box className="flex items-center gap-3">
-                <Box className="w-10 h-10 rounded-full bg-gradient-to-br from-[#7c3aed] to-[#0ea5e9] flex items-center justify-center text-white font-bold text-sm">
-                  {quote.author.split(' ').map(n => n[0]).join('')}
-                </Box>
+                {quote.avatar ? (
+                  <Box className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+                    <img 
+                      src={quote.avatar} 
+                      alt={quote.author}
+                      className="w-full h-full object-cover"
+                    />
+                  </Box>
+                ) : (
+                  <Box className="w-10 h-10 rounded-full bg-gradient-to-br from-[#7c3aed] to-[#0ea5e9] flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                    {quote.author.split(' ').map(n => n[0]).join('')}
+                  </Box>
+                )}
                 <Box>
-                  <Typography className="text-white font-medium text-sm">
+                  <Box component="span" className="text-white font-medium text-sm block">
                     {quote.author}
-                  </Typography>
-                  <Typography className="text-[#666] text-xs">
+                  </Box>
+                  <Box component="span" className="text-[#666] text-xs block">
                     {quote.role}
-                  </Typography>
+                  </Box>
                 </Box>
               </Box>
             </Card>
@@ -94,15 +109,16 @@ const QuoteCarousel: FC = () => {
       </Box>
 
       {/* Dots indicator */}
-      <Stack direction="row" className="justify-center gap-2 mt-6">
+      <Stack direction="row" className="justify-center items-center gap-3 mt-8">
         {quotes.map((_, index) => (
           <button
             key={index}
             onClick={() => setActiveIndex(index)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+            aria-label={`View testimonial ${index + 1}`}
+            className={`rounded-full transition-all duration-300 ${
               index === activeIndex 
-                ? 'bg-[#7c3aed] w-6' 
-                : 'bg-[#2a2a2a] hover:bg-[#3a3a3a]'
+                ? 'bg-[#7c3aed] w-8 h-3' 
+                : 'bg-[#444] hover:bg-[#666] w-3 h-3'
             }`}
           />
         ))}

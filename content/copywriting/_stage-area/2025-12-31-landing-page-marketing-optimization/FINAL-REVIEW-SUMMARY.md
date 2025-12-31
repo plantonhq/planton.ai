@@ -252,7 +252,7 @@ Planton = Vercel/Heroku DX + Terraform/Pulumi Infrastructure + YOUR Cloud
 1. **Harsha CH** (Solo Developer, Jai.CX)
    - "First user filling forms one-by-one led to Infra Charts—now I deploy complete environments in a single form. Weeks of Terraform → under 1 hour."
 
-2. **Rohit Reddy Gopy** (CEO, TynyBay)
+2. **Rohit Reddy Gopu** (CEO, TynyBay)
    - "For BFSI client who mandated GCP, Planton delivered entire infra despite zero GCP experience on team. Using Planton for all future client projects."
 
 3. **Balaji Borra** (DevOps Engineer, TynyBay)
@@ -343,7 +343,7 @@ Only platform combining:
 
 2. **Customer Images** (profile photos):
    - Harsha CH
-   - Rohit Reddy Gopy
+   - Rohit Reddy Gopu
    - Balaji Borra
    - Rakesh Kandhi
    - Sai Saketh

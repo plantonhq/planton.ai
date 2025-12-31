@@ -12,8 +12,8 @@ const securityBadges = [
   },
   {
     label: 'GDPR Compliant',
-    status: 'Available',
-    available: true,
+    status: 'Q1 2026',
+    available: false,
   },
   {
     label: 'Zero-Trust Architecture',

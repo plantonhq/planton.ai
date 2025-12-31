@@ -356,18 +356,41 @@ interface QuoteProps {
   text: string;
   author: string;
   role?: string;
+  avatar?: string | null;
+  companyLogo?: string | null;
   className?: string;
 }
 
-export const Quote: FC<QuoteProps> = ({ text, author, role, className = '' }) => (
+export const Quote: FC<QuoteProps> = ({ text, author, role, avatar, companyLogo, className = '' }) => (
   <Box className={`border-l-4 border-[#7c3aed] pl-6 py-2 ${className}`}>
-    <Typography className="text-lg md:text-xl text-white italic mb-3">
+    <Typography className="text-lg md:text-xl text-white italic mb-4">
       &quot;{text}&quot;
     </Typography>
-    <Typography className="text-sm text-[#a0a0a0]">
-      — <span className="text-white font-medium">{author}</span>
-      {role && <span className="text-[#666]">, {role}</span>}
-    </Typography>
+    <Box className="flex items-center gap-3">
+      {avatar ? (
+        <Box className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+          <img src={avatar} alt={author} className="w-full h-full object-cover" />
+        </Box>
+      ) : companyLogo ? (
+        <Box className="w-10 h-10 rounded-full bg-[#1a1a1a] p-2 flex items-center justify-center flex-shrink-0">
+          <img src={companyLogo} alt={role || ''} className="w-full h-full object-contain brightness-0 invert" />
+        </Box>
+      ) : (
+        <Box className="w-10 h-10 rounded-full bg-gradient-to-br from-[#7c3aed] to-[#0ea5e9] flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
+          {author.split(' ').map(n => n[0]).join('')}
+        </Box>
+      )}
+      <Box>
+        <Typography className="text-sm text-white font-medium">
+          {author}
+        </Typography>
+        {role && (
+          <Typography className="text-xs text-[#666]">
+            {role}
+          </Typography>
+        )}
+      </Box>
+    </Box>
   </Box>
 );
 
@@ -402,6 +425,7 @@ interface TestimonialCardProps {
   company: string;
   quote: string;
   location?: string;
+  avatar?: string | null;
   className?: string;
 }
 
@@ -411,6 +435,7 @@ export const TestimonialCard: FC<TestimonialCardProps> = ({
   company,
   quote,
   location,
+  avatar,
   className = '',
 }) => (
   <Box
@@ -424,9 +449,19 @@ export const TestimonialCard: FC<TestimonialCardProps> = ({
   >
     {/* Header with avatar and name */}
     <Box className="flex items-center gap-3 mb-4">
-      <Box className="w-10 h-10 rounded-full bg-gradient-to-br from-[#7c3aed] to-[#0ea5e9] flex items-center justify-center text-white font-semibold text-sm">
-        {name.split(' ').map(n => n[0]).join('')}
-      </Box>
+      {avatar ? (
+        <Box className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+          <img 
+            src={avatar} 
+            alt={name}
+            className="w-full h-full object-cover"
+          />
+        </Box>
+      ) : (
+        <Box className="w-10 h-10 rounded-full bg-gradient-to-br from-[#7c3aed] to-[#0ea5e9] flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
+          {name.split(' ').map(n => n[0]).join('')}
+        </Box>
+      )}
       <Box>
         <Typography className="text-white font-medium text-sm">
           {name}

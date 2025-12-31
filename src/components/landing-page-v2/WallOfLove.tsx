@@ -11,13 +11,7 @@ const testimonials = [
     company: 'Jai.CX',
     location: 'USA/India',
     quote: "As Planton's first user, I filled out forms one by one for VPC, ECS, Route 53, certificates. That led to Infra Charts—now I deploy complete environments in a single form. Weeks of Terraform → under 1 hr.",
-  },
-  {
-    name: 'Rohit Reddy Gopy',
-    role: 'CEO',
-    company: 'TynyBay',
-    location: 'India',
-    quote: 'For a client in regulated industry (BFSI) who mandated GCP, Planton delivered the entire infra despite zero GCP experience on our team. Mature infrastructure out-of-the-box. Using Planton for all future client projects.',
+    avatar: '/images/customers/people/harsha-ch.jpeg',
   },
   {
     name: 'Balaji Borra',
@@ -25,6 +19,7 @@ const testimonials = [
     company: 'TynyBay',
     location: 'India',
     quote: 'I handle 8+ client projects with Planton—no more rewriting Terraform between clients. My efficiency has improved dramatically, and I provide far better experience to all our developers.',
+    avatar: '/images/customers/people/balaji-borra.png',
   },
   {
     name: 'Rakesh Kandhi',
@@ -32,6 +27,7 @@ const testimonials = [
     company: 'TynyBay',
     location: 'India',
     quote: 'I can now update service configurations and deploy to dev, staging, and prod—all without waiting on DevOps. Self-service infrastructure through ServiceHub is a game changer for productivity.',
+    avatar: '/images/customers/people/rakesh-kandhi.jpeg',
   },
   {
     name: 'Sai Saketh',
@@ -39,6 +35,15 @@ const testimonials = [
     company: 'iorta TechNext',
     location: 'India',
     quote: 'Planton enabled me to provide a mature developer experience to our 7-person team without requiring deep AWS expertise. They deploy to multiple environments independently and manage the entire infrastructure lifecycle themselves.',
+    avatar: null, // No image available
+  },
+  {
+    name: 'Rohith Reddy Gopu',
+    role: 'CEO',
+    company: 'TynyBay',
+    location: 'India',
+    quote: 'For a client in regulated industry (BFSI) who mandated GCP, Planton delivered the entire infra despite zero GCP experience on our team. Mature infrastructure out-of-the-box. Using Planton for all future client projects.',
+    avatar: '/images/customers/people/rohith-reddy-gopu.jpeg',
   },
 ];
 
@@ -89,6 +94,7 @@ export const WallOfLove: FC = () => {
               company={testimonial.company}
               quote={testimonial.quote}
               location={testimonial.location}
+              avatar={testimonial.avatar}
               className="h-full"
             />
           </Box>

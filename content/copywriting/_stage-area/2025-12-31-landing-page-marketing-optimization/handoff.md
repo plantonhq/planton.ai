@@ -74,7 +74,7 @@ During copywriting iteration, founder provided authentic customer details with p
 
 **Customers Documented** (internal files created):
 1. **Jai.CX** (Harsha CH) - First user, Infra Charts pioneer
-2. **TynyBay** (Rohit Reddy Gopy, Balaji Borra, Rakesh Kandhi) - IT consulting multi-client success
+2. **TynyBay** (Rohit Reddy Gopu, Balaji Borra, Rakesh Kandhi) - IT consulting multi-client success
 3. **iorta TechNext** (Sai Saketh) - Junior DevOps → senior outcomes, highest usage customer
 
 **Reference Files** (for future context):
@@ -157,7 +157,7 @@ What if DevOps Didn't Block Your Developers?
 **Wall of Love** (5 testimonials with full names and permissions):
 
 1. **Harsha CH** (Solo Developer, Jai.CX) - First user, Infra Charts origin story
-2. **Rohit Reddy Gopy** (CEO, TynyBay) - GCP success despite no team expertise, regulated industry value
+2. **Rohit Reddy Gopu** (CEO, TynyBay) - GCP success despite no team expertise, regulated industry value
 3. **Balaji Borra** (DevOps Engineer, TynyBay) - 8+ client projects, efficiency transformation
 4. **Rakesh Kandhi** (Senior Developer, TynyBay) - Self-service infrastructure, no DevOps waiting
 5. **Sai Saketh** (Junior DevOps Engineer, iorta TechNext) - Enabling 7 developers without deep AWS expertise
@@ -330,7 +330,7 @@ Update `src/app/(root)/page.tsx` to include new components in this order:
 
 **Customers**:
 1. **Harsha CH** - Solo Developer, Jai.CX (https://jai.cx/)
-2. **Rohit Reddy Gopy** - CEO, TynyBay (https://tynybay.com)
+2. **Rohit Reddy Gopu** - CEO, TynyBay (https://tynybay.com)
 3. **Balaji Borra** - DevOps Engineer, TynyBay
 4. **Rakesh Kandhi** - Senior Developer, TynyBay
 5. **Sai Saketh** - Junior DevOps Engineer, iorta TechNext (https://iorta.in)
@@ -437,7 +437,7 @@ Agents understand:
 
 **Request profile photos** from:
 - Harsha CH (Jai.CX)
-- Rohit Reddy Gopy (TynyBay CEO)
+- Rohit Reddy Gopu (TynyBay CEO)
 - Balaji Borra (TynyBay DevOps)
 - Rakesh Kandhi (TynyBay Developer)
 - Sai Saketh (iorta TechNext DevOps)

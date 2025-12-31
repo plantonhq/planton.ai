@@ -15,7 +15,7 @@ Created comprehensive internal customer documentation files:
 **Contents**:
 - Company overview and relationship history
 - **3 Primary Users documented**:
-  - **Rohit Reddy Gopy** (CEO) - Executive champion, GCP success story, regulated industry value prop
+  - **Rohit Reddy Gopu** (CEO) - Executive champion, GCP success story, regulated industry value prop
   - **Balaji Borra** (DevOps Engineer) - Handles 8+ client projects, efficiency improvements
   - **Rakesh Kandhi** (Senior Developer) - Self-service via .files feature
 - Business impact metrics (2.5x client capacity, 90% non-billable time reduction)
@@ -71,7 +71,7 @@ Replaced 6 generic/placeholder testimonials with **5 real customer testimonials*
 1. **Harsha CH** (Solo Developer, Jai.CX)
    - "First user filling forms one-by-one led to Infra Charts—now I deploy complete environments in a single form. Weeks of Terraform → under 1 hour."
 
-2. **Rohit Reddy Gopy** (CEO, TynyBay)
+2. **Rohit Reddy Gopu** (CEO, TynyBay)
    - "For BFSI client who mandated GCP, Planton delivered entire infra despite zero GCP experience on team. Using Planton for all future client projects."
 
 3. **Balaji Borra** (DevOps Engineer, TynyBay)
@@ -124,7 +124,7 @@ Added customer website references:
 #### **Final CTA Carousel Updated**:
 Changed from 3 generic quotes to **5 real customer quotes** rotating:
 1. Harsha CH - Infra Charts origin story
-2. Rohit Reddy Gopy - GCP/BFSI success, future commitment
+2. Rohit Reddy Gopu - GCP/BFSI success, future commitment
 3. Balaji Borra - Multi-client efficiency
 4. Rakesh Kandhi - Self-service transformation
 5. Sai Saketh - Junior → Senior outcomes, cost savings
@@ -147,7 +147,7 @@ Updated `preview-1.html` to match all copywriting changes:
 
 **All testimonials approved for use** (confirmed by user):
 - ✅ Harsha CH - Full approval, can obtain image
-- ✅ Rohit Reddy Gopy - Full approval, can obtain image
+- ✅ Rohit Reddy Gopu - Full approval, can obtain image
 - ✅ Balaji Borra - Full approval, can obtain image
 - ✅ Rakesh Kandhi - Full approval, can obtain image
 - ✅ Sai Saketh - Full approval, can likely obtain image
@@ -161,7 +161,7 @@ Updated `preview-1.html` to match all copywriting changes:
 - Now Planton's most popular feature
 - Full 6-day onboarding transcript available
 
-**Rohit Reddy Gopy (TynyBay CEO)**:
+**Rohit Reddy Gopu (TynyBay CEO)**:
 - Champions Planton everywhere, committed to all future client projects
 - GCP success story: Client mandated GCP but team had no GCP experience → Planton delivered successfully
 - Value prop for regulated industries: "Mature infrastructure out-of-the-box covering compliance concerns"
@@ -222,7 +222,7 @@ Updated `preview-1.html` to match all copywriting changes:
 **Customer Images/Avatars**:
 - Need to obtain profile photos for:
   - Harsha CH
-  - Rohit Reddy Gopy
+  - Rohit Reddy Gopu
   - Balaji Borra
   - Rakesh Kandhi
   - Sai Saketh

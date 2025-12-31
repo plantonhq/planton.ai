@@ -34,52 +34,52 @@ const cloudScenarios = [
     command: 'planton chart install aws-ecs --name api --env dev --values values.yaml',
     info: 'Installing aws-ecs chart...',
     steps: [
-      '✓ VPC created (15s)',
-      '✓ Load Balancer configured (22s)',
-      '✓ ECR registry ready (8s)',
-      '✓ SSL certificates issued (35s)',
-      '✓ DNS configured (12s)',
+      '✓ VPC created (3m 12s)',
+      '✓ Load Balancer configured (4m 45s)',
+      '✓ ECR registry ready (1m 30s)',
+      '✓ SSL certificates issued (2m 15s)',
+      '✓ DNS configured (1m 8s)',
     ],
-    time: '52 seconds',
+    time: '12 minutes',
     endpoint: 'https://api.dev.acmecorp.io',
   },
   {
     command: 'planton chart install gcp-cloud-run --name api --env staging --values values.yaml',
     info: 'Installing gcp-cloud-run chart...',
     steps: [
-      '✓ VPC network created (12s)',
-      '✓ Cloud Run service deployed (18s)',
-      '✓ Artifact Registry ready (6s)',
-      '✓ SSL certificates issued (25s)',
-      '✓ Cloud DNS configured (8s)',
+      '✓ VPC network created (2m 45s)',
+      '✓ Cloud Run service deployed (3m 20s)',
+      '✓ Artifact Registry ready (1m 15s)',
+      '✓ SSL certificates issued (2m 30s)',
+      '✓ Cloud DNS configured (1m 10s)',
     ],
-    time: '38 seconds',
+    time: '11 minutes',
     endpoint: 'https://api.staging.acmecorp.dev',
   },
   {
     command: 'planton chart install azure-container-apps --name api --env prod --values values.yaml',
     info: 'Installing azure-container-apps chart...',
     steps: [
-      '✓ Resource Group created (8s)',
-      '✓ Container Apps Environment ready (20s)',
-      '✓ Container Registry configured (10s)',
-      '✓ Managed Identity assigned (5s)',
-      '✓ Custom domain verified (15s)',
+      '✓ Resource Group created (1m 45s)',
+      '✓ Container Apps Environment ready (5m 20s)',
+      '✓ Container Registry configured (2m 10s)',
+      '✓ Managed Identity assigned (1m 5s)',
+      '✓ Custom domain verified (3m 40s)',
     ],
-    time: '45 seconds',
+    time: '14 minutes',
     endpoint: 'https://api.acmecorp.com',
   },
   {
     command: 'planton chart install digitalocean-app-platform --name api --env preview --values values.yaml',
     info: 'Installing digitalocean-app-platform chart...',
     steps: [
-      '✓ App Platform app created (10s)',
-      '✓ Container Registry linked (8s)',
-      '✓ Load Balancer provisioned (12s)',
-      '✓ SSL certificate issued (20s)',
-      '✓ Domain configured (6s)',
+      '✓ App Platform app created (2m 30s)',
+      '✓ Container Registry linked (1m 45s)',
+      '✓ Load Balancer provisioned (3m 15s)',
+      '✓ SSL certificate issued (2m 20s)',
+      '✓ Domain configured (1m 10s)',
     ],
-    time: '35 seconds',
+    time: '11 minutes',
     endpoint: 'https://api.preview.acmecorp.io',
   },
 ];
@@ -145,7 +145,7 @@ const AnimatedTerminal: FC = () => {
   }, [scenarioIndex]);
 
   return (
-    <Box className="rounded-lg overflow-hidden border border-cyan-500/30 bg-black/60 backdrop-blur-sm text-left">
+    <Box className="rounded-lg overflow-hidden border border-cyan-500/30 bg-black/60 backdrop-blur-sm text-left max-w-full">
       {/* Terminal header */}
       <Box className="flex items-center px-4 py-2.5 bg-gray-900/80 border-b border-cyan-500/20">
         <Box className="flex items-center gap-3">
@@ -163,8 +163,8 @@ const AnimatedTerminal: FC = () => {
         </Box>
       </Box>
 
-      {/* Terminal content */}
-      <Box className="p-4 font-mono text-sm min-h-[200px]">
+      {/* Terminal content - fixed height to prevent layout shifts */}
+      <Box className="p-4 font-mono text-sm h-[280px] overflow-hidden">
         {terminalLines.slice(0, visibleLines).map((line, index) => (
           <Box key={index} className="mb-1.5">
             {line.type === 'command' && (
@@ -271,8 +271,10 @@ export const HeroSection: FC = () => {
 
           {/* Subheadline - UPDATED */}
           <Typography className="text-lg md:text-xl lg:text-2xl text-[#a0a0a0] max-w-3xl leading-relaxed">
-            Multi-cloud infrastructure automation that eliminates DevOps bottlenecks.
-            No ops team required. No vendor lock-in. 100% open source.
+            Deploy Production Infrastructure in Minutes, Not Weeks.
+            <br className="hidden sm:block" />
+            <span className="whitespace-nowrap">No ops team required.</span>{' '}
+            <span className="whitespace-nowrap">No vendor lock-in.</span>
           </Typography>
 
           {/* Quantified Social Proof - NEW */}

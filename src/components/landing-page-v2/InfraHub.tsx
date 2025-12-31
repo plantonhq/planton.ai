@@ -276,7 +276,8 @@ export const InfraHub: FC = () => {
         <Quote
           text="iorta TechNext deployed a complete AWS ECS environment for their SalesVerse product in under 1 hour—with 7 developers managing everything themselves. Previously, this would have required a dedicated DevOps engineer and taken at least a couple weeks of work."
           author="Customer Result"
-            role="iorta TechNext"
+          role="iorta TechNext"
+          companyLogo="/images/customers/logos/iorta.svg"
           />
         </Card>
         <Card className="bg-gradient-to-br from-[#0ea5e9]/10 to-[#10b981]/10 border-[#0ea5e9]/30">
@@ -284,6 +285,7 @@ export const InfraHub: FC = () => {
             text="We deployed a complete GCP Cloud Run environment with PostgreSQL, Redis, and Cloud Storage in 47 minutes. Our previous setup with manual Terraform took 3 days."
             author="DevOps Lead"
             role="Odwen"
+            companyLogo="/images/customers/logos/odwen.svg"
         />
       </Card>
       </Box>

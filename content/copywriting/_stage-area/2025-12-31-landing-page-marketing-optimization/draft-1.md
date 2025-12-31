@@ -13,7 +13,7 @@ status: draft
 - **Target Page**: Landing Page
 - **Sections Updated**: All sections enhanced + 4 new sections added
 - **Reason**: Incorporate comprehensive marketing feedback (Dec 24) to close gap between "genuinely superior product" and "good-not-great website"
-- **Key Changes**: 
+- **Key Changes**:
   - Add quantified social proof immediately in hero
   - Create Social Proof Bar (customer logos + metrics)
   - Add "How It Works" 3-step visual before features
@@ -33,6 +33,7 @@ status: draft
 ### Main Headline
 
 **PRIMARY** (User's Choice):
+
 ```
 What if DevOps Didn't Block Your Developers?
 ```
@@ -42,7 +43,7 @@ What if DevOps Didn't Block Your Developers?
 ### Subheadline
 
 ```
-Multi-cloud infrastructure automation that eliminates DevOps bottlenecks. 
+Multi-cloud infrastructure automation that eliminates DevOps bottlenecks.
 No ops team required. No vendor lock-in. 100% open source.
 ```
 
@@ -69,24 +70,30 @@ Add prominently below the headline:
 
 ### CTA Hierarchy (Simplified - CRITICAL CHANGE)
 
-**Primary CTA**: 
+**Primary CTA**:
+
 ```
 [Start Free Trial]
 100 automation minutes free • No credit card required
 ```
-*Large gradient button*
+
+_Large gradient button_
 
 **Secondary CTA**:
+
 ```
 Watch 5-Min Demo →
 ```
-*Text link below primary button*
+
+_Text link below primary button_
 
 **Tertiary CTA**:
+
 ```
 [See Pricing]
 ```
-*Ghost button, less prominent*
+
+_Ghost button, less prominent_
 
 **Why**: Too many equal CTAs = decision paralysis. One primary action, rest secondary.
 
@@ -108,7 +115,8 @@ Add animated terminal showing:
 └──────────────────────────────────────────────────────────────┘
 ```
 
-**Visual Direction**: 
+**Visual Direction**:
+
 - Terminal-style frame with syntax highlighting
 - Animated typing effect showing commands executing
 - Progress checkmarks appearing in sequence
@@ -138,12 +146,14 @@ Display in single row, grayscale with color on hover:
 ```
 
 **Customer Websites**:
+
 - **Jai.CX**: https://jai.cx/ (AI-native copilot for founders)
 - **TynyBay**: https://tynybay.com (IT consulting firm)
 - **iorta TechNext**: https://iorta.in (BFSI platform, SalesVerse)
 - **Odwen**: https://odwen.co.in (Online warehousing platform)
 
 **Visual Direction**:
+
 - Grayscale logos by default
 - Color on hover
 - Subtle animation on page load (fade in from bottom)
@@ -162,6 +172,7 @@ Display in single row, grayscale with color on hover:
 ```
 
 **Visual Direction**:
+
 - Four-column grid on desktop, 2x2 on tablet, stacked on mobile
 - Large numbers in gradient color
 - Label text in secondary color
@@ -195,13 +206,15 @@ No DevOps expertise required. No weeks of configuration. Just connect, choose, a
 **Headline**: Connect Your Cloud
 
 **Description**:
+
 ```
-Link your AWS, GCP, or Azure account using secure OAuth or assume-role credentials. 
-Planton never stores long-term credentials—everything uses temporary tokens or 
+Link your AWS, GCP, or Azure account using secure OAuth or assume-role credentials.
+Planton never stores long-term credentials—everything uses temporary tokens or
 customer-hosted runners for maximum security.
 ```
 
-**Visual Direction**: 
+**Visual Direction**:
+
 - Simple form mockup showing AWS/GCP/Azure logo buttons
 - Security badge: "Zero-Trust Architecture"
 - Arrow pointing to Step 2
@@ -215,13 +228,15 @@ customer-hosted runners for maximum security.
 **Headline**: Choose Your Infrastructure
 
 **Description**:
+
 ```
-Browse the Deployment Component Store—pre-built infrastructure charts for 
-common patterns (ECS Environment, GKE Cluster, RDS PostgreSQL, Redis, etc.). 
+Browse the Deployment Component Store—pre-built infrastructure charts for
+common patterns (ECS Environment, GKE Cluster, RDS PostgreSQL, Redis, etc.).
 Or build custom charts using our DAG orchestration system.
 ```
 
 **Visual Direction**:
+
 - Drag-and-drop UI mockup showing infrastructure components
 - Component cards: "AWS ECS Environment", "PostgreSQL RDS", "Redis Elasticache"
 - Highlight: "20% of services used 80% of the time"
@@ -236,13 +251,15 @@ Or build custom charts using our DAG orchestration system.
 **Headline**: Deploy in Minutes
 
 **Description**:
+
 ```
-Watch your infrastructure deploy in real-time with live Terraform visualization. 
-Every change is auditable, every resource is tracked, and every deployment is 
+Watch your infrastructure deploy in real-time with live Terraform visualization.
+Every change is auditable, every resource is tracked, and every deployment is
 backed by Tekton CI/CD pipelines you can customize.
 ```
 
 **Visual Direction**:
+
 - Live deployment progress mockup showing:
   - Resources being created (VPC, ALB, ECR, etc.)
   - Progress bar with estimated time
@@ -276,26 +293,27 @@ Why Teams Choose Planton Over Alternatives
 ### Subheadline
 
 ```
-We're not the only DevOps platform. But we're the only one that's fully open source, 
+We're not the only DevOps platform. But we're the only one that's fully open source,
 multi-cloud, and built with a no-lock-in philosophy from day one.
 ```
 
 ### Comparison Table
 
-| Feature | Planton | Terraform Cloud | Pulumi Cloud | Manual DevOps |
-|---------|---------|-----------------|--------------|---------------|
-| **Setup Time** | <1 hour | 1-2 days | 1-2 days | 1-2 weeks |
-| **Monthly Cost (7 devs)** | $450 | $1,200+ | $1,000+ | $12,500 (salary) |
-| **Backend CI/CD** | ✅ Included (ServiceHub) | ❌ Build yourself | ❌ Build yourself | ❌ Build yourself |
-| **Out-of-the-Box Infra** | ✅ 120+ deployment components | ⚠️ Limited (Pulumi ESC) | ⚠️ Limited (some efforts) | ❌ Write everything |
-| **CLI Open Source** | ✅ Yes (project-planton) | ✅ Yes (terraform) | ✅ Yes (pulumi) | N/A |
-| **Deployment Modules Open Source** | ✅ Yes (100% on GitHub) | ❌ You write & maintain | ❌ You write & maintain | N/A |
-| **Platform (SaaS) Open Source** | ❌ No (like competitors) | ❌ No | ❌ No | N/A |
-| **AI Assistance Scope** | ✅ Full SDLC (infra + services) | ⚠️ Infra-only (Pulumi AI) | ⚠️ Infra-only | ❌ No |
-| **Exit Strategy** | ✅ Export everything | ⚠️ Migration cost | ⚠️ Migration cost | N/A |
-| **Multi-Cloud** | ✅ AWS, GCP, Azure, Cloudflare | ✅ Yes | ✅ Yes | ✅ Yes |
+| Feature                            | Planton                         | Terraform Cloud           | Pulumi Cloud              | Manual DevOps       |
+| ---------------------------------- | ------------------------------- | ------------------------- | ------------------------- | ------------------- |
+| **Setup Time**                     | <1 hour                         | 1-2 days                  | 1-2 days                  | 1-2 weeks           |
+| **Monthly Cost (7 devs)**          | $450                            | $1,200+                   | $1,000+                   | $12,500 (salary)    |
+| **Backend CI/CD**                  | ✅ Included (ServiceHub)        | ❌ Build yourself         | ❌ Build yourself         | ❌ Build yourself   |
+| **Out-of-the-Box Infra**           | ✅ 120+ deployment components   | ⚠️ Limited (Pulumi ESC)   | ⚠️ Limited (some efforts) | ❌ Write everything |
+| **CLI Open Source**                | ✅ Yes (project-planton)        | ✅ Yes (terraform)        | ✅ Yes (pulumi)           | N/A                 |
+| **Deployment Modules Open Source** | ✅ Yes (100% on GitHub)         | ❌ You write & maintain   | ❌ You write & maintain   | N/A                 |
+| **Platform (SaaS) Open Source**    | ❌ No (like competitors)        | ❌ No                     | ❌ No                     | N/A                 |
+| **AI Assistance Scope**            | ✅ Full SDLC (infra + services) | ⚠️ Infra-only (Pulumi AI) | ⚠️ Infra-only             | ❌ No               |
+| **Exit Strategy**                  | ✅ Export everything            | ⚠️ Migration cost         | ⚠️ Migration cost         | N/A                 |
+| **Multi-Cloud**                    | ✅ AWS, GCP, Azure, Cloudflare  | ✅ Yes                    | ✅ Yes                    | ✅ Yes              |
 
 **Visual Direction**:
+
 - Responsive table with alternating row backgrounds
 - ✅ Green checkmarks for included features
 - ❌ Red X for missing features
@@ -305,32 +323,36 @@ multi-cloud, and built with a no-lock-in philosophy from day one.
 
 ### Feature Explanations (Collapsible on Mobile)
 
-**Setup Time**: 
+**Setup Time**:
+
 ```
-Planton's Infra Charts deploy complete environments (VPC, load balancers, databases, 
-certificates, DNS) in a single form submission. Competitors require manual configuration 
+Planton's Infra Charts deploy complete environments (VPC, load balancers, databases,
+certificates, DNS) in a single form submission. Competitors require manual configuration
 of multiple resources.
 ```
 
-**Backend CI/CD**: 
+**Backend CI/CD**:
+
 ```
-Planton includes Service Hub—a Vercel-like experience for backend deployments to ECS, 
+Planton includes Service Hub—a Vercel-like experience for backend deployments to ECS,
 Cloud Run, etc. Terraform/Pulumi handle infrastructure only—you build CI/CD separately.
 ```
 
 **Out-of-the-Box Infrastructure**:
+
 ```
-Planton provides 120+ pre-built deployment components (AWS ECS Environment, GKE Cluster, 
-PostgreSQL RDS, Redis, Kafka, MongoDB, etc.) ready to use. With Terraform Cloud or Pulumi Cloud, 
-you still need to write all the infrastructure modules yourself. Pulumi has some efforts (Pulumi ESC) 
+Planton provides 120+ pre-built deployment components (AWS ECS Environment, GKE Cluster,
+PostgreSQL RDS, Redis, Kafka, MongoDB, etc.) ready to use. With Terraform Cloud or Pulumi Cloud,
+you still need to write all the infrastructure modules yourself. Pulumi has some efforts (Pulumi ESC)
 but nothing like Planton's comprehensive out-of-the-box experience.
 ```
 
 **Open Source Breakdown**:
+
 ```
 CLI Tools (All Open Source):
 • Terraform CLI: ✅ Open source
-• Pulumi CLI: ✅ Open source  
+• Pulumi CLI: ✅ Open source
 • project-planton CLI: ✅ Open source
 
 SaaS Platforms (None Open Source):
@@ -343,11 +365,12 @@ Deployment Modules (Only Planton Open Source):
 • Terraform Cloud: ❌ You write and maintain your own modules
 • Pulumi Cloud: ❌ You write and maintain your own modules
 
-This is Planton's key differentiator: The infrastructure that deploys YOUR cloud resources 
+This is Planton's key differentiator: The infrastructure that deploys YOUR cloud resources
 is 100% auditable and open source. Competitors force you to write and maintain those modules yourself.
 ```
 
 **AI Assistance Scope**:
+
 ```
 Planton's AI agents have full SDLC context (Infra Hub + Service Hub). They understand:
 • Infrastructure deployments (like Pulumi AI)
@@ -355,14 +378,15 @@ Planton's AI agents have full SDLC context (Infra Hub + Service Hub). They under
 • Multi-environment configurations
 • Deployment history and patterns
 
-Pulumi AI only understands infrastructure. Planton agents understand the entire DevOps lifecycle, 
+Pulumi AI only understands infrastructure. Planton agents understand the entire DevOps lifecycle,
 making them far more capable for end-to-end troubleshooting and automation.
 ```
 
-**Exit Strategy**: 
+**Exit Strategy**:
+
 ```
-Planton provides: 1) Export configs to local files, 2) Use independent CLI, 
-3) Migrate to GitHub Actions, 4) Keep using Terraform/Pulumi modules directly. 
+Planton provides: 1) Export configs to local files, 2) Use independent CLI,
+3) Migrate to GitHub Actions, 4) Keep using Terraform/Pulumi modules directly.
 No vendor lock-in by design.
 ```
 
@@ -390,22 +414,23 @@ Great developer experience without giving up infrastructure control
 
 #### Comparison Table
 
-| Feature | Planton | Vercel | Heroku | Render | Railway |
-|---------|---------|--------|--------|--------|---------|
-| **Service Deployment** | ✅ Backend services | ⚠️ Next.js only | ✅ Backend services | ✅ Backend services | ✅ Backend services |
-| **Infrastructure Deployment** | ✅ Full automation | ❌ No infrastructure | ❌ No infrastructure | ❌ No infrastructure | ❌ No infrastructure |
-| **Infrastructure Control** | ✅ Full control (your cloud) | ❌ Zero control | ❌ Zero control | ❌ Zero control | ❌ Zero control |
-| **Multi-Language Support** | ✅ Any language/framework | ⚠️ Next.js optimized | ✅ Multi-language | ✅ Multi-language | ✅ Multi-language |
-| **Cloud Provider** | ✅ YOUR cloud (AWS/GCP/Azure) | ❌ Vercel's cloud only | ❌ Heroku's cloud only | ❌ Render's cloud only | ❌ Railway's cloud only |
-| **Custom Infrastructure** | ✅ VPC, databases, queues, etc. | ❌ Not available | ❌ Not available | ❌ Limited add-ons | ❌ Limited add-ons |
-| **No Config Deployment** | ✅ Yes (ServiceHub) | ✅ Yes (Next.js) | ✅ Yes | ✅ Yes | ✅ Yes |
-| **IaC Code Access** | ✅ 100% open source | ❌ No IaC (black box) | ❌ No IaC (black box) | ❌ No IaC (black box) | ❌ No IaC (black box) |
-| **Exit Strategy** | ✅ Export everything | ⚠️ Rebuild elsewhere | ⚠️ Rebuild elsewhere | ⚠️ Rebuild elsewhere | ⚠️ Rebuild elsewhere |
-| **Monthly Cost (7 devs)** | $450 | $20-200+ (scales fast) | $175-500+ | $85-400+ | $100-500+ |
+| Feature                       | Planton                         | Vercel                 | Heroku                 | Render                 | Railway                 |
+| ----------------------------- | ------------------------------- | ---------------------- | ---------------------- | ---------------------- | ----------------------- |
+| **Service Deployment**        | ✅ Backend services             | ⚠️ Next.js only        | ✅ Backend services    | ✅ Backend services    | ✅ Backend services     |
+| **Infrastructure Deployment** | ✅ Full automation              | ❌ No infrastructure   | ❌ No infrastructure   | ❌ No infrastructure   | ❌ No infrastructure    |
+| **Infrastructure Control**    | ✅ Full control (your cloud)    | ❌ Zero control        | ❌ Zero control        | ❌ Zero control        | ❌ Zero control         |
+| **Multi-Language Support**    | ✅ Any language/framework       | ⚠️ Next.js optimized   | ✅ Multi-language      | ✅ Multi-language      | ✅ Multi-language       |
+| **Cloud Provider**            | ✅ YOUR cloud (AWS/GCP/Azure)   | ❌ Vercel's cloud only | ❌ Heroku's cloud only | ❌ Render's cloud only | ❌ Railway's cloud only |
+| **Custom Infrastructure**     | ✅ VPC, databases, queues, etc. | ❌ Not available       | ❌ Not available       | ❌ Limited add-ons     | ❌ Limited add-ons      |
+| **No Config Deployment**      | ✅ Yes (ServiceHub)             | ✅ Yes (Next.js)       | ✅ Yes                 | ✅ Yes                 | ✅ Yes                  |
+| **IaC Code Access**           | ✅ 100% open source             | ❌ No IaC (black box)  | ❌ No IaC (black box)  | ❌ No IaC (black box)  | ❌ No IaC (black box)   |
+| **Exit Strategy**             | ✅ Export everything            | ⚠️ Rebuild elsewhere   | ⚠️ Rebuild elsewhere   | ⚠️ Rebuild elsewhere   | ⚠️ Rebuild elsewhere    |
+| **Monthly Cost (7 devs)**     | $450                            | $20-200+ (scales fast) | $175-500+              | $85-400+               | $100-500+               |
 
 ### Feature Explanations
 
 **Service Deployment**:
+
 ```
 Vercel: Exceptional experience but ONLY for Next.js projects. No backend services, no APIs.
 Heroku/Render/Railway: Great for backend services (Node.js, Python, Go, etc.).
@@ -413,24 +438,27 @@ Planton: Backend services (like Heroku) + Next.js frontends (like Vercel) + Infr
 ```
 
 **Infrastructure Deployment**:
+
 ```
-Vercel/Heroku/Render/Railway: ZERO infrastructure automation. You can't deploy VPCs, databases, 
+Vercel/Heroku/Render/Railway: ZERO infrastructure automation. You can't deploy VPCs, databases,
 queues, DNS, or any cloud resources. They provide managed add-ons but no infrastructure control.
 
-Planton: Deploy complete infrastructure (VPC, ALB, RDS PostgreSQL, Elasticache Redis, Kafka, 
+Planton: Deploy complete infrastructure (VPC, ALB, RDS PostgreSQL, Elasticache Redis, Kafka,
 Route 53, ACM certificates, etc.) alongside your services.
 ```
 
 **Infrastructure Control**:
+
 ```
-Vercel/Heroku/Render/Railway: Run in THEIR cloud. You have zero visibility or control over 
+Vercel/Heroku/Render/Railway: Run in THEIR cloud. You have zero visibility or control over
 the underlying infrastructure.
 
-Planton: Deploys in YOUR AWS/GCP/Azure account. You own the infrastructure, see every resource, 
+Planton: Deploys in YOUR AWS/GCP/Azure account. You own the infrastructure, see every resource,
 and can access it directly via AWS/GCP/Azure consoles.
 ```
 
 **The Planton Difference**:
+
 ```
 PaaS Platforms (Vercel/Heroku/Render/Railway):
 ✅ Great developer experience (no Terraform, no CI/CD files)
@@ -455,6 +483,7 @@ Planton (Best of Both Worlds):
 ### Visual Direction
 
 **Three-Circle Venn Diagram**:
+
 ```
 ┌─────────────────────────────────────────────────────┐
 │                                                     │
@@ -477,6 +506,7 @@ Planton = Vercel/Heroku DX + Terraform/Pulumi Infrastructure + Your Cloud
 ```
 
 **Key Callout Box**:
+
 ```
 ┌────────────────────────────────────────────────────────────────┐
 │ 🎯 UNIQUE POSITIONING                                          │
@@ -498,6 +528,7 @@ Planton = Vercel/Heroku DX + Terraform/Pulumi Infrastructure + Your Cloud
 **Use Case 1: Startup Deploying SaaS Product**
 
 **With Heroku**:
+
 ```
 ✅ Fast backend deployment
 ❌ Can't customize VPC networking
@@ -508,6 +539,7 @@ Planton = Vercel/Heroku DX + Terraform/Pulumi Infrastructure + Your Cloud
 ```
 
 **With Planton**:
+
 ```
 ✅ Fast backend deployment (ServiceHub)
 ✅ Custom VPC with private subnets
@@ -522,6 +554,7 @@ Planton = Vercel/Heroku DX + Terraform/Pulumi Infrastructure + Your Cloud
 **Use Case 2: Frontend Team Using Vercel**
 
 **With Vercel Only**:
+
 ```
 ✅ Great Next.js deployment experience
 ❌ Can't deploy backend APIs (need separate platform)
@@ -531,6 +564,7 @@ Planton = Vercel/Heroku DX + Terraform/Pulumi Infrastructure + Your Cloud
 ```
 
 **With Planton**:
+
 ```
 ✅ Deploy Next.js frontend (static export to S3 + CloudFront)
 ✅ Deploy backend APIs (ServiceHub to ECS/Cloud Run)
@@ -544,6 +578,7 @@ Planton = Vercel/Heroku DX + Terraform/Pulumi Infrastructure + Your Cloud
 **Use Case 3: Team Migrating from Heroku (Cost Savings)**
 
 **Heroku Costs** (typical 7-developer team):
+
 ```
 • 7 dynos (Standard 2X): $350/month
 • Postgres Essential-1: $200/month
@@ -552,6 +587,7 @@ Planton = Vercel/Heroku DX + Terraform/Pulumi Infrastructure + Your Cloud
 ```
 
 **Planton + AWS Costs** (same 7-developer team):
+
 ```
 • Planton platform: $450/month
 • AWS ECS (Fargate): ~$100/month
@@ -561,6 +597,7 @@ Planton = Vercel/Heroku DX + Terraform/Pulumi Infrastructure + Your Cloud
 ```
 
 **Plus**:
+
 - ✅ Full infrastructure control
 - ✅ Can scale to enterprise without platform limits
 - ✅ Can customize every aspect of infrastructure
@@ -572,14 +609,14 @@ Planton = Vercel/Heroku DX + Terraform/Pulumi Infrastructure + Your Cloud
 
 ## Section 5: Infra Hub (Enhanced)
 
-*Keep existing content from December 19 draft, with these enhancements:*
+_Keep existing content from December 19 draft, with these enhancements:_
 
 ### Additional Customer Proof Point
 
 Add after existing iorta TechNext example:
 
 ```
-"We deployed a complete GCP Cloud Run environment with PostgreSQL, Redis, and 
+"We deployed a complete GCP Cloud Run environment with PostgreSQL, Redis, and
 Cloud Storage in 47 minutes. Our previous setup with manual Terraform took 3 days."
 — DevOps Lead, Odwen
 ```
@@ -587,14 +624,17 @@ Cloud Storage in 47 minutes. Our previous setup with manual Terraform took 3 day
 ### Enhanced Feature Cards
 
 **Feature 1: Zero-Config CI/CD**
+
 - Keep existing content
 - Add: "See live deployment in How It Works above ↑"
 
 **Feature 2: Infra Charts**
+
 - Keep existing content
 - Add metric: "450+ production deployments completed"
 
 **Feature 3: Deployment Component Store**
+
 - Keep existing content
 - Add: "Browse 120+ components on GitHub →" (link to Project Planton)
 
@@ -604,7 +644,7 @@ Cloud Storage in 47 minutes. Our previous setup with manual Terraform took 3 day
 
 ## Section 6: Service Hub (Enhanced)
 
-*Keep existing content from December 19 draft, with these enhancements:*
+_Keep existing content from December 19 draft, with these enhancements:_
 
 ### Strengthen "Vercel for Backend" Positioning
 
@@ -663,6 +703,7 @@ Real feedback from teams using Planton in production
 Display in 3-column grid (2 on tablet, 1 on mobile), masonry layout:
 
 #### Card 1: Harsha CH (Jai.CX - First User)
+
 ```
 ┌─────────────────────────────────────────────────────┐
 │ 👤 Harsha CH                                         │
@@ -677,10 +718,11 @@ Display in 3-column grid (2 on tablet, 1 on mobile), masonry layout:
 └─────────────────────────────────────────────────────┘
 ```
 
-#### Card 2: Rohit Reddy Gopy (TynyBay CEO)
+#### Card 2: Rohit Reddy Gopu (TynyBay CEO)
+
 ```
 ┌─────────────────────────────────────────────────────┐
-│ 👤 Rohit Reddy Gopy                                  │
+│ 👤 Rohit Reddy Gopu                                  │
 │    CEO, TynyBay                                      │
 │                                                      │
 │ "For a client in regulated industry (BFSI) who      │
@@ -694,6 +736,7 @@ Display in 3-column grid (2 on tablet, 1 on mobile), masonry layout:
 ```
 
 #### Card 3: Balaji Borra (TynyBay DevOps)
+
 ```
 ┌─────────────────────────────────────────────────────┐
 │ 👤 Balaji Borra                                      │
@@ -709,6 +752,7 @@ Display in 3-column grid (2 on tablet, 1 on mobile), masonry layout:
 ```
 
 #### Card 4: Rakesh Kandhi (TynyBay Senior Developer)
+
 ```
 ┌─────────────────────────────────────────────────────┐
 │ 👤 Rakesh Kandhi                                     │
@@ -724,6 +768,7 @@ Display in 3-column grid (2 on tablet, 1 on mobile), masonry layout:
 ```
 
 #### Card 5: Sai Saketh (iorta TechNext Junior DevOps)
+
 ```
 ┌─────────────────────────────────────────────────────┐
 │ 👤 Sai Saketh                                        │
@@ -740,6 +785,7 @@ Display in 3-column grid (2 on tablet, 1 on mobile), masonry layout:
 ```
 
 **Visual Direction**:
+
 - Twitter/testimonial-style cards with subtle shadows
 - Avatar images (use placeholder avatars for anonymized quotes)
 - Company name and location below quote
@@ -763,6 +809,7 @@ Display in 3-column grid (2 on tablet, 1 on mobile), masonry layout:
 **Team Size**: 1 developer (solo founding engineer)
 
 #### Before Planton
+
 ```
 • Hand-rolled Terraform modules: Weeks of infrastructure setup work
 • Three environments (dev, staging, prod) manually configured
@@ -771,6 +818,7 @@ Display in 3-column grid (2 on tablet, 1 on mobile), masonry layout:
 ```
 
 #### After Planton
+
 ```
 • Complete ECS environment (VPC, ALB, Route 53, ACM, ECS): <1 hour
 • Eliminated hand-written Terraform entirely
@@ -779,6 +827,7 @@ Display in 3-column grid (2 on tablet, 1 on mobile), masonry layout:
 ```
 
 #### Key Contribution
+
 ```
 🎯 First User: Filled infrastructure forms one-by-one during onboarding
 💡 Infra Charts Creator: His feedback led to bundling forms into complete environments
@@ -786,10 +835,11 @@ Display in 3-column grid (2 on tablet, 1 on mobile), masonry layout:
 ```
 
 #### Quote
+
 ```
-"As Planton's first user, I filled out forms one by one—VPC, Security Groups, ECS, 
-Route 53, certificates. That tedious process led to Infra Charts, which now deploy 
-complete environments in a single form. I went from weeks of Terraform work to 
+"As Planton's first user, I filled out forms one by one—VPC, Security Groups, ECS,
+Route 53, certificates. That tedious process led to Infra Charts, which now deploy
+complete environments in a single form. I went from weeks of Terraform work to
 deploying production infrastructure in under an hour."
 — Harsha CH, Solo Developer, Jai.CX
 ```
@@ -804,10 +854,11 @@ deploying production infrastructure in under an hour."
 **Industry**: IT Consulting  
 **Cloud**: AWS, GCP (multi-cloud)  
 **Team**: 1 DevOps Engineer (Balaji Borra) + Senior Developer (Rakesh Kandhi)  
-**CEO**: Rohit Reddy Gopy  
+**CEO**: Rohit Reddy Gopu  
 **Client Projects**: 8+ concurrent clients managed
 
 #### Before Planton
+
 ```
 • 1-2 weeks non-billable infrastructure setup per client project
 • DevOps engineer (Balaji) context-switching across 3 concurrent clients
@@ -816,6 +867,7 @@ deploying production infrastructure in under an hour."
 ```
 
 #### After Planton
+
 ```
 • <1 hour infrastructure setup per client
 • Same 1 DevOps engineer now handles 8+ concurrent clients
@@ -824,6 +876,7 @@ deploying production infrastructure in under an hour."
 ```
 
 #### Key Metrics
+
 ```
 ⚡ 90% reduction in non-billable infrastructure time
 💰 2.5x client capacity (3 → 8+ clients) with same DevOps headcount
@@ -833,25 +886,28 @@ deploying production infrastructure in under an hour."
 
 #### Quotes
 
-**Rohit Reddy Gopy (CEO)**:
+**Rohit Reddy Gopu (CEO)**:
+
 ```
-"For a client in regulated industry (BFSI) who mandated GCP, Planton delivered the 
-entire infrastructure despite zero GCP experience on our team. Planton provides mature 
-infrastructure out-of-the-box that covers compliance concerns. We're using Planton for 
+"For a client in regulated industry (BFSI) who mandated GCP, Planton delivered the
+entire infrastructure despite zero GCP experience on our team. Planton provides mature
+infrastructure out-of-the-box that covers compliance concerns. We're using Planton for
 all future client projects."
 ```
 
 **Balaji Borra (DevOps Engineer)**:
+
 ```
-"I handle 8+ client projects with Planton—no more rewriting Terraform between clients. 
-My efficiency has improved dramatically, and I provide far better developer experience 
+"I handle 8+ client projects with Planton—no more rewriting Terraform between clients.
+My efficiency has improved dramatically, and I provide far better developer experience
 to all our teams."
 ```
 
 **Rakesh Kandhi (Senior Developer)**:
+
 ```
-"I can now update service configurations and deploy to dev, staging, and prod—all 
-without waiting on DevOps. Self-service infrastructure through ServiceHub is a 
+"I can now update service configurations and deploy to dev, staging, and prod—all
+without waiting on DevOps. Self-service infrastructure through ServiceHub is a
 game changer for developer productivity."
 ```
 
@@ -869,6 +925,7 @@ game changer for developer productivity."
 **DevOps**: Sai Saketh (Junior DevOps Engineer)
 
 #### Before Planton
+
 ```
 • Team lacked deep AWS expertise
 • 7 developers dependent on single junior DevOps resource
@@ -878,6 +935,7 @@ game changer for developer productivity."
 ```
 
 #### After Planton
+
 ```
 • Complete AWS ECS environment: <1 hour
 • Junior DevOps provides senior-level developer experience
@@ -887,6 +945,7 @@ game changer for developer productivity."
 ```
 
 #### Key Metrics
+
 ```
 💰 $144,600/year savings vs. hiring senior DevOps engineer (96% cost reduction)
 👥 7 developers managing complete infrastructure lifecycle
@@ -895,10 +954,11 @@ game changer for developer productivity."
 ```
 
 #### Quote
+
 ```
-"Planton enabled me to provide a mature developer experience to our entire 7-person dev 
-team without requiring deep AWS expertise. They can quickly deploy services to multiple 
-environments independently, and I don't have to deal with rewriting complex infrastructure 
+"Planton enabled me to provide a mature developer experience to our entire 7-person dev
+team without requiring deep AWS expertise. They can quickly deploy services to multiple
+environments independently, and I don't have to deal with rewriting complex infrastructure
 code. The platform handles complexity so I can focus on supporting the team."
 — Sai Saketh, Junior DevOps Engineer, iorta TechNext (SalesVerse)
 ```
@@ -915,6 +975,7 @@ code. The platform handles complexity so I can focus on supporting the team."
 **Team Size**: 8 engineers
 
 #### Before Planton
+
 ```
 • Manual Terraform configuration: 3 days per environment
 • Single DevOps engineer bottleneck for all deployments
@@ -923,6 +984,7 @@ code. The platform handles complexity so I can focus on supporting the team."
 ```
 
 #### After Planton
+
 ```
 • Complete GCP Cloud Run environment: 47 minutes
 • Developers self-service infrastructure requests
@@ -931,6 +993,7 @@ code. The platform handles complexity so I can focus on supporting the team."
 ```
 
 #### Key Metrics
+
 ```
 ⚡ 95% faster infrastructure deployment
 💰 Eliminated DevOps bottleneck
@@ -938,9 +1001,10 @@ code. The platform handles complexity so I can focus on supporting the team."
 ```
 
 #### Quote
+
 ```
-"We deployed a complete GCP Cloud Run environment with PostgreSQL, Redis, and 
-Cloud Storage in 47 minutes. Our previous setup with manual Terraform took 3 days. 
+"We deployed a complete GCP Cloud Run environment with PostgreSQL, Redis, and
+Cloud Storage in 47 minutes. Our previous setup with manual Terraform took 3 days.
 Planton removed the bottleneck that was holding back our entire engineering team."
 — Engineering Manager, Odwen
 ```
@@ -955,6 +1019,7 @@ Planton removed the bottleneck that was holding back our entire engineering team
 **Team Size**: 12 engineers
 
 #### Before Planton
+
 ```
 • Multi-region setup: 2 weeks with consulting firm ($25K cost)
 • Complex VPC peering, cross-region replication
@@ -963,6 +1028,7 @@ Planton removed the bottleneck that was holding back our entire engineering team
 ```
 
 #### After Planton
+
 ```
 • Multi-region ECS setup: 3 hours with Infra Charts
 • Automated cross-region database replication
@@ -971,6 +1037,7 @@ Planton removed the bottleneck that was holding back our entire engineering team
 ```
 
 #### Key Metrics
+
 ```
 ⚡ 26x faster multi-region setup
 💰 $24,550 saved on consulting fees
@@ -978,9 +1045,10 @@ Planton removed the bottleneck that was holding back our entire engineering team
 ```
 
 #### Quote
+
 ```
-"Deploying to multiple AWS regions used to take us 2 weeks and $25K in consulting fees. 
-With Planton's multi-region Infra Charts, we deployed prod, staging, and DR environments 
+"Deploying to multiple AWS regions used to take us 2 weeks and $25K in consulting fees.
+With Planton's multi-region Infra Charts, we deployed prod, staging, and DR environments
 in 3 hours. The ROI is insane."
 — CTO, Fintech Startup (name withheld for compliance)
 ```
@@ -995,6 +1063,7 @@ in 3 hours. The ROI is insane."
 **Clients**: 8 simultaneous projects
 
 #### Before Planton
+
 ```
 • Each client: 1-2 weeks infrastructure setup (non-billable)
 • DevOps engineer context-switching across 8 clients
@@ -1003,6 +1072,7 @@ in 3 hours. The ROI is insane."
 ```
 
 #### After Planton
+
 ```
 • Each client: <1 hour infrastructure setup
 • Consistent Infra Charts across all clients
@@ -1011,6 +1081,7 @@ in 3 hours. The ROI is insane."
 ```
 
 #### Key Metrics
+
 ```
 ⚡ 90% reduction in non-billable infrastructure time
 💰 2.5x client capacity with same team
@@ -1018,9 +1089,10 @@ in 3 hours. The ROI is insane."
 ```
 
 #### Quote
+
 ```
-"Planton transformed our consulting business model. We used to lose 1-2 weeks of 
-non-billable time per client just setting up infrastructure. Now it's under an hour. 
+"Planton transformed our consulting business model. We used to lose 1-2 weeks of
+non-billable time per client just setting up infrastructure. Now it's under an hour.
 We scaled from 3 to 8 concurrent clients without hiring more DevOps engineers."
 — Managing Partner, IT Consulting Firm (name withheld per NDA)
 ```
@@ -1158,6 +1230,7 @@ Annual Savings: 2,964 engineering hours
 ```
 
 **Visual Direction**:
+
 - Two-column layout (inputs left, outputs right)
 - Real-time calculation as user adjusts sliders
 - Animated counter-up effect when values change
@@ -1172,7 +1245,7 @@ Annual Savings: 2,964 engineering hours
 
 ## Section 10: Pricing (Enhanced)
 
-*Keep existing simplified pricing from December 19 draft.*
+_Keep existing simplified pricing from December 19 draft._
 
 **Enhancement**: Add link to ROI Calculator
 
@@ -1194,7 +1267,8 @@ Not sure about the math? [Calculate your savings above ↑]
 └──────────────────────────────────────────────────────┘
 ```
 
-**Visual Direction**: 
+**Visual Direction**:
+
 - Prominent badge above pricing tiers
 - Countdown or progress bar showing remaining slots
 - Urgent but not sleazy tone
@@ -1206,7 +1280,7 @@ Not sure about the math? [Calculate your savings above ↑]
 
 ## Section 11: Open Standards (Enhanced)
 
-*Keep existing content from December 19 draft.*
+_Keep existing content from December 19 draft._
 
 **Enhancement**: Strengthen headline and opening
 
@@ -1219,7 +1293,7 @@ Built on Open Standards—Not Proprietary Lock-In
 ### Updated Opening
 
 ```
-Planton works with the tools you already use: GitHub, Terraform, Pulumi, Tekton. 
+Planton works with the tools you already use: GitHub, Terraform, Pulumi, Tekton.
 No migration required. No proprietary formats. No vendor lock-in by design.
 
 Use Planton because it accelerates your team—not because you're trapped.
@@ -1242,7 +1316,7 @@ Open Infrastructure Modules—Not a Black Box
 ```
 Planton Cloud (the platform) is a SaaS product—just like Terraform Cloud and Pulumi Cloud.
 
-But here's the difference: Every infrastructure module that deploys YOUR resources? 
+But here's the difference: Every infrastructure module that deploys YOUR resources?
 100% open source on GitHub.
 
 With Terraform Cloud or Pulumi Cloud, you write and maintain those modules yourself.
@@ -1254,6 +1328,7 @@ No black boxes. No vendor lock-in. No surprises.
 ### Clarification: What's Open Source vs. What's Not
 
 **Open Source** (100% Auditable):
+
 ```
 ✅ All 120+ Deployment Components (AWS ECS, GKE, PostgreSQL, Redis, Kafka, MongoDB, etc.)
 ✅ Pulumi/Terraform modules that deploy your infrastructure
@@ -1262,6 +1337,7 @@ No black boxes. No vendor lock-in. No surprises.
 ```
 
 **Not Open Source** (Like All SaaS Platforms):
+
 ```
 ❌ Planton Cloud platform (web console, APIs, databases)
 ❌ ServiceHub pipeline orchestration
@@ -1273,8 +1349,9 @@ Just like:
 ```
 
 **Why This Matters**:
+
 ```
-When you use Planton, the Terraform/Pulumi code that creates your VPCs, databases, 
+When you use Planton, the Terraform/Pulumi code that creates your VPCs, databases,
 load balancers, and services is FULLY AUDITABLE on GitHub.
 
 With competitors, you're either:
@@ -1287,10 +1364,10 @@ Planton gives you out-of-the-box infrastructure with full transparency.
 ### Three Pillars (Keep Existing Content)
 
 **Pillar 1: Transparent Infrastructure**
-*Keep existing content*
+_Keep existing content_
 
 **Pillar 2: Built-In Exit Strategy**
-*Keep existing content, add visual*
+_Keep existing content, add visual_
 
 Add "4-Step Exit Path" visual:
 
@@ -1312,14 +1389,15 @@ Step 4: Direct Module Usage
 No termination fees. No data hostage. No migration costs.
 ```
 
-**Visual Direction**: 
+**Visual Direction**:
+
 - Linear flow diagram with arrows
 - Each step in a card
 - Checkmark icon for each completed step
 - Download icon, CLI icon, GitHub Actions icon, Code icon
 
 **Pillar 3: Community & Contributions**
-*Keep existing content*
+_Keep existing content_
 
 ### Comparison: Open Source vs. Proprietary (Enhanced)
 
@@ -1354,7 +1432,7 @@ Update comparison to focus on "Truly Open" differentiation:
 
 ## Section 13: Agent Fleet (Enhanced - Add Competitive Context)
 
-*Keep existing content from December 19 draft (honest copilot failure narrative, emerging capability positioning).*
+_Keep existing content from December 19 draft (honest copilot failure narrative, emerging capability positioning)._
 
 **Enhancement**: Add competitive differentiation context
 
@@ -1370,7 +1448,7 @@ Their AI can help you manage infrastructure code—that's it.
 
 Planton agents understand the ENTIRE DevOps lifecycle:
 ✅ Infrastructure deployments (Infra Hub)
-✅ Service pipelines and CI/CD workflows (ServiceHub)  
+✅ Service pipelines and CI/CD workflows (ServiceHub)
 ✅ Multi-environment configurations (dev, staging, prod)
 ✅ Deployment history and failure patterns
 ✅ Service dependencies and integration points
@@ -1384,7 +1462,8 @@ This extended context makes Planton agents far more effective for:
 Specialized agents with full SDLC awareness > Generic copilot with limited context
 ```
 
-**Visual Direction**: 
+**Visual Direction**:
+
 - Diagram showing Planton's full SDLC context (Infra Hub + ServiceHub) vs. Pulumi's infra-only context
 - Highlight the "extended platform" advantage
 
@@ -1394,7 +1473,7 @@ Specialized agents with full SDLC awareness > Generic copilot with limited conte
 
 ## Section 14: Built by DevOps Engineers (Keep Existing)
 
-*Keep existing content from December 19 draft - no changes needed.*
+_Keep existing content from December 19 draft - no changes needed._
 
 Dogfooding, 24/7 support, and engineering philosophy are well-positioned.
 
@@ -1404,7 +1483,7 @@ Dogfooding, 24/7 support, and engineering philosophy are well-positioned.
 
 ## Section 15: Security & Compliance (Enhanced)
 
-*Keep existing three deployment topologies and compliance roadmap from December 19 draft.*
+_Keep existing three deployment topologies and compliance roadmap from December 19 draft._
 
 **Enhancement**: Add Security Trust Bar earlier on page
 
@@ -1424,6 +1503,7 @@ Display as horizontal badge bar:
 ```
 
 **Visual Direction**:
+
 - Horizontal row of badges
 - Checkmark or "Coming Q1 2026" status per badge
 - Subtle background gradient
@@ -1433,7 +1513,8 @@ Display as horizontal badge bar:
 
 Keep the detailed three deployment topologies (Basic, Trust Relationship, Customer-Hosted) and compliance roadmap in the existing location.
 
-**Component Mapping**: 
+**Component Mapping**:
+
 - NEW component `src/components/landing-page-v2/SecurityTrustBar.tsx` (top of page)
 - Keep `src/components/landing-page-v2/SecurityCompliance.tsx` (detailed section)
 
@@ -1441,7 +1522,7 @@ Keep the detailed three deployment topologies (Basic, Trust Relationship, Custom
 
 ## Section 16: Final CTA (Enhanced)
 
-*Keep existing structure from December 19 draft.*
+_Keep existing structure from December 19 draft._
 
 **Enhancements**:
 
@@ -1466,27 +1547,27 @@ Rotate between top 5 real customer quotes:
 Carousel (auto-rotate every 5 seconds):
 
 Slide 1:
-"As Planton's first user filling forms one-by-one led to Infra Charts—now I deploy 
+"As Planton's first user filling forms one-by-one led to Infra Charts—now I deploy
 complete environments in a single form. Weeks of Terraform → under 1 hour."
 — Harsha CH, Solo Developer, Jai.CX
 
 Slide 2:
-"For a BFSI client who mandated GCP, Planton delivered the entire infrastructure 
+"For a BFSI client who mandated GCP, Planton delivered the entire infrastructure
 despite zero GCP experience on our team. Using Planton for all future client projects."
-— Rohit Reddy Gopy, CEO, TynyBay
+— Rohit Reddy Gopu, CEO, TynyBay
 
 Slide 3:
-"I handle 8+ client projects—no more rewriting Terraform. My efficiency improved 
+"I handle 8+ client projects—no more rewriting Terraform. My efficiency improved
 dramatically. I provide far better experience to all our teams."
 — Balaji Borra, DevOps Engineer, TynyBay
 
 Slide 4:
-"I can now update service configurations and deploy to dev, staging, and prod—all 
+"I can now update service configurations and deploy to dev, staging, and prod—all
 without waiting on DevOps. Self-service infrastructure is a game changer for productivity."
 — Rakesh Kandhi, Senior Developer, TynyBay
 
 Slide 5:
-"Planton enabled me to provide mature developer experience to our 7-person team without 
+"Planton enabled me to provide mature developer experience to our 7-person team without
 requiring deep AWS expertise. They deploy independently and manage infrastructure themselves."
 — Sai Saketh, Junior DevOps Engineer, iorta TechNext
 ```
@@ -1559,6 +1640,7 @@ New landing page flow with all sections:
 ### Design System Additions Needed
 
 **New UI Patterns**:
+
 - Testimonial cards (Twitter-style)
 - Interactive calculator inputs (sliders, dropdowns)
 - Real-time calculation display
@@ -1569,6 +1651,7 @@ New landing page flow with all sections:
 - Comparison table with responsive cards
 
 **New Animations**:
+
 - Counter-up effect for metrics
 - Terminal typing animation
 - Scroll reveal (fade in from bottom)
@@ -1576,6 +1659,7 @@ New landing page flow with all sections:
 - Quote carousel transitions
 
 **New Icons**:
+
 - Cloud connection
 - Building blocks
 - Rocket launch
@@ -1587,12 +1671,14 @@ New landing page flow with all sections:
 ### Content Assets Needed
 
 **Images**:
+
 - Customer logos (iorta TechNext, Tynybay, Odwen)
 - Avatar placeholders for testimonials
 - Icon set for How It Works
 - Security badge graphics
 
 **Data**:
+
 - Exact customer names/titles for Wall of Love (get permissions)
 - Company locations for testimonials
 - Up-to-date metrics (deployments, retention, etc.)
@@ -1600,46 +1686,49 @@ New landing page flow with all sections:
 ### Interactive Elements
 
 **ROI Calculator Logic**:
+
 ```javascript
 // Pseudocode for calculator
 function calculateROI(teamSize, currentSetup, cloudSpend, deploymentsPerWeek) {
   // Current costs
   const devOpsSalary = currentSetup === 'senior' ? 150000 : currentSetup === 'junior' ? 75000 : 0;
-  const benefits = devOpsSalary * 0.30;
-  const recruitment = devOpsSalary * 0.10;
+  const benefits = devOpsSalary * 0.3;
+  const recruitment = devOpsSalary * 0.1;
   const tooling = 6000; // Annual
   const currentAnnual = devOpsSalary + benefits + recruitment + tooling;
-  
+
   // Planton costs
   const seatCost = teamSize * 20 * 12; // $20/dev/month
   const usageMinutes = deploymentsPerWeek * 52 * 45; // 45 min avg per deployment
   const usageCost = (usageMinutes / 60) * 0.36; // $0.006/min = $0.36/hour
   const plantonAnnual = seatCost + usageCost;
-  
+
   // Savings
   const savings = currentAnnual - plantonAnnual;
   const savingsPercent = (savings / currentAnnual) * 100;
-  const paybackDays = (plantonAnnual / 365) / (savings / 365);
+  const paybackDays = plantonAnnual / 365 / (savings / 365);
   const fiveYearSavings = savings * 5;
-  
+
   return {
     currentAnnual,
     plantonAnnual,
     savings,
     savingsPercent,
     paybackDays,
-    fiveYearSavings
+    fiveYearSavings,
   };
 }
 ```
 
 **Terminal Animation**:
+
 - Type each line character by character (50ms delay)
 - Show checkmark after each line completes (200ms delay)
 - Final success message with emoji
 - Loop animation after 3 seconds pause
 
 **Quote Carousel**:
+
 - Auto-rotate every 5 seconds
 - Fade transition (300ms)
 - Pause on hover
@@ -1648,6 +1737,7 @@ function calculateROI(teamSize, currentSetup, cloudSpend, deploymentsPerWeek) {
 ### Mobile Optimizations
 
 **Responsive Breakpoints**:
+
 - Hero: Stack CTA buttons vertically on mobile
 - Social Proof Bar: 2x2 metrics grid on mobile
 - How It Works: Stack 3 steps vertically on mobile
@@ -1656,6 +1746,7 @@ function calculateROI(teamSize, currentSetup, cloudSpend, deploymentsPerWeek) {
 - ROI Calculator: Stack inputs above outputs on mobile
 
 **Touch Optimizations**:
+
 - 44px minimum touch targets for all buttons
 - Sticky CTA bar at bottom on mobile
 - Swipeable testimonial carousel
@@ -1664,12 +1755,14 @@ function calculateROI(teamSize, currentSetup, cloudSpend, deploymentsPerWeek) {
 ### Performance Considerations
 
 **Lazy Loading**:
+
 - Load ROI calculator script only when section in view
 - Defer terminal animation until visible
 - Lazy load customer logos
 - Lazy load testimonial images
 
 **Animation Performance**:
+
 - Use CSS transforms for animations (GPU-accelerated)
 - Debounce scroll event listeners
 - Use Intersection Observer for scroll reveals
@@ -1680,27 +1773,32 @@ function calculateROI(teamSize, currentSetup, cloudSpend, deploymentsPerWeek) {
 
 ### Why Add These New Sections?
 
-**Social Proof Bar**: 
+**Social Proof Bar**:
+
 - Addresses feedback: "No recognizable brand logos"
 - Creates immediate trust signal
 - Competitor benchmark: Pulumi shows logos prominently
 
-**How It Works**: 
+**How It Works**:
+
 - Addresses feedback: "Currently jumps straight into features. Need the 'why' before the 'what.'"
 - Reduces cognitive load for first-time visitors
 - Competitor benchmark: Pulumi has extensive "Get Started" flows
 
-**Comparison Table**: 
+**Comparison Table**:
+
 - Addresses feedback: "No clear 'why choose us' differentiators"
 - Reduces objection handling
 - Competitor benchmark: Terraform/Pulumi have feature comparison pages (buried)—put yours front-and-center
 
-**Wall of Love**: 
+**Wall of Love**:
+
 - Addresses feedback: "Social proof works through repetition—show it 3-4 times"
 - Modern design pattern from ProductHunt, Testimonial.to
 - Competitors lack this—opportunity to stand out
 
-**ROI Calculator**: 
+**ROI Calculator**:
+
 - Addresses feedback: "Cost advantage not visualized"
 - Biggest competitive advantage (96% cost reduction)
 - Competitor benchmark: Pulumi has cost estimation—but not ROI calculator
@@ -1708,6 +1806,7 @@ function calculateROI(teamSize, currentSetup, cloudSpend, deploymentsPerWeek) {
 ### What We're Keeping from December 19
 
 All 12 original sections are kept (with enhancements):
+
 - Hero (enhanced)
 - Problem/Solution (keep as-is)
 - Infra Hub (enhanced)
@@ -1724,6 +1823,7 @@ All 12 original sections are kept (with enhancements):
 ### Prioritization: Quick Wins First
 
 **Quick Wins (Copywriting Ready)**:
+
 1. ✅ Add 100% retention stat to hero (implemented in draft)
 2. ✅ Add customer logo banner (implemented in draft)
 3. ✅ Add comparison table (implemented in draft)
@@ -1731,6 +1831,7 @@ All 12 original sections are kept (with enhancements):
 5. ✅ Add security trust badges (implemented in draft)
 
 **Requires Development** (Noted for implementation LLM):
+
 - ROI calculator (interactive)
 - Terminal animation (animated)
 - Dark mode toggle (UX improvement)
@@ -1740,7 +1841,7 @@ All 12 original sections are kept (with enhancements):
 
 ## Changelog Entry Draft
 
-*To be used by implementation LLM after implementation*
+_To be used by implementation LLM after implementation_
 
 ```markdown
 # Landing Page Marketing Optimization
@@ -1758,6 +1859,7 @@ Comprehensive landing page optimization based on competitive analysis feedback. 
 Following comprehensive marketing feedback (Dec 24, 2025), the landing page needed strategic enhancements to match the quality of the product. Feedback identified: "Planton has a genuinely superior product (open source, cost-effective, unified platform) but a good-not-great website. The gap between product quality and marketing execution is the biggest opportunity."
 
 Key issues addressed:
+
 - Generic headline lacking emotional punch
 - Insufficient social proof (only 2 customer stories)
 - Missing direct competitor comparison
@@ -1790,18 +1892,21 @@ Key issues addressed:
 ## Benefits
 
 ### For Visitors
+
 - Immediate clarity on differentiation (comparison table)
 - Quantified savings visualization (ROI calculator)
 - 4x more social proof (expanded testimonials)
 - Clear 3-step understanding (How It Works)
 
 ### For Conversion
+
 - Simplified CTA hierarchy (one primary action)
 - Multiple conversion paths (trial, demo, calculator)
 - Urgency element (early adopter pricing)
 - Reduced objections (comparison table, exit strategy)
 
 ### For Positioning
+
 - "Only Truly Open" platform messaging
 - Direct competitor comparison (vs Terraform, Pulumi)
 - Cost advantage visualized (96% savings)
@@ -1829,6 +1934,7 @@ Expected 30-50% increase in trial signups based on implementing feedback "Quick 
 ## Visual Direction Summary
 
 ### Color Palette (Existing)
+
 - Primary gradient: `#7c3aed` (purple) to `#0ea5e9` (blue)
 - Accent green: `#10b981` (success)
 - Accent red: `#ef4444` (error/comparison)
@@ -1837,12 +1943,14 @@ Expected 30-50% increase in trial signups based on implementing feedback "Quick 
 - Text: White primary, `#a0a0a0` secondary, `#666` muted
 
 ### Typography (Existing)
+
 - Section titles: 2.5rem, bold
 - Feature titles: 1.5rem, semi-bold
 - Body text: 1.05rem, regular
 - Metric numbers: 3rem+, bold, gradient
 
 ### Spacing (Existing)
+
 - Section vertical spacing: 8rem
 - Card padding: 2rem
 - Grid gaps: 2rem
@@ -1851,6 +1959,7 @@ Expected 30-50% increase in trial signups based on implementing feedback "Quick 
 ### New Patterns for This Update
 
 **Testimonial Cards**:
+
 - Background: `#1a1a1a`
 - Border: 1px solid `#2a2a2a`
 - Border radius: 12px
@@ -1859,6 +1968,7 @@ Expected 30-50% increase in trial signups based on implementing feedback "Quick 
 - Hover: Lift 4px, increase shadow
 
 **Calculator**:
+
 - Input section background: `#1a1a1a`
 - Output section background: gradient (`#1a1a2e` to `#16213e`)
 - Border: 1px solid `#2a2a3e`
@@ -1866,6 +1976,7 @@ Expected 30-50% increase in trial signups based on implementing feedback "Quick 
 - Real-time updates: 300ms transition
 
 **Badges**:
+
 - Background: Semi-transparent with border
 - Border radius: 24px (pill shape)
 - Padding: 0.5rem 1rem
@@ -1873,6 +1984,7 @@ Expected 30-50% increase in trial signups based on implementing feedback "Quick 
 - Status indicators: Colored dot + text
 
 **Terminal Window**:
+
 - Background: `#1a1a1a`
 - Border: 1px solid `#2a2a2a`
 - Header bar: `#2a2a2a` with traffic light dots
@@ -1885,6 +1997,7 @@ Expected 30-50% increase in trial signups based on implementing feedback "Quick 
 ## Component Mapping (Complete List)
 
 ### New Components (6)
+
 1. `src/components/landing-page-v2/SocialProofBar.tsx`
 2. `src/components/landing-page-v2/SecurityTrustBar.tsx`
 3. `src/components/landing-page-v2/HowItWorks.tsx`
@@ -1893,6 +2006,7 @@ Expected 30-50% increase in trial signups based on implementing feedback "Quick 
 6. `src/components/landing-page-v2/ROICalculator.tsx`
 
 ### Updated Components (8)
+
 1. `src/components/landing-page-v2/HeroSection.tsx`
 2. `src/components/landing-page-v2/InfraHub.tsx`
 3. `src/components/landing-page-v2/ServiceHub.tsx`
@@ -1903,12 +2017,14 @@ Expected 30-50% increase in trial signups based on implementing feedback "Quick 
 8. `src/components/landing-page-v2/FinalCTA.tsx`
 
 ### Unchanged Components (3)
+
 1. `src/components/landing-page-v2/ProblemSolution.tsx`
 2. `src/components/landing-page-v2/AgentFleet.tsx`
 3. `src/components/landing-page-v2/BuiltByDevOps.tsx`
 4. `src/components/landing-page-v2/SecurityCompliance.tsx` (detailed section)
 
 ### Page Route
+
 - `src/app/(root)/page.tsx` - Update to include new components in order
 
 ---
@@ -1918,22 +2034,27 @@ Expected 30-50% increase in trial signups based on implementing feedback "Quick 
 ### JavaScript Libraries (Potential Additions)
 
 **Animation**:
+
 - Framer Motion (if not already used) - for scroll reveals, counter-up effects
 - React Spring (alternative) - for smooth transitions
 
 **Calculator**:
+
 - React Hook Form (if not already used) - for calculator inputs
 - Chart.js or Recharts - for visualizing savings over time (optional)
 
 **Carousel**:
+
 - Swiper or React Slick - for testimonial carousel (or build custom)
 
 **Terminal Animation**:
+
 - Typed.js or custom React component - for typing effect
 
 ### Design System Extensions
 
 Add to `shared.tsx`:
+
 - `<TestimonialCard>` component
 - `<Badge>` component with variants
 - `<TerminalWindow>` component
@@ -1944,24 +2065,27 @@ Add to `shared.tsx`:
 ### Content Data Files
 
 Create data files for:
+
 - Customer logos (array of images + links)
 - Testimonials (array of quotes with metadata)
 - Comparison table data (structured data)
 - Calculator default values
 
 Example structure:
+
 ```typescript
 // src/data/testimonials.ts
 export const testimonials = [
   {
     id: 1,
-    name: "Swarup Donepudi",
-    title: "Founder & CEO",
-    company: "Tynybay",
-    location: "India",
-    quote: "Planton let us deploy client infrastructure in under an hour instead of weeks. Game changer for consulting firms.",
-    avatar: "/images/avatars/placeholder-1.png",
-    companyLogo: "/images/logos/tynybay.svg"
+    name: 'Swarup Donepudi',
+    title: 'Founder & CEO',
+    company: 'Tynybay',
+    location: 'India',
+    quote:
+      'Planton let us deploy client infrastructure in under an hour instead of weeks. Game changer for consulting firms.',
+    avatar: '/images/avatars/placeholder-1.png',
+    companyLogo: '/images/logos/tynybay.svg',
   },
   // ... more testimonials
 ];
@@ -1975,21 +2099,24 @@ export const testimonials = [
 
 2. **Early Adopter Pricing**: Confirm urgency messaging is acceptable ("63 slots remaining")?
 
-3. **Customer Permissions**: 
+3. **Customer Permissions**:
+
    - Get permission to use full names/titles in Wall of Love?
    - Obtain high-res logos for Social Proof Bar?
    - Confirm which customers can be named vs. "Confidential"?
 
-4. **ROI Calculator Defaults**: 
+4. **ROI Calculator Defaults**:
+
    - Confirm salary assumptions ($75K junior, $150K senior)?
    - Confirm usage pricing ($0.006/min)?
    - Confirm average deployment time (45-50 min)?
 
-5. **Security Badges**: 
+5. **Security Badges**:
+
    - Confirm SOC 2 Type I timeline (Q1 2026)?
    - Any other compliance certifications to add?
 
-6. **Comparison Table**: 
+6. **Comparison Table**:
    - Confirm competitor pricing estimates ($1,200+ Terraform, $1,000+ Pulumi)?
    - Any features to add/remove from comparison?
 
@@ -2000,21 +2127,25 @@ export const testimonials = [
 1. **Read this draft completely** to understand all sections and requirements
 
 2. **Create new components** in order:
+
    - Start with foundational components (SocialProofBar, HowItWorks)
    - Then interactive components (ComparisonTable, ROICalculator)
    - Finally testimonial components (WallOfLove)
 
 3. **Update existing components** systematically:
+
    - HeroSection first (most visible)
    - Customer-facing sections (InfraHub, ServiceHub, CustomerStories)
    - Finally CTAs and pricing
 
 4. **Test locally** at each milestone:
+
    - After each new component created
    - After each existing component updated
    - Final integration test of full page flow
 
 5. **Build verification**:
+
    - Run `make build` after all changes
    - Fix TypeScript errors iteratively
    - Verify no console warnings
@@ -2026,4 +2157,3 @@ export const testimonials = [
 ---
 
 **This draft is comprehensive and ready for review. Please provide feedback or approve for implementation.**
-

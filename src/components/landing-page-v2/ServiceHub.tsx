@@ -251,8 +251,12 @@ export const ServiceHub: FC = () => {
         </Typography>
           
           <Box className="flex items-center gap-4 mb-6">
-            <Box className="w-12 h-12 rounded-full bg-gradient-to-br from-[#0ea5e9] to-[#7c3aed] flex items-center justify-center text-white font-bold">
-              T
+            <Box className="w-12 h-12 rounded-full bg-[#1a1a1a] p-2 flex items-center justify-center overflow-hidden">
+              <img 
+                src="/images/customers/logos/tynybay.png" 
+                alt="TynyBay" 
+                className="w-full h-full object-contain brightness-0 invert"
+              />
             </Box>
             <Box>
               <Typography className="text-white font-semibold">Engineering Lead</Typography>
