@@ -10,9 +10,11 @@ Cursor rules in this directory provide structured, repeatable workflows for cont
 
 ### `update-planton-ai-copy-writing.mdc`
 
-**Type**: Action Rule
+**Type**: Action Rule (Copywriting-Focused LLM)
 
-**Purpose**: Automate the complete copywriting update workflow from feedback analysis to React component implementation.
+**Purpose**: Automate copywriting updates through content creation, iteration, and handoff document generation. Uses a **two-LLM architecture** where this rule creates content and handoff documents, and a separate implementation-focused LLM handles React component updates.
+
+**Why Two LLMs**: Specialized LLMs excel at different tasks. Content creation requires different expertise than code implementation.
 
 **When to Use**:
 
@@ -24,10 +26,14 @@ Cursor rules in this directory provide structured, repeatable workflows for cont
 
 **Quick Start**:
 
+**Copywriting LLM (This Rule)**:
 ```mermaid
 flowchart TD
-    Start[Trigger Rule] --> Analyze[Analyze _workspace Content]
-    Analyze --> Context[Understand Target Page and Changes]
+    Start[Trigger Rule] --> PDFCheck{PDFs in workspace?}
+    PDFCheck -->|Yes| ConvertPDF[Convert to Markdown]
+    PDFCheck -->|No| Analyze
+    ConvertPDF --> Analyze[Analyze _workspace Content]
+    Analyze --> Context[Understand Target & Changes]
     Context --> CreateFolder[Create Dated Stage Folder]
     CreateFolder --> Draft1[Generate draft-1.md]
     Draft1 --> HTML1[Generate preview-1.html]
@@ -36,49 +42,199 @@ flowchart TD
     Review -->|Minor Changes| UpdateDraft1[Update draft-1.md + preview-1.html]
     Draft2 --> Review
     UpdateDraft1 --> Review
-    Review -->|Approved| AskImplement{Ask: Implement to src/?}
-    AskImplement -->|Yes| MapComponents[Map Content to React Components]
-    MapComponents --> UpdateSource[Update/Create Components in src/]
-    UpdateSource --> Verify[Verify Build]
-    Verify --> CreateChangelog[Generate Changelog Entry]
-    CreateChangelog --> Cleanup[Clean _workspace]
-    Cleanup --> End[Done]
-    AskImplement -->|No| End
+    Review -->|Approved| Handoff[Create handoff.md]
+    Handoff --> Notify[Notify: Ready for<br/>Implementation LLM]
+    Notify --> Done[🎉 Copywriting Complete]
+```
+
+**Implementation LLM (Separate Session)**:
+```mermaid
+flowchart TD
+    Start[User provides<br/>handoff.md] --> Read[Read handoff document]
+    Read --> Implement[Update React Components]
+    Implement --> Build[Verify Build]
+    Build --> Changelog[Create Changelog]
+    Changelog --> Cleanup[Clean _workspace]
+    Cleanup --> Done[✅ Implementation Complete]
 ```
 
 **Basic Usage**:
 
 ```
+Copywriting Phase (Copywriting LLM):
+
 1. Dump materials into content/copywriting/_workspace/
-   - Meeting transcripts
-   - Advisory feedback
+   - Meeting transcripts (Markdown, TXT)
+   - Advisory feedback (PDF - auto-converts to Markdown)
    - Research documents
    - Context notes
 
 2. Trigger the rule:
    @update-planton-ai-copy-writing
-
+   
    [Provide context: what needs to change, which page(s), why]
 
 3. Review HTML preview in browser
 
-4. Iterate with feedback or approve for implementation
+4. Iterate with feedback until satisfied
 
-5. Confirm implementation when prompted
+5. Approve draft - rule creates handoff.md automatically
+
+6. Switch to implementation-focused LLM
+
+---
+
+Implementation Phase (Implementation LLM - Separate Session):
+
+1. Provide handoff.md as context to implementation LLM
+
+2. Request implementation following handoff document
+
+3. Implementation LLM:
+   - Updates React components
+   - Verifies build
+   - Creates changelog
+   - Cleans workspace
 ```
 
-**What It Handles**:
+**What This Rule Handles (Copywriting LLM)**:
 
+- ✅ Converts PDF files to Markdown automatically
 - ✅ Analyzes materials in `_workspace/`
 - ✅ Creates dated stage folder in `_stage-area/`
 - ✅ Generates draft markdown with structured content
 - ✅ Creates styled HTML preview for review
 - ✅ Iterates based on feedback (minor updates or major redos)
+- ✅ Creates comprehensive handoff document for implementation LLM
+
+**What Implementation LLM Handles (Separate Session)**:
+
+- ✅ Reads handoff document
 - ✅ Maps approved content to React components
 - ✅ Updates source code in `src/` directories
 - ✅ Verifies build passes without errors
 - ✅ Generates changelog entries
 - ✅ Cleans workspace automatically
+
+## PDF Conversion
+
+### Automatic PDF to Markdown Conversion
+
+The rule automatically converts PDF files to Markdown before analyzing workspace content.
+
+**Why**: The AI cannot directly read PDF files. Advisory feedback, meeting notes, and research documents are often provided as PDFs.
+
+**How It Works**:
+
+```mermaid
+flowchart LR
+    PDFs[PDFs in _workspace] --> Detect{Rule Detects PDFs}
+    Detect -->|Yes| Convert[Run convert_pdf.py]
+    Convert --> Check{Success?}
+    Check -->|Yes| MD[.md Files Created]
+    Check -->|No| Error[Show Error + Instructions]
+    MD --> Analysis[Continue with Analysis]
+    Detect -->|No| Analysis
+```
+
+**Dependencies Required**:
+
+```bash
+# Install once (via Homebrew)
+brew install poppler pandoc
+```
+
+- **Poppler**: Provides `pdftotext` for text extraction
+- **Pandoc**: Converts text to clean Markdown
+
+**What Happens**:
+1. Rule detects `*.pdf` files in `_workspace/`
+2. Runs `python3 content/copywriting/_rules/pdf_converter/convert_pdf.py`
+3. For each PDF:
+   - Extracts text using `pdftotext`
+   - Converts to Markdown using `pandoc`
+   - Creates `.md` file with same name
+4. Original PDFs preserved for reference
+5. Analysis phase proceeds with Markdown files
+
+**Supported**:
+- ✅ Text-based PDFs (advisories, reports, meeting notes)
+- ✅ Multi-page documents
+- ✅ Simple layouts and tables
+
+**Not Supported**:
+- ❌ Scanned PDFs (require OCR: `brew install ocrmypdf`)
+- ❌ Encrypted/password-protected PDFs
+- ⚠️ Complex multi-column layouts (may need manual cleanup)
+
+**Manual Conversion**:
+
+You can run the converter independently before triggering the rule:
+
+```bash
+# Convert all PDFs in workspace
+python3 content/copywriting/_rules/pdf_converter/convert_pdf.py
+
+# Then trigger the rule
+@update-planton-ai-copy-writing
+```
+
+**For Details**: See [`pdf_converter/README.md`](pdf_converter/README.md)
+
+## Handoff Document
+
+### What is handoff.md?
+
+The handoff document is a **self-contained implementation guide** created automatically when you approve a draft. It contains everything the implementation LLM needs to update the website without requiring context from the copywriting process.
+
+**Purpose**: Enable clean separation between copywriting (content creation) and implementation (code changes) by using specialized LLMs for each task.
+
+**Contents**:
+- Overview and objective
+- Complete context (why this change matters)
+- Full approved content from drafts
+- Component mapping (which files to update)
+- Detailed implementation instructions
+- Design system reference
+- Verification checklist
+- Pre-written changelog template
+- Reference materials list
+
+**Location**: `_stage-area/YYYY-MM-DD-description/handoff.md`
+
+**When Created**: Automatically after user approves final draft
+
+**Structure**:
+
+```markdown
+# Implementation Handoff: [Description]
+
+## Overview
+[What needs to be implemented]
+
+## Objective  
+[Clear implementation goal]
+
+## Context
+[Why this change matters]
+
+## Approved Content
+[Complete copy for each section]
+
+## Component Mapping
+[Table of files to update]
+
+## Implementation Instructions
+[Step-by-step guidance]
+
+## Verification Steps
+[How to test and verify]
+
+## Post-Implementation
+[Changelog template, cleanup steps]
+```
+
+**Self-Contained**: The implementation LLM receives ONLY the handoff document - no conversation history, no draft files. Everything needed is in one file.
 
 ## Rule Workflow Details
 
@@ -88,7 +244,11 @@ flowchart TD
 
 **Process**:
 
-- Reads all materials (PDFs, markdown, images, transcripts)
+- **PDF Conversion** (automatic): Converts any PDF files to Markdown first
+  - Uses `pdftotext` (Poppler) + `pandoc` conversion pipeline
+  - See `pdf_converter/README.md` for details
+  - Requires: `brew install poppler pandoc`
+- Reads all materials (Markdown including converted PDFs, images, transcripts)
 - Extracts key themes and insights
 - Identifies target pages and sections
 - Summarizes findings for confirmation
@@ -121,12 +281,37 @@ flowchart TD
 
 **Output**: Approved final draft
 
-### Phase 4: Implementation
+### Phase 4: Handoff Document Generation
 
-**Input**: Approval to implement
+**Input**: User approval of draft
 
 **Process**:
 
+- Creates `handoff.md` in stage folder
+- Includes complete context and approved content
+- Provides component mapping table
+- Documents implementation instructions
+- Embeds design system reference
+- Includes verification checklist
+- Pre-writes changelog template
+
+**Output**: Comprehensive self-contained handoff document
+
+**End of Copywriting LLM**: User switches to implementation-focused LLM for next phase.
+
+---
+
+## Implementation LLM Workflow (Separate Session)
+
+**Note**: The following phases are handled by a separate implementation-focused LLM, not this copywriting rule.
+
+### Phase 5: Implementation (Implementation LLM)
+
+**Input**: `handoff.md` from copywriting phase
+
+**Process**:
+
+- Reads and understands handoff document
 - Maps draft sections to React components
 - Updates or creates components in `src/`
 - Maintains design system consistency
@@ -134,15 +319,16 @@ flowchart TD
 
 **Output**: Updated source code
 
-### Phase 5: Verification
+### Phase 6: Verification (Implementation LLM)
 
 **Input**: Updated source code
 
 **Process**:
 
 - Runs `make build` for verification
-- Generates changelog entry
+- Generates changelog entry from template
 - Cleans `_workspace/` (removes all except .gitignore and README.md)
+- Provides implementation summary
 
 **Output**: Verified changes, documented, workspace cleaned
 
@@ -398,6 +584,40 @@ All components use: `src/components/landing-page-v2/shared.tsx`
 - Check file formats are supported (PDF, MD, TXT, PNG, JPG)
 - Verify files aren't corrupted
 - Try adding summary in `context-notes.md`
+
+### PDF conversion fails
+
+**Problem**: Error converting PDF files to Markdown.
+
+**Solutions**:
+
+**Missing dependencies**:
+```bash
+# Install required tools
+brew install poppler pandoc
+
+# Verify installation
+which pdftotext
+which pandoc
+```
+
+**Scanned PDF (no text extracted)**:
+```bash
+# Install OCR tool
+brew install ocrmypdf
+
+# Convert scanned PDF to text-based
+ocrmypdf input.pdf output.pdf
+
+# Place output.pdf in _workspace and re-run rule
+```
+
+**Messy output**:
+- Review generated `.md` file
+- Manually clean up formatting
+- Complex layouts may need manual editing
+
+**For troubleshooting**: See `pdf_converter/README.md`
 
 ## Best Practices
 
