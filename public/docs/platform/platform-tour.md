@@ -65,7 +65,7 @@ Quick access to all deployable components:
 - Search for specific components
 
 > **Screenshot**: Deployment Component Store (AWS filter)
-![Deployment Component Store filtered to AWS components](https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/deployment-component-store_aws.png)
+![Deployment Component Store filtered to AWS components](https://assets.planton.ai/site/images/docs/platform/deployment-component-store_aws.png)
 
 ### Sidebar Navigation
 
@@ -147,7 +147,7 @@ This is your infrastructure shopping mall. Click the icon in the header to open:
 - Consistent across providers
 
 > **Screenshot**: Lego blocks filtered by AWS provider
-![Lego blocks filtered by AWS provider showing popular components](https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/deployment-component-store_aws.png)
+![Lego blocks filtered by AWS provider showing popular components](https://assets.planton.ai/site/images/docs/platform/deployment-component-store_aws.png)
 
 **Infra Charts Tab**:
 - Pre-composed infrastructure templates
@@ -208,7 +208,7 @@ Connecting external services follows a pattern:
 5. **Connection appears in "Existing Connections"**
 
 > **Screenshot**: AWS connection form with environment authorization checkboxes
-![AWS connection form with environment authorization](https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/aws-credentials_123456789012_aws_dev-account.png)
+![AWS connection form with environment authorization](https://assets.planton.ai/site/images/docs/platform/aws-credentials_123456789012_aws_dev-account.png)
 
 **Important**: Without environment authorization, you can't deploy resources using that connection!
 
@@ -223,7 +223,7 @@ Deploying infrastructure is visual and intuitive:
 5. **Watch real-time deployment progress**
 
 > **Screenshot**: Deploying VPC form with configuration options
-![VPC deployment form with configuration options](https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/deploy-aws-vpc_dev.png)
+![VPC deployment form with configuration options](https://assets.planton.ai/site/images/docs/platform/deploy-aws-vpc_dev.png)
 
 ### The IAC Module Registry
 
@@ -235,7 +235,7 @@ For power users who want to see under the hood:
 - Publish custom modules for your org
 
 > **Screenshot**: IAC Module Registry showing module details
-![IAC Module Registry showing module details](https://pub-524d21c5655e4da5b4cbb0b0e80a6a7e.r2.dev/images/iac-module-registry_24-08-2025_planton-cloud.png)
+![IAC Module Registry showing module details](https://assets.planton.ai/site/images/docs/platform/iac-module-registry_24-08-2025_planton-cloud.png)
 
 ## Navigation Patterns
 
