@@ -20,7 +20,7 @@ import {
   BuiltByDevOps,
   SecurityCompliance,
   FinalCTA,
-} from '@/components/landing-page-v2';
+} from '@/components/landing-page';
 
 export default function Home() {
   return (

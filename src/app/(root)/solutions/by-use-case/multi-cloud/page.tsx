@@ -7,7 +7,7 @@ import {
   Pill,
   SectionContainer,
   SectionTitle,
-} from '@/components/landing-page/components';
+} from '@/components/landing-page/v1-2025-02-15-0800/components';
 import Image from 'next/image';
 
 import './page.css';

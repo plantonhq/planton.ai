@@ -1,7 +1,7 @@
 import { Box, Stack } from '@mui/material';
 import Image from 'next/image';
 import { FC } from 'react';
-import { TypoH2, TypoP1 } from '../common';
+import { TypoH2, TypoP1 } from '../../common';
 
 export const HomeSelfService: FC = () => {
   return (
