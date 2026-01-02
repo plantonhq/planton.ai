@@ -16,31 +16,31 @@ const quotes = [
   {
     text: 'For a client in regulated industry (BFSI) who mandated GCP, Planton delivered the entire infra despite zero GCP experience on our team. Mature infrastructure out-of-the-box. Using Planton for all future client projects.',
     author: 'Rohith Reddy Gopu',
-    role: 'CEO, TynyBay',
+    role: 'CEO, TYNYBAY',
     avatar: '/images/customers/people/rohith-reddy-gopu.jpeg',
   },
   {
     text: "As Planton's first user, I filled out forms one by one for VPC, ECS, Route 53, certificates. That led to Infra Charts—now I deploy complete environments in a single form.",
-    author: 'Harsha CH',
+    author: 'Harsha Gurram',
     role: 'Solo Developer, Jai.CX',
     avatar: '/images/customers/people/harsha-ch.jpeg',
   },
   {
     text: 'I handle 8+ client projects with Planton—no more rewriting Terraform between clients. My efficiency has improved dramatically.',
     author: 'Balaji Borra',
-    role: 'DevOps Engineer, TynyBay',
+    role: 'DevOps Engineer, TYNYBAY',
     avatar: '/images/customers/people/balaji-borra.png',
   },
   {
     text: 'I can now update service configurations and deploy to dev, staging, and prod—all without waiting on DevOps.',
     author: 'Rakesh Kandhi',
-    role: 'Senior Developer, TynyBay',
+    role: 'Senior Developer, TYNYBAY',
     avatar: '/images/customers/people/rakesh-kandhi.jpeg',
   },
   {
     text: 'Planton enabled me to provide a mature developer experience to our 7-person team without requiring deep AWS expertise.',
     author: 'Sai Saketh',
-    role: 'Junior DevOps, iorta TechNext',
+    role: 'DevOps, iorta TechNext',
     avatar: null,
   },
 ];

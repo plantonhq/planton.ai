@@ -23,10 +23,10 @@ export default function SlideCover() {
 
       {/* One-liner */}
       <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/70 mb-6 sm:mb-8 md:mb-10 max-w-2xl mx-auto px-4">
-        Deploy infrastructure and services to any cloud.
+        Deploy Infrastructure and Services to Any Cloud.
         <br className="hidden sm:block" />
         <span className="sm:hidden"> </span>
-        No DevOps expertise required.
+        No DevOps Expertise Required.
       </p>
 
       {/* Key Metrics - Compact grid */}

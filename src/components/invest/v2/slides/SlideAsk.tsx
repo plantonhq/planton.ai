@@ -10,7 +10,7 @@ const useOfFunds = [
     icon: <Users className="w-5 h-5" />,
     title: 'Engineering',
     percentage: '60%',
-    description: 'Hire 2-3 engineers',
+    description: 'Hire 2-3 Engineers',
   },
   {
     icon: <Bot className="w-5 h-5" />,
@@ -22,14 +22,14 @@ const useOfFunds = [
     icon: <Rocket className="w-5 h-5" />,
     title: 'GTM',
     percentage: '15%',
-    description: 'Developer advocacy',
+    description: 'Developer Advocacy',
   },
 ];
 
 const milestones = [
-  '5-10 enterprise pilots',
-  'Agent Fleet MVP launched',
-  '$50K+ MRR target',
+  '5-10 Enterprise Pilots',
+  'Agent Fleet MVP Launched',
+  '$50K+ MRR Target',
   'Ready for Series A',
 ];
 
@@ -40,7 +40,7 @@ export default function SlideAsk() {
     <Slide variant="gradient">
       <SlideTitle>The Ask</SlideTitle>
       <SlideSubtitle className="mb-3 sm:mb-4">
-        Seed round to reach next milestones
+        Seed Round to Reach Next Milestones
       </SlideSubtitle>
 
       {/* The Number */}
@@ -70,7 +70,7 @@ export default function SlideAsk() {
         )}
       </button>
 
-      {/* SAFE Explainer Panel - Compact */}
+      {/* SAFE Explainer Panel - Detailed */}
       <AnimatePresence>
         {showSafeExplainer && (
           <motion.div
@@ -79,24 +79,70 @@ export default function SlideAsk() {
             exit={{ opacity: 0, height: 0 }}
             className="overflow-hidden mb-3 sm:mb-4"
           >
-            <div className="bg-white/5 border border-white/20 rounded-xl p-3 sm:p-4 max-w-lg mx-auto text-left">
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-xs sm:text-sm">
-                <div className="text-center p-2 bg-white/5 rounded-lg">
-                  <div className="text-white/50 text-xs mb-0.5">You invest</div>
-                  <div className="text-base sm:text-lg font-bold text-white">$500K</div>
+            <div className="bg-white/5 border border-white/20 rounded-xl p-3 sm:p-4 max-w-2xl mx-auto text-left">
+              <h4 className="text-xs sm:text-sm font-semibold text-white mb-3 text-center">
+                SAFE = Simple Agreement for Future Equity
+              </h4>
+              
+              {/* Two-column benefits */}
+              <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-3">
+                <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-2 sm:p-3">
+                  <h5 className="text-emerald-400 font-semibold text-xs mb-1.5">For Planton</h5>
+                  <ul className="space-y-1 text-xs text-white/70">
+                    <li className="flex items-start gap-1.5">
+                      <span className="text-emerald-400 mt-0.5">✓</span>
+                      <span>Receive $500K now</span>
+                    </li>
+                    <li className="flex items-start gap-1.5">
+                      <span className="text-emerald-400 mt-0.5">✓</span>
+                      <span>No valuation negotiation</span>
+                    </li>
+                    <li className="flex items-start gap-1.5">
+                      <span className="text-emerald-400 mt-0.5">✓</span>
+                      <span>Focus on building</span>
+                    </li>
+                  </ul>
                 </div>
-                <ArrowRight className="w-4 h-4 text-white/30 rotate-90 sm:rotate-0" />
-                <div className="text-center p-2 bg-white/5 rounded-lg">
-                  <div className="text-white/50 text-xs mb-0.5">At Series A ($20M)</div>
-                  <div className="text-base sm:text-lg font-bold text-pink-400">~7% equity</div>
-                </div>
-                <ArrowRight className="w-4 h-4 text-white/30 rotate-90 sm:rotate-0" />
-                <div className="text-center p-2 bg-white/5 rounded-lg">
-                  <div className="text-white/50 text-xs mb-0.5">At $100M valuation</div>
-                  <div className="text-base sm:text-lg font-bold text-emerald-400">$7M value</div>
+                <div className="bg-violet-500/10 border border-violet-500/30 rounded-lg p-2 sm:p-3">
+                  <h5 className="text-violet-400 font-semibold text-xs mb-1.5">For Investor</h5>
+                  <ul className="space-y-1 text-xs text-white/70">
+                    <li className="flex items-start gap-1.5">
+                      <span className="text-violet-400 mt-0.5">✓</span>
+                      <span>Invest early at discount</span>
+                    </li>
+                    <li className="flex items-start gap-1.5">
+                      <span className="text-violet-400 mt-0.5">✓</span>
+                      <span>Converts at Series A</span>
+                    </li>
+                    <li className="flex items-start gap-1.5">
+                      <span className="text-violet-400 mt-0.5">✓</span>
+                      <span>Protected by $7M cap</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
-              <p className="text-xs text-white/40 text-center mt-2">$7M cap • 14x potential return</p>
+
+              {/* Conversion example */}
+              <div className="bg-white/5 rounded-lg p-2 sm:p-3">
+                <h5 className="text-white font-semibold text-xs mb-2 text-center">How Your $500K Converts</h5>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs">
+                  <div className="text-center p-1.5 bg-white/5 rounded-lg">
+                    <div className="text-white/50 text-xs">You invest</div>
+                    <div className="text-sm font-bold text-white">$500K</div>
+                  </div>
+                  <ArrowRight className="w-3 h-3 text-white/30 rotate-90 sm:rotate-0" />
+                  <div className="text-center p-1.5 bg-white/5 rounded-lg">
+                    <div className="text-white/50 text-xs">Series A at $20M</div>
+                    <div className="text-sm font-bold text-pink-400">~7% equity</div>
+                  </div>
+                  <ArrowRight className="w-3 h-3 text-white/30 rotate-90 sm:rotate-0" />
+                  <div className="text-center p-1.5 bg-white/5 rounded-lg">
+                    <div className="text-white/50 text-xs">At $100M valuation</div>
+                    <div className="text-sm font-bold text-emerald-400">$7M (14x)</div>
+                  </div>
+                </div>
+                <p className="text-xs text-white/40 text-center mt-2">$7M valuation cap • Terms negotiable</p>
+              </div>
             </div>
           </motion.div>
         )}

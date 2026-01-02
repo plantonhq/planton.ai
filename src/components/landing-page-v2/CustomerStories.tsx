@@ -31,7 +31,7 @@ const customers = [
     result: 'Harsha\'s detailed onboarding feedback directly shaped Planton\'s most popular feature (Infra Charts). From weeks of Terraform → under 1 hour deployment.',
   },
   {
-    company: 'TynyBay',
+    company: 'TYNYBAY',
     companyLogo: '/images/customers/logos/tynybay.png',
     type: 'IT Consulting Firm',
     project: 'Multi-Client Projects',
@@ -59,7 +59,7 @@ const customers = [
       savings: '98%',
     },
     quote: 'For a client in regulated industry (BFSI) who mandated GCP, Planton delivered the entire infrastructure despite zero GCP experience on our team.',
-    result: 'TynyBay scaled from 3 to 8+ concurrent client projects without hiring additional DevOps resources. CEO committed to using Planton for all future client projects.',
+    result: 'TYNYBAY scaled from 3 to 8+ concurrent client projects without hiring additional DevOps resources. CEO committed to using Planton for all future client projects.',
   },
   {
     company: 'iorta TechNext',
@@ -81,7 +81,7 @@ const customers = [
     ],
     after: [
       'Complete AWS ECS environment: <1 hour',
-      'Junior DevOps provides senior-level developer experience',
+      'DevOps provides senior-level developer experience',
       '7 developers self-service their deployments',
       'Mature infrastructure meeting regulated industry requirements',
     ],

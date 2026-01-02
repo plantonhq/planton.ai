@@ -16,7 +16,7 @@ interface CalculatorInputs {
 
 const devOpsOptions = [
   { value: 'none', label: 'No dedicated DevOps', salary: 0 },
-  { value: 'junior', label: 'Junior DevOps Engineer', salary: 75000 },
+  { value: 'junior', label: 'DevOps Engineer', salary: 75000 },
   { value: 'senior', label: 'Senior DevOps Engineer', salary: 150000 },
   { value: 'team', label: 'DevOps Team (2-3 engineers)', salary: 350000 },
 ];

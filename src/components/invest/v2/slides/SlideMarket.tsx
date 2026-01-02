@@ -6,15 +6,15 @@ import { Slide, SlideTitle, SlideSubtitle, Metric, Grid, Card, CardTitle, CardTe
 const whyNow = [
   {
     title: 'AI Wave',
-    description: 'LLMs enable new automation',
+    description: 'LLMs Enable New Automation',
   },
   {
     title: 'Cloud Complexity',
-    description: 'AWS has 200+ services',
+    description: 'AWS Has 200+ Services',
   },
   {
     title: 'Talent Shortage',
-    description: 'Not enough DevOps engineers',
+    description: 'Not Enough DevOps Engineers',
   },
 ];
 
@@ -23,7 +23,7 @@ export default function SlideMarket() {
     <Slide variant="gradient">
       <SlideTitle>Market Opportunity</SlideTitle>
       <SlideSubtitle className="mb-4 sm:mb-6">
-        Cloud spend is massive. Complexity is the problem.
+        Cloud Spend Is Massive. Complexity Is the Problem.
       </SlideSubtitle>
 
       {/* TAM/SAM Numbers */}

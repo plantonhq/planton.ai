@@ -10,7 +10,7 @@ const roadmapItems = [
     title: 'DevOps in a Box',
     icon: <CheckCircle className="w-4 h-4" />,
     color: 'emerald' as const,
-    items: ['InfraHub + ServiceHub live', 'Multi-cloud support'],
+    items: ['InfraHub + ServiceHub Live', 'Multi-Cloud Support'],
     status: 'Live',
   },
   {
@@ -18,7 +18,7 @@ const roadmapItems = [
     title: 'Observability',
     icon: <Activity className="w-4 h-4" />,
     color: 'cyan' as const,
-    items: ['Full-stack observability', 'Strong customer demand'],
+    items: ['Full-Stack Observability', 'Strong Customer Demand'],
     status: 'In Design',
   },
   {
@@ -26,7 +26,7 @@ const roadmapItems = [
     title: 'AI Agent Fleet',
     icon: <Bot className="w-4 h-4" />,
     color: 'violet' as const,
-    items: ['Specialized DevOps agents', 'Pipeline troubleshooter'],
+    items: ['Cursor for DevOps', 'Specialized DevOps Agents'],
     status: 'In R&D',
   },
   {
@@ -34,7 +34,7 @@ const roadmapItems = [
     title: 'Cloud Provider',
     icon: <Cloud className="w-4 h-4" />,
     color: 'pink' as const,
-    items: ['Join AWS, GCP, Azure tier', 'Simple service catalog'],
+    items: ['Join AWS, GCP, Azure Tier', 'Simple Service Catalog'],
     status: 'Vision',
   },
 ];
@@ -44,7 +44,7 @@ export default function SlideRoadmap() {
     <Slide variant="gradient">
       <SlideTitle>Roadmap</SlideTitle>
       <SlideSubtitle className="mb-4 sm:mb-6">
-        Building essential infrastructure, step by step
+        Building Essential Infrastructure, Step by Step
       </SlideSubtitle>
 
       {/* Roadmap Items - 4 column on desktop, 2x2 on mobile */}
@@ -64,7 +64,7 @@ export default function SlideRoadmap() {
 
       {/* Vision Statement */}
       <p className="text-xs sm:text-sm text-white/40 max-w-xl mx-auto">
-        Vision: Planton becomes a cloud provider alongside AWS, GCP, Azure—our moat is the control plane and DX
+        Vision: Planton Becomes a Cloud Provider Alongside AWS, GCP, Azure—Our Moat Is the Control Plane and DX
       </p>
     </Slide>
   );

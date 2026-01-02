@@ -1,24 +1,29 @@
 'use client';
 
 import React from 'react';
-import { Clock, DollarSign, AlertTriangle } from 'lucide-react';
-import { Slide, SlideTitle, SlideSubtitle, Card, CardTitle, CardText, Grid, Callout } from '../shared';
+import { Clock, DollarSign, AlertTriangle, Puzzle } from 'lucide-react';
+import { Slide, SlideTitle, SlideSubtitle, Card, CardTitle, CardText, Callout } from '../shared';
 
 const problems = [
   {
     icon: Clock,
     title: 'Weeks to Deploy',
-    description: 'Infrastructure setup takes weeks, not minutes',
+    description: 'Infrastructure Setup Takes Weeks, Not Minutes',
   },
   {
     icon: DollarSign,
     title: '$150K+ Per Engineer',
-    description: 'Every company needs dedicated DevOps talent',
+    description: 'Every Company Needs Dedicated DevOps Talent',
   },
   {
     icon: AlertTriangle,
     title: 'Multi-Cloud Chaos',
-    description: 'AWS, GCP, Azure—each with different tools',
+    description: 'AWS, GCP, Azure—Each with Different Tools',
+  },
+  {
+    icon: Puzzle,
+    title: 'Tool Sprawl',
+    description: 'Multiple Platforms for Infra, CI/CD, and Deployments',
   },
 ];
 
@@ -26,26 +31,25 @@ export default function SlideProblem() {
   return (
     <Slide variant="problem">
       <SlideTitle>The Problem</SlideTitle>
-      <SlideSubtitle className="mb-6 sm:mb-8">
-        Cloud infrastructure is complex. Every company faces the same struggles.
+      <SlideSubtitle className="mb-4 sm:mb-6">
+        Cloud Infrastructure Is Complex. Every Company Faces the Same Struggles.
       </SlideSubtitle>
 
-      {/* Problem Cards - 3 column grid */}
-      <Grid cols={3} gap="sm" className="mb-6 sm:mb-8">
+      {/* Problem Cards - 4 column grid */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 mb-4 sm:mb-6">
         {problems.map((problem) => (
           <Card key={problem.title} className="text-left">
-            <problem.icon className="w-6 h-6 sm:w-8 sm:h-8 text-red-400 mb-2 sm:mb-3" />
-            <CardTitle className="mb-1">{problem.title}</CardTitle>
-            <CardText>{problem.description}</CardText>
+            <problem.icon className="w-5 h-5 sm:w-6 sm:h-6 text-red-400 mb-2" />
+            <CardTitle className="mb-1 text-sm sm:text-base">{problem.title}</CardTitle>
+            <CardText className="text-xs">{problem.description}</CardText>
           </Card>
         ))}
-      </Grid>
+      </div>
 
       {/* Bottom Line */}
-      <Callout variant="default" className="border-red-500/30 bg-red-500/10">
-        <p className="text-sm sm:text-base md:text-lg text-white font-medium">
-          80% of cloud services are the same patterns—
-          <span className="text-red-400"> rebuilt from scratch at every company.</span>
+      <Callout variant="default" className="border-red-500/30 bg-red-500/10 max-w-3xl">
+        <p className="text-sm sm:text-base md:text-lg text-white font-medium whitespace-nowrap">
+          80% of cloud services are the same patterns—<span className="text-red-400">rebuilt from scratch at every company.</span>
         </p>
       </Callout>
     </Slide>

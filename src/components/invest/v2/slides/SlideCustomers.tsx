@@ -1,27 +1,31 @@
 'use client';
 
 import React from 'react';
-import { Slide, SlideTitle, SlideSubtitle, CustomerCard, Grid, Callout } from '../shared';
+import Image from 'next/image';
+import { Slide, SlideTitle, SlideSubtitle, Callout } from '../shared';
 
 const customers = [
   {
     name: 'Jai.CX',
-    metric: '<1 hr',
-    metricLabel: 'deploy time',
-    description: 'Solo dev, first user',
+    logo: '/images/customers/logos/jai-cx.svg',
+    className: 'scale-50', // Reduce size - logo appears larger than others
   },
   {
-    name: 'TynyBay',
-    metric: '8+',
-    metricLabel: 'client projects',
-    description: 'IT consulting',
+    name: 'TYNYBAY',
+    logo: '/images/customers/logos/tynybay.png',
+    className: 'scale-[1.8]', // Larger to compensate for logo padding
   },
   {
     name: 'iorta TechNext',
-    metric: '96%',
-    metricLabel: 'cost savings',
-    description: '$450/mo spend',
+    logo: '/images/customers/logos/iorta.svg',
+    className: '',
   },
+  {
+    name: 'Odwen',
+    logo: '/images/customers/logos/odwen.svg',
+    className: '',
+  },
+  // TODO: Add Aadvil logo to /images/customers/logos/aadvil.svg (First GCP Customer)
 ];
 
 export default function SlideCustomers() {
@@ -29,34 +33,49 @@ export default function SlideCustomers() {
     <Slide variant="gradient">
       <SlideTitle>Customers</SlideTitle>
       <SlideSubtitle className="mb-4 sm:mb-6">
-        Trusted by IT consulting firms and startups
+        Trusted by IT Consulting Firms and Startups
       </SlideSubtitle>
 
-      {/* Customer Cards */}
-      <Grid cols={3} gap="sm" className="mb-4 sm:mb-6">
+      {/* Customer Logos - Simple row */}
+      <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 md:gap-16 mb-6 sm:mb-8">
         {customers.map((customer) => (
-          <CustomerCard
-            key={customer.name}
-            name={customer.name}
-            metric={customer.metric}
-            metricLabel={customer.metricLabel}
-          />
+          <div key={customer.name} className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center">
+            <Image 
+              src={customer.logo} 
+              alt={customer.name} 
+              width={80} 
+              height={80} 
+              className={`object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity ${customer.className}`}
+            />
+          </div>
         ))}
-      </Grid>
+      </div>
 
-      {/* Key Quote */}
-      <Callout variant="highlight" className="max-w-lg">
-        <p className="text-sm sm:text-base text-white italic">
-          &ldquo;Developers self-onboard their own services. That&apos;s a huge win.&rdquo;
+      {/* Key Quote with avatar */}
+      <Callout variant="highlight" className="max-w-2xl">
+        <div className="flex items-center gap-3 mb-2">
+          <Image 
+            src="/images/customers/people/balaji-borra.png" 
+            alt="Balaji Borra" 
+            width={32} 
+            height={32} 
+            className="w-8 h-8 rounded-full object-cover"
+          />
+          <div className="text-left">
+            <p className="text-xs text-white font-medium">Balaji Borra</p>
+            <p className="text-xs text-white/50">DevOps Engineer, TYNYBAY</p>
+          </div>
+        </div>
+        <p className="text-sm sm:text-base text-white italic whitespace-nowrap">
+          &ldquo;Developers Self-Onboard Their Own Services. That&apos;s a Huge Win.&rdquo;
         </p>
-        <p className="text-xs text-white/50 mt-2">— TynyBay, IT Consulting</p>
       </Callout>
 
       {/* Retention highlight */}
       <div className="mt-4 sm:mt-6 flex items-center justify-center gap-2">
         <span className="text-emerald-400 text-lg">✓</span>
         <span className="text-sm sm:text-base text-white font-medium">
-          100% customer retention since launch
+          100% Customer Retention Since Launch
         </span>
       </div>
     </Slide>

@@ -43,10 +43,10 @@ const teamMembers = [
 ];
 
 const strengths = [
-  'Deep domain expertise',
-  '3+ years building together',
-  '$500K+ skin in the game',
-  'Production platform shipped',
+  'Deep Domain Expertise',
+  '3+ Years Building Together',
+  '$500K+ Skin in the Game',
+  'Production Platform Shipped',
 ];
 
 export default function SlideTeam() {
@@ -54,7 +54,7 @@ export default function SlideTeam() {
     <Slide variant="gradient">
       <SlideTitle>Team</SlideTitle>
       <SlideSubtitle className="mb-4 sm:mb-6">
-        Small, focused, committed for 3+ years
+        Small, Focused, Committed for 3+ Years
       </SlideSubtitle>
 
       {/* Team Grid - responsive */}

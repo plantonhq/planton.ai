@@ -12,6 +12,7 @@ import SlideProduct from './slides/SlideProduct';
 import SlideComparison from './slides/SlideComparison';
 import SlideTraction from './slides/SlideTraction';
 import SlideCustomers from './slides/SlideCustomers';
+import SlideWallOfLove from './slides/SlideWallOfLove';
 import SlideMarket from './slides/SlideMarket';
 import SlideRoadmap from './slides/SlideRoadmap';
 import SlideTeam from './slides/SlideTeam';
@@ -28,6 +29,7 @@ const slideConfig = [
   { id: 'comparison', name: 'Why Planton', component: SlideComparison },
   { id: 'traction', name: 'Traction', component: SlideTraction },
   { id: 'customers', name: 'Customers', component: SlideCustomers },
+  { id: 'wall-of-love', name: 'Wall of Love', component: SlideWallOfLove },
   { id: 'market', name: 'Market', component: SlideMarket },
   { id: 'roadmap', name: 'Roadmap', component: SlideRoadmap },
   { id: 'team', name: 'Team', component: SlideTeam },
@@ -139,6 +141,7 @@ export default function InvestorDeckV2() {
   // Touch/swipe navigation
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
+    touchEndX.current = e.touches[0].clientX; // Initialize to same position
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
@@ -149,7 +152,7 @@ export default function InvestorDeckV2() {
     if (touchStartX.current === null || touchEndX.current === null) return;
     
     const diff = touchStartX.current - touchEndX.current;
-    const threshold = 50; // Minimum swipe distance
+    const threshold = 50; // Minimum swipe distance in pixels
 
     if (Math.abs(diff) > threshold) {
       if (diff > 0) {

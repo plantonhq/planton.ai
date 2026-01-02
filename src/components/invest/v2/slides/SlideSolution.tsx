@@ -2,14 +2,14 @@
 
 import React from 'react';
 import { Globe, Zap, CheckCircle } from 'lucide-react';
-import { Slide, SlideTitle, SlideSubtitle, Card, Callout } from '../shared';
+import { Slide, SlideTitle, SlideSubtitle, Card } from '../shared';
 
 export default function SlideSolution() {
   return (
     <Slide variant="solution">
       <SlideTitle>The Solution</SlideTitle>
       <SlideSubtitle className="mb-6 sm:mb-8">
-        One platform to deploy infrastructure and services across any cloud.
+        One Platform to Deploy Infrastructure and Services Across Any Cloud
       </SlideSubtitle>
 
       {/* Two product cards */}
@@ -23,6 +23,9 @@ export default function SlideSolution() {
           <p className="text-xs text-emerald-400/80 mb-2">
             Replaces Terraform Enterprise / Pulumi Cloud
           </p>
+          <p className="text-xs sm:text-sm text-white/70 mb-2">
+            Deploy Any Cloud Resource with a Single API
+          </p>
           <ul className="space-y-1">
             <li className="flex items-center gap-2 text-xs sm:text-sm text-white/60">
               <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-400 shrink-0" />
@@ -30,7 +33,11 @@ export default function SlideSolution() {
             </li>
             <li className="flex items-center gap-2 text-xs sm:text-sm text-white/60">
               <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-400 shrink-0" />
-              <span>120+ pre-built components</span>
+              <span>Pre-Built Infrastructure Templates</span>
+            </li>
+            <li className="flex items-center gap-2 text-xs sm:text-sm text-white/60">
+              <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-400 shrink-0" />
+              <span>Point-and-Click Deployment</span>
             </li>
           </ul>
         </Card>
@@ -42,30 +49,40 @@ export default function SlideSolution() {
             <h3 className="text-lg sm:text-xl font-bold text-white">ServiceHub</h3>
           </div>
           <p className="text-xs text-violet-400/80 mb-2">
-            Replaces GitHub Actions / Jenkins
+            Replaces GitHub Actions / Jenkins / GitLab Pipelines
+          </p>
+          <p className="text-xs sm:text-sm text-white/70 mb-2">
+            Vercel-Like Experience for Backend Services
           </p>
           <ul className="space-y-1">
             <li className="flex items-center gap-2 text-xs sm:text-sm text-white/60">
               <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 text-violet-400 shrink-0" />
-              <span>Git push to production</span>
+              <span>Git Push to Production</span>
             </li>
             <li className="flex items-center gap-2 text-xs sm:text-sm text-white/60">
               <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 text-violet-400 shrink-0" />
-              <span>Built-in CI/CD with Tekton</span>
+              <span>No Dockerfile Required</span>
+            </li>
+            <li className="flex items-center gap-2 text-xs sm:text-sm text-white/60">
+              <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 text-violet-400 shrink-0" />
+              <span>Built-In CI/CD with Tekton</span>
             </li>
           </ul>
         </Card>
       </div>
 
-      {/* The Promise */}
-      <Callout variant="highlight">
+      {/* The Promise - Green gradient like v1 */}
+      <div className="bg-gradient-to-r from-emerald-500/20 via-emerald-500/10 to-teal-500/20 border border-emerald-500/30 rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 max-w-2xl mx-auto">
         <p className="text-base sm:text-lg md:text-xl text-white font-medium">
           &ldquo;Vercel for Backend&rdquo;
         </p>
         <p className="text-xs sm:text-sm text-white/60 mt-1">
-          The simplicity of Vercel. The power of any cloud.
+          The Simplicity of Vercel. The Power of Any Cloud.
         </p>
-      </Callout>
+        <p className="text-xs text-emerald-400/80 mt-2">
+          Save $ and eliminate integration chaos
+        </p>
+      </div>
     </Slide>
   );
 }
