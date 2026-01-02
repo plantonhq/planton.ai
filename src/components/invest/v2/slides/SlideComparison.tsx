@@ -39,8 +39,11 @@ function getStatus(value: boolean | string): { type: StatusType; display: string
 function StatusCell({ value }: { value: boolean | string }) {
   const { type, display } = getStatus(value);
   
+  // All cells use the same layout: icon at fixed position, optional text to the right
+  // On mobile: just center the icon (no text shown)
+  // On desktop: icon starts at consistent position, text flows right
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center sm:justify-start sm:pl-[calc(50%-8px)]">
       <span className="w-4 h-4 flex items-center justify-center shrink-0">
         {type === 'yes' && <CheckIcon className="w-3 h-3 sm:w-4 sm:h-4" />}
         {type === 'no' && <XIcon className="w-3 h-3 sm:w-4 sm:h-4" />}

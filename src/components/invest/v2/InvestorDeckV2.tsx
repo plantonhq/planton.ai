@@ -117,6 +117,8 @@ export default function InvestorDeckV2() {
           navigatePrev();
           break;
         case 'Home':
+        case 'h':
+        case 'H':
           e.preventDefault();
           goToHome();
           break;
@@ -124,10 +126,7 @@ export default function InvestorDeckV2() {
           e.preventDefault();
           goToSlide(slideConfig.length - 1);
           break;
-        case 'Escape':
-          e.preventDefault();
-          goToHome();
-          break;
+        // Note: Escape is intentionally not bound here to allow modals to use it
       }
     },
     [navigateNext, navigatePrev, goToHome, goToSlide]
@@ -234,11 +233,10 @@ export default function InvestorDeckV2() {
 
       {/* Mobile swipe hint - only on cover slide, positioned independently */}
       {isFirstSlide && (
-        <div className="sm:hidden absolute bottom-28 left-0 right-0 text-center z-50">
+        <div className="sm:hidden absolute bottom-20 left-0 right-0 text-center z-50">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500/20 to-violet-500/20 border border-pink-500/30 rounded-full animate-pulse backdrop-blur-sm">
-            <span className="text-lg">👆</span>
+            <span className="text-lg">👉</span>
             <span className="text-xs font-medium text-white/80">Swipe to Navigate</span>
-            <span className="text-white/50">→</span>
           </div>
         </div>
       )}

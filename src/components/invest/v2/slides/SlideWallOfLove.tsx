@@ -56,6 +56,61 @@ const row3 = [
   },
 ];
 
+// Mobile-optimized compact card
+function MobileTestimonialCard({ 
+  name, 
+  role, 
+  company, 
+  quote, 
+  avatar, 
+  logo,
+}: {
+  name: string;
+  role: string;
+  company: string;
+  quote: string;
+  avatar: string | null;
+  logo: string;
+}) {
+  return (
+    <div className="bg-white/5 border border-white/10 rounded-md p-1.5 text-left">
+      {/* Compact header */}
+      <div className="flex items-center gap-1.5 mb-1">
+        {avatar ? (
+          <Image 
+            src={avatar} 
+            alt={name} 
+            width={20} 
+            height={20} 
+            className="w-5 h-5 rounded-full object-cover shrink-0"
+          />
+        ) : (
+          <div className="w-5 h-5 rounded-full bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center text-white text-[8px] font-bold shrink-0">
+            {name.charAt(0)}
+          </div>
+        )}
+        <div className="min-w-0 flex-1">
+          <p className="text-[9px] font-medium text-white truncate">{name}</p>
+          <p className="text-[8px] text-white/50 truncate">{role}, {company}</p>
+        </div>
+        <div className="w-4 h-4 shrink-0">
+          <Image 
+            src={logo} 
+            alt={company} 
+            width={16} 
+            height={16} 
+            className="w-full h-full object-contain brightness-0 invert opacity-60"
+          />
+        </div>
+      </div>
+      {/* Quote - truncated */}
+      <p className="text-[8px] text-white/70 italic line-clamp-2 leading-tight">
+        &ldquo;{quote}&rdquo;
+      </p>
+    </div>
+  );
+}
+
 function TestimonialCard({ 
   name, 
   role, 
@@ -157,17 +212,35 @@ function TestimonialCard({
 }
 
 export default function SlideWallOfLove() {
+  // All testimonials for mobile grid
+  const allTestimonials = [...row1, ...row2, ...row3];
+  
   return (
     <Slide variant="gradient">
       <SlideTitle>They Shipped. We Listened.</SlideTitle>
-      <SlideSubtitle className="mb-4 sm:mb-6">
+      <SlideSubtitle className="mb-2 sm:mb-6 text-[10px] sm:text-sm">
         Voices from Teams Who Moved to Production with Planton
       </SlideSubtitle>
 
-      {/* Testimonials - 2-2-1 Layout */}
-      <div className="flex flex-col gap-3 sm:gap-4 max-w-4xl mx-auto mb-4 sm:mb-6">
+      {/* Mobile: Compact 2-column grid */}
+      <div className="sm:hidden grid grid-cols-2 gap-1.5 mx-auto mb-2">
+        {allTestimonials.map((testimonial, index) => (
+          <MobileTestimonialCard
+            key={index}
+            name={testimonial.name}
+            role={testimonial.role}
+            company={testimonial.company}
+            quote={testimonial.quote}
+            avatar={testimonial.avatar}
+            logo={testimonial.logo}
+          />
+        ))}
+      </div>
+
+      {/* Desktop: 2-2-1 Layout */}
+      <div className="hidden sm:flex flex-col gap-4 max-w-4xl mx-auto mb-6">
         {/* Row 1: 2 cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+        <div className="grid grid-cols-2 gap-4">
           {row1.map((testimonial, index) => (
             <TestimonialCard
               key={index}
@@ -182,7 +255,7 @@ export default function SlideWallOfLove() {
         </div>
         
         {/* Row 2: 2 cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+        <div className="grid grid-cols-2 gap-4">
           {row2.map((testimonial, index) => (
             <TestimonialCard
               key={index}

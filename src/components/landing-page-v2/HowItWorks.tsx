@@ -73,34 +73,37 @@ export const HowItWorks: FC = () => {
         <Typography className="text-sm font-medium text-[#10b981] text-center mb-6">
           Infrastructure
         </Typography>
-        <Box className="flex flex-row items-start justify-center gap-4 md:gap-8 lg:gap-12">
+        <Box className="flex flex-row items-start justify-center gap-2 md:gap-4 lg:gap-6">
           {infraSteps.map((step, index) => (
-            <Box key={index} className="flex flex-col items-center text-center flex-1 max-w-[200px]">
-              <Box className="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center mb-4">
-                {step.iconType === 'image' ? (
-                  <Image 
-                    src={step.iconSrc!} 
-                    alt={step.title} 
-                    width={40} 
-                    height={40} 
-                    className="w-10 h-10 md:w-12 md:h-12"
-                  />
-                ) : (
-                  <step.icon className="w-10 h-10 md:w-12 md:h-12 text-[#10b981]" />
-                )}
+            <Box key={index} className="contents">
+              <Box className="flex flex-col items-center text-center flex-1 max-w-[200px]">
+                <Box className="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center mb-4">
+                  {step.iconType === 'image' ? (
+                    <Image 
+                      src={step.iconSrc!} 
+                      alt={step.title} 
+                      width={40} 
+                      height={40} 
+                      className="w-10 h-10 md:w-12 md:h-12"
+                    />
+                  ) : (
+                    <step.icon className="w-10 h-10 md:w-12 md:h-12 text-[#10b981]" />
+                  )}
+                </Box>
+                
+                <Typography className="text-lg font-semibold text-white mb-2">
+                  {step.title}
+                </Typography>
+                
+                <Typography className="text-sm text-[#a0a0a0] max-w-xs leading-relaxed">
+                  {step.description}
+                </Typography>
               </Box>
               
-              <Typography className="text-lg font-semibold text-white mb-2">
-                {step.title}
-              </Typography>
-              
-              <Typography className="text-sm text-[#a0a0a0] max-w-xs leading-relaxed">
-                {step.description}
-              </Typography>
-              
+              {/* Arrow between steps */}
               {index < infraSteps.length - 1 && (
-                <Box className="hidden lg:block absolute" style={{ left: `calc(${(index + 1) * 33.33}% - 16px)`, top: '28px' }}>
-                  <span className="text-white/30 text-2xl">→</span>
+                <Box className="hidden sm:flex items-center justify-center pt-6 text-white/30">
+                  <span className="text-xl">→</span>
                 </Box>
               )}
             </Box>
@@ -113,30 +116,39 @@ export const HowItWorks: FC = () => {
         <Typography className="text-sm font-medium text-[#a78bfa] text-center mb-6">
           Services
         </Typography>
-        <Box className="flex flex-row items-start justify-center gap-6 md:gap-12 lg:gap-16 max-w-2xl mx-auto">
+        <Box className="flex flex-row items-start justify-center gap-4 md:gap-8 lg:gap-12 max-w-2xl mx-auto">
           {serviceSteps.map((step, index) => (
-            <Box key={index} className="flex flex-col items-center text-center flex-1 max-w-[240px]">
-              <Box className="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center mb-4">
-                {step.iconType === 'github' ? (
-                  <GitHubIcon />
-                ) : (
-                  <Image 
-                    src={step.iconSrc!} 
-                    alt={step.title} 
-                    width={40} 
-                    height={40} 
-                    className="w-10 h-10 md:w-12 md:h-12"
-                  />
-                )}
+            <Box key={index} className="contents">
+              <Box className="flex flex-col items-center text-center flex-1 max-w-[240px]">
+                <Box className="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center mb-4">
+                  {step.iconType === 'github' ? (
+                    <GitHubIcon />
+                  ) : (
+                    <Image 
+                      src={step.iconSrc!} 
+                      alt={step.title} 
+                      width={40} 
+                      height={40} 
+                      className="w-10 h-10 md:w-12 md:h-12"
+                    />
+                  )}
+                </Box>
+                
+                <Typography className="text-lg font-semibold text-white mb-2">
+                  {step.title}
+                </Typography>
+                
+                <Typography className="text-sm text-[#a0a0a0] max-w-xs leading-relaxed">
+                  {step.description}
+                </Typography>
               </Box>
               
-              <Typography className="text-lg font-semibold text-white mb-2">
-                {step.title}
-              </Typography>
-              
-              <Typography className="text-sm text-[#a0a0a0] max-w-xs leading-relaxed">
-                {step.description}
-              </Typography>
+              {/* Arrow between steps */}
+              {index < serviceSteps.length - 1 && (
+                <Box className="hidden sm:flex items-center justify-center pt-6 text-white/30">
+                  <span className="text-xl">→</span>
+                </Box>
+              )}
             </Box>
           ))}
         </Box>

@@ -90,17 +90,44 @@ const strengths = [
 ];
 
 export default function SlideTeam() {
+  // Combine all team members for mobile grid
+  const allMembers = [...foundersRow, ...teamRow];
+  
   return (
     <Slide variant="gradient">
       <SlideTitle>Team</SlideTitle>
-      <SlideSubtitle className="mb-4 sm:mb-6">
+      <SlideSubtitle className="mb-2 sm:mb-6 text-xs sm:text-sm">
         Small, Focused, Committed for 3+ Years
       </SlideSubtitle>
 
-      {/* Team Grid - 2 rows on desktop: 2 founders + 3 team members */}
-      <div className="flex flex-col gap-2 sm:gap-3 mb-8 sm:mb-10 max-w-xs sm:max-w-none mx-auto">
+      {/* Mobile: 2-column compact grid for all 5 members */}
+      <div className="sm:hidden grid grid-cols-2 gap-1.5 mb-2 mx-auto w-full">
+        {allMembers.map((member) => (
+          <div key={member.name} className="bg-white/5 border border-white/10 rounded-lg p-1.5 text-left relative">
+            {member.isCollegeMate && (
+              <div className="absolute -top-1 -right-1">
+                <CollegeBadge />
+              </div>
+            )}
+            <div className="flex items-center gap-1.5">
+              <img 
+                src={member.avatar} 
+                alt={member.name} 
+                className="w-6 h-6 rounded-full object-cover shrink-0"
+              />
+              <div className="min-w-0">
+                <h3 className="text-[10px] font-semibold text-white truncate">{member.name}</h3>
+                <p className="text-[8px] text-white/50 truncate">{member.role}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop: 2 rows - 2 founders + 3 team members */}
+      <div className="hidden sm:flex flex-col gap-3 mb-10 mx-auto">
         {/* Row 1: Founders (2 members, centered) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto w-full">
+        <div className="grid grid-cols-2 gap-3 max-w-lg md:max-w-xl lg:max-w-2xl mx-auto w-full">
           {foundersRow.map((member) => (
             <TeamMember
               key={member.name}
@@ -113,7 +140,7 @@ export default function SlideTeam() {
           ))}
         </div>
         {/* Row 2: Team (3 members) */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 sm:max-w-2xl lg:max-w-3xl mx-auto w-full">
+        <div className="grid grid-cols-3 gap-3 max-w-2xl lg:max-w-3xl mx-auto w-full">
           {teamRow.map((member) => (
             <TeamMember
               key={member.name}
@@ -127,14 +154,14 @@ export default function SlideTeam() {
         </div>
       </div>
 
-      {/* Team Strengths */}
-      <Callout className="max-w-2xl">
-        <h3 className="text-sm sm:text-base font-semibold text-white mb-2 sm:mb-3 text-center">Why This Team Wins</h3>
-        <div className="flex flex-col gap-1 sm:gap-1.5">
+      {/* Team Strengths - compact on mobile */}
+      <Callout className="max-w-2xl p-2 sm:p-4">
+        <h3 className="text-[10px] sm:text-base font-semibold text-white mb-1 sm:mb-3 text-center">Why This Team Wins</h3>
+        <div className="grid grid-cols-2 sm:flex sm:flex-col gap-x-2 gap-y-0.5 sm:gap-1.5">
           {strengths.map((strength, index) => (
-            <div key={index} className="flex items-center gap-1.5 text-xs sm:text-sm text-white/60">
+            <div key={index} className="flex items-center gap-1 sm:gap-1.5 text-[8px] sm:text-sm text-white/60">
               <span className="text-emerald-400 shrink-0">✓</span>
-              {strength}
+              <span className="leading-tight">{strength}</span>
             </div>
           ))}
         </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Target, Users, Bot, Rocket, HelpCircle, X, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Slide, SlideTitle, SlideSubtitle, FundsItem, Grid, Callout } from '../shared';
@@ -29,9 +29,137 @@ const useOfFunds = [
 const milestones = [
   '50 Enterprise Clients',
   '$100K MRR',
-  'Deliver Real Value with DevOps Agent',
   'Ready for Series A',
+  'Planton DevOps AI Agents Used by Customers in Production',
 ];
+
+// SAFE Explainer Modal Component
+function SafeExplainerModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  // Handle Escape key
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      onClose();
+    }
+  }, [onClose]);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      // Prevent body scroll when modal is open
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [isOpen, handleKeyDown]);
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50"
+          />
+          
+          {/* Modal */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          >
+            <div className="bg-gradient-to-br from-[#0f0f1a] to-[#1a1a2e] border border-white/20 rounded-2xl p-4 sm:p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto relative">
+              {/* Close button */}
+              <button
+                onClick={onClose}
+                className="absolute top-3 right-3 p-2 text-white/50 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                aria-label="Close modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <h4 className="text-lg sm:text-xl font-bold text-white mb-4 text-center pr-8">
+                SAFE = Simple Agreement for Future Equity
+              </h4>
+              
+              {/* Two-column benefits */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4">
+                <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-3 sm:p-4">
+                  <h5 className="text-emerald-400 font-semibold text-sm mb-2">For Planton</h5>
+                  <ul className="space-y-2 text-sm text-white/70">
+                    <li className="flex items-start gap-2">
+                      <span className="text-emerald-400 mt-0.5">✓</span>
+                      <span>Receive $500K now to accelerate growth</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-emerald-400 mt-0.5">✓</span>
+                      <span>No valuation negotiation delays</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-emerald-400 mt-0.5">✓</span>
+                      <span>Focus on building, not fundraising</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="bg-violet-500/10 border border-violet-500/30 rounded-xl p-3 sm:p-4">
+                  <h5 className="text-violet-400 font-semibold text-sm mb-2">For Investor</h5>
+                  <ul className="space-y-2 text-sm text-white/70">
+                    <li className="flex items-start gap-2">
+                      <span className="text-violet-400 mt-0.5">✓</span>
+                      <span>Invest early at a discount</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-violet-400 mt-0.5">✓</span>
+                      <span>Converts to equity at Series A</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-violet-400 mt-0.5">✓</span>
+                      <span>Protected by $7M valuation cap</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Conversion example */}
+              <div className="bg-white/5 rounded-xl p-3 sm:p-4">
+                <h5 className="text-white font-semibold text-sm mb-3 text-center">How Your $500K Converts</h5>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 text-sm">
+                  <div className="text-center p-3 bg-white/5 rounded-lg w-full sm:w-auto">
+                    <div className="text-white/50 text-xs mb-1">You Invest</div>
+                    <div className="text-xl font-bold text-white">$500K</div>
+                  </div>
+                  <ArrowRight className="w-5 h-5 text-white/30 rotate-90 sm:rotate-0 shrink-0" />
+                  <div className="text-center p-3 bg-white/5 rounded-lg w-full sm:w-auto">
+                    <div className="text-white/50 text-xs mb-1">Series A at $20M</div>
+                    <div className="text-xl font-bold text-pink-400">~7% Equity</div>
+                  </div>
+                  <ArrowRight className="w-5 h-5 text-white/30 rotate-90 sm:rotate-0 shrink-0" />
+                  <div className="text-center p-3 bg-white/5 rounded-lg w-full sm:w-auto">
+                    <div className="text-white/50 text-xs mb-1">At $100M Valuation</div>
+                    <div className="text-xl font-bold text-emerald-400">$7M (14x)</div>
+                  </div>
+                </div>
+                <p className="text-xs text-white/40 text-center mt-3">$7M Valuation Cap • Terms Negotiable</p>
+              </div>
+
+              {/* Escape hint - desktop only */}
+              <p className="hidden sm:block text-xs text-white/30 text-center mt-4">
+                Press <kbd className="px-1.5 py-0.5 bg-white/10 rounded text-white/50">Esc</kbd> to close
+              </p>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+}
 
 export default function SlideAsk() {
   const [showSafeExplainer, setShowSafeExplainer] = useState(false);
@@ -39,117 +167,36 @@ export default function SlideAsk() {
   return (
     <Slide variant="gradient">
       <SlideTitle>The Ask</SlideTitle>
-      <SlideSubtitle className="mb-3 sm:mb-4">
+      <SlideSubtitle className="mb-2 sm:mb-4 text-xs sm:text-sm">
         Seed Round to Reach Next Milestones
       </SlideSubtitle>
 
-      {/* The Number */}
-      <div className="bg-gradient-to-br from-pink-500/20 to-violet-500/20 border border-pink-500/30 rounded-2xl p-4 sm:p-6 max-w-xs mx-auto mb-2 sm:mb-3">
-        <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-1">
+      {/* The Number - more compact on mobile */}
+      <div className="bg-gradient-to-br from-pink-500/20 to-violet-500/20 border border-pink-500/30 rounded-xl sm:rounded-2xl p-3 sm:p-6 max-w-[200px] sm:max-w-xs mx-auto mb-1 sm:mb-3">
+        <div className="text-3xl sm:text-5xl md:text-6xl font-bold text-white mb-0.5 sm:mb-1">
           $500K
         </div>
-        <div className="text-sm text-white/60">SAFE Note</div>
-        <div className="text-xs text-white/40 mt-1">~18 months runway</div>
+        <div className="text-xs sm:text-sm text-white/60">SAFE Note</div>
+        <div className="text-[10px] sm:text-xs text-white/40 mt-0.5 sm:mt-1">~18 months runway</div>
       </div>
 
       {/* SAFE Explainer Toggle */}
       <button
-        onClick={() => setShowSafeExplainer(!showSafeExplainer)}
-        className="inline-flex items-center gap-1.5 text-xs text-white/50 hover:text-white/80 transition-colors mb-3 sm:mb-4"
+        onClick={() => setShowSafeExplainer(true)}
+        className="inline-flex items-center gap-1 sm:gap-1.5 text-[10px] sm:text-xs text-white/50 hover:text-white/80 transition-colors mb-2 sm:mb-4"
       >
-        {showSafeExplainer ? (
-          <>
-            <X className="w-3 h-3" />
-            Hide SAFE info
-          </>
-        ) : (
-          <>
-            <HelpCircle className="w-3 h-3" />
-            How does a SAFE work?
-          </>
-        )}
+        <HelpCircle className="w-3 h-3" />
+        How does a SAFE work?
       </button>
 
-      {/* SAFE Explainer Panel - Detailed */}
-      <AnimatePresence>
-        {showSafeExplainer && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden mb-3 sm:mb-4"
-          >
-            <div className="bg-white/5 border border-white/20 rounded-xl p-3 sm:p-4 max-w-2xl mx-auto text-left">
-              <h4 className="text-xs sm:text-sm font-semibold text-white mb-3 text-center">
-                SAFE = Simple Agreement for Future Equity
-              </h4>
-              
-              {/* Two-column benefits */}
-              <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-3">
-                <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-2 sm:p-3">
-                  <h5 className="text-emerald-400 font-semibold text-xs mb-1.5">For Planton</h5>
-                  <ul className="space-y-1 text-xs text-white/70">
-                    <li className="flex items-start gap-1.5">
-                      <span className="text-emerald-400 mt-0.5">✓</span>
-                      <span>Receive $500K now</span>
-                    </li>
-                    <li className="flex items-start gap-1.5">
-                      <span className="text-emerald-400 mt-0.5">✓</span>
-                      <span>No valuation negotiation</span>
-                    </li>
-                    <li className="flex items-start gap-1.5">
-                      <span className="text-emerald-400 mt-0.5">✓</span>
-                      <span>Focus on building</span>
-                    </li>
-                  </ul>
-                </div>
-                <div className="bg-violet-500/10 border border-violet-500/30 rounded-lg p-2 sm:p-3">
-                  <h5 className="text-violet-400 font-semibold text-xs mb-1.5">For Investor</h5>
-                  <ul className="space-y-1 text-xs text-white/70">
-                    <li className="flex items-start gap-1.5">
-                      <span className="text-violet-400 mt-0.5">✓</span>
-                      <span>Invest early at discount</span>
-                    </li>
-                    <li className="flex items-start gap-1.5">
-                      <span className="text-violet-400 mt-0.5">✓</span>
-                      <span>Converts at Series A</span>
-                    </li>
-                    <li className="flex items-start gap-1.5">
-                      <span className="text-violet-400 mt-0.5">✓</span>
-                      <span>Protected by $7M cap</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+      {/* SAFE Explainer Modal */}
+      <SafeExplainerModal 
+        isOpen={showSafeExplainer} 
+        onClose={() => setShowSafeExplainer(false)} 
+      />
 
-              {/* Conversion example */}
-              <div className="bg-white/5 rounded-lg p-2 sm:p-3">
-                <h5 className="text-white font-semibold text-xs mb-2 text-center">How Your $500K Converts</h5>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs">
-                  <div className="text-center p-1.5 bg-white/5 rounded-lg">
-                    <div className="text-white/50 text-xs">You invest</div>
-                    <div className="text-sm font-bold text-white">$500K</div>
-                  </div>
-                  <ArrowRight className="w-3 h-3 text-white/30 rotate-90 sm:rotate-0" />
-                  <div className="text-center p-1.5 bg-white/5 rounded-lg">
-                    <div className="text-white/50 text-xs">Series A at $20M</div>
-                    <div className="text-sm font-bold text-pink-400">~7% equity</div>
-                  </div>
-                  <ArrowRight className="w-3 h-3 text-white/30 rotate-90 sm:rotate-0" />
-                  <div className="text-center p-1.5 bg-white/5 rounded-lg">
-                    <div className="text-white/50 text-xs">At $100M valuation</div>
-                    <div className="text-sm font-bold text-emerald-400">$7M (14x)</div>
-                  </div>
-                </div>
-                <p className="text-xs text-white/40 text-center mt-2">$7M valuation cap • Terms negotiable</p>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Use of Funds */}
-      <Grid cols={3} gap="sm" className="mb-3 sm:mb-4">
+      {/* Use of Funds - horizontal on mobile */}
+      <Grid cols={3} gap="sm" className="mb-2 sm:mb-4">
         {useOfFunds.map((item) => (
           <FundsItem
             key={item.title}
@@ -161,17 +208,17 @@ export default function SlideAsk() {
         ))}
       </Grid>
 
-      {/* 18-Month Milestones */}
-      <Callout className="max-w-xl">
-        <div className="flex items-center justify-center gap-1.5 mb-2">
-          <Target className="w-4 h-4 text-emerald-400" />
-          <h3 className="text-xs sm:text-sm font-semibold text-white">18-Month Milestones</h3>
+      {/* 18-Month Milestones - 2x2 grid on mobile */}
+      <Callout className="max-w-xl p-2 sm:p-4">
+        <div className="flex items-center justify-center gap-1 sm:gap-1.5 mb-1 sm:mb-2">
+          <Target className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-400" />
+          <h3 className="text-[10px] sm:text-sm font-semibold text-white">18-Month Milestones</h3>
         </div>
-        <div className="grid grid-cols-2 gap-x-6 gap-y-1.5 text-left">
+        <div className="grid grid-cols-2 gap-x-3 sm:gap-x-6 gap-y-0.5 sm:gap-y-1.5 text-left">
           {milestones.map((milestone, index) => (
-            <div key={index} className="flex items-center gap-1.5 text-xs text-white/60 whitespace-nowrap">
-              <span className="text-emerald-400">→</span>
-              {milestone}
+            <div key={index} className="flex items-start gap-1 sm:gap-1.5 text-[10px] sm:text-xs text-white/60">
+              <span className="text-emerald-400 shrink-0 mt-0.5">→</span>
+              <span className="leading-tight">{milestone}</span>
             </div>
           ))}
         </div>
