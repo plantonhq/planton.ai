@@ -1,44 +1,83 @@
 'use client';
 
 import React from 'react';
-import { Code, Palette, Layout, Briefcase } from 'lucide-react';
 import { Slide, SlideTitle, SlideSubtitle, TeamMember, Callout } from '../shared';
 
-const teamMembers = [
+// College badge for founders who went to same college (2007-2011)
+const CollegeBadge = () => (
+  <div 
+    className="bg-amber-500/20 border border-amber-500/40 rounded-full px-1.5 py-0.5 flex items-center gap-1"
+    title="College Batchmates (2007-2011)"
+  >
+    <span className="text-sm">🎓</span>
+  </div>
+);
+
+// Row 1: Founders (2 members)
+const foundersRow = [
   {
     name: 'Swarup Donepudi',
     role: 'Founder & CEO',
-    icon: <Code className="w-4 h-4 text-pink-400" />,
-    description: '10+ years DevOps. Built entire platform.',
-    highlight: true,
+    avatar: 'https://assets.planton.ai/team/swarup-donepudi.png',
+    description: (
+      <>
+        <div><span className="text-emerald-400">Silicon Valley</span> experience.</div>
+        <div>10+ yrs DevOps & Cloud.</div>
+        <div>Platform Architect.</div>
+      </>
+    ),
+    isCollegeMate: true,
   },
   {
     name: 'Suresh Attaluri',
     role: 'Co-Founder & Backend',
-    icon: <Code className="w-4 h-4 text-white/60" />,
-    description: '10 years collaboration. Backend systems.',
-    highlight: false,
+    avatar: 'https://assets.planton.ai/team/suresh-attaluri.png',
+    description: (
+      <>
+        <div>Leading <span className="text-emerald-400">AI</span> R&D.</div>
+        <div>Backend & Data Systems.</div>
+      </>
+    ),
+    isCollegeMate: true,
   },
+];
+
+// Row 2: Team (3 members)
+const teamRow = [
   {
     name: 'Irshad Ahmed',
     role: 'Lead UX Designer',
-    icon: <Palette className="w-4 h-4 text-white/60" />,
-    description: '5 years with team. All product design.',
-    highlight: false,
+    avatar: 'https://assets.planton.ai/team/irshad-ahmed.png',
+    description: (
+      <>
+        <div>5 years with team.</div>
+        <div>All product design.</div>
+      </>
+    ),
+    isCollegeMate: false,
   },
   {
     name: 'Satish Lakhani',
     role: 'Full-Stack Engineer',
-    icon: <Layout className="w-4 h-4 text-white/60" />,
-    description: 'Built entire web console.',
-    highlight: false,
+    avatar: 'https://assets.planton.ai/team/satish-lakhani.png',
+    description: (
+      <>
+        <div>Frontend Expert.</div>
+        <div>Built Planton WebConsole.</div>
+      </>
+    ),
+    isCollegeMate: false,
   },
   {
     name: 'Avinash Sana',
     role: 'Operations & BD',
-    icon: <Briefcase className="w-4 h-4 text-white/60" />,
-    description: 'All non-technical operations.',
-    highlight: false,
+    avatar: 'https://assets.planton.ai/team/avinash-sana.png',
+    description: (
+      <>
+        <div>All non-technical operations.</div>
+      </>
+    ),
+    isCollegeMate: true,
   },
 ];
 
@@ -47,6 +86,7 @@ const strengths = [
   '3+ Years Building Together',
   '$500K+ Skin in the Game',
   'Production Platform Shipped',
+  'Founding Team: College Batchmates 🎓',
 ];
 
 export default function SlideTeam() {
@@ -57,27 +97,43 @@ export default function SlideTeam() {
         Small, Focused, Committed for 3+ Years
       </SlideSubtitle>
 
-      {/* Team Grid - responsive */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3 mb-4 sm:mb-6">
-        {teamMembers.map((member) => (
-          <TeamMember
-            key={member.name}
-            name={member.name}
-            role={member.role}
-            description={member.description}
-            highlight={member.highlight}
-            icon={member.icon}
-          />
-        ))}
+      {/* Team Grid - 2 rows on desktop: 2 founders + 3 team members */}
+      <div className="flex flex-col gap-2 sm:gap-3 mb-8 sm:mb-10 max-w-xs sm:max-w-none mx-auto">
+        {/* Row 1: Founders (2 members, centered) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto w-full">
+          {foundersRow.map((member) => (
+            <TeamMember
+              key={member.name}
+              name={member.name}
+              role={member.role}
+              description={member.description}
+              avatar={member.avatar}
+              badge={member.isCollegeMate ? <CollegeBadge /> : undefined}
+            />
+          ))}
+        </div>
+        {/* Row 2: Team (3 members) */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 sm:max-w-2xl lg:max-w-3xl mx-auto w-full">
+          {teamRow.map((member) => (
+            <TeamMember
+              key={member.name}
+              name={member.name}
+              role={member.role}
+              description={member.description}
+              avatar={member.avatar}
+              badge={member.isCollegeMate ? <CollegeBadge /> : undefined}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Team Strengths */}
-      <Callout className="max-w-xl">
-        <h3 className="text-sm sm:text-base font-semibold text-white mb-2 sm:mb-3">Why This Team Wins</h3>
-        <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
+      <Callout className="max-w-2xl">
+        <h3 className="text-sm sm:text-base font-semibold text-white mb-2 sm:mb-3 text-center">Why This Team Wins</h3>
+        <div className="flex flex-col gap-1 sm:gap-1.5">
           {strengths.map((strength, index) => (
             <div key={index} className="flex items-center gap-1.5 text-xs sm:text-sm text-white/60">
-              <span className="text-emerald-400">✓</span>
+              <span className="text-emerald-400 shrink-0">✓</span>
               {strength}
             </div>
           ))}

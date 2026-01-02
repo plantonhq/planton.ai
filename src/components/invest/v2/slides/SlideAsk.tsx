@@ -27,9 +27,9 @@ const useOfFunds = [
 ];
 
 const milestones = [
-  '5-10 Enterprise Pilots',
-  'Agent Fleet MVP Launched',
-  '$50K+ MRR Target',
+  '50 Enterprise Clients',
+  '$100K MRR',
+  'Deliver Real Value with DevOps Agent',
   'Ready for Series A',
 ];
 
@@ -162,14 +162,14 @@ export default function SlideAsk() {
       </Grid>
 
       {/* 18-Month Milestones */}
-      <Callout className="max-w-md">
+      <Callout className="max-w-xl">
         <div className="flex items-center justify-center gap-1.5 mb-2">
           <Target className="w-4 h-4 text-emerald-400" />
           <h3 className="text-xs sm:text-sm font-semibold text-white">18-Month Milestones</h3>
         </div>
-        <div className="grid grid-cols-2 gap-1.5 text-left">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-1.5 text-left">
           {milestones.map((milestone, index) => (
-            <div key={index} className="flex items-center gap-1.5 text-xs text-white/60">
+            <div key={index} className="flex items-center gap-1.5 text-xs text-white/60 whitespace-nowrap">
               <span className="text-emerald-400">→</span>
               {milestone}
             </div>

@@ -40,14 +40,14 @@ function StatusCell({ value }: { value: boolean | string }) {
   const { type, display } = getStatus(value);
   
   return (
-    <div className="flex items-center justify-start pl-[calc(50%-8px)]">
+    <div className="flex items-center justify-center">
       <span className="w-4 h-4 flex items-center justify-center shrink-0">
         {type === 'yes' && <CheckIcon className="w-3 h-3 sm:w-4 sm:h-4" />}
         {type === 'no' && <XIcon className="w-3 h-3 sm:w-4 sm:h-4" />}
         {type === 'partial' && <WarningIcon className="w-3 h-3 sm:w-4 sm:h-4" />}
       </span>
       {display && (
-        <span className={`text-xs ml-1 whitespace-nowrap ${
+        <span className={`hidden sm:inline text-xs ml-1 whitespace-nowrap ${
           type === 'yes' ? 'text-emerald-400 font-medium' : 
           type === 'no' ? 'text-red-400' : 
           type === 'partial' ? 'text-amber-400' : 'text-white/60'
@@ -63,7 +63,7 @@ export default function SlideComparison() {
   return (
     <Slide variant="gradient">
       <SlideTitle>Why Planton Wins</SlideTitle>
-      <SlideSubtitle className="mb-4 sm:mb-6">
+      <SlideSubtitle className="mb-4 sm:mb-6 sm:whitespace-nowrap">
         The Only Platform That&apos;s Open Source, Multi-Cloud, and No Lock-In
       </SlideSubtitle>
 
@@ -96,7 +96,7 @@ export default function SlideComparison() {
       </div>
 
       {/* Key differentiator */}
-      <p className="text-xs sm:text-sm text-white/50 mt-4 sm:mt-6 max-w-3xl mx-auto whitespace-nowrap">
+      <p className="text-xs sm:text-sm text-white/50 mt-4 sm:mt-6 max-w-3xl mx-auto sm:whitespace-nowrap">
         <span className="text-emerald-400">✓</span> Only Platform Combining PaaS Developer Experience + IaC Infrastructure + Your Cloud
       </p>
     </Slide>

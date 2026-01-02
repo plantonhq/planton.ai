@@ -2,6 +2,7 @@
 
 import { FC, ReactNode } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 // ============================================================================
 // DESIGN TOKENS - Hybrid: Landing page colors + Pitch deck drama
@@ -59,7 +60,7 @@ export const Slide: FC<SlideProps> = ({
   return (
     <div 
       className={`
-        min-h-[100dvh] max-h-[100dvh] overflow-hidden
+        h-[100dvh] overflow-hidden
         flex flex-col items-center justify-center
         px-4 py-6 sm:px-6 sm:py-8 md:px-8 md:py-12
         ${bgClass}
@@ -338,9 +339,11 @@ export const Callout: FC<CalloutProps> = ({
 interface TeamMemberProps {
   name: string;
   role: string;
-  description: string;
+  description: ReactNode;
   highlight?: boolean;
-  icon: ReactNode;
+  icon?: ReactNode;
+  avatar?: string;
+  badge?: ReactNode;
 }
 
 export const TeamMember: FC<TeamMemberProps> = ({
@@ -349,19 +352,36 @@ export const TeamMember: FC<TeamMemberProps> = ({
   description,
   highlight = false,
   icon,
+  avatar,
+  badge,
 }) => (
-  <Card variant={highlight ? 'highlight' : 'default'} className="text-left">
-    <div className="flex items-start gap-2 sm:gap-3">
-      <div className={`
-        p-1.5 sm:p-2 rounded-lg shrink-0
-        ${highlight ? 'bg-pink-500/20' : 'bg-white/10'}
-      `}>
-        {icon}
+  <Card variant={highlight ? 'highlight' : 'default'} className="text-left relative">
+    {badge && (
+      <div className="absolute -top-1 -right-1 sm:top-1 sm:right-1">
+        {badge}
       </div>
+    )}
+    <div className="flex items-start gap-2 sm:gap-3">
+      {avatar ? (
+        <Image 
+          src={avatar} 
+          alt={name} 
+          width={40} 
+          height={40} 
+          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover shrink-0"
+        />
+      ) : (
+        <div className={`
+          p-1.5 sm:p-2 rounded-lg shrink-0
+          ${highlight ? 'bg-pink-500/20' : 'bg-white/10'}
+        `}>
+          {icon}
+        </div>
+      )}
       <div className="min-w-0">
         <h3 className="text-sm sm:text-base font-semibold text-white truncate">{name}</h3>
         <p className={`text-xs sm:text-sm ${highlight ? 'text-pink-300' : 'text-white/50'}`}>{role}</p>
-        <p className="text-xs text-white/40 mt-1 line-clamp-2">{description}</p>
+        <div className="text-xs text-white/40 mt-1">{description}</div>
       </div>
     </div>
   </Card>

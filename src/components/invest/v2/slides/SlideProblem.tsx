@@ -48,7 +48,7 @@ export default function SlideProblem() {
 
       {/* Bottom Line */}
       <Callout variant="default" className="border-red-500/30 bg-red-500/10 max-w-3xl">
-        <p className="text-sm sm:text-base md:text-lg text-white font-medium whitespace-nowrap">
+        <p className="text-sm sm:text-base md:text-lg text-white font-medium sm:whitespace-nowrap">
           80% of cloud services are the same patterns—<span className="text-red-400">rebuilt from scratch at every company.</span>
         </p>
       </Callout>

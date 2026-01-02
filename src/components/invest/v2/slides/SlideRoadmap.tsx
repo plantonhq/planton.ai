@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { CheckCircle, Activity, Bot, Cloud } from 'lucide-react';
-import { Slide, SlideTitle, SlideSubtitle, RoadmapItem, Grid } from '../shared';
+import { Slide, SlideTitle, SlideSubtitle, RoadmapItem } from '../shared';
 
 const roadmapItems = [
   {
@@ -47,8 +47,8 @@ export default function SlideRoadmap() {
         Building Essential Infrastructure, Step by Step
       </SlideSubtitle>
 
-      {/* Roadmap Items - 4 column on desktop, 2x2 on mobile */}
-      <Grid cols={4} gap="sm" className="mb-4 sm:mb-6">
+      {/* Roadmap Items - 4 column on desktop, single column centered on mobile */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 mb-4 sm:mb-6 max-w-xs sm:max-w-none mx-auto">
         {roadmapItems.map((item) => (
           <RoadmapItem
             key={item.phase}
@@ -60,7 +60,7 @@ export default function SlideRoadmap() {
             icon={item.icon}
           />
         ))}
-      </Grid>
+      </div>
 
       {/* Vision Statement */}
       <p className="text-xs sm:text-sm text-white/40 max-w-xl mx-auto">

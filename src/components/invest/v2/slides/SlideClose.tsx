@@ -9,16 +9,16 @@ export default function SlideClose() {
     <Slide variant="gradient">
       {/* Main Message */}
       <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4 md:mb-6 leading-tight">
-        DevOps shouldn&apos;t be
-        <br />
+        DevOps Shouldn&apos;t Be{' '}
         <span className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent">
-          this hard
+          This Hard
         </span>
       </h2>
 
-      <p className="text-sm sm:text-base md:text-lg text-white/70 mb-6 sm:mb-8 max-w-md mx-auto px-4">
-        We&apos;ve spent 3+ years and $500K building the platform we wished existed.
-        Now we need partners to take it global.
+      <p className="text-sm sm:text-base md:text-lg text-white/70 mb-6 sm:mb-8 max-w-lg mx-auto px-4">
+        <span className="sm:whitespace-nowrap">We&apos;ve Spent 3+ Years and $500K Building the Platform We Wished Existed.</span>
+        <br />
+        <span className="sm:whitespace-nowrap">Now We Need Partners to Take It Global.</span>
       </p>
 
       {/* CTA */}

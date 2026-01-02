@@ -172,10 +172,11 @@ export default function InvestorDeckV2() {
 
   return (
     <div 
-      className="min-h-[100dvh] bg-[#0a0a0f] flex flex-col relative overflow-hidden"
+      className="h-[100dvh] bg-[#0a0a0f] flex flex-col relative overflow-hidden touch-pan-x"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
+      style={{ touchAction: 'pan-x' }}
     >
       {/* Home button */}
       <div className="absolute top-3 sm:top-4 md:top-6 right-3 sm:right-4 md:right-6 z-50">
@@ -231,6 +232,17 @@ export default function InvestorDeckV2() {
         </AnimatePresence>
       </div>
 
+      {/* Mobile swipe hint - only on cover slide, positioned independently */}
+      {isFirstSlide && (
+        <div className="sm:hidden absolute bottom-28 left-0 right-0 text-center z-50">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500/20 to-violet-500/20 border border-pink-500/30 rounded-full animate-pulse backdrop-blur-sm">
+            <span className="text-lg">👆</span>
+            <span className="text-xs font-medium text-white/80">Swipe to Navigate</span>
+            <span className="text-white/50">→</span>
+          </div>
+        </div>
+      )}
+
       {/* Navigation footer - compact on mobile */}
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent pt-8 sm:pt-10 md:pt-12 pb-3 sm:pb-4 md:pb-6">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-8">
@@ -245,8 +257,8 @@ export default function InvestorDeckV2() {
               </span>
             </div>
 
-            {/* Navigation buttons */}
-            <div className="flex gap-2 sm:gap-3">
+            {/* Navigation buttons - hidden on mobile */}
+            <div className="hidden sm:flex gap-2 sm:gap-3">
               <button
                 onClick={navigatePrev}
                 disabled={isFirstSlide}

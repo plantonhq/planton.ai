@@ -159,9 +159,9 @@ function TestimonialCard({
 export default function SlideWallOfLove() {
   return (
     <Slide variant="gradient">
-      <SlideTitle>Wall of Love</SlideTitle>
+      <SlideTitle>They Shipped. We Listened.</SlideTitle>
       <SlideSubtitle className="mb-4 sm:mb-6">
-        Real Feedback from Teams Using Planton in Production
+        Voices from Teams Who Moved to Production with Planton
       </SlideSubtitle>
 
       {/* Testimonials - 2-2-1 Layout */}
@@ -212,11 +212,6 @@ export default function SlideWallOfLove() {
           ))}
         </div>
       </div>
-
-      {/* Social proof note */}
-      <p className="text-xs text-white/40">
-        All Testimonials from Verified Customers with Permission
-      </p>
     </Slide>
   );
 }

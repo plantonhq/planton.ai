@@ -122,7 +122,9 @@ export default function SlideProduct() {
       {/* Result callout */}
       <div className="bg-gradient-to-r from-emerald-500/10 to-violet-500/10 border border-white/10 rounded-lg sm:rounded-xl p-3 sm:p-4 max-w-lg mx-auto">
         <p className="text-sm sm:text-base text-white font-medium">
-          ⚡ Complete Cloud Infra + Service Deployments in <span className="text-emerald-400">&lt;1 hour</span>
+          ⚡ Complete Cloud Infra + Service Deployments
+          <br className="sm:hidden" />
+          <span className="hidden sm:inline"> </span>in <span className="text-emerald-400">&lt;1 Hour</span>
         </p>
         <p className="text-xs text-white/50 mt-1">vs. Weeks with Manual Setup</p>
       </div>

@@ -66,7 +66,7 @@ export default function SlideCustomers() {
             <p className="text-xs text-white/50">DevOps Engineer, TYNYBAY</p>
           </div>
         </div>
-        <p className="text-sm sm:text-base text-white italic whitespace-nowrap">
+        <p className="text-sm sm:text-base text-white italic sm:whitespace-nowrap">
           &ldquo;Developers Self-Onboard Their Own Services. That&apos;s a Huge Win.&rdquo;
         </p>
       </Callout>
