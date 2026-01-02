@@ -39,8 +39,8 @@ const iacComparisonData: ComparisonRow[] = [
   {
     feature: 'Out-of-the-Box Infra',
     planton: { status: 'yes', text: '120+ components' },
-    competitor1: { status: 'partial', text: 'Limited (Pulumi ESC)' },
-    competitor2: { status: 'partial', text: 'Limited' },
+    competitor1: { status: 'no', text: 'Write everything' },
+    competitor2: { status: 'partial', text: 'Limited (Pulumi ESC)' },
     competitor3: { status: 'no', text: 'Write everything' },
   },
   {

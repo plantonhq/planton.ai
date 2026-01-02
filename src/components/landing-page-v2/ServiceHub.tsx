@@ -254,13 +254,13 @@ export const ServiceHub: FC = () => {
             <Box className="w-12 h-12 rounded-full bg-[#1a1a1a] p-2 flex items-center justify-center overflow-hidden">
               <img 
                 src="/images/customers/logos/tynybay.png" 
-                alt="TynyBay" 
+                alt="TYNYBAY" 
                 className="w-full h-full object-contain brightness-0 invert"
               />
             </Box>
             <Box>
               <Typography className="text-white font-semibold">Engineering Lead</Typography>
-              <Typography className="text-[#a0a0a0] text-sm">TynyBay — deploying Odwen platform</Typography>
+              <Typography className="text-[#a0a0a0] text-sm">TYNYBAY — deploying Odwen platform</Typography>
             </Box>
           </Box>
           

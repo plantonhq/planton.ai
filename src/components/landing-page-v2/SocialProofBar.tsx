@@ -13,10 +13,10 @@ const customers = [
     logoClass: 'max-h-8',
   },
   {
-    name: 'TynyBay',
+    name: 'TYNYBAY',
     url: 'https://tynybay.com',
     logo: '/images/customers/logos/tynybay.png',
-    logoClass: 'max-h-14', // Larger to compensate for logo padding
+    logoClass: 'max-h-20', // Larger to compensate for logo padding
   },
   {
     name: 'iorta TechNext',
@@ -62,33 +62,22 @@ export const SocialProofBar: FC = () => {
       </Stack>
 
       {/* Customer logos */}
-      <Box className="flex flex-wrap items-center justify-center gap-6 md:gap-10 mb-12">
+      <Box className="flex flex-wrap items-center justify-center gap-8 md:gap-12 mb-12">
         {customers.map((customer, index) => (
           <a
             key={index}
             href={customer.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="group"
+            className="group h-10 md:h-12 flex items-center justify-center"
           >
-            <Box
-              className="
-                px-6 py-3 rounded-lg h-14
-                border border-[#2a2a2a] bg-[#1a1a1a]
-                transition-all duration-300
-                hover:border-[#7c3aed]/50
-                hover:shadow-lg hover:shadow-purple-500/10
-                flex items-center justify-center
-              "
-            >
-              <Image
-                src={customer.logo}
-                alt={customer.name}
-                width={120}
-                height={40}
-                className={`${customer.logoClass} w-auto object-contain brightness-0 invert opacity-80 group-hover:opacity-100 transition-opacity`}
-              />
-            </Box>
+            <Image
+              src={customer.logo}
+              alt={customer.name}
+              width={120}
+              height={48}
+              className={`${customer.logoClass} w-auto object-contain brightness-0 invert opacity-70 group-hover:opacity-100 transition-opacity`}
+            />
           </a>
         ))}
         <Badge variant="default" className="opacity-70">
