@@ -75,7 +75,7 @@ function SafeExplainerModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
           >
-            <div className="bg-gradient-to-br from-[#0f0f1a] to-[#1a1a2e] border border-white/20 rounded-2xl p-4 sm:p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto relative">
+            <div className="bg-gradient-to-br from-[#0f0f1a] to-[#1a1a2e] border border-white/20 rounded-2xl p-4 sm:p-6 w-full max-w-3xl max-h-[90vh] overflow-y-auto relative">
               {/* Close button */}
               <button
                 onClick={onClose}
@@ -94,16 +94,16 @@ function SafeExplainerModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
                 <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-3 sm:p-4">
                   <h5 className="text-emerald-400 font-semibold text-sm mb-2">For Planton</h5>
                   <ul className="space-y-2 text-sm text-white/70">
-                    <li className="flex items-start gap-2">
-                      <span className="text-emerald-400 mt-0.5">✓</span>
+                    <li className="flex items-start gap-1.5">
+                      <span className="text-emerald-400 shrink-0">✓</span>
                       <span>Receive $500K now to accelerate growth</span>
                     </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-emerald-400 mt-0.5">✓</span>
+                    <li className="flex items-start gap-1.5">
+                      <span className="text-emerald-400 shrink-0">✓</span>
                       <span>No valuation negotiation delays</span>
                     </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-emerald-400 mt-0.5">✓</span>
+                    <li className="flex items-start gap-1.5">
+                      <span className="text-emerald-400 shrink-0">✓</span>
                       <span>Focus on building, not fundraising</span>
                     </li>
                   </ul>
@@ -111,16 +111,16 @@ function SafeExplainerModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
                 <div className="bg-violet-500/10 border border-violet-500/30 rounded-xl p-3 sm:p-4">
                   <h5 className="text-violet-400 font-semibold text-sm mb-2">For Investor</h5>
                   <ul className="space-y-2 text-sm text-white/70">
-                    <li className="flex items-start gap-2">
-                      <span className="text-violet-400 mt-0.5">✓</span>
+                    <li className="flex items-start gap-1.5">
+                      <span className="text-violet-400 shrink-0">✓</span>
                       <span>Invest early at a discount</span>
                     </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-violet-400 mt-0.5">✓</span>
+                    <li className="flex items-start gap-1.5">
+                      <span className="text-violet-400 shrink-0">✓</span>
                       <span>Converts to equity at Series A</span>
                     </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-violet-400 mt-0.5">✓</span>
+                    <li className="flex items-start gap-1.5">
+                      <span className="text-violet-400 shrink-0">✓</span>
                       <span>Protected by $7M valuation cap</span>
                     </li>
                   </ul>

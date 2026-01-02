@@ -1,7 +1,7 @@
 import { Box, Stack } from '@mui/material';
 import Image from 'next/image';
 import { FC, ReactNode } from 'react';
-import { TypoH2, TypoH3, TypoP1 } from '../common';
+import { TypoH2, TypoH3, TypoP1 } from '../../common';
 
 interface IServiceBox {
   title: string;
