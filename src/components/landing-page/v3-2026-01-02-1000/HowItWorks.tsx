@@ -13,13 +13,21 @@ const GitHubIcon = () => (
   </svg>
 );
 
+// Multi-cloud icon component
+const MultiCloudIcon = () => (
+  <Box className="flex items-center justify-center gap-1">
+    <Image src="/images/providers/aws.svg" alt="AWS" width={28} height={28} className="w-7 h-7 md:w-8 md:h-8" />
+    <Image src="/images/providers/gcp.svg" alt="GCP" width={28} height={28} className="w-7 h-7 md:w-8 md:h-8" />
+    <Image src="/images/providers/azure.svg" alt="Azure" width={28} height={28} className="w-7 h-7 md:w-8 md:h-8" />
+  </Box>
+);
+
 // InfraHub steps with image icons
 const infraSteps = [
   {
     title: 'Connect Cloud',
     description: 'AWS, GCP, or Azure via OAuth',
-    iconType: 'image' as const,
-    iconSrc: '/images/providers/aws.svg',
+    iconType: 'multiCloud' as const,
   },
   {
     title: 'Choose Infra',
@@ -77,7 +85,9 @@ export const HowItWorks: FC = () => {
             <Box key={index} className="contents">
               <Box className="flex flex-col items-center text-center flex-1 max-w-[200px]">
                 <Box className="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center mb-4">
-                  {step.iconType === 'image' ? (
+                  {step.iconType === 'multiCloud' ? (
+                    <MultiCloudIcon />
+                  ) : step.iconType === 'image' ? (
                     <Image 
                       src={step.iconSrc!} 
                       alt={step.title} 

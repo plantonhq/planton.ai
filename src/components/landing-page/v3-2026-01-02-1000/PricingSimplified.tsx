@@ -72,7 +72,7 @@ export const PricingSimplified: FC = () => {
       <Card className="mb-16 max-w-4xl mx-auto">
         <Box className="grid lg:grid-cols-2 gap-8 items-center">
           <Box>
-            <Badge variant="success" className="mb-4">REAL CUSTOMER EXAMPLE</Badge>
+            <Badge variant="success" className="mb-4">CASE STUDY</Badge>
             <Typography className="text-xl font-semibold text-white mb-4">
               iorta TechNext
             </Typography>

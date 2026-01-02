@@ -42,9 +42,9 @@ export const CustomerStories: FC = () => {
       <Stack className="items-center text-center mb-12">
         <Badge variant="success" className="mb-6">CUSTOMER STORIES</Badge>
         <SectionTitle>
-          Real{' '}
+          Proven{' '}
           <span className="bg-gradient-to-r from-[#10b981] to-[#0ea5e9] bg-clip-text text-transparent">
-            Results
+            Impact
           </span>
         </SectionTitle>
       </Stack>

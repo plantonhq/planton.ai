@@ -12,11 +12,19 @@ const GitHubIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+// Multi-cloud icon component
+const MultiCloudIcon = () => (
+  <div className="flex items-center justify-center gap-0.5 sm:gap-1">
+    <Image src="/images/providers/aws.svg" alt="AWS" width={24} height={24} className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
+    <Image src="/images/providers/gcp.svg" alt="GCP" width={24} height={24} className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
+    <Image src="/images/providers/azure.svg" alt="Azure" width={24} height={24} className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
+  </div>
+);
+
 // Infrastructure steps
 const infraSteps = [
   {
-    iconType: 'image' as const,
-    iconSrc: '/images/providers/aws.svg',
+    iconType: 'multiCloud' as const,
     title: 'Connect Cloud',
     description: 'Link AWS, GCP, or Azure with Secure OAuth',
   },
@@ -65,7 +73,9 @@ export default function SlideProduct() {
             <React.Fragment key={step.title}>
               <div className="flex flex-col items-center text-center flex-1 max-w-[140px] sm:max-w-[160px]">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center mb-2 sm:mb-3">
-                  {step.iconType === 'image' ? (
+                  {step.iconType === 'multiCloud' ? (
+                    <MultiCloudIcon />
+                  ) : step.iconType === 'image' ? (
                     <Image 
                       src={step.iconSrc!} 
                       alt={step.title} 
