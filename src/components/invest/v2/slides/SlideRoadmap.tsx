@@ -41,14 +41,14 @@ const roadmapItems = [
 
 export default function SlideRoadmap() {
   return (
-    <Slide variant="gradient">
+    <Slide variant="gradient" className="sm:px-4 md:px-6">
       <SlideTitle>Roadmap</SlideTitle>
-      <SlideSubtitle className="mb-4 sm:mb-6">
+      <SlideSubtitle className="mb-2 sm:mb-6 text-xs sm:text-sm">
         Building Essential Infrastructure, Step by Step
       </SlideSubtitle>
 
       {/* Roadmap Items - 4 column on desktop, single column centered on mobile */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 mb-4 sm:mb-6 max-w-xs sm:max-w-none mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1.5 sm:gap-3 md:gap-3 lg:gap-4 mb-3 sm:mb-6 max-w-xs sm:max-w-none mx-auto w-full px-0 sm:px-2">
         {roadmapItems.map((item) => (
           <RoadmapItem
             key={item.phase}
@@ -63,8 +63,10 @@ export default function SlideRoadmap() {
       </div>
 
       {/* Vision Statement */}
-      <p className="text-xs sm:text-sm text-white/40 max-w-xl mx-auto">
-        Vision: Planton Becomes a Cloud Provider Alongside AWS, GCP, Azure—Our Moat Is the Control Plane and DX
+      <p className="text-xs sm:text-sm text-white/40 max-w-xl mx-auto text-center">
+        Vision: Planton Becomes a Cloud Provider Alongside AWS, GCP, Azure
+        <br />
+        Our Moat is the Control Plane and DX
       </p>
     </Slide>
   );

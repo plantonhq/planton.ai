@@ -17,7 +17,7 @@ const CollegeBadge = () => (
 const foundersRow = [
   {
     name: 'Swarup Donepudi',
-    role: 'Founder & CEO',
+    role: 'Founder',
     avatar: 'https://assets.planton.ai/team/swarup-donepudi.png',
     description: (
       <>
@@ -30,7 +30,7 @@ const foundersRow = [
   },
   {
     name: 'Suresh Attaluri',
-    role: 'Co-Founder & Backend',
+    role: 'Co-Founder',
     avatar: 'https://assets.planton.ai/team/suresh-attaluri.png',
     description: (
       <>
@@ -57,6 +57,17 @@ const teamRow = [
     isCollegeMate: false,
   },
   {
+    name: 'Avinash Sana',
+    role: 'Operations & BD',
+    avatar: 'https://assets.planton.ai/team/avinash-sana.png',
+    description: (
+      <>
+        <div>All non-technical operations.</div>
+      </>
+    ),
+    isCollegeMate: true,
+  },
+  {
     name: 'Satish Lakhani',
     role: 'Full-Stack Engineer',
     avatar: 'https://assets.planton.ai/team/satish-lakhani.png',
@@ -67,17 +78,6 @@ const teamRow = [
       </>
     ),
     isCollegeMate: false,
-  },
-  {
-    name: 'Avinash Sana',
-    role: 'Operations & BD',
-    avatar: 'https://assets.planton.ai/team/avinash-sana.png',
-    description: (
-      <>
-        <div>All non-technical operations.</div>
-      </>
-    ),
-    isCollegeMate: true,
   },
 ];
 
@@ -95,7 +95,7 @@ export default function SlideTeam() {
   
   return (
     <Slide variant="gradient">
-      <SlideTitle>Team</SlideTitle>
+      <SlideTitle className="-mt-8 sm:-mt-12">Team</SlideTitle>
       <SlideSubtitle className="mb-2 sm:mb-6 text-xs sm:text-sm">
         Small, Focused, Committed for 3+ Years
       </SlideSubtitle>
@@ -125,9 +125,9 @@ export default function SlideTeam() {
       </div>
 
       {/* Desktop: 2 rows - 2 founders + 3 team members */}
-      <div className="hidden sm:flex flex-col gap-3 mb-10 mx-auto">
+      <div className="hidden sm:flex flex-col gap-4 md:gap-5 mb-10 mx-auto">
         {/* Row 1: Founders (2 members, centered) */}
-        <div className="grid grid-cols-2 gap-3 max-w-lg md:max-w-xl lg:max-w-2xl mx-auto w-full">
+        <div className="grid grid-cols-2 gap-4 md:gap-5 max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto w-full">
           {foundersRow.map((member) => (
             <TeamMember
               key={member.name}
@@ -140,7 +140,7 @@ export default function SlideTeam() {
           ))}
         </div>
         {/* Row 2: Team (3 members) */}
-        <div className="grid grid-cols-3 gap-3 max-w-2xl lg:max-w-3xl mx-auto w-full">
+        <div className="grid grid-cols-3 gap-4 md:gap-5 max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto w-full">
           {teamRow.map((member) => (
             <TeamMember
               key={member.name}
