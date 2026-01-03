@@ -368,7 +368,7 @@ export const TeamMember: FC<TeamMemberProps> = ({
           alt={name} 
           width={40} 
           height={40} 
-          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover shrink-0"
+          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover object-[center_25%] shrink-0"
         />
       ) : (
         <div className={`

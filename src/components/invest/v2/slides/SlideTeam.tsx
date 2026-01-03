@@ -113,7 +113,7 @@ export default function SlideTeam() {
               <img 
                 src={member.avatar} 
                 alt={member.name} 
-                className="w-6 h-6 rounded-full object-cover shrink-0"
+                className="w-6 h-6 rounded-full object-cover object-[center_25%] shrink-0"
               />
               <div className="min-w-0">
                 <h3 className="text-[10px] font-semibold text-white truncate">{member.name}</h3>
