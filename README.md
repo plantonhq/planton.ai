@@ -94,7 +94,7 @@ We <3 contributions big and small. In priority order (although everything is app
 - Open a PR
   - Follow the [Quick start](#quick-start) to run the site locally
   - For basic content edits, navigate to the file in GitHub and click the edit icon (pencil)
-- Open an issue for bugs or content ideas: `https://github.com/plantoncloud/planton.ai/issues/new`
+- Open an issue for bugs or content ideas: `https://github.com/plantonhq/planton.ai/issues/new`
 
 Guidelines:
 - Keep content changes focused and include a brief summary in the PR description

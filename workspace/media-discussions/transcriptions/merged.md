@@ -1,4 +1,4 @@
-## ~/scm/github.com/plantoncloud-inc/planton.ai/workspace/media-discussions/transcriptions/01-landing-page/landing-page.p1.md
+## ~/scm/github.com/plantonhq/planton.ai/workspace/media-discussions/transcriptions/01-landing-page/landing-page.p1.md
 Swarup Donepudi  0:02  
 Okay, so I'm with Suresh, and we both are going to review, start reviewing the website content, the sales website content for plant run.ai, and the current designs that if shell has put together already, and the purpose of this discussion is so right now, the work that is still pending and needs to be get done for the website to be fully built out, is the media meaning. Because this is a new product, there is obviously a lot of new terms that we introduced, which we averted as much as possible. We didn't want to introduce any new words keep like because of the fact that new terminology requires education so and the important part is the sales website is for positioning in the market. Like, what do we want the market to think of us? And website plays a critical role. It is the tool that helps us get that positioning across to the market. And we felt like ever since we built plant or as a DevOps co pilot, we felt like That should be the face of the product, meaning we changed our positioning from calling ourselves as an internal development platform to being a conversational DevOps platform, while the category still remains to be an internal developer platform, well, there is a lot of other people who are calling themselves as internal developer platform. So we need to position. We need to adjust our positioning so that we kind of stand out and so and again, what is pending is, although we added various sections to this each each page, there is section title and and then there is some brief discussion description About the section, while this may definitely give some idea to our target audience, it may also not fully make sense, and because we feel like we are trying shooting for product led growth, meaning we think we have built up Great product, and which means if we can give the glimpse of the best features of the product fairly quickly, and make it very easy for somebody to know about those awesome, awesome things, at least in our perception, those are awesome features, and we we strongly believe that for us, product led growth is possible because of the quality of the product that we have put together, and these section titles and section descriptions will not help us achieve that goal of educating the visitors of this website to quickly understand the quality or the value proposition that the product has to offer. And for that to happen, the only next thing is for them to sign up and see that in action. But obviously users are not going to do it, so we want to make it very easy for them to get a glimpse. And the purpose of this discussion is exactly, is to exactly understand or discuss what's the best elements in the in our application that can that we can capture a in different formats and add to each of these sections. So we want to fill up lots of content here and in different formats. So the formats that are available are GIF. We can draw it out, to write it out. So the format that are available for us are, there is GIF or plain old PNGs, and then, and then these GIFs can be as short as, say, five seconds, and they can be as long as 20 seconds to in fact, they can go beyond and they can also be up to one minute. I don't know what's the consequence of creating the GIF. Gifs have the disadvantage of they won't allow the user to scroll forward or backwards. I think it is possible to pause and resume. I've seen that on GitHub and restart, but users cannot drag wildly different so that is why usually these are not long. And then another element is obviously videos. So videos are of various types, like illustration videos hand drawn, whiteboard drawings or recordings, whiteboards, recording or iPad, iPad or hand whiteboard is more or less the same. It's a different tool. That's all there is pen, there is surface to write, whether it is iPad or whiteboard. But if it is whiteboard, most likely human face is going to probably it's hard to remove it, I guess. Or maybe it's still possible. Maybe we can stand some far off and we can have the camera here and draw that that is also an option, or iPad with the pen on it and the camera from top down. So those are ways to do it, and screen recordings and or a combination of both iPad explanations and screen recording, these require editing and nirshad might be able to help us to edit, but so the stock steps so for PNGs and jits, PNGs don't need any preparation. We just have to decide which what should again, PNGs are also of same type, either it is hand sketch showing some architecture diagram or something, or it can also be a screenshot from the app, from either from the app or from figma, If you need any customizations and GIF also require like, some type of screen recording and then convert it into GIFs. We can do hand sketches with GIFs. Oh, well, hand sketches with GIFs are also possible. I tested it out, which is, we can do a screen record of this thing iPad where we draw, or, like, do some type of animation and record it and convert it into a GIF. This is also good hack. You can do colors, icons and all of that on the iPad, so we have that. And then we say, we simply, like, draw a connection, and then connection back. And if you record it, it becomes a nice GIF, unless, unlike a static image where we have like, two points, A and B, if you want to show an interaction, yeah, just hands drawn sketch will help. Or we can say, put a and b first, and then start recording the iPad, and then do something like this, and then something like this, so it becomes more interactive. That's that's like a lightweight way to create GIFs, but engaging. So coming to videos, the workflow for videos is obviously record, edit and publish. However, for all these three, all of these are regardless of the format, the important part is, what do we want to convey? What is, what is the message that we are trying to get, get across to the visitors, and because we don't want to record long videos. That is where these section titles come in, right? So they obviously, they're already very narrowly scoped that which is helpful. Up until now, all of the initiatives to create the content have failed because of that broader scope. Yeah. Also, are we not
 
@@ -244,7 +244,7 @@ first question when I asked why to highlight conversational AI, I think we are a
 Swarup Donepudi  47:27  
 yeah. That's what people will learn about what we do within like first maybe three, four seconds or like, as they scroll to the next part. And as I said, no one is going to visit our website without them being brought there with some initial context. And people will only go there if they like the context, and if they if they have a problem in that area, in that space. Okay, so, yeah, tomorrow, it's a 48 minute recording already tomorrow we are going to start with, how do we want to construct this? I don't know what to call this. GitHub writes it as coaches, plan, collaborate, automate, secure. No, it's actually it feels like a sentence, read it, read it in sequence. Okay? Code, plan, collaborate, automate, secure, like it's like a sentence works, put in sequence, right? So we can come up with something similar. What you can do with plant and Pro Plan number, I think that's, yeah, exactly the aim of the that is the theme here, right? What can you do with GitHub is you can code, plan, collaborate, automate and secure, cool. I think in our case also, we can definitely do yes, yeah. I see collaborate, yeah, Bootstrap, build, deploy, yeah, and then operate. Day to Ops is a big thing. And in fact, day two Ops is actually a pretty big thing. We kind of built Kubernetes features and then eventually called it day two ops, right? But I've seen Day Two plus operations as a big deal in a lot of conversations. So I think we can do something like that on that. Maybe audit we'll see. So we'll continue tomorrow. I think this is good conversation. I finally feel like we can make progress, because I'm getting action items from each of these, like, if I know what to record, what GIFs to create, what should be the story within that gif, I have the tools I can clearly capture them and finalize them quickly. So sure, cool. Thank you, Suresh, thank you so much for your time. Yeah. Thank you Swarup. First long procedure.
 
-## ~/scm/github.com/plantoncloud-inc/planton.ai/workspace/media-discussions/transcriptions/01-landing-page/landing-page.p2.md
+## ~/scm/github.com/plantonhq/planton.ai/workspace/media-discussions/transcriptions/01-landing-page/landing-page.p2.md
 Swarup Donepudi  0:00  
 Okay, going back. So good swap, build, deploy, deploy, deploy. Build will have a conversation with plantor saying, Hey, can you add GitHub actions to my repository to set up build automation for building and, yeah, the same things that we talked about. Then deploy, then it will conversation. Hey, I want to deploy my service. I will ask, where is your repository? And then it says, Would you like to deploy to Kubernetes? It will say, yes, okay, what is your name of the service? And it will show the micro service thing and, or maybe it can be as simple as, okay, I have added GitHub a pull request to add this thing, and the pull request screenshot will show customize and something like that, right? Okay, so, so far, Bootstrap, build and deploy. Yeah, these three
 
@@ -506,7 +506,7 @@ Swarup Donepudi  27:25
 yeah. And then there is a dedicated page for you. So and the hero element will may have the same video as as the media, but now going going for each of these, everything has a section title and section description, and here we want to show. We don't have to show a lot of videos. Now, if ever we feel like, okay, this this section, we can show something from the app, and that can be simple recording, but the goal of our conversation is to finalize those things, yes. So decide whether or not we want to show anything from the app at all, if it is a simple screenshot, or if it is from figma. Put it like, for example, high cost of waiting. This can also be just an animation, right? There is nothing on our app to show high cost of waiting. It's a story or value problem that we are saying. So this can be an animation like illustration outside graphic, and unleash the power of self service. So we say this thing again, do we want to put an animation here, or do we want to show something on our app? Recording stuff from our app is the easiest way to add media Everything else requires extra work. So we'll keep that in mind and we'll finalize. So we will do one feature for session going forward. Yeah. Okay. All right, I'm concluding the session here, it's another good discussion.
 
 
-## ~/scm/github.com/plantoncloud-inc/planton.ai/workspace/media-discussions/transcriptions/01-landing-page/landing-page.p3.idp-illustration.md
+## ~/scm/github.com/plantonhq/planton.ai/workspace/media-discussions/transcriptions/01-landing-page/landing-page.p3.idp-illustration.md
 Swarup Donepudi  0:09  
 Okay, so first, let's go over the section where we highlight Kubernetes dashboard on the landing page. So the structure of this landing page itself is, you have the hero section and then followed by problem statement section, saying, This is what we do with the title. And this was primarily introduced to clearly say that we are we fall under internal development platform, because DevOps can mean many things, many platforms, and we want to highlight that this is an internal platform. So,
 
@@ -808,7 +808,7 @@ Suresh Attaluri  33:38
 expectation I.
 
 
-## ~/scm/github.com/plantoncloud-inc/planton.ai/workspace/media-discussions/transcriptions/01-landing-page/landing-page.p4.features.md
+## ~/scm/github.com/plantonhq/planton.ai/workspace/media-discussions/transcriptions/01-landing-page/landing-page.p4.features.md
 Swarup Donepudi  0:00  
 This. Okay, so, continuing the previous discussion, where we talked about, what did we talk about? Yeah, the illustration, illustration for the internal developer platform. So we decided that the hero section is good, and we discussed what changes are needed for this animation, and then followed up with the same GitHub like illustration video, not for different forms, yeah, not directly the illustration video. First, we will have these kind, this kind of categorization. And we talked about what to show in each of the categories. We recorded that as one video, and then we moved on to the next step, the product definition section, and that is this guy. Also
 
@@ -975,7 +975,7 @@ Swarup Donepudi  15:21
 continue next. okay, this is good conversation.
 
 
-## ~/scm/github.com/plantoncloud-inc/planton.ai/workspace/media-discussions/transcriptions/01-landing-page/landing-page.p5.features-2.md
+## ~/scm/github.com/plantonhq/planton.ai/workspace/media-discussions/transcriptions/01-landing-page/landing-page.p5.features-2.md
 Unknown Speaker  0:38  
 Okay, so I'll Start
 
@@ -1189,7 +1189,7 @@ Swarup Donepudi  29:01
 and then the generality part is the visibility or transparency, like, which modules have been created by whom, where are they published? What is the like washing and how do you consume that? What are the steps involved in consuming side things and what, what infrastructure got created and who created them? So these are difficult questions to find answers for in growing companies, in general and larger companies, it becomes even difficult. So we are solving the problem of creating the automation and share publishing the automation in the first place, right? And then we are also solving, somewhat improving the overall quality of life for developers to discover that automation and consume that automation, right? So that is, and Kubernetes dashboard. This is for, again, mostly highlighting what that we did, but as a feature set, I think, yeah, actually, this falls under the operation part, yeah, yeah. So it's not only for services, right? So you deploy a Redis, or you deploy Mongo, it's in those are not maybe we thought we'll put the also, those also in services up. But for now, you can, if it's fair to say, you deploy anything on the Kubernetes Oh, well, you can. So there is actually a lot more to Kubernetes than just services. Like, for example, you deploy GKs cluster, you can have access to the entire GK cluster dashboard. Again, this is not, we didn't invent this, but this is more around application oriented Kubernetes visualizations, so meaning, you deploy your services, you deploy MongoDB, whatever, right? You are only going to see the resources that are created for it, etc, etc. So while Kubernetes dashboard, it's difficult for developers to navigate and find what they want. Now we have integrated Kubernetes, simplified Kubernetes dashboard around the deployed services. Okay, while we are also providing cluster level resources, like all namespaces, all resources is more for cluster administrators and administration, but this is more for more valuable for like individual developers who deploy services, they get immediate, instant access to that. So we want to highlight it. We don't want to hide it again under the service. That's the intention here. And again, we will decide the image that we are going to put after we create the video. And video is pretty straightforward there. We can simply show what is available, like the all the features. Like you can edit you can look up all the Kubernetes resources created for your service. You can edit them. You can stream logs for your pods. You can exec into the containers. So these are like the first straightforward, straightforward value, value giving feature. So we'll demonstrate those, and we'll do the same screenshots here. I think that's good. Okay, I think it's 31 minutes. Will this is the last one. I guess our last two. Will continue them later. Okay, do you have any concluding notes here? Or are you good? I
 
 
-## ~/scm/github.com/plantoncloud-inc/planton.ai/workspace/media-discussions/transcriptions/02-features/f1-plantora-1.md
+## ~/scm/github.com/plantonhq/planton.ai/workspace/media-discussions/transcriptions/02-features/f1-plantora-1.md
 Swarup Donepudi  0:04  
 All right, so again, the focus is to continue the discussions, and because we have already finished the landing page, now we are jumping on to the feature pages, and here we are going to first begin with plant aura AI, the world's first DevOps co pilot, and this is what we are trying to advertise it as. So I will navigate to that page on figma, and here it is, and I recall as considering a replacement for the current hero section title, which says transforms, transform DevOps with conversational AI. And we thought a better replacement could be platform engineer on duty 24/7 so Suresh, what do you think?
 
@@ -1700,7 +1700,7 @@ Swarup Donepudi  54:49
 your team is collaborating on that resource with you. Yeah, the chat is free of that particular deployment. Deployed resource is the. And your team is collaborating. Somebody comes into does something, somebody else comes in. So that's, that's the highlight, which is collaborate discussion. Will have one discussion where we dedicatedly talk about the APA resource chats, the importance of them, and the team collaboration aspect there, and locating the configuration right alongside and the bot will already know that you are talking about the it knows the context because it is right, and the shared chats where you can collaborate with your team on random aspects. So I think those two will be added as two separate sections on the plant aura Features page. Yes. Okay. Now I was talking about this interesting feature, right? So I said I wanted to update the configuration. Yeah, as well. I want to update the third record of the MX record to change it from one to eight, okay. I want to change the third value of MX record to replace with one to eight, okay. And it did give me, gave me the unified F. And I said, Yeah, but before proceeding, can you show me the full updated state? And it showed me the right value, okay, so yeah, this is, like, I felt very good because of, yeah. These are, like, not easy, and the fact that, and we didn't build for this, right? We didn't write any conditional to say if it is a list, and I was able to figure out smartly. So this has lots and lots of value, I felt. So, yeah, concluding, we will continue the discussion to discuss about those two. We'll have another discussion. I think we talked about everything else on the page, so that's a good discussion. Any closing remarks? No, can you stop i.
 
 
-## ~/scm/github.com/plantoncloud-inc/planton.ai/workspace/media-discussions/transcriptions/02-features/f1-plantora-2.md
+## ~/scm/github.com/plantonhq/planton.ai/workspace/media-discussions/transcriptions/02-features/f1-plantora-2.md
 Swarup Donepudi  0:10  
 Okay, here we are another good, good morning. Okay, so with
 
@@ -1984,7 +1984,7 @@ Suresh Attaluri  34:56
 teammate. Likewise. Thank you likewise, much. Do
 
 
-## ~/scm/github.com/plantoncloud-inc/planton.ai/workspace/media-discussions/transcriptions/02-features/f2.self-service-devops.p1.history.md
+## ~/scm/github.com/plantonhq/planton.ai/workspace/media-discussions/transcriptions/02-features/f2.self-service-devops.p1.history.md
 Suresh Attaluri  0:10  
 Okay, Suresh, would you like to begin?
 
@@ -2185,7 +2185,7 @@ the first main space section below, main section videos, series,
 
 initial, first one, two videos, you scenario.
 
-## ~/scm/github.com/plantoncloud-inc/planton.ai/workspace/media-discussions/transcriptions/02-features/f2.self-service-devops.p2.iac-module-script.md
+## ~/scm/github.com/plantonhq/planton.ai/workspace/media-discussions/transcriptions/02-features/f2.self-service-devops.p2.iac-module-script.md
 Suresh Attaluri  0:04  
 Okay, so welcome back Swarup, this is our second video.
 
@@ -2563,7 +2563,7 @@ Oh,
 Suresh Attaluri  39:38  
 can they sections easier? I To lacuna believe video script, or most of the discussion, IP address.
 
-## ~/scm/github.com/plantoncloud-inc/planton.ai/workspace/media-discussions/transcriptions/02-features/f2.self-service-devops.p3.md
+## ~/scm/github.com/plantonhq/planton.ai/workspace/media-discussions/transcriptions/02-features/f2.self-service-devops.p3.md
 Swarup Donepudi  0:05  
 Okay, I think I don't know if the page is actually structured according to this discussion we have. So the hero section, and then we are, this is the problem statement section,
 
@@ -2659,7 +2659,7 @@ Suresh Attaluri  10:17
 i demos you immediate.
 
 
-## ~/scm/github.com/plantoncloud-inc/planton.ai/workspace/media-discussions/transcriptions/02-features/f3.service-hub.md
+## ~/scm/github.com/plantonhq/planton.ai/workspace/media-discussions/transcriptions/02-features/f3.service-hub.md
 Unknown Speaker  0:10  
 Oh, do you Yeah,
 
@@ -3105,7 +3105,7 @@ Swarup Donepudi  45:28
 that for the deployment. We can grab that ingress endpoint and show it so it is for environment, not for service, yeah, not always services. When you're saying even for secrets and stuff, right? It is at environment level only, yeah, and remove the Customize and extend service ecosystem. I think this is good, okay, concluding, I think I don't know it's good more than enough As for this irrelevant, this will be replaced with the videos, itself, videos, and scripts we decided, will come back. Yeah.
 
 
-## ~/scm/github.com/plantoncloud-inc/planton.ai/workspace/media-discussions/transcriptions/02-features/f4.iac-workflows.md
+## ~/scm/github.com/plantonhq/planton.ai/workspace/media-discussions/transcriptions/02-features/f4.iac-workflows.md
 Swarup Donepudi  0:02  
 Okay, the meeting recording began, and we are going to talk about ISC workflows. Flow to you, Suresh,
 
@@ -3323,7 +3323,7 @@ Suresh Attaluri  20:45
 I think that covers. I see one source, kind of a shorter width.
 
 
-## ~/scm/github.com/plantoncloud-inc/planton.ai/workspace/media-discussions/transcriptions/02-features/f5.k8s-dashboard.p1.md
+## ~/scm/github.com/plantonhq/planton.ai/workspace/media-discussions/transcriptions/02-features/f5.k8s-dashboard.p1.md
 Swarup Donepudi  0:21  
 Okay, I moved the camera. But because you want to be covered. The camera is here
 
@@ -3511,7 +3511,7 @@ Swarup Donepudi  19:04
 conclude the meeting here. Okay, and we'll continue the next meeting with the starting with the script for the main video itself. Maybe we can also do four different smaller videos where we are showing the exploration part, being able to do some operations like edit the resources and being able to exit into container and being able to log, stream logs. Are you talking about the video script? Yeah, we'll do four smaller videos. We'll begin our next conversation around the scripts for each either each of the videos or four different videos. Okay, I'm stopping this here. Any closing notes, no, no. Okay, perfect.
 
 
-## ~/scm/github.com/plantoncloud-inc/planton.ai/workspace/media-discussions/transcriptions/02-features/f5.k8s-dashboard.p2.md
+## ~/scm/github.com/plantonhq/planton.ai/workspace/media-discussions/transcriptions/02-features/f5.k8s-dashboard.p2.md
 Swarup Donepudi  0:00  
 Yeah, okay, so going back, yeah, we are doing that problem on every page, oh,
 
@@ -3615,7 +3615,7 @@ Suresh Attaluri  9:19
 can I stop? No, I think we can consider the two minutes dashboard has done.
 
 
-## ~/scm/github.com/plantoncloud-inc/planton.ai/workspace/media-discussions/transcriptions/02-features/f6.auditable-intelligence.md
+## ~/scm/github.com/plantonhq/planton.ai/workspace/media-discussions/transcriptions/02-features/f6.auditable-intelligence.md
 Swarup Donepudi  0:02  
 Okay, floor to use,
 

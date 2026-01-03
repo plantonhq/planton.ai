@@ -54,7 +54,7 @@ The rule includes website-specific component categories:
 
 ### Rule Structure
 
-Created `~/scm/github.com/plantoncloud/planton.ai/.cursor/rules/create-planton-ai-changelog.mdc` with:
+Created `~/scm/github.com/plantonhq/planton.ai/.cursor/rules/create-planton-ai-changelog.mdc` with:
 
 ```markdown
 ---

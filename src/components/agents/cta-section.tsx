@@ -98,7 +98,7 @@ export const CTASection = () => {
               Want to build your own agents?
             </Typography>
             <Link
-              href="https://github.com/plantoncloud/graphton"
+              href="https://github.com/plantonhq/graphton"
               target="_blank"
               className="text-blue-400 hover:text-blue-300 text-base font-medium transition-colors"
             >

@@ -260,7 +260,7 @@ This progression makes the value immediately clear and shows the actual product 
 
 All curated charts are open source:
 
-**Repository**: [github.com/plantoncloud/infra-charts](https://github.com/plantoncloud/infra-charts)
+**Repository**: [github.com/plantonhq/infra-charts](https://github.com/plantonhq/infra-charts)
 
 Each chart includes:
 - `Chart.yaml` (metadata)

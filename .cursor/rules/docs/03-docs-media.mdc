@@ -40,7 +40,7 @@ When adding images to documentation:
 ```markdown
 ![Dashboard](https://img.swarup.dev/planton-cloud-screenshots/dashboard.png)  # Wrong domain
 ![Local Image](/images/dashboard.png)  # Local path
-![GitHub Image](https://github.com/plantoncloud/planton.ai/raw/main/images/dashboard.png)  # GitHub URL
+![GitHub Image](https://github.com/plantonhq/planton.ai/raw/main/images/dashboard.png)  # GitHub URL
 ```
 
 ## Image Organization

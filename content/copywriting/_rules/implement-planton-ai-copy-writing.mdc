@@ -63,7 +63,7 @@ Before triggering this rule:
    - **Then**: Analyze `src/` components to determine implementation
 
 3. **Ensure repository state**: Make sure you're in the planton.ai workspace
-   - Working directory: `/Users/swarup/scm/github.com/plantoncloud/planton.ai`
+   - Working directory: `/Users/swarup/scm/github.com/plantonhq/planton.ai`
    - Clean working tree (no conflicting uncommitted changes)
 
 ## Workflow Overview
@@ -582,7 +582,7 @@ As you update each component, report progress:
 
 1. **Start dev server**:
    ```bash
-   cd /Users/swarup/scm/github.com/plantoncloud/planton.ai
+   cd /Users/swarup/scm/github.com/plantonhq/planton.ai
    yarn dev
    ```
 

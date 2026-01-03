@@ -417,7 +417,7 @@ Only platform combining:
 ### For User Review
 1. **Open preview in browser**:
    ```
-   file:///Users/swarup/scm/github.com/plantoncloud/planton.ai/content/copywriting/_stage-area/2025-12-31-landing-page-marketing-optimization/preview-1.html
+   file:///Users/swarup/scm/github.com/plantonhq/planton.ai/content/copywriting/_stage-area/2025-12-31-landing-page-marketing-optimization/preview-1.html
    ```
 
 2. **Review key sections**:
