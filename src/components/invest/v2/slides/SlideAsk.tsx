@@ -75,83 +75,131 @@ function SafeExplainerModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
           >
-            <div className="bg-gradient-to-br from-[#0f0f1a] to-[#1a1a2e] border border-white/20 rounded-2xl p-4 sm:p-6 w-full max-w-3xl max-h-[90vh] overflow-y-auto relative">
+            <div className="bg-gradient-to-br from-[#0f0f1a] to-[#1a1a2e] border border-white/20 rounded-xl sm:rounded-2xl p-3 sm:p-5 w-full max-w-3xl max-h-[85vh] overflow-y-auto relative">
               {/* Close button */}
               <button
                 onClick={onClose}
-                className="absolute top-3 right-3 p-2 text-white/50 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                className="absolute top-2 right-2 sm:top-3 sm:right-3 p-1.5 text-white/50 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
                 aria-label="Close modal"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
 
-              <h4 className="text-lg sm:text-xl font-bold text-white mb-4 text-center pr-8">
+              <h4 className="text-sm sm:text-xl font-bold text-white mb-2 sm:mb-3 text-center pr-6 sm:pr-8">
                 SAFE = Simple Agreement for Future Equity
               </h4>
               
-              {/* Two-column benefits */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4">
-                <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-3 sm:p-4">
-                  <h5 className="text-emerald-400 font-semibold text-sm mb-2">For Planton</h5>
-                  <ul className="space-y-2 text-sm text-white/70">
-                    <li className="flex items-start gap-1.5">
+              {/* Two-column benefits - side by side even on mobile */}
+              <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-2 sm:mb-3">
+                <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-2 sm:p-3">
+                  <h5 className="text-emerald-400 font-semibold text-[10px] sm:text-sm mb-1 sm:mb-1.5">For Planton</h5>
+                  <ul className="space-y-0.5 sm:space-y-1.5 text-[10px] sm:text-xs text-white/70">
+                    <li className="flex items-start gap-1">
                       <span className="text-emerald-400 shrink-0">✓</span>
-                      <span>Receive $500K now to accelerate growth</span>
+                      <span>$500K to accelerate</span>
                     </li>
-                    <li className="flex items-start gap-1.5">
+                    <li className="flex items-start gap-1">
                       <span className="text-emerald-400 shrink-0">✓</span>
-                      <span>No valuation negotiation delays</span>
+                      <span>No valuation delays</span>
                     </li>
-                    <li className="flex items-start gap-1.5">
+                    <li className="flex items-start gap-1">
                       <span className="text-emerald-400 shrink-0">✓</span>
-                      <span>Focus on building, not fundraising</span>
+                      <span>Focus on building</span>
                     </li>
                   </ul>
                 </div>
-                <div className="bg-violet-500/10 border border-violet-500/30 rounded-xl p-3 sm:p-4">
-                  <h5 className="text-violet-400 font-semibold text-sm mb-2">For Investor</h5>
-                  <ul className="space-y-2 text-sm text-white/70">
-                    <li className="flex items-start gap-1.5">
+                <div className="bg-violet-500/10 border border-violet-500/30 rounded-lg p-2 sm:p-3">
+                  <h5 className="text-violet-400 font-semibold text-[10px] sm:text-sm mb-1 sm:mb-1.5">For Investor</h5>
+                  <ul className="space-y-0.5 sm:space-y-1.5 text-[10px] sm:text-xs text-white/70">
+                    <li className="flex items-start gap-1">
                       <span className="text-violet-400 shrink-0">✓</span>
-                      <span>Invest early at a discount</span>
+                      <span>Early discount</span>
                     </li>
-                    <li className="flex items-start gap-1.5">
+                    <li className="flex items-start gap-1">
                       <span className="text-violet-400 shrink-0">✓</span>
-                      <span>Converts to equity at Series A</span>
+                      <span>Equity at Series A</span>
                     </li>
-                    <li className="flex items-start gap-1.5">
+                    <li className="flex items-start gap-1">
                       <span className="text-violet-400 shrink-0">✓</span>
-                      <span>Protected by $7M valuation cap</span>
+                      <span>$7M cap protection</span>
                     </li>
                   </ul>
                 </div>
               </div>
 
-              {/* Conversion example */}
-              <div className="bg-white/5 rounded-xl p-3 sm:p-4">
-                <h5 className="text-white font-semibold text-sm mb-3 text-center">How Your $500K Converts</h5>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 text-sm">
-                  <div className="text-center p-3 bg-white/5 rounded-lg w-full sm:w-auto">
-                    <div className="text-white/50 text-xs mb-1">You Invest</div>
-                    <div className="text-xl font-bold text-white">$500K</div>
+              {/* Conversion example - horizontal flow on mobile too */}
+              <div className="bg-white/5 rounded-lg p-2 sm:p-3">
+                <h5 className="text-white font-semibold text-[10px] sm:text-sm mb-1.5 sm:mb-2 text-center">How Your $500K Converts</h5>
+                <div className="flex items-center justify-center gap-1 sm:gap-2.5 text-[10px] sm:text-xs">
+                  <div className="text-center p-1.5 sm:p-2.5 bg-white/5 rounded-md flex-1 sm:flex-none sm:w-auto">
+                    <div className="text-white/50 text-[8px] sm:text-xs">Invest</div>
+                    <div className="text-sm sm:text-xl font-bold text-white">$500K</div>
                   </div>
-                  <ArrowRight className="w-5 h-5 text-white/30 rotate-90 sm:rotate-0 shrink-0" />
-                  <div className="text-center p-3 bg-white/5 rounded-lg w-full sm:w-auto">
-                    <div className="text-white/50 text-xs mb-1">Series A at $20M</div>
-                    <div className="text-xl font-bold text-pink-400">~7% Equity</div>
+                  <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-white/30 shrink-0" />
+                  <div className="text-center p-1.5 sm:p-2.5 bg-white/5 rounded-md flex-1 sm:flex-none sm:w-auto">
+                    <div className="text-white/50 text-[8px] sm:text-xs">@$20M</div>
+                    <div className="text-sm sm:text-xl font-bold text-pink-400">~7%</div>
                   </div>
-                  <ArrowRight className="w-5 h-5 text-white/30 rotate-90 sm:rotate-0 shrink-0" />
-                  <div className="text-center p-3 bg-white/5 rounded-lg w-full sm:w-auto">
-                    <div className="text-white/50 text-xs mb-1">At $100M Valuation</div>
-                    <div className="text-xl font-bold text-emerald-400">$7M (14x)</div>
+                  <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-white/30 shrink-0" />
+                  <div className="text-center p-1.5 sm:p-2.5 bg-white/5 rounded-md flex-1 sm:flex-none sm:w-auto">
+                    <div className="text-white/50 text-[8px] sm:text-xs">@$100M</div>
+                    <div className="text-sm sm:text-xl font-bold text-emerald-400">14x</div>
                   </div>
                 </div>
-                <p className="text-xs text-white/40 text-center mt-3">$7M Valuation Cap • Terms Negotiable</p>
+                <p className="text-[8px] sm:text-xs text-white/40 text-center mt-1.5 sm:mt-2">$7M Cap • Terms Negotiable</p>
+              </div>
+
+              {/* $1000 Investment Example - Desktop only */}
+              <div className="hidden sm:block mt-3">
+                <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/30 rounded-xl p-3.5">
+                  <h5 className="text-amber-400 font-semibold text-sm mb-2.5 text-center">
+                    What Could $1,000 Become?
+                  </h5>
+                  <div className="grid grid-cols-2 gap-3">
+                    {/* Scenario 1: Exit at Cap */}
+                    <div className="bg-white/5 rounded-lg p-3 text-center">
+                      <div className="text-white/50 text-xs mb-1">Exit at $7M (Cap)</div>
+                      <div className="text-2xl font-bold text-white">$1,000</div>
+                      <div className="text-xs text-white/40">1x (break even)</div>
+                    </div>
+                    {/* Scenario 2: Exit at 4x Cap */}
+                    <div className="bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 rounded-lg p-3 text-center border border-emerald-500/20">
+                      <div className="text-white/50 text-xs mb-1">Exit at $28M (4x Cap)</div>
+                      <div className="text-2xl font-bold text-emerald-400">$4,000</div>
+                      <div className="text-xs text-emerald-400/70">4x (+$3K profit)</div>
+                    </div>
+                  </div>
+                  {/* Cap Protection Explanation */}
+                  <div className="mt-3 bg-white/5 rounded-lg p-3">
+                    <p className="text-xs text-white/50 text-center mb-2">
+                      <span className="text-amber-400 font-medium">How the $7M cap protects you</span> — Imagine 1M shares, Series A at $20M:
+                    </p>
+                    <div className="grid grid-cols-2 gap-2.5 text-xs">
+                      <div className="text-center p-2 bg-white/5 rounded-lg">
+                        <div className="text-white/40">Without cap</div>
+                        <div className="text-xl font-bold text-white/80 my-0.5">50 shares</div>
+                        <div className="text-[10px] text-white/40">$20/share</div>
+                      </div>
+                      <div className="text-center p-2 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
+                        <div className="text-white/40">With $7M cap</div>
+                        <div className="text-xl font-bold text-emerald-400 my-0.5">143 shares</div>
+                        <div className="text-[10px] text-emerald-400/60">$7/share</div>
+                      </div>
+                    </div>
+                    <p className="text-[10px] text-white/40 text-center mt-2">
+                      Cap = <span className="text-emerald-400 font-medium">~3x more shares</span> for the same $1,000
+                    </p>
+                  </div>
+                  {/* Market context reference */}
+                  <p className="text-[10px] text-white/30 text-center mt-3 italic">
+                    DevTools companies typically raise Series A at $15-25M valuations. Our $7M cap gives you seed-stage pricing.
+                  </p>
+                </div>
               </div>
 
               {/* Escape hint - desktop only */}
-              <p className="hidden sm:block text-xs text-white/30 text-center mt-4">
-                Press <kbd className="px-1.5 py-0.5 bg-white/10 rounded text-white/50">Esc</kbd> to close
+              <p className="hidden sm:block text-xs text-white/30 text-center mt-3">
+                Press <kbd className="px-1.5 py-0.5 bg-white/10 rounded text-white/50 text-[10px]">Esc</kbd> to close
               </p>
             </div>
           </motion.div>
