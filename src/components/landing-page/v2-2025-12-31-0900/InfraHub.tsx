@@ -256,7 +256,7 @@ export const InfraHub: FC = () => {
 
         <Box className="text-center mt-8">
             <a 
-              href="https://github.com/project-planton/project-planton" 
+              href="https://github.com/plantonhq/project-planton" 
               target="_blank"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] hover:border-[#7c3aed] transition-colors"
             >

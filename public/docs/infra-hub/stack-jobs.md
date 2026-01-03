@@ -126,7 +126,7 @@ spec:
     provisioner: terraform
     iacModule:
       id: iacmod_platform_eks_terraform
-      gitRepo: github.com/project-planton/aws-eks
+      gitRepo: github.com/plantonhq/aws-eks
       branch: v2.3.0
       path: terraform
       

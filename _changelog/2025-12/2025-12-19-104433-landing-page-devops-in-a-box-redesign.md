@@ -147,7 +147,7 @@ All CTAs properly linked:
 - **Book Demo / Watch Demo** → Google Forms demo request
 - **Request Early Access** → Google Forms demo request
 - **Pricing** → `/pricing` (internal)
-- **GitHub links** → `https://github.com/project-planton/project-planton`
+- **GitHub links** → `https://github.com/plantonhq/project-planton`
 
 ### Files Modified
 

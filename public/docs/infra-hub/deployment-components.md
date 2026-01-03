@@ -513,7 +513,7 @@ Wrap platform components with your customizations:
 ```hcl
 # your-module/main.tf
 module "base_eks" {
-  source = "github.com/project-planton/aws-eks//terraform"
+  source = "github.com/plantonhq/aws-eks//terraform"
   
   # Pass through standard inputs
   metadata = var.metadata

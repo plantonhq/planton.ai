@@ -75,7 +75,7 @@ Every Lego Block comes with:
 
 All Lego Blocks are part of **Project Planton**, an open-source multi-cloud infrastructure framework:
 
-**GitHub Repository**: [github.com/project-planton/project-planton](https://github.com/project-planton/project-planton)
+**GitHub Repository**: [github.com/plantonhq/project-planton](https://github.com/plantonhq/project-planton)
 
 **This means**:
 - Complete transparency—see exactly what code gets executed

@@ -80,12 +80,12 @@ export default function ProjectPlantonIntro() {
             <div className="flex items-center justify-center gap-2 text-gray-700">
               <Github className="w-5 h-5" />
               <a 
-                href="https://github.com/project-planton/project-planton" 
+                href="https://github.com/plantonhq/project-planton" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="font-mono text-sm hover:text-violet-600 transition-colors"
               >
-                github.com/project-planton/project-planton
+                github.com/plantonhq/project-planton
               </a>
             </div>
           </div>

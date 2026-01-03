@@ -163,7 +163,7 @@ Stop reinventing the wheel. Browse our carefully crafted deployment components f
 **Azure:** AKS, Azure Functions, Azure SQL, Storage Accounts, and more
 
 **All Open Source:**
-Every deployment component lives in the [Project Planton repository](https://github.com/project-planton/project-planton). Audit the exact Terraform and Pulumi code. Contribute improvements. No black boxes.
+Every deployment component lives in the [Project Planton repository](https://github.com/plantonhq/project-planton). Audit the exact Terraform and Pulumi code. Contribute improvements. No black boxes.
 
 **Visual Direction:** Screenshot of Deployment Component Store browser showing categorized components by cloud provider
 
@@ -293,7 +293,7 @@ Most DevOps platforms are black boxes. You trust them with your infrastructure, 
 **Headline:** Audit Every Line of Infrastructure Code
 
 **Body Copy:**
-Every Terraform module and Pulumi component used by Planton lives in the public [Project Planton repository](https://github.com/project-planton/project-planton). Want to know exactly what IAM permissions the AWS ALB deployment requires? Read the code. Concerned about security groups? Audit the Terraform files yourself.
+Every Terraform module and Pulumi component used by Planton lives in the public [Project Planton repository](https://github.com/plantonhq/project-planton). Want to know exactly what IAM permissions the AWS ALB deployment requires? Read the code. Concerned about security groups? Audit the Terraform files yourself.
 
 **What's Open Source:**
 - All Terraform modules for every deployment component
@@ -1023,7 +1023,7 @@ Planton never asks for `AdministratorAccess` or wildcard permissions. Every depl
 **How It Works:**
 
 **1. Audit the Terraform Code:**
-All deployment components are open source in [Project Planton repository](https://github.com/project-planton/project-planton). Read the exact resources being created.
+All deployment components are open source in [Project Planton repository](https://github.com/plantonhq/project-planton). Read the exact resources being created.
 
 **2. Generate Scoped IAM Policy:**
 Each component includes documented IAM permissions. Example for AWS ALB:
@@ -1279,7 +1279,7 @@ Display as badges/icons with text:
 DevOps-in-a-Box: From Code to Cloud in Under an Hour
 
 **Open Source:**  
-[github.com/project-planton/project-planton](https://github.com/project-planton/project-planton)
+[github.com/plantonhq/project-planton](https://github.com/plantonhq/project-planton)
 
 **Contact:**  
 support@planton.cloud
@@ -1357,7 +1357,7 @@ Copy is intentionally detailed to provide full context. Feel free to:
 Bold and italics already applied in markdown. Translate to appropriate HTML/CSS styling.
 
 **Links:**
-- All GitHub links point to `github.com/project-planton/project-planton`
+- All GitHub links point to `github.com/plantonhq/project-planton`
 - CTAs should link to:
   - Trial signup flow
   - Demo booking (Calendly or equivalent)

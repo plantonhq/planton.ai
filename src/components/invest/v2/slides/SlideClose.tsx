@@ -59,7 +59,7 @@ export default function SlideClose() {
           planton.ai
         </a>
         <a
-          href="https://github.com/project-planton/project-planton"
+          href="https://github.com/plantonhq/project-planton"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-1.5 text-white/60 hover:text-white transition-colors"

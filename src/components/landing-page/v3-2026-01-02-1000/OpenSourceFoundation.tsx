@@ -61,7 +61,7 @@ export const OpenSourceFoundation: FC = () => {
           </Stack>
           
           <a 
-            href="https://github.com/project-planton/project-planton"
+            href="https://github.com/plantonhq/project-planton"
             target="_blank"
             className="inline-flex items-center gap-2 text-[#7c3aed] hover:text-[#a78bfa] transition-colors"
           >
