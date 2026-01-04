@@ -149,49 +149,49 @@ function SafeExplainerModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
                 <p className="text-[8px] sm:text-xs text-white/40 text-center mt-1.5 sm:mt-2">$7M Cap • Terms Negotiable</p>
               </div>
 
-              {/* $1000 Investment Example - Desktop only */}
-              <div className="hidden sm:block mt-3">
-                <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/30 rounded-xl p-3.5">
-                  <h5 className="text-amber-400 font-semibold text-sm mb-2.5 text-center">
+              {/* $1000 Investment Example */}
+              <div className="mt-5 sm:mt-8">
+                <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/30 rounded-lg sm:rounded-xl p-2 sm:p-3.5">
+                  <h5 className="text-amber-400 font-semibold text-[10px] sm:text-sm mb-1.5 sm:mb-2.5 text-center">
                     What Could $1,000 Become?
                   </h5>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-2 sm:gap-3">
                     {/* Scenario 1: Exit at Cap */}
-                    <div className="bg-white/5 rounded-lg p-3 text-center">
-                      <div className="text-white/50 text-xs mb-1">Exit at $7M (Cap)</div>
-                      <div className="text-2xl font-bold text-white">$1,000</div>
-                      <div className="text-xs text-white/40">1x (break even)</div>
+                    <div className="bg-white/5 rounded-md sm:rounded-lg p-1.5 sm:p-3 text-center">
+                      <div className="text-white/50 text-[8px] sm:text-xs mb-0.5 sm:mb-1">Exit at $7M (Cap)</div>
+                      <div className="text-base sm:text-2xl font-bold text-white">$1,000</div>
+                      <div className="text-[8px] sm:text-xs text-white/40">1x (break even)</div>
                     </div>
                     {/* Scenario 2: Exit at 4x Cap */}
-                    <div className="bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 rounded-lg p-3 text-center border border-emerald-500/20">
-                      <div className="text-white/50 text-xs mb-1">Exit at $28M (4x Cap)</div>
-                      <div className="text-2xl font-bold text-emerald-400">$4,000</div>
-                      <div className="text-xs text-emerald-400/70">4x (+$3K profit)</div>
+                    <div className="bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 rounded-md sm:rounded-lg p-1.5 sm:p-3 text-center border border-emerald-500/20">
+                      <div className="text-white/50 text-[8px] sm:text-xs mb-0.5 sm:mb-1">Exit at $28M (4x Cap)</div>
+                      <div className="text-base sm:text-2xl font-bold text-emerald-400">$4,000</div>
+                      <div className="text-[8px] sm:text-xs text-emerald-400/70">4x (+$3K profit)</div>
                     </div>
                   </div>
                   {/* Cap Protection Explanation */}
-                  <div className="mt-3 bg-white/5 rounded-lg p-3">
-                    <p className="text-xs text-white/50 text-center mb-2">
+                  <div className="mt-1.5 sm:mt-3 bg-white/5 rounded-md sm:rounded-lg p-1.5 sm:p-3">
+                    <p className="text-[8px] sm:text-xs text-white/50 text-center mb-1 sm:mb-2">
                       <span className="text-amber-400 font-medium">How the $7M cap protects you</span> — Imagine 1M shares, Series A at $20M:
                     </p>
-                    <div className="grid grid-cols-2 gap-2.5 text-xs">
-                      <div className="text-center p-2 bg-white/5 rounded-lg">
-                        <div className="text-white/40">Without cap</div>
-                        <div className="text-xl font-bold text-white/80 my-0.5">50 shares</div>
-                        <div className="text-[10px] text-white/40">$20/share</div>
+                    <div className="grid grid-cols-2 gap-1.5 sm:gap-2.5 text-[10px] sm:text-xs">
+                      <div className="text-center p-1 sm:p-2 bg-white/5 rounded-md sm:rounded-lg">
+                        <div className="text-white/40 text-[8px] sm:text-xs">Without cap</div>
+                        <div className="text-sm sm:text-xl font-bold text-white/80 my-0.5">50 shares</div>
+                        <div className="text-[8px] sm:text-[10px] text-white/40">$20/share</div>
                       </div>
-                      <div className="text-center p-2 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
-                        <div className="text-white/40">With $7M cap</div>
-                        <div className="text-xl font-bold text-emerald-400 my-0.5">143 shares</div>
-                        <div className="text-[10px] text-emerald-400/60">$7/share</div>
+                      <div className="text-center p-1 sm:p-2 bg-emerald-500/10 rounded-md sm:rounded-lg border border-emerald-500/20">
+                        <div className="text-white/40 text-[8px] sm:text-xs">With $7M cap</div>
+                        <div className="text-sm sm:text-xl font-bold text-emerald-400 my-0.5">143 shares</div>
+                        <div className="text-[8px] sm:text-[10px] text-emerald-400/60">$7/share</div>
                       </div>
                     </div>
-                    <p className="text-[10px] text-white/40 text-center mt-2">
+                    <p className="text-[8px] sm:text-[10px] text-white/40 text-center mt-1 sm:mt-2">
                       Cap = <span className="text-emerald-400 font-medium">~3x more shares</span> for the same $1,000
                     </p>
                   </div>
                   {/* Market context reference */}
-                  <p className="text-[10px] text-white/30 text-center mt-3 italic">
+                  <p className="text-[8px] sm:text-[10px] text-white/30 text-center mt-1.5 sm:mt-3 italic">
                     DevTools companies typically raise Series A at $15-25M valuations. Our $7M cap gives you seed-stage pricing.
                   </p>
                 </div>
