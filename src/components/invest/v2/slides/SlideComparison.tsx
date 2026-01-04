@@ -43,14 +43,14 @@ function StatusCell({ value }: { value: boolean | string }) {
   // On mobile: just center the icon (no text shown)
   // On desktop: icon starts at consistent position, text flows right
   return (
-    <div className="flex items-center justify-center sm:justify-start sm:pl-[calc(50%-8px)]">
-      <span className="w-4 h-4 flex items-center justify-center shrink-0">
-        {type === 'yes' && <CheckIcon className="w-3 h-3 sm:w-4 sm:h-4" />}
-        {type === 'no' && <XIcon className="w-3 h-3 sm:w-4 sm:h-4" />}
-        {type === 'partial' && <WarningIcon className="w-3 h-3 sm:w-4 sm:h-4" />}
+    <div className="flex items-center justify-center sm:justify-start sm:pl-[calc(50%-10px)]">
+      <span className="w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center shrink-0">
+        {type === 'yes' && <CheckIcon className="w-3 h-3 sm:w-5 sm:h-5" />}
+        {type === 'no' && <XIcon className="w-3 h-3 sm:w-5 sm:h-5" />}
+        {type === 'partial' && <WarningIcon className="w-3 h-3 sm:w-5 sm:h-5" />}
       </span>
       {display && (
-        <span className={`hidden sm:inline text-xs ml-1 whitespace-nowrap ${
+        <span className={`hidden sm:inline text-sm ml-1.5 whitespace-nowrap ${
           type === 'yes' ? 'text-emerald-400 font-medium' : 
           type === 'no' ? 'text-red-400' : 
           type === 'partial' ? 'text-amber-400' : 'text-white/60'
@@ -71,25 +71,25 @@ export default function SlideComparison() {
       </SlideSubtitle>
 
       {/* Comparison Table */}
-      <div className="w-full max-w-3xl mx-auto bg-white/5 border border-white/10 rounded-xl overflow-hidden">
+      <div className="w-full max-w-3xl sm:max-w-4xl mx-auto bg-white/5 border border-white/10 rounded-xl overflow-hidden">
         {/* Header */}
-        <div className="grid grid-cols-5 gap-1 sm:gap-2 p-2 sm:p-3 bg-white/5 border-b border-white/10">
-          <div className="text-xs text-white/50 text-left">Feature</div>
-          <div className="text-xs text-white font-semibold text-center">Planton</div>
-          <div className="text-xs text-white/50 text-center">Terraform</div>
-          <div className="text-xs text-white/50 text-center">Vercel</div>
-          <div className="text-xs text-white/50 text-center">Heroku</div>
+        <div className="grid grid-cols-5 gap-1 sm:gap-4 p-2 sm:p-4 bg-white/5 border-b border-white/10">
+          <div className="text-xs sm:text-sm text-white/50 text-left">Feature</div>
+          <div className="text-xs sm:text-sm text-white font-semibold text-center">Planton</div>
+          <div className="text-xs sm:text-sm text-white/50 text-center">Terraform</div>
+          <div className="text-xs sm:text-sm text-white/50 text-center">Vercel</div>
+          <div className="text-xs sm:text-sm text-white/50 text-center">Heroku</div>
         </div>
         
         {/* Rows */}
         {comparisonData.map((row, index) => (
           <div 
             key={row.feature}
-            className={`grid grid-cols-5 gap-1 sm:gap-2 p-2 sm:p-3 ${
+            className={`grid grid-cols-5 gap-1 sm:gap-4 p-2 sm:p-4 ${
               index < comparisonData.length - 1 ? 'border-b border-white/10' : ''
             }`}
           >
-            <div className="text-xs text-white/70 text-left">{row.feature}</div>
+            <div className="text-xs sm:text-sm text-white/70 text-left">{row.feature}</div>
             <StatusCell value={row.planton} />
             <StatusCell value={row.terraform} />
             <StatusCell value={row.vercel} />
@@ -99,7 +99,7 @@ export default function SlideComparison() {
       </div>
 
       {/* Key differentiator */}
-      <p className="text-xs sm:text-sm text-white/50 mt-4 sm:mt-6 max-w-3xl mx-auto sm:whitespace-nowrap">
+      <p className="text-xs sm:text-base text-white/50 mt-4 sm:mt-8 max-w-3xl sm:max-w-4xl mx-auto sm:whitespace-nowrap">
         <span className="text-emerald-400">✓</span> Only Platform Combining PaaS Developer Experience + IaC Infrastructure + Your Cloud
       </p>
     </Slide>

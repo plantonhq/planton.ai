@@ -131,37 +131,37 @@ function TestimonialCard({
   if (fullWidth) {
     // Full width layout: Quote on top (centered), attribution below (centered)
     return (
-      <div className="bg-white/5 border border-white/10 rounded-lg p-3 sm:p-4 h-full flex flex-col items-center text-center">
+      <div className="bg-white/5 border border-white/10 rounded-lg sm:rounded-xl p-3 sm:p-5 md:p-6 h-full flex flex-col items-center text-center">
         {/* Quote on top */}
-        <p className="text-xs sm:text-sm text-white/70 italic mb-3">
+        <p className="text-xs sm:text-base md:text-lg text-white/70 italic mb-3 sm:mb-4">
           &ldquo;{quote}&rdquo;
         </p>
         
         {/* Attribution below - centered */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 sm:gap-3">
           {avatar ? (
             <Image 
               src={avatar} 
               alt={name} 
-              width={28} 
-              height={28} 
-              className="w-7 h-7 rounded-full object-cover shrink-0"
+              width={40} 
+              height={40} 
+              className="w-7 h-7 sm:w-10 sm:h-10 rounded-full object-cover shrink-0"
             />
           ) : (
-            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center text-white text-xs font-bold shrink-0">
+            <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center text-white text-xs sm:text-sm font-bold shrink-0">
               {name.charAt(0)}
             </div>
           )}
           <div className="min-w-0 text-left">
-            <p className="text-xs font-medium text-white">{name}</p>
-            <p className="text-xs text-white/50">{role}, {company}</p>
+            <p className="text-xs sm:text-sm md:text-base font-medium text-white">{name}</p>
+            <p className="text-xs sm:text-sm text-white/50">{role}, {company}</p>
           </div>
-          <div className="w-5 h-5 shrink-0">
+          <div className="w-5 h-5 sm:w-7 sm:h-7 shrink-0">
             <Image 
               src={logo} 
               alt={company} 
-              width={20} 
-              height={20} 
+              width={28} 
+              height={28} 
               className="w-full h-full object-contain brightness-0 invert opacity-60"
             />
           </div>
@@ -172,39 +172,39 @@ function TestimonialCard({
 
   // Regular card layout
   return (
-    <div className="bg-white/5 border border-white/10 rounded-lg p-3 sm:p-4 text-left h-full flex flex-col">
+    <div className="bg-white/5 border border-white/10 rounded-lg sm:rounded-xl p-3 sm:p-5 md:p-6 text-left h-full flex flex-col">
       {/* Header with avatar and company logo */}
-      <div className="flex items-center gap-2 mb-2">
+      <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
         {avatar ? (
           <Image 
             src={avatar} 
             alt={name} 
-            width={32} 
-            height={32} 
-            className="w-8 h-8 rounded-full object-cover shrink-0"
+            width={40} 
+            height={40} 
+            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover shrink-0"
           />
         ) : (
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center text-white text-xs font-bold shrink-0">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center text-white text-xs sm:text-sm font-bold shrink-0">
             {name.charAt(0)}
           </div>
         )}
         <div className="min-w-0">
-          <p className="text-xs sm:text-sm font-medium text-white">{name}</p>
-          <p className="text-xs text-white/50">{role}, {company}</p>
+          <p className="text-xs sm:text-sm md:text-base font-medium text-white">{name}</p>
+          <p className="text-xs sm:text-sm text-white/50">{role}, {company}</p>
         </div>
-        <div className="w-5 h-5 shrink-0 ml-auto">
+        <div className="w-5 h-5 sm:w-7 sm:h-7 shrink-0 ml-auto">
           <Image 
             src={logo} 
             alt={company} 
-            width={20} 
-            height={20} 
+            width={28} 
+            height={28} 
             className="w-full h-full object-contain brightness-0 invert opacity-60"
           />
         </div>
       </div>
       
       {/* Quote */}
-      <p className="text-xs sm:text-sm text-white/70 italic flex-1">
+      <p className="text-xs sm:text-base md:text-lg text-white/70 italic flex-1">
         &ldquo;{quote}&rdquo;
       </p>
     </div>
@@ -216,9 +216,9 @@ export default function SlideWallOfLove() {
   const allTestimonials = [...row1, ...row2, ...row3];
   
   return (
-    <Slide variant="gradient">
+    <Slide variant="gradient" className="!justify-start !pt-12 sm:!pt-16 md:!pt-20">
       <SlideTitle>They Shipped. We Listened.</SlideTitle>
-      <SlideSubtitle className="mb-2 sm:mb-6 text-[10px] sm:text-sm">
+      <SlideSubtitle className="mb-2 sm:mb-14 md:mb-16 text-[10px] sm:text-sm">
         Voices from Teams Who Moved to Production with Planton
       </SlideSubtitle>
 
@@ -238,9 +238,9 @@ export default function SlideWallOfLove() {
       </div>
 
       {/* Desktop: 2-2-1 Layout */}
-      <div className="hidden sm:flex flex-col gap-4 max-w-4xl mx-auto mb-6">
+      <div className="hidden sm:flex flex-col gap-5 md:gap-6 max-w-4xl md:max-w-5xl mx-auto mb-6">
         {/* Row 1: 2 cards */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-5 md:gap-6">
           {row1.map((testimonial, index) => (
             <TestimonialCard
               key={index}
@@ -255,7 +255,7 @@ export default function SlideWallOfLove() {
         </div>
         
         {/* Row 2: 2 cards */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-5 md:gap-6">
           {row2.map((testimonial, index) => (
             <TestimonialCard
               key={index}

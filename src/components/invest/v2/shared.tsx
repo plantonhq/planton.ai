@@ -183,13 +183,13 @@ export const Metric: FC<MetricProps> = ({
   className = ''
 }) => (
   <div className={`
-    text-center p-2 sm:p-3 md:p-4
-    ${highlight ? 'bg-gradient-to-br from-pink-500/20 to-violet-500/20 border border-pink-500/30 rounded-xl' : ''}
+    text-center p-2 sm:p-4 md:p-6
+    ${highlight ? 'bg-gradient-to-br from-pink-500/20 to-violet-500/20 border border-pink-500/30 rounded-xl sm:rounded-2xl' : ''}
     ${className}
   `}>
     <div className={`
-      text-2xl sm:text-3xl md:text-4xl lg:text-5xl
-      font-bold mb-1
+      text-2xl sm:text-4xl md:text-5xl lg:text-6xl
+      font-bold mb-1 sm:mb-2
       ${highlight 
         ? 'text-pink-400' 
         : 'bg-gradient-to-r from-[#7c3aed] to-[#0ea5e9] bg-clip-text text-transparent'
@@ -197,9 +197,9 @@ export const Metric: FC<MetricProps> = ({
     `}>
       {value}
     </div>
-    <div className="text-xs sm:text-sm text-white/60">{label}</div>
+    <div className="text-xs sm:text-base md:text-lg text-white/60">{label}</div>
     {sublabel && (
-      <div className="text-xs text-white/40 mt-0.5">{sublabel}</div>
+      <div className="text-xs sm:text-sm text-white/40 mt-0.5 sm:mt-1">{sublabel}</div>
     )}
   </div>
 );
@@ -355,33 +355,33 @@ export const TeamMember: FC<TeamMemberProps> = ({
   avatar,
   badge,
 }) => (
-  <Card variant={highlight ? 'highlight' : 'default'} className="text-left relative md:p-5 lg:p-6 w-full h-full">
+  <Card variant={highlight ? 'highlight' : 'default'} className="text-left relative md:p-6 lg:p-7 w-full h-full">
     {badge && (
       <div className="absolute -top-1 -right-1 sm:top-2 sm:right-2">
         {badge}
       </div>
     )}
-    <div className="flex items-start gap-2 sm:gap-3 md:gap-4">
+    <div className="flex items-start gap-2 sm:gap-3 md:gap-5">
       {avatar ? (
         <Image 
           src={avatar} 
           alt={name} 
-          width={80} 
-          height={80} 
-          className="w-11 h-11 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-[70px] lg:h-[70px] rounded-full object-cover object-[center_25%] shrink-0"
+          width={96} 
+          height={96} 
+          className="w-11 h-11 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-[84px] lg:h-[84px] rounded-full object-cover object-[center_25%] shrink-0"
         />
       ) : (
         <div className={`
-          p-1.5 sm:p-2 md:p-2.5 rounded-lg shrink-0
+          p-1.5 sm:p-2 md:p-3 rounded-lg shrink-0
           ${highlight ? 'bg-pink-500/20' : 'bg-white/10'}
         `}>
           {icon}
         </div>
       )}
       <div className="min-w-0">
-        <h3 className="text-sm sm:text-base md:text-lg font-semibold text-white truncate">{name}</h3>
-        <p className={`text-xs sm:text-sm ${highlight ? 'text-pink-300' : 'text-white/50'}`}>{role}</p>
-        <div className="text-xs md:text-sm text-white/40 mt-1 md:mt-1.5">{description}</div>
+        <h3 className="text-sm sm:text-base md:text-xl font-semibold text-white truncate">{name}</h3>
+        <p className={`text-xs sm:text-sm md:text-base ${highlight ? 'text-pink-300' : 'text-white/50'}`}>{role}</p>
+        <div className="text-xs md:text-base text-white/40 mt-1 md:mt-2">{description}</div>
       </div>
     </div>
   </Card>
@@ -440,20 +440,20 @@ export const RoadmapItem: FC<RoadmapItemProps> = ({
   }[color];
 
   return (
-    <div className={`bg-white/5 border rounded-lg sm:rounded-xl md:rounded-2xl p-2 sm:p-3 md:p-4 text-left ${colorClasses.border}`}>
-      <div className="flex items-center justify-between mb-1 sm:mb-2">
-        <div className="flex items-center gap-1 sm:gap-1.5">
-          <span className={`${colorClasses.icon} sm:scale-105`}>{icon}</span>
-          <span className={`text-[10px] sm:text-xs font-medium px-1.5 sm:px-2 py-0.5 rounded-full ${colorClasses.badge}`}>
+    <div className={`bg-white/5 border rounded-lg sm:rounded-xl md:rounded-2xl p-2 sm:p-4 md:p-5 text-left ${colorClasses.border}`}>
+      <div className="flex items-center justify-between mb-1 sm:mb-2 md:mb-3">
+        <div className="flex items-center gap-1 sm:gap-2">
+          <span className={`${colorClasses.icon} sm:scale-110 md:scale-125`}>{icon}</span>
+          <span className={`text-[10px] sm:text-xs md:text-sm font-medium px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-full ${colorClasses.badge}`}>
             {status}
           </span>
         </div>
       </div>
-      <div className="text-[10px] sm:text-xs text-white/50">{phase}</div>
-      <h3 className="text-xs sm:text-base md:text-lg font-bold text-white mb-1 sm:mb-2">{title}</h3>
-      <ul className="space-y-0.5 sm:space-y-1">
+      <div className="text-[10px] sm:text-xs md:text-sm text-white/50">{phase}</div>
+      <h3 className="text-xs sm:text-lg md:text-xl font-bold text-white mb-1 sm:mb-2 md:mb-3">{title}</h3>
+      <ul className="space-y-0.5 sm:space-y-1.5 md:space-y-2">
         {items.slice(0, 2).map((item, i) => (
-          <li key={i} className="text-[10px] sm:text-xs md:text-sm text-white/60 flex items-start gap-1 sm:gap-1.5">
+          <li key={i} className="text-[10px] sm:text-sm md:text-base text-white/60 flex items-start gap-1 sm:gap-1.5">
             <span className={`mt-0.5 ${colorClasses.icon}`}>•</span>
             <span>{item}</span>
           </li>

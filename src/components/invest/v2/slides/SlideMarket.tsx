@@ -20,14 +20,14 @@ const whyNow = [
 
 export default function SlideMarket() {
   return (
-    <Slide variant="gradient">
+    <Slide variant="gradient" className="!justify-start !pt-16 sm:!pt-20 md:!pt-24">
       <SlideTitle>Market Opportunity</SlideTitle>
-      <SlideSubtitle className="mb-4 sm:mb-6">
+      <SlideSubtitle className="mb-4 sm:mb-16 md:mb-20">
         Cloud Spend Is Massive. Complexity Is the Problem.
       </SlideSubtitle>
 
       {/* TAM/SAM Numbers */}
-      <Grid cols={3} gap="sm" className="mb-4 sm:mb-6">
+      <Grid cols={3} gap="sm" className="mb-4 sm:mb-8 md:mb-10 sm:gap-6 md:gap-8">
         <Metric
           value="$150B+"
           label="Global Cloud Spend"
@@ -47,11 +47,11 @@ export default function SlideMarket() {
       </Grid>
 
       {/* Why Now */}
-      <Grid cols={3} gap="sm" className="max-w-2xl mx-auto">
+      <Grid cols={3} gap="sm" className="max-w-2xl sm:max-w-3xl md:max-w-4xl mx-auto sm:gap-6 md:gap-8">
         {whyNow.map((item) => (
-          <Card key={item.title} className="text-center">
-            <CardTitle className="text-sm sm:text-base mb-1">{item.title}</CardTitle>
-            <CardText className="text-xs">{item.description}</CardText>
+          <Card key={item.title} className="text-center sm:p-5 md:p-6">
+            <CardTitle className="text-sm sm:text-base md:text-lg mb-1 sm:mb-2">{item.title}</CardTitle>
+            <CardText className="text-xs sm:text-sm">{item.description}</CardText>
           </Card>
         ))}
       </Grid>

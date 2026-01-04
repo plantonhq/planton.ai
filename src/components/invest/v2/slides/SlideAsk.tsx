@@ -213,27 +213,33 @@ export default function SlideAsk() {
   const [showSafeExplainer, setShowSafeExplainer] = useState(false);
 
   return (
-    <Slide variant="gradient">
+    <Slide variant="gradient" className="!justify-start !pt-12 sm:!pt-16 md:!pt-20">
       <SlideTitle>The Ask</SlideTitle>
-      <SlideSubtitle className="mb-2 sm:mb-4 text-xs sm:text-sm">
+      <SlideSubtitle className="mb-3 sm:mb-6 text-xs sm:text-sm">
         Seed Round to Reach Next Milestones
       </SlideSubtitle>
 
       {/* The Number - more compact on mobile */}
-      <div className="bg-gradient-to-br from-pink-500/20 to-violet-500/20 border border-pink-500/30 rounded-xl sm:rounded-2xl p-3 sm:p-6 max-w-[200px] sm:max-w-xs mx-auto mb-1 sm:mb-3">
+      <div className="bg-gradient-to-br from-pink-500/20 to-violet-500/20 border border-pink-500/30 rounded-xl sm:rounded-2xl p-3 sm:p-6 md:p-8 max-w-[200px] sm:max-w-xs md:max-w-sm mx-auto mb-2 sm:mb-4">
         <div className="text-3xl sm:text-5xl md:text-6xl font-bold text-white mb-0.5 sm:mb-1">
           $500K
         </div>
-        <div className="text-xs sm:text-sm text-white/60">SAFE Note</div>
-        <div className="text-[10px] sm:text-xs text-white/40 mt-0.5 sm:mt-1">~18 months runway</div>
+        <div className="text-xs sm:text-sm md:text-base text-white/60">SAFE Note</div>
+        <div className="text-[10px] sm:text-xs md:text-sm text-white/40 mt-0.5 sm:mt-1">~18 months runway</div>
       </div>
 
-      {/* SAFE Explainer Toggle */}
+      {/* SAFE Explainer Toggle - styled as a pill button */}
       <button
         onClick={() => setShowSafeExplainer(true)}
-        className="inline-flex items-center gap-1 sm:gap-1.5 text-[10px] sm:text-xs text-white/50 hover:text-white/80 transition-colors mb-2 sm:mb-4"
+        className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 
+          bg-gradient-to-r from-cyan-500/20 to-blue-500/20 
+          border border-cyan-500/40 hover:border-cyan-400/60
+          rounded-full text-[10px] sm:text-sm font-medium
+          text-cyan-300 hover:text-cyan-200
+          shadow-lg shadow-cyan-500/10 hover:shadow-cyan-500/20
+          transition-all duration-200 mb-4 sm:mb-6 md:mb-8"
       >
-        <HelpCircle className="w-3 h-3" />
+        <HelpCircle className="w-3 h-3 sm:w-4 sm:h-4" />
         How does a SAFE work?
       </button>
 
@@ -244,7 +250,7 @@ export default function SlideAsk() {
       />
 
       {/* Use of Funds - horizontal on mobile */}
-      <Grid cols={3} gap="sm" className="mb-2 sm:mb-4">
+      <Grid cols={3} gap="sm" className="mb-4 sm:mb-6 md:mb-8 sm:gap-5 md:gap-6">
         {useOfFunds.map((item) => (
           <FundsItem
             key={item.title}
@@ -257,14 +263,14 @@ export default function SlideAsk() {
       </Grid>
 
       {/* 18-Month Milestones - 2x2 grid on mobile */}
-      <Callout className="max-w-xl p-2 sm:p-4">
-        <div className="flex items-center justify-center gap-1 sm:gap-1.5 mb-1 sm:mb-2">
-          <Target className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-400" />
-          <h3 className="text-[10px] sm:text-sm font-semibold text-white">18-Month Milestones</h3>
+      <Callout className="max-w-xl sm:max-w-2xl p-2 sm:p-5 md:p-6">
+        <div className="flex items-center justify-center gap-1 sm:gap-2 mb-1 sm:mb-3">
+          <Target className="w-3 h-3 sm:w-5 sm:h-5 text-emerald-400" />
+          <h3 className="text-[10px] sm:text-base md:text-lg font-semibold text-white">18-Month Milestones</h3>
         </div>
-        <div className="grid grid-cols-2 gap-x-3 sm:gap-x-6 gap-y-0.5 sm:gap-y-1.5 text-left">
+        <div className="grid grid-cols-2 gap-x-3 sm:gap-x-8 gap-y-0.5 sm:gap-y-2 text-left">
           {milestones.map((milestone, index) => (
-            <div key={index} className="flex items-start gap-1 sm:gap-1.5 text-[10px] sm:text-xs text-white/60">
+            <div key={index} className="flex items-start gap-1 sm:gap-2 text-[10px] sm:text-sm text-white/60">
               <span className="text-emerald-400 shrink-0 mt-0.5">→</span>
               <span className="leading-tight">{milestone}</span>
             </div>

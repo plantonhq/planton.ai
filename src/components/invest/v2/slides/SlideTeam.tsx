@@ -125,9 +125,9 @@ export default function SlideTeam() {
       </div>
 
       {/* Desktop: 2 rows - 2 founders + 3 team members */}
-      <div className="hidden sm:flex flex-col gap-4 md:gap-5 mb-10 mx-auto">
+      <div className="hidden sm:flex flex-col gap-5 md:gap-6 lg:gap-7 mb-10 mx-auto">
         {/* Row 1: Founders (2 members, centered) */}
-        <div className="grid grid-cols-2 gap-4 md:gap-5 max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto w-full">
+        <div className="grid grid-cols-2 gap-5 md:gap-6 lg:gap-7 max-w-xl md:max-w-3xl lg:max-w-4xl mx-auto w-full">
           {foundersRow.map((member) => (
             <TeamMember
               key={member.name}
@@ -140,7 +140,7 @@ export default function SlideTeam() {
           ))}
         </div>
         {/* Row 2: Team (3 members) */}
-        <div className="grid grid-cols-3 gap-4 md:gap-5 max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto w-full">
+        <div className="grid grid-cols-3 gap-5 md:gap-6 lg:gap-7 max-w-2xl md:max-w-4xl lg:max-w-5xl mx-auto w-full">
           {teamRow.map((member) => (
             <TeamMember
               key={member.name}
