@@ -75,18 +75,18 @@ const serviceSteps = [
 export default function SlideProduct() {
   return (
     <Slide variant="gradient">
-      <SlideTitle>How It Works</SlideTitle>
-      <SlideSubtitle className="mb-4 sm:mb-6">
+      <SlideTitle className="mb-1 sm:mb-2 -mt-16 sm:-mt-20 lg:-mt-28">How It Works</SlideTitle>
+      <SlideSubtitle className="mb-6 sm:mb-8 lg:mb-10">
         From Zero to Production in Minutes
       </SlideSubtitle>
 
       {/* InfraHub - 3-Step Process */}
-      <div className="mb-4 sm:mb-6">
-        <p className="text-xs text-emerald-400 font-medium mb-2 sm:mb-3">Infrastructure</p>
-        <div className="flex flex-row items-center justify-center gap-2 sm:gap-3 md:gap-4">
+      <div className="mb-6 sm:mb-8 lg:mb-10 mt-10 sm:mt-12 lg:mt-16">
+        <span className="inline-block text-xs text-emerald-400 font-medium mb-3 sm:mb-4 px-3 py-1 rounded-full bg-emerald-400/10 border border-emerald-400/20">Infrastructure</span>
+        <div className="flex flex-row items-center justify-center gap-4 sm:gap-8 md:gap-12 lg:gap-16">
           {infraSteps.map((step, index) => (
             <React.Fragment key={step.title}>
-              <div className="flex flex-col items-center text-center flex-1 max-w-[140px] sm:max-w-[160px]">
+              <div className="flex flex-col items-center text-center flex-1 max-w-[140px] sm:max-w-[180px] lg:max-w-[200px]">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center mb-2 sm:mb-3">
                   {step.iconType === 'multiCloud' ? (
                     <MultiCloudIcon />
@@ -108,12 +108,12 @@ export default function SlideProduct() {
       </div>
 
       {/* ServiceHub - 2-Step Process */}
-      <div className="mb-4 sm:mb-6">
-        <p className="text-xs text-violet-400 font-medium mb-2 sm:mb-3">Services</p>
-        <div className="flex flex-row items-center justify-center gap-3 sm:gap-4 md:gap-6">
+      <div className="mb-6 sm:mb-8 lg:mb-10 mt-4 sm:mt-6 lg:mt-8">
+        <span className="inline-block text-xs text-violet-400 font-medium mb-3 sm:mb-4 px-3 py-1 rounded-full bg-violet-400/10 border border-violet-400/20">Services</span>
+        <div className="flex flex-row items-center justify-center gap-6 sm:gap-10 md:gap-16 lg:gap-20">
           {serviceSteps.map((step, index) => (
             <React.Fragment key={step.title}>
-              <div className="flex flex-col items-center text-center flex-1 max-w-[160px] sm:max-w-[180px]">
+              <div className="flex flex-col items-center text-center flex-1 max-w-[160px] sm:max-w-[200px] lg:max-w-[220px]">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center mb-2 sm:mb-3">
                   {step.iconType === 'gitProviders' ? (
                     <GitProvidersIcon />
@@ -139,7 +139,7 @@ export default function SlideProduct() {
       </div>
 
       {/* Result callout */}
-      <div className="bg-gradient-to-r from-emerald-500/10 to-violet-500/10 border border-white/10 rounded-lg sm:rounded-xl p-3 sm:p-4 max-w-lg mx-auto">
+      <div className="bg-gradient-to-r from-emerald-500/10 to-violet-500/10 border border-white/10 rounded-lg sm:rounded-xl p-3 sm:p-4 max-w-lg mx-auto mt-16 sm:mt-20 lg:mt-28">
         <p className="text-sm sm:text-base text-white font-medium">
           ⚡ Complete Cloud Infra + Service Deployments
           <br className="sm:hidden" />
