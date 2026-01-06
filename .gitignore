@@ -42,3 +42,4 @@ next-env.d.ts
 /.cursor/workspace
 _cursor/
 .venv/
+_aacursor/
