@@ -1,6 +1,7 @@
 import { FC, Fragment } from 'react';
 import Link from 'next/link';
 import { Box, Divider, Stack, Typography } from '@mui/material';
+import { HeaderLogo } from '@/components/layout/header/header';
 
 interface IMenu {
   title: string;
@@ -32,7 +33,7 @@ const groups: IGroup[] = [
     title: 'Features',
     id: 'features',
     items: [
-      { title: 'Planton Copilot', url: '/features/planton-copilot' },
+      { title: 'Agent Fleet', url: '/agents' },
       { title: 'Self-Service DevOps', url: '/features/self-service-devops' },
       { title: 'Service Hub', url: '/features/service-hub' },
       { title: 'IaC Workflows', url: '/features/iac-workflows' },
@@ -98,7 +99,7 @@ export function Footer() {
     <Stack className="md:px-24 md:py-10 md:gap-6 bg-black">
       <Stack className="px-5 md:px-0 py-6 md:py-0 md:flex-row gap-8 justify-between">
         <Stack className="gap-3">
-          <img src="/images/layout/planton-cloud.svg" className="w-[120px] md:w-[230px]" />
+          <HeaderLogo />
           <Typography className="text-[12px] text-[#484848] font-normal">
             Connect with us:
           </Typography>

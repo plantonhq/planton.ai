@@ -3,15 +3,13 @@
 import { Box, Stack, Typography } from '@mui/material';
 import Link from 'next/link';
 import { FC } from 'react';
-import { Section, SectionTitle, PrimaryButton, SecondaryButton, ArrowRightIcon, Badge } from './shared';
+import { Section, SectionTitle, PrimaryButton, SecondaryButton, ArrowRightIcon } from './shared';
 
 const metrics = [
   { value: '450+', label: 'Infrastructure Deployments' },
   { value: '<1 hr', label: 'Average Setup Time' },
   { value: '100%', label: 'Customer Retention' },
 ];
-
-const trustBadges = ['SOC 2 Compliant', 'GDPR Ready', 'Open Source'];
 
 export const FinalCTA: FC = () => {
   return (
@@ -62,13 +60,6 @@ export const FinalCTA: FC = () => {
             </Link>
           </Stack>
         </Stack>
-        
-        {/* Trust badges */}
-        <Box className="flex flex-wrap justify-center gap-3">
-          {trustBadges.map((badge, index) => (
-            <Badge key={index} variant="default">{badge}</Badge>
-          ))}
-        </Box>
       </Box>
     </Section>
   );

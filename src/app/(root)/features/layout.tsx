@@ -9,7 +9,7 @@ const Container = styled('div')({});
 
 const paths = {
   Features: '/features',
-  'Planton Copilot': '/features/planton-copilot',
+  'Agent Fleet': '/agents',
   'Self-Service DevOps': '/features/self-service-devops',
   'Service Hub': '/features/service-hub',
   'IaC Workflows': '/features/iac-workflows',

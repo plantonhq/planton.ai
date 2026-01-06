@@ -139,7 +139,7 @@ export const menuExplorer: IMenuItems[] = [
   },
 ];
 export const menuByUseCases: IMenuItems[] = [
-  { label: '', subLabel: 'ChatOps', href: '/solutions/by-use-case/chat-ops' },
+  { label: '', subLabel: 'Agents', href: '/agents' },
   {
     label: '',
     subLabel: 'Internal Developer Platform',
