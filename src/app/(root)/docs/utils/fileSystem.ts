@@ -362,6 +362,10 @@ function buildStructure(dirPath: string, relativePath: string = ''): DocItem[] {
   const structure: DocItem[] = [];
 
   for (const item of items) {
+    // Skip hidden files/directories and underscore-prefixed directories (e.g., _rules)
+    if (item.startsWith('.') || item.startsWith('_')) {
+      continue;
+    }
     const fullPath = path.join(dirPath, item);
     const stat = fs.statSync(fullPath);
     const itemRelativePath = path.join(relativePath, item);

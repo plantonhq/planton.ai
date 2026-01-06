@@ -11,6 +11,7 @@ import { Author } from '@/lib/types-client';
 import { DocsPageActions } from '@/app/(root)/docs/components/DocsPageActions';
 import CloudflareVideo, { getEmbedInfoFromUrl } from '@/components/media/CloudflareVideo';
 import { CodeBlock } from '@/components/common';
+import { HeadingWithAnchor, generateHeadingId } from '@/components/docs';
 
 interface MdxMetadata {
   title: string;
@@ -196,84 +197,60 @@ export const MDXRenderer: React.FC<MDXRendererProps> = ({
                 } catch {}
                 return <p className="text-gray-300 mb-4 leading-relaxed">{children}</p>;
               },
-              h1: ({ children }) => {
-                const id = children
-                  ?.toString()
-                  .toLowerCase()
-                  .replace(/[^a-z0-9\s-]/g, '')
-                  .replace(/\s+/g, '-');
-
-                return (
-                  <h1 id={id} className="text-3xl font-bold text-white mt-8 mb-4">
-                    {children}
-                  </h1>
-                );
-              },
-              h2: ({ children }) => {
-                const id = children
-                  ?.toString()
-                  .toLowerCase()
-                  .replace(/[^a-z0-9\s-]/g, '')
-                  .replace(/\s+/g, '-');
-
-                return (
-                  <h2 id={id} className="text-2xl font-bold text-white mt-6 mb-3">
-                    {children}
-                  </h2>
-                );
-              },
-              h3: ({ children }) => {
-                const id = children
-                  ?.toString()
-                  .toLowerCase()
-                  .replace(/[^a-z0-9\s-]/g, '')
-                  .replace(/\s+/g, '-');
-
-                return (
-                  <h3 id={id} className="text-xl font-bold text-white mt-5 mb-2">
-                    {children}
-                  </h3>
-                );
-              },
-              h4: ({ children }) => {
-                const id = children
-                  ?.toString()
-                  .toLowerCase()
-                  .replace(/[^a-z0-9\s-]/g, '')
-                  .replace(/\s+/g, '-');
-
-                return (
-                  <h4 id={id} className="text-lg font-bold text-white mt-4 mb-2">
-                    {children}
-                  </h4>
-                );
-              },
-              h5: ({ children }) => {
-                const id = children
-                  ?.toString()
-                  .toLowerCase()
-                  .replace(/[^a-z0-9\s-]/g, '')
-                  .replace(/\s+/g, '-');
-
-                return (
-                  <h5 id={id} className="text-base font-bold text-white mt-3 mb-2">
-                    {children}
-                  </h5>
-                );
-              },
-              h6: ({ children }) => {
-                const id = children
-                  ?.toString()
-                  .toLowerCase()
-                  .replace(/[^a-z0-9\s-]/g, '')
-                  .replace(/\s+/g, '-');
-
-                return (
-                  <h6 id={id} className="text-sm font-bold text-white mt-2 mb-1">
-                    {children}
-                  </h6>
-                );
-              },
+              h1: ({ children }) => (
+                <HeadingWithAnchor
+                  id={generateHeadingId(children)}
+                  level={1}
+                  className="text-3xl font-bold text-white mt-8 mb-4"
+                >
+                  {children}
+                </HeadingWithAnchor>
+              ),
+              h2: ({ children }) => (
+                <HeadingWithAnchor
+                  id={generateHeadingId(children)}
+                  level={2}
+                  className="text-2xl font-bold text-white mt-6 mb-3"
+                >
+                  {children}
+                </HeadingWithAnchor>
+              ),
+              h3: ({ children }) => (
+                <HeadingWithAnchor
+                  id={generateHeadingId(children)}
+                  level={3}
+                  className="text-xl font-bold text-white mt-5 mb-2"
+                >
+                  {children}
+                </HeadingWithAnchor>
+              ),
+              h4: ({ children }) => (
+                <HeadingWithAnchor
+                  id={generateHeadingId(children)}
+                  level={4}
+                  className="text-lg font-bold text-white mt-4 mb-2"
+                >
+                  {children}
+                </HeadingWithAnchor>
+              ),
+              h5: ({ children }) => (
+                <HeadingWithAnchor
+                  id={generateHeadingId(children)}
+                  level={5}
+                  className="text-base font-bold text-white mt-3 mb-2"
+                >
+                  {children}
+                </HeadingWithAnchor>
+              ),
+              h6: ({ children }) => (
+                <HeadingWithAnchor
+                  id={generateHeadingId(children)}
+                  level={6}
+                  className="text-sm font-bold text-white mt-2 mb-1"
+                >
+                  {children}
+                </HeadingWithAnchor>
+              ),
               ul: ({ children }) => (
                 <ul className="list-disc list-inside text-gray-300 mb-4 space-y-2">{children}</ul>
               ),
