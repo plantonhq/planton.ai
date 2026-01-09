@@ -38,25 +38,25 @@ const slideConfig = [
   { id: 'close', name: 'Close', component: SlideClose },
 ] as const;
 
-// Helper to get initial slide from hash
-function getInitialSlideIndex(): number {
-  if (typeof window === 'undefined') return 0;
-  const hash = window.location.hash.slice(1);
-  if (hash) {
-    const index = slideConfig.findIndex(s => s.id === hash);
-    if (index !== -1) return index;
-  }
-  return 0;
-}
-
 export default function InvestorDeckV2() {
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(getInitialSlideIndex);
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
 
   const currentSlide = slideConfig[currentSlideIndex];
   const isFirstSlide = currentSlideIndex === 0;
   const isLastSlide = currentSlideIndex === slideConfig.length - 1;
+
+  // Initialize slide index from hash on client side only (after hydration)
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      const index = slideConfig.findIndex(s => s.id === hash);
+      if (index !== -1) {
+        setCurrentSlideIndex(index);
+      }
+    }
+  }, []);
 
   // Handle hash changes (browser back/forward)
   useEffect(() => {
@@ -69,7 +69,7 @@ export default function InvestorDeckV2() {
         }
       }
     };
-    
+
     // Listen for hash changes
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
@@ -149,7 +149,7 @@ export default function InvestorDeckV2() {
 
   const handleTouchEnd = () => {
     if (touchStartX.current === null || touchEndX.current === null) return;
-    
+
     const diff = touchStartX.current - touchEndX.current;
     const threshold = 50; // Minimum swipe distance in pixels
 
@@ -170,7 +170,7 @@ export default function InvestorDeckV2() {
   const CurrentSlideComponent = currentSlide.component;
 
   return (
-    <div 
+    <div
       className="h-[100dvh] bg-[#0a0a0f] flex flex-col relative overflow-hidden touch-pan-x"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
@@ -190,7 +190,7 @@ export default function InvestorDeckV2() {
 
       {/* Progress bar */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-white/10 z-50">
-        <motion.div 
+        <motion.div
           className="h-full bg-gradient-to-r from-pink-500 to-violet-500"
           initial={{ width: 0 }}
           animate={{ width: `${((currentSlideIndex + 1) / slideConfig.length) * 100}%` }}
