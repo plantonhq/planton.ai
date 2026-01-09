@@ -55,9 +55,9 @@ export const ServiceHub: FC = () => {
       {/* Intro text */}
       <Box className="max-w-3xl mx-auto text-center mb-16">
         <BodyText className="text-lg">
-          Vercel nailed the developer experience for frontend deployments. Service Hub 
-          brings that same magic to backend services—with one critical difference: 
-          everything runs in <span className="text-white font-semibold">YOUR</span> cloud 
+          Vercel nailed the developer experience for frontend deployments. Service Hub
+          brings that same magic to backend services—with one critical difference:
+          everything runs in <span className="text-white font-semibold">YOUR</span> cloud
           account. You keep full infrastructure control and visibility.
         </BodyText>
       </Box>
@@ -66,7 +66,7 @@ export const ServiceHub: FC = () => {
       <Box className="grid md:grid-cols-2 gap-6 mb-20">
         {/* No More */}
         <Card className="border-[#ef4444]/30 bg-[#ef4444]/5">
-          <Typography className="text-lg font-semibold text-white mb-6 flex items-center gap-3">
+          <Typography component="div" className="text-lg font-semibold text-white mb-6 flex items-center gap-3">
             <Box className="w-8 h-8 rounded-lg bg-[#ef4444]/20 flex items-center justify-center">
               <XIcon />
             </Box>
@@ -86,7 +86,7 @@ export const ServiceHub: FC = () => {
 
         {/* You Get */}
         <Card className="border-[#10b981]/30 bg-[#10b981]/5">
-          <Typography className="text-lg font-semibold text-white mb-6 flex items-center gap-3">
+          <Typography component="div" className="text-lg font-semibold text-white mb-6 flex items-center gap-3">
             <Box className="w-8 h-8 rounded-lg bg-[#10b981]/20 flex items-center justify-center">
               <CheckIcon />
             </Box>
@@ -112,7 +112,7 @@ export const ServiceHub: FC = () => {
             Same Developer Experience—Any Cloud, Any Target
           </Typography>
           <BodyText className="max-w-2xl mx-auto">
-            Deploy to any platform. The Service Hub experience stays identical. 
+            Deploy to any platform. The Service Hub experience stays identical.
             No vendor lock-in. No relearning workflows when you switch clouds.
           </BodyText>
         </Box>
@@ -137,7 +137,7 @@ export const ServiceHub: FC = () => {
 
         <Box className="text-center mt-8">
           <BodyText className="text-sm italic">
-            Start on AWS ECS for simplicity. Migrate to GCP Cloud Run for cost optimization. 
+            Start on AWS ECS for simplicity. Migrate to GCP Cloud Run for cost optimization.
             Deploy to Cloudflare Workers for edge use cases. Same code, same platform, zero refactoring.
           </BodyText>
         </Box>
@@ -152,7 +152,7 @@ export const ServiceHub: FC = () => {
               From Commit to Deployment—Fully Automated
             </Typography>
             <BodyText className="mb-6">
-              Every commit triggers an automated pipeline that handles the entire journey 
+              Every commit triggers an automated pipeline that handles the entire journey
               from code to running service.
             </BodyText>
             <Stack className="gap-3 mb-6">
@@ -167,8 +167,8 @@ export const ServiceHub: FC = () => {
             </Stack>
             <Box className="p-4 rounded-lg bg-[#f59e0b]/10 border border-[#f59e0b]/30">
               <Typography className="text-sm text-[#f59e0b]">
-                <span className="font-medium">Traditional Alternative:</span> Setting up this same 
-                workflow manually with Jenkins, GitHub Actions, or GitLab Pipelines typically takes 
+                <span className="font-medium">Traditional Alternative:</span> Setting up this same
+                workflow manually with Jenkins, GitHub Actions, or GitLab Pipelines typically takes
                 several days to weeks of DevOps work.
               </Typography>
             </Box>
@@ -195,13 +195,13 @@ export const ServiceHub: FC = () => {
               <Box className="p-6 bg-[#0a0a0a]">
                 <Stack className="gap-3">
                   {pipelineSteps.map((step, index) => (
-                    <Box 
+                    <Box
                       key={index}
                       className="flex items-center gap-4 p-3 rounded-lg bg-[#111] border border-[#2a2a2a]"
                     >
                       <Box className={`w-6 h-6 rounded-full flex items-center justify-center ${
-                        step.status === 'complete' 
-                          ? 'bg-[#10b981]' 
+                        step.status === 'complete'
+                          ? 'bg-[#10b981]'
                           : step.status === 'running'
                           ? 'bg-[#0ea5e9] animate-pulse'
                           : 'bg-[#2a2a2a]'
@@ -236,25 +236,25 @@ export const ServiceHub: FC = () => {
       {/* Customer quote - Featured prominently */}
       <Box className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#0ea5e9]/20 via-[#0f0f1a] to-[#7c3aed]/20 border border-[#0ea5e9]/30 p-8 md:p-12">
         {/* Background decoration */}
-        <Box 
+        <Box
           className="absolute top-0 right-0 w-64 h-64 opacity-10"
           sx={{
             background: 'radial-gradient(circle, rgba(14,165,233,0.4) 0%, transparent 70%)',
             filter: 'blur(60px)',
           }}
         />
-        
+
         <Box className="relative z-10">
           <Typography className="text-2xl md:text-3xl text-white font-medium italic mb-6 leading-relaxed">
-            &quot;Developers self-onboard their own services. That&apos;s a huge win. We went from 
+            &quot;Developers self-onboard their own services. That&apos;s a huge win. We went from
             deploying once a week to deploying 10+ times per day. Planton removed the bottleneck.&quot;
         </Typography>
-          
+
           <Box className="flex items-center gap-4 mb-6">
             <Box className="w-12 h-12 rounded-full bg-[#1a1a1a] p-2 flex items-center justify-center overflow-hidden">
-              <img 
-                src="/images/customers/logos/tynybay.png" 
-                alt="TYNYBAY" 
+              <img
+                src="/images/customers/logos/tynybay.png"
+                alt="TYNYBAY"
                 className="w-full h-full object-contain brightness-0 invert"
               />
             </Box>
@@ -263,7 +263,7 @@ export const ServiceHub: FC = () => {
               <Typography className="text-[#a0a0a0] text-sm">TYNYBAY — deploying Odwen platform</Typography>
             </Box>
           </Box>
-          
+
           <Box className="grid grid-cols-3 gap-4 pt-6 border-t border-[#2a2a2a]">
             <Box className="text-center">
               <Typography className="text-xl font-bold text-white">3</Typography>

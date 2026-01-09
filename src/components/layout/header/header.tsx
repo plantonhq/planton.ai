@@ -343,7 +343,7 @@ const HeaderMobile: FC<IHeaderMobile> = ({ className }) => {
               <Btn
                 className="text-text-secondary w-full justify-center"
                 LinkComponent={Link}
-                href="https://console.planton.ai/"
+                href="https://console.planton.ai/login"
                 target="_blank"
               >
                 Login
@@ -366,7 +366,7 @@ export function Header() {
         <Btn
           className="hidden sm:flex text-text-secondary"
           LinkComponent={Link}
-          href="https://console.planton.ai/"
+          href="https://console.planton.ai/login"
           target="_blank"
         >
           Login

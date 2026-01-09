@@ -40,7 +40,7 @@ export const ServiceHub: FC = () => {
       <Box className="grid lg:grid-cols-2 gap-12 items-center mb-16">
         {/* What you get */}
         <Card className="border-[#10b981]/30 bg-[#10b981]/5">
-          <Typography className="text-lg font-semibold text-white mb-6 flex items-center gap-3">
+          <Typography component="div" className="text-lg font-semibold text-white mb-6 flex items-center gap-3">
             <Box className="w-8 h-8 rounded-lg bg-[#10b981]/20 flex items-center justify-center">
               <CheckIcon />
             </Box>
@@ -71,7 +71,7 @@ export const ServiceHub: FC = () => {
               {pipelineSteps.map((step, index) => (
                 <Box key={index} className="flex items-center gap-4 p-3 rounded-lg bg-[#111] border border-[#2a2a2a]">
                   <Box className={`w-6 h-6 rounded-full flex items-center justify-center ${
-                    step.status === 'complete' ? 'bg-[#10b981]' 
+                    step.status === 'complete' ? 'bg-[#10b981]'
                     : step.status === 'running' ? 'bg-[#0ea5e9] animate-pulse'
                     : 'bg-[#2a2a2a]'
                   }`}>
@@ -97,12 +97,12 @@ export const ServiceHub: FC = () => {
           <Typography className="text-2xl md:text-3xl text-white font-medium italic mb-6 leading-relaxed">
             &quot;Developers self-onboard their own services. We went from deploying once a week to 10+ times per day.&quot;
           </Typography>
-          
+
           <Box className="flex items-center gap-4 mb-6">
             <Box className="w-12 h-12 rounded-full bg-[#1a1a1a] p-2 flex items-center justify-center overflow-hidden">
-              <img 
-                src="/images/customers/logos/tynybay.png" 
-                alt="TYNYBAY" 
+              <img
+                src="/images/customers/logos/tynybay.png"
+                alt="TYNYBAY"
                 className="w-full h-full object-contain brightness-0 invert"
               />
             </Box>
@@ -111,7 +111,7 @@ export const ServiceHub: FC = () => {
               <Typography className="text-[#a0a0a0] text-sm">TYNYBAY</Typography>
             </Box>
           </Box>
-          
+
           <Box className="grid grid-cols-3 gap-4 pt-6 border-t border-[#2a2a2a]">
             <Box className="text-center">
               <Typography className="text-xl font-bold text-white">3</Typography>

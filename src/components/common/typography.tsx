@@ -67,7 +67,7 @@ export const GetStartedBtn: FC<ButtonProps & ComponentProps<'a'>> = ({ className
   return (
     <PrimaryBtn
       LinkComponent={Link}
-      href="https://console.planton.ai"
+      href="https://console.planton.ai/signup"
       target="_self"
       className={`hover:bg-[#1976D2] transition-colors ${className}`}
       {...props}
