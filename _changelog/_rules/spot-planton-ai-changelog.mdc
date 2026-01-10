@@ -6,11 +6,58 @@ alwaysApply: false
 
 # Rule: Spot Planton.ai Changelog (ask-only)
 
-Purpose: When invoked, help users quickly find relevant changelogs from the Planton.ai website repository without needing to specify directory paths. Parse temporal context (this month, last month, etc.), search appropriate directories, and present results in an easy-to-consume format with both clickable links and copyable paths.
+**THIS IS A SEARCH-ONLY RULE. DO NOT CREATE OR MODIFY ANYTHING.**
+
+Purpose: When invoked, help users quickly **FIND** existing changelogs from the Planton.ai website repository without needing to specify directory paths. Parse temporal context (this month, last month, etc.), search appropriate directories, and present results in an easy-to-consume format with both clickable links and copyable paths.
 
 Usage: Invoke explicitly as `@spot-planton-ai-changelog` with contextual information about when the change was made and/or keywords describing the change.
 
+**User Intent**: When a user invokes this rule, they are asking you to **SEARCH FOR** and **PRESENT** existing changelogs. They are **NOT** asking you to create a new changelog.
+
 References: Changelogs in `_changelog/YYYY-MM/` directories
+
+## ⚠️ CRITICAL: Ask-Only Rule - NO File Creation or Modification
+
+**DO NOT** create, modify, or write any files. This is a **search and presentation only** rule.
+
+### EXACT WORKFLOW TO FOLLOW:
+
+**Step 1**: Run ONLY this command to get current date:
+```bash
+date +"%Y-%m-%d"
+```
+
+**Step 2**: Parse user's temporal context (this month, last month, etc.)
+
+**Step 3**: List changelog files in appropriate directories:
+```bash
+ls -1 /Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/YYYY-MM/
+```
+
+**Step 4**: Filter by keywords using grep if needed
+
+**Step 5**: Read matching changelog files to extract summaries
+
+**Step 6**: Present results in the format specified below
+
+### NEVER DO THIS:
+- ❌ Run `git diff`
+- ❌ Run `git status`
+- ❌ Run `cd` and `git diff` together
+- ❌ Run ANY git commands
+- ❌ Create new changelog files
+- ❌ Modify existing changelogs
+- ❌ Make any changes to the filesystem
+- ❌ Invoke `@create-planton-ai-changelog` or any other creation rules
+
+### ALWAYS DO THIS:
+- ✅ ONLY run `date` command first
+- ✅ ONLY use `ls` to list changelog files
+- ✅ ONLY use `grep` to search filenames/content
+- ✅ ONLY use Read tool to read matching changelogs
+- ✅ ONLY present search results
+
+**This is a read-only search rule. You are finding existing changelogs, NOT creating new ones.**
 
 ## ⚠️ CRITICAL: Changelog Location
 
@@ -31,16 +78,18 @@ Examples:
 - `2025-11-23-091545-interactive-demo-platform.md`
 - `2025-11-22-164730-blog-system-with-mdx.md`
 
-## User Request Parsing
+## Workflow
 
 ### Step 1: Determine Current Date
 
-**ALWAYS** get the actual current date by running:
+**ALWAYS** get the actual current date first by running:
 ```bash
 date +"%Y-%m-%d"
 ```
 
 Parse the output to determine current year and month.
+
+**DO NOT** run any other commands at this stage - no git commands, no git status, no git diff.
 
 ### Step 2: Parse Temporal Context
 
@@ -103,12 +152,14 @@ Extract meaningful keywords from the user's query related to Planton.ai:
 
 ### 1. List Relevant Directories
 
-Based on temporal parsing, list the directories to search:
+Based on temporal parsing, list the changelog files in the appropriate directories:
 ```bash
 ls -1 /Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2026-01/
 ls -1 /Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2025-12/
 # ... etc
 ```
+
+**IMPORTANT**: Only use `ls` and `grep` commands. Do NOT run `git diff`, `git status`, or any other git commands.
 
 ### 2. Search by Keywords
 
@@ -145,9 +196,21 @@ Prioritize changelogs that:
 
 Here are the changelogs matching your search criteria:
 
-- [Solutions Pages Redesign](/Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2025-11/2025-11-23-143022-solutions-pages-redesign.md)
-- [Interactive Demo Platform](/Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2025-11/2025-11-23-091545-interactive-demo-platform.md)
-- [Blog System with MDX](/Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2025-11/2025-11-22-164730-blog-system-with-mdx.md)
+**Clickable links:**
+- [2025-11-23-143022-solutions-pages-redesign.md](/Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2025-11/2025-11-23-143022-solutions-pages-redesign.md)
+- [2025-11-23-091545-interactive-demo-platform.md](/Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2025-11/2025-11-23-091545-interactive-demo-platform.md)
+- [2025-11-22-164730-blog-system-with-mdx.md](/Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2025-11/2025-11-22-164730-blog-system-with-mdx.md)
+
+**Copyable filenames:**
+```
+2025-11-23-143022-solutions-pages-redesign.md
+```
+```
+2025-11-23-091545-interactive-demo-platform.md
+```
+```
+2025-11-22-164730-blog-system-with-mdx.md
+```
 
 ---
 
@@ -161,9 +224,9 @@ Here are the changelogs matching your search criteria:
 
 **Summary**: Complete redesign of solutions pages with role-based navigation, improved content structure, and enhanced visual hierarchy. Added dedicated pages for DevOps Engineers, Platform Engineers, and CTOs.
 
-**Copyable path**:
+**Copyable filename**:
 ```
-/Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2025-11/2025-11-23-143022-solutions-pages-redesign.md
+2025-11-23-143022-solutions-pages-redesign.md
 ```
 
 ---
@@ -176,19 +239,21 @@ Here are the changelogs matching your search criteria:
 
 **Summary**: Built interactive demo platform with live API integration, allowing visitors to try Planton features directly in the browser without signup.
 
-**Copyable path**:
+**Copyable filename**:
 ```
-/Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2025-11/2025-11-23-091545-interactive-demo-platform.md
+2025-11-23-091545-interactive-demo-platform.md
 ```
 
 ---
 
-*Use the clickable links above to open the changelog, or copy the paths from the code blocks to use with `@` mentions in another conversation.*
+*Use the clickable links above to open the changelog, or copy the filenames from the code blocks to use with `@` mentions in another conversation.*
 ```
 
 ### Key Elements
 
-1. **Top Section**: Bulleted list with clickable links for quick scanning
+1. **Top Section**: 
+   - Bulleted list with clickable links for quick navigation
+   - Separate list with copyable code blocks for easy copy-paste
 2. **Details Section**: Numbered entries with:
    - Changelog title
    - Date, type, and components
@@ -276,17 +341,23 @@ Map user keywords to component categories:
 
 ## Example Invocations
 
-### Example 1: Page Redesign
+### Example 1: Search for Page Redesign
 ```
 User: "@spot-planton-ai-changelog We redesigned the solutions pages last month"
 ```
 
+**What the user wants**: FIND existing changelogs about solutions pages redesign
+
 **Agent actions**:
-1. Get current date → January 10, 2026
+1. Run: `date +"%Y-%m-%d"` → January 10, 2026
 2. Parse temporal: "last month" → Search `2025-12/`
-3. Extract keywords: "redesign", "solutions", "pages"
-4. Search and rank results
-5. Format response with clickable links + copyable paths
+3. Run: `ls -1 /Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2025-12/`
+4. Extract keywords: "redesign", "solutions", "pages"
+5. Filter with grep or by examining filenames
+6. Read matching changelogs to extract summaries
+7. Format response with clickable links + copyable filenames
+
+**DO NOT** run `git diff` or create a new changelog!
 
 ### Example 2: Interactive Feature
 ```
@@ -488,14 +559,22 @@ Include this in the detailed response for better context.
 
 ## Remember
 
-This is an **ask-only rule** - you are **NOT** creating or modifying changelogs, only finding and presenting existing ones.
+**⚠️ THIS IS A READ-ONLY SEARCH RULE ⚠️**
+
+You are **ONLY** searching for and presenting existing changelogs. You are **NOT**:
+- Creating new changelog files
+- Modifying any files
+- Running git commands
+- Making any filesystem changes
+
+If the user wants to create a changelog, politely inform them to use `@create-planton-ai-changelog` instead.
 
 **Goal**: Make it trivially easy for users to find and reference Planton.ai website changelogs without memorizing directory paths or filename patterns.
 
 **Success criteria**: User can:
 1. Quickly scan the bulleted list to find the right changelog
 2. Click to read it immediately, OR
-3. Copy the path to use in another conversation with `@` mentions
+3. Copy the filename to use in another conversation with `@` mentions
 
 **Context awareness**: Understand Planton.ai website terminology (pages, routes, components, design system, interactive features) to improve search relevance.
 
