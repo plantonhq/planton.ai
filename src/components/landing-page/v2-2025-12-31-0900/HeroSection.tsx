@@ -295,7 +295,7 @@ export const HeroSection: FC = () => {
           {/* CTA buttons - SIMPLIFIED HIERARCHY */}
           <Stack className="items-center gap-4 mt-4">
             {/* Primary CTA */}
-            <Link href="https://console.planton.ai/" target="_blank">
+            <Link href="https://console.planton.ai/signup" target="_blank">
               <PrimaryButton className="text-lg md:text-xl px-10 py-5 shadow-2xl shadow-purple-500/30">
                 Start Free Trial
                 <ArrowRightIcon />

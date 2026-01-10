@@ -169,7 +169,7 @@ export const HowItWorks: FC = () => {
         direction={{ xs: 'column', sm: 'row' }} 
         className="justify-center items-center gap-4"
       >
-        <Link href="https://console.planton.ai/" target="_blank">
+        <Link href="https://console.planton.ai/signup" target="_blank">
           <PrimaryButton className="px-8 py-4">
             Start Your First Deployment
             <ArrowRightIcon />

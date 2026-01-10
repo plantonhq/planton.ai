@@ -425,7 +425,7 @@ export default function DevOps() {
             <Stack className="flex-row items-center gap-2">
               <Button
                 className="bg-[#0095FF] px-5 py-3 rounded-[10px] w-fit h-[40px]"
-                href="https://console.planton.ai/"
+                href="https://console.planton.ai/signup"
                 target="_self"
               >
                 Get Started Free

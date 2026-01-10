@@ -183,7 +183,7 @@ export const FinalCTA: FC = () => {
 
             {/* Primary CTA */}
             <Box className="flex flex-col items-center gap-4">
-              <Link href="https://console.planton.ai/" target="_blank">
+              <Link href="https://console.planton.ai/signup" target="_blank">
                 <PrimaryButton className="text-lg md:text-xl px-10 py-5 shadow-2xl shadow-purple-500/30">
                   Start Free Trial
                   <ArrowRightIcon />

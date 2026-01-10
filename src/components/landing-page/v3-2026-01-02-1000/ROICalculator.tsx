@@ -294,7 +294,7 @@ export const ROICalculator: FC = () => {
             </Box>
 
             {/* CTA */}
-            <Link href="https://console.planton.ai/" target="_blank" className="w-full">
+            <Link href="https://console.planton.ai/signup" target="_blank" className="w-full">
               <PrimaryButton className="w-full py-4">
                 Start Free Trial
                 <ArrowRightIcon />

@@ -52,7 +52,7 @@ export const HeroSection = () => {
             <Button
               className="px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-xl hover:bg-blue-500 transition-all shadow-lg shadow-blue-500/25"
               LinkComponent={Link}
-              href="https://console.planton.cloud"
+              href="https://console.planton.ai/signup"
               target="_self"
             >
               Get Started

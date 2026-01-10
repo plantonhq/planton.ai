@@ -47,7 +47,7 @@ export const FinalCTA: FC = () => {
           
           {/* CTA buttons */}
           <Stack direction={{ xs: 'column', sm: 'row' }} className="gap-4">
-            <Link href="https://console.planton.ai/" target="_blank">
+            <Link href="https://console.planton.ai/signup" target="_blank">
               <PrimaryButton className="px-8 py-4 text-lg">
                 Start Free Trial
                 <ArrowRightIcon />

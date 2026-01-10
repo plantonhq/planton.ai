@@ -46,7 +46,7 @@ export const CTASection = () => {
               <Button
                 className="px-10 py-5 bg-white text-black font-semibold text-lg rounded-xl hover:bg-gray-100 transition-all shadow-xl shadow-white/10"
                 LinkComponent={Link}
-                href="https://console.planton.cloud"
+                href="https://console.planton.ai/signup"
                 target="_self"
               >
                 Start with Agents
