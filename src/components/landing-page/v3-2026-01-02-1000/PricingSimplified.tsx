@@ -145,7 +145,7 @@ export const PricingSimplified: FC = () => {
           <Link href="#roi-calculator" className="text-[#10b981] hover:text-white transition-colors text-sm font-medium">
             Calculate Your ROI →
           </Link>
-          <Link href="https://docs.google.com/forms/d/17tEVBbpIGl0AR4M75IOBYj4Ywap1RPCzZc4HMWA-67U" target="_blank">
+          <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd8aETwOMXD0Q3WFNV7XsOG68jr2-FyAg_mVRJdWEMUmEF22w/viewform" target="_blank">
             <SecondaryButton>
               Request a Demo
             </SecondaryButton>

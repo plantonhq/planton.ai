@@ -79,7 +79,7 @@ export const BookDemoBtn: FC<ButtonProps & ComponentProps<'a'>> = ({ className, 
   return (
     <Btn
       LinkComponent={Link}
-      href="https://docs.google.com/forms/d/17tEVBbpIGl0AR4M75IOBYj4Ywap1RPCzZc4HMWA-67U"
+      href="https://docs.google.com/forms/d/e/1FAIpQLSd8aETwOMXD0Q3WFNV7XsOG68jr2-FyAg_mVRJdWEMUmEF22w/viewform"
       target="_self"
       className={`hover:bg-white/10 transition-colors ${className}`}
       {...props}

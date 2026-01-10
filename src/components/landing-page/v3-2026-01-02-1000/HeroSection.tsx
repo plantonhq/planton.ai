@@ -288,7 +288,7 @@ export const HeroSection: FC = () => {
             {/* Secondary CTAs */}
             <Stack direction="row" className="gap-4 mt-2">
               <Link 
-                href="https://docs.google.com/forms/d/17tEVBbpIGl0AR4M75IOBYj4Ywap1RPCzZc4HMWA-67U" 
+                href="https://docs.google.com/forms/d/e/1FAIpQLSd8aETwOMXD0Q3WFNV7XsOG68jr2-FyAg_mVRJdWEMUmEF22w/viewform" 
                 target="_blank"
                 className="text-[#a78bfa] hover:text-white transition-colors text-sm font-medium"
               >

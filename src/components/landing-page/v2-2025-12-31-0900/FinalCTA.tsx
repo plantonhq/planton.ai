@@ -204,7 +204,7 @@ export const FinalCTA: FC = () => {
               direction={{ xs: 'column', sm: 'row' }} 
               className="gap-4 mt-4"
             >
-              <Link href="https://docs.google.com/forms/d/17tEVBbpIGl0AR4M75IOBYj4Ywap1RPCzZc4HMWA-67U" target="_blank">
+              <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd8aETwOMXD0Q3WFNV7XsOG68jr2-FyAg_mVRJdWEMUmEF22w/viewform" target="_blank">
                 <SecondaryButton className="px-6 py-3">
                   Book Live Demo
                 </SecondaryButton>

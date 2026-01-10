@@ -19,7 +19,7 @@ export const GetStarted: FC = () => {
         <Button
           className="px-5 py-2 w-fit bg-primary-50 text-white rounded-[10px] hover:bg-[#1976D2] transition-colors"
           LinkComponent={Link}
-          href="https://docs.google.com/forms/d/17tEVBbpIGl0AR4M75IOBYj4Ywap1RPCzZc4HMWA-67U"
+          href="https://docs.google.com/forms/d/e/1FAIpQLSd8aETwOMXD0Q3WFNV7XsOG68jr2-FyAg_mVRJdWEMUmEF22w/viewform"
           target="_self"
         >
           Book Demo

@@ -175,7 +175,7 @@ export const HowItWorks: FC = () => {
             <ArrowRightIcon />
           </PrimaryButton>
         </Link>
-        <Link href="https://docs.google.com/forms/d/17tEVBbpIGl0AR4M75IOBYj4Ywap1RPCzZc4HMWA-67U" target="_blank">
+        <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd8aETwOMXD0Q3WFNV7XsOG68jr2-FyAg_mVRJdWEMUmEF22w/viewform" target="_blank">
           <SecondaryButton className="px-8 py-4">
             Watch 5-Minute Demo →
           </SecondaryButton>

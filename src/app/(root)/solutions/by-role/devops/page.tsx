@@ -47,7 +47,7 @@ export default function DevOps() {
                   <Button
                     className="bg-transparent text-white px-8 py-3 rounded-md hover:bg-white/10 transition-colors"
                     LinkComponent={Link}
-                    href="https://docs.google.com/forms/d/17tEVBbpIGl0AR4M75IOBYj4Ywap1RPCzZc4HMWA-67U"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSd8aETwOMXD0Q3WFNV7XsOG68jr2-FyAg_mVRJdWEMUmEF22w/viewform"
                     target="_self"
                   >
                     Book Demo
@@ -432,7 +432,7 @@ export default function DevOps() {
               </Button>
               <Button
                 className="bg-transparent px-5 py-3 rounded-[10px] w-fit"
-                href="https://docs.google.com/forms/d/17tEVBbpIGl0AR4M75IOBYj4Ywap1RPCzZc4HMWA-67U"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSd8aETwOMXD0Q3WFNV7XsOG68jr2-FyAg_mVRJdWEMUmEF22w/viewform"
                 target="_self"
               >
                 Book Demo
