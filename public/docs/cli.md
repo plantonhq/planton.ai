@@ -269,13 +269,39 @@ planton context show
 
 ## Upgrading
 
-### macOS (Homebrew)
+### Self-Update (Recommended)
+
+The CLI includes a built-in upgrade command that works on all platforms:
+
+```bash
+planton upgrade
+```
+
+This automatically:
+- Checks for the latest version
+- Downloads and installs the update
+- On macOS with Homebrew: runs `brew upgrade planton`
+- On other platforms: downloads the binary directly
+
+**Additional options:**
+
+```bash
+# Check for updates without installing
+planton upgrade --check
+
+# Force upgrade even if already on latest
+planton upgrade --force
+```
+
+### Manual Upgrade
+
+#### macOS (Homebrew)
 
 ```bash
 brew update && brew upgrade planton
 ```
 
-### Linux and Windows (direct download)
+#### Linux and Windows (direct download)
 
 Download the latest version using the same installation steps above. Check the current version:
 
