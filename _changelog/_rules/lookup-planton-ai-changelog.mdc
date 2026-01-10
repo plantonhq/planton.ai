@@ -1,16 +1,16 @@
 ---
-description: Ask-only rule to quickly find and retrieve changelogs from the Planton.ai website repository based on contextual time references and keywords.
+description: SEARCH-ONLY (read-only) rule to find existing changelogs. Does NOT create changelogs. Lookup Planton.ai website changelogs by time references and keywords.
 globs: []
 alwaysApply: false
 ---
 
-# Rule: Spot Planton.ai Changelog (ask-only)
+# Rule: Lookup Planton.ai Changelog (ask-only)
 
 **THIS IS A SEARCH-ONLY RULE. DO NOT CREATE OR MODIFY ANYTHING.**
 
 Purpose: When invoked, help users quickly **FIND** existing changelogs from the Planton.ai website repository without needing to specify directory paths. Parse temporal context (this month, last month, etc.), search appropriate directories, and present results in an easy-to-consume format with both clickable links and copyable paths.
 
-Usage: Invoke explicitly as `@spot-planton-ai-changelog` with contextual information about when the change was made and/or keywords describing the change.
+Usage: Invoke explicitly as `@find-planton-ai-changelog` with contextual information about when the change was made and/or keywords describing the change.
 
 **User Intent**: When a user invokes this rule, they are asking you to **SEARCH FOR** and **PRESENT** existing changelogs. They are **NOT** asking you to create a new changelog.
 
@@ -343,7 +343,7 @@ Map user keywords to component categories:
 
 ### Example 1: Search for Page Redesign
 ```
-User: "@spot-planton-ai-changelog We redesigned the solutions pages last month"
+User: "@find-planton-ai-changelog We redesigned the solutions pages last month"
 ```
 
 **What the user wants**: FIND existing changelogs about solutions pages redesign
@@ -361,7 +361,7 @@ User: "@spot-planton-ai-changelog We redesigned the solutions pages last month"
 
 ### Example 2: Interactive Feature
 ```
-User: "@spot-planton-ai-changelog Find the demo platform work from November"
+User: "@find-planton-ai-changelog Find the demo platform work from November"
 ```
 
 **Agent actions**:
@@ -372,7 +372,7 @@ User: "@spot-planton-ai-changelog Find the demo platform work from November"
 
 ### Example 3: Content Changes
 ```
-User: "@spot-planton-ai-changelog What documentation changes did we make 
+User: "@find-planton-ai-changelog What documentation changes did we make 
        in the last 3 months?"
 ```
 
@@ -385,7 +385,7 @@ User: "@spot-planton-ai-changelog What documentation changes did we make
 
 ### Example 4: Design System
 ```
-User: "@spot-planton-ai-changelog Show recent design system updates"
+User: "@find-planton-ai-changelog Show recent design system updates"
 ```
 
 **Agent actions**:
@@ -397,7 +397,7 @@ User: "@spot-planton-ai-changelog Show recent design system updates"
 
 ### Example 5: SEO/Performance
 ```
-User: "@spot-planton-ai-changelog Did we make any performance improvements 
+User: "@find-planton-ai-changelog Did we make any performance improvements 
        to the website this month?"
 ```
 
