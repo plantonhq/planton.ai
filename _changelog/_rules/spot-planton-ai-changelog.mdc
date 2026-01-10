@@ -1,0 +1,504 @@
+---
+description: Ask-only rule to quickly find and retrieve changelogs from the Planton.ai website repository based on contextual time references and keywords.
+globs: []
+alwaysApply: false
+---
+
+# Rule: Spot Planton.ai Changelog (ask-only)
+
+Purpose: When invoked, help users quickly find relevant changelogs from the Planton.ai website repository without needing to specify directory paths. Parse temporal context (this month, last month, etc.), search appropriate directories, and present results in an easy-to-consume format with both clickable links and copyable paths.
+
+Usage: Invoke explicitly as `@spot-planton-ai-changelog` with contextual information about when the change was made and/or keywords describing the change.
+
+References: Changelogs in `_changelog/YYYY-MM/` directories
+
+## ⚠️ CRITICAL: Changelog Location
+
+**All changelogs are stored in**:
+```
+/Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/YYYY-MM/
+```
+
+Where `YYYY-MM` is the year-month directory (e.g., `2026-01` for January 2026, `2025-12` for December 2025).
+
+**Filename pattern**:
+```
+YYYY-MM-DD-HHMMSS-descriptive-slug.md
+```
+
+Examples:
+- `2025-11-23-143022-solutions-pages-redesign.md`
+- `2025-11-23-091545-interactive-demo-platform.md`
+- `2025-11-22-164730-blog-system-with-mdx.md`
+
+## User Request Parsing
+
+### Step 1: Determine Current Date
+
+**ALWAYS** get the actual current date by running:
+```bash
+date +"%Y-%m-%d"
+```
+
+Parse the output to determine current year and month.
+
+### Step 2: Parse Temporal Context
+
+Listen for time references in the user's query:
+
+| User says... | Search directories |
+|--------------|-------------------|
+| "this month", "current month", "recently" | Current month only |
+| "last month", "previous month" | Previous month only |
+| "last 2 months", "past 2 months" | Current month + previous month |
+| "last 3 months", "past 3 months", "last quarter" | Current month + previous 2 months |
+| "November 2025", "Nov 2025" | Specific month (2025-11) |
+| "2026", "this year" | All months in current year |
+| No time context | Default to last 2 months |
+
+### Step 3: Extract Keywords
+
+Extract meaningful keywords from the user's query related to Planton.ai:
+
+**Pages & Routes**:
+- Landing page, home page, homepage
+- Solutions, features, pricing
+- Documentation, docs, guides
+- Blog, articles, posts
+- Tour, walkthrough, demo
+
+**UI & Design**:
+- Navigation, menu, header, footer
+- Components, design system
+- Layout, responsive, mobile
+- Styling, CSS, Tailwind
+- Animation, transitions
+
+**Interactive Features**:
+- Demo, interactive, playground
+- Copilot, AI assistant
+- Explorer, dashboard
+- Video, media, gallery
+
+**Content & SEO**:
+- Content, copy, text
+- SEO, meta, metadata
+- Images, screenshots, media
+- MDX, markdown
+
+**Technical**:
+- Build, deployment, pipeline
+- Performance, optimization, speed
+- Framework, Next.js, React
+- Analytics, tracking
+
+**Operations**:
+- redesign, revamp, overhaul
+- add, new, create
+- improve, enhance, update
+- fix, bug, issue
+- refactor, restructure
+
+## Search Strategy
+
+### 1. List Relevant Directories
+
+Based on temporal parsing, list the directories to search:
+```bash
+ls -1 /Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2026-01/
+ls -1 /Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2025-12/
+# ... etc
+```
+
+### 2. Search by Keywords
+
+Use `grep` to search changelog filenames and content:
+
+**Search filenames**:
+```bash
+# Case-insensitive search in filenames
+grep -i "keyword" /path/to/_changelog/YYYY-MM/*.md
+```
+
+**Search content** (if needed for better matches):
+```bash
+# Search inside changelog files for better relevance
+grep -i -l "keyword" /path/to/_changelog/YYYY-MM/*.md
+```
+
+### 3. Rank Results
+
+Prioritize changelogs that:
+1. Match multiple keywords
+2. Are more recent
+3. Have keywords in the filename (higher relevance)
+4. Match page/component-specific terms
+
+## Response Format
+
+**CRITICAL**: Structure the response to make it easy for users to quickly grab changelog paths.
+
+### Format Template
+
+```markdown
+## Related Changelogs
+
+Here are the changelogs matching your search criteria:
+
+- [Solutions Pages Redesign](/Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2025-11/2025-11-23-143022-solutions-pages-redesign.md)
+- [Interactive Demo Platform](/Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2025-11/2025-11-23-091545-interactive-demo-platform.md)
+- [Blog System with MDX](/Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2025-11/2025-11-22-164730-blog-system-with-mdx.md)
+
+---
+
+### Changelog Details
+
+#### 1. Solutions Pages Redesign
+**Date**: November 23, 2025  
+**Type**: Design  
+**Components**: Solutions Pages, Navigation, Design System  
+**Path**: `/Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2025-11/2025-11-23-143022-solutions-pages-redesign.md`
+
+**Summary**: Complete redesign of solutions pages with role-based navigation, improved content structure, and enhanced visual hierarchy. Added dedicated pages for DevOps Engineers, Platform Engineers, and CTOs.
+
+**Copyable path**:
+```
+/Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2025-11/2025-11-23-143022-solutions-pages-redesign.md
+```
+
+---
+
+#### 2. Interactive Demo Platform
+**Date**: November 23, 2025  
+**Type**: Feature  
+**Components**: Interactive Demo, UI Components  
+**Path**: `/Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2025-11/2025-11-23-091545-interactive-demo-platform.md`
+
+**Summary**: Built interactive demo platform with live API integration, allowing visitors to try Planton features directly in the browser without signup.
+
+**Copyable path**:
+```
+/Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2025-11/2025-11-23-091545-interactive-demo-platform.md
+```
+
+---
+
+*Use the clickable links above to open the changelog, or copy the paths from the code blocks to use with `@` mentions in another conversation.*
+```
+
+### Key Elements
+
+1. **Top Section**: Bulleted list with clickable links for quick scanning
+2. **Details Section**: Numbered entries with:
+   - Changelog title
+   - Date, type, and components
+   - Full path (for clarity)
+   - Brief summary
+   - Copyable code block with full path
+3. **Footer**: Clear instructions on how to use the links vs code blocks
+
+## Best Practices
+
+### Do:
+- ✅ **Always get current date first** using `date` command
+- ✅ **Search broadly** if user query is vague
+- ✅ **Present most relevant first** (recent + keyword matches)
+- ✅ **Read changelog metadata** (Date, Type, Components) to provide accurate descriptions
+- ✅ **Include both clickable and copyable** formats
+- ✅ **Show 3-7 results** (not too few, not overwhelming)
+- ✅ **Group by relevance** or chronology
+- ✅ **Extract actual summaries** from changelog Summary sections
+
+### Don't:
+- ❌ **Don't guess directories** - always verify with actual date
+- ❌ **Don't show all results** - filter to most relevant
+- ❌ **Don't provide just paths** - include context
+- ❌ **Don't forget the summary list** at the top
+- ❌ **Don't include non-matches** to pad results
+- ❌ **Don't make up summaries** - read from actual changelog
+
+## Planton.ai Specific Context
+
+### Common Change Categories
+
+When searching, understand these common Planton.ai change types:
+
+**Page Updates**:
+- Landing page redesigns
+- Solutions pages (by role, by use case)
+- Features pages
+- Pricing page updates
+- Documentation structure changes
+
+**Content Work**:
+- Documentation additions/rewrites
+- Blog posts and articles
+- Case studies
+- Feature descriptions
+- Copy improvements
+
+**Interactive Features**:
+- Demo platform enhancements
+- Planton Copilot interface
+- Resource explorer
+- Interactive tutorials
+- Video integration
+
+**Design System**:
+- Component library updates
+- Design token changes
+- Responsive design improvements
+- Accessibility enhancements
+
+**Technical Infrastructure**:
+- Build system changes
+- Performance optimizations
+- SEO improvements
+- Analytics integration
+- Deployment pipeline updates
+
+### Component Mapping
+
+Map user keywords to component categories:
+
+| User mentions... | Component category |
+|------------------|-------------------|
+| "landing", "home", "homepage" | Landing Page |
+| "solutions", "role", "use case" | Solutions Pages |
+| "features", "capabilities" | Features Pages |
+| "docs", "documentation", "guides" | Documentation |
+| "blog", "article", "post" | Blog System |
+| "demo", "interactive", "playground" | Interactive Demo |
+| "nav", "menu", "header" | Navigation |
+| "component", "design system" | UI Components, Design System |
+| "performance", "speed", "optimization" | SEO/Performance |
+| "build", "deploy" | Build System |
+
+## Example Invocations
+
+### Example 1: Page Redesign
+```
+User: "@spot-planton-ai-changelog We redesigned the solutions pages last month"
+```
+
+**Agent actions**:
+1. Get current date → January 10, 2026
+2. Parse temporal: "last month" → Search `2025-12/`
+3. Extract keywords: "redesign", "solutions", "pages"
+4. Search and rank results
+5. Format response with clickable links + copyable paths
+
+### Example 2: Interactive Feature
+```
+User: "@spot-planton-ai-changelog Find the demo platform work from November"
+```
+
+**Agent actions**:
+1. Parse temporal: "November" → Determine year context, search `2025-11/`
+2. Extract keywords: "demo", "platform"
+3. Search and rank results
+4. Format response
+
+### Example 3: Content Changes
+```
+User: "@spot-planton-ai-changelog What documentation changes did we make 
+       in the last 3 months?"
+```
+
+**Agent actions**:
+1. Get current date → January 10, 2026
+2. Parse temporal: "last 3 months" → Search `2026-01/`, `2025-12/`, `2025-11/`
+3. Extract keywords: "documentation", "docs", "changes"
+4. Search and rank results (may return multiple)
+5. Format response
+
+### Example 4: Design System
+```
+User: "@spot-planton-ai-changelog Show recent design system updates"
+```
+
+**Agent actions**:
+1. Get current date → January 10, 2026
+2. Parse temporal: "recent" → Search `2026-01/` and `2025-12/`
+3. Extract keywords: "design", "system", "update"
+4. Search and rank results
+5. Format response
+
+### Example 5: SEO/Performance
+```
+User: "@spot-planton-ai-changelog Did we make any performance improvements 
+       to the website this month?"
+```
+
+**Agent actions**:
+1. Get current date → January 10, 2026
+2. Parse temporal: "this month" → Search `2026-01/`
+3. Extract keywords: "performance", "improvements", "website"
+4. Search and rank results
+5. Format response
+
+## Search Quality Tips
+
+### Filename Search is Primary
+
+Planton.ai changelog filenames are descriptive slugs, so searching filenames first often gives best results:
+```bash
+# Good matches come from descriptive filenames
+2025-11-23-143022-solutions-pages-redesign.md
+2025-11-23-091545-interactive-demo-platform.md
+2025-11-22-164730-blog-system-with-mdx.md
+```
+
+### Metadata Search for Refinement
+
+If you need to filter by component or type, read the metadata:
+```markdown
+**Type**: Design
+**Components**: Solutions Pages, Navigation, Design System
+```
+
+### Content Search is Secondary
+
+If filename search doesn't yield enough results, search content:
+```bash
+grep -i -l "keyword" /path/to/_changelog/YYYY-MM/*.md
+```
+
+Then read the matched files to extract metadata and summaries.
+
+### Multiple Keywords
+
+For multi-keyword searches, combine grep:
+```bash
+# Files containing both "solutions" and "redesign"
+grep -l "solutions" /path/*.md | xargs grep -l "redesign"
+```
+
+## Response Quality Checklist
+
+Before finalizing response:
+
+- [ ] Got actual current date (not assumed)
+- [ ] Correctly parsed user's temporal context
+- [ ] Searched appropriate month directories
+- [ ] Found relevant changelogs (3-7 results ideal)
+- [ ] Top section has bulleted list with clickable links
+- [ ] Each changelog has title, date, type, components, path, summary
+- [ ] Each changelog has copyable code block with full path
+- [ ] Results ordered by relevance or chronology
+- [ ] Summaries extracted from actual changelog content
+- [ ] Provided clear instructions on using links vs paths
+- [ ] Metadata (Type, Components) included in details
+
+## Edge Cases
+
+### No Results Found
+
+If no changelogs match:
+```markdown
+## No Changelogs Found
+
+I searched the following directories for changelogs matching your criteria:
+- `/Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2026-01/`
+- `/Users/swarup/scm/github.com/plantonhq/planton.ai/_changelog/2025-12/`
+
+**Search keywords**: solutions, redesign, pages
+
+**Suggestions**:
+1. Try broader keywords (e.g., just "solutions" instead of "solutions page redesign")
+2. Expand time range (e.g., "last 3 months" instead of "this month")
+3. Check if the work was documented in a different month
+4. Use `ls` to browse available changelogs directly
+```
+
+### Ambiguous Time Reference
+
+If user's time reference is unclear:
+```markdown
+I'm not sure which time period you're referring to. Current date is January 10, 2026.
+
+Did you mean:
+- **This month** (January 2026) - Search `2026-01/`
+- **Last month** (December 2025) - Search `2025-12/`
+- **Last 2 months** (Dec 2025 + Jan 2026) - Search both
+
+Please clarify, or I can search the last 2 months by default.
+```
+
+### Too Many Results
+
+If search yields 15+ results:
+```markdown
+## Related Changelogs
+
+Found 18 changelogs matching your criteria. Showing the 7 most relevant:
+
+[... top 7 results ...]
+
+---
+
+**Note**: Found 11 additional changelogs. To narrow results:
+1. Add more specific keywords (e.g., "landing page design" instead of just "design")
+2. Narrow the time range
+3. Specify a component (e.g., "documentation", "blog", "demo")
+4. Specify a type (e.g., "feature", "design", "content")
+```
+
+### Metadata Extraction
+
+When reading changelogs, extract this metadata pattern:
+```markdown
+**Date**: November 23, 2025
+**Type**: Design
+**Components**: Solutions Pages, Navigation, Design System
+```
+
+Include this in the detailed response for better context.
+
+## Common Search Patterns
+
+### By Page/Section
+- "landing page" → Landing Page changes
+- "solutions", "solutions pages" → Solutions Pages
+- "documentation", "docs" → Documentation
+- "blog" → Blog System
+- "features" → Features Pages
+- "pricing" → Pricing Page
+
+### By Operation Type
+- "redesign", "revamp" → Type: Design
+- "add", "new" → Type: Feature
+- "improve", "enhance" → Type: Enhancement
+- "fix", "bug" → Type: Bug Fix
+- "refactor", "restructure" → Type: Refactoring
+- "content", "copy" → Type: Content
+
+### By Component
+- "navigation", "menu" → Navigation
+- "demo", "interactive" → Interactive Demo
+- "component" → UI Components
+- "build", "deployment" → Build System
+- "SEO", "performance" → SEO/Performance
+
+### By Visual/Design
+- "screenshot", "image" → Look for design changes
+- "responsive", "mobile" → Responsive Design
+- "animation", "transition" → UI enhancements
+- "accessibility", "a11y" → Accessibility improvements
+
+## Remember
+
+This is an **ask-only rule** - you are **NOT** creating or modifying changelogs, only finding and presenting existing ones.
+
+**Goal**: Make it trivially easy for users to find and reference Planton.ai website changelogs without memorizing directory paths or filename patterns.
+
+**Success criteria**: User can:
+1. Quickly scan the bulleted list to find the right changelog
+2. Click to read it immediately, OR
+3. Copy the path to use in another conversation with `@` mentions
+
+**Context awareness**: Understand Planton.ai website terminology (pages, routes, components, design system, interactive features) to improve search relevance.
+
+---
+
+*"The best search is the one that gets you the right result on the first try."*

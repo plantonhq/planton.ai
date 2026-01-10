@@ -154,8 +154,8 @@ Maintained the same core structure as planton-cloud and project-planton rules:
 
 This changelog system follows the pattern established in:
 
-- `planton-cloud/.cursor/rules/product/create-planton-cloud-changelog.mdc` - Backend/monorepo changelog system
-- `project-planton/.cursor/rules/create-project-planton-changelog.mdc` - CLI project changelog system
+- `planton-cloud/.cursor/rules/product/create-planton-monorepo-changelog.mdc` - Backend/monorepo changelog system
+- `project-planton/_changelog/_rules/create-project-planton-changelog.mdc` - CLI project changelog system
 
 Future work will likely include similar rules for:
 - `tekton-hub` repository (Tekton pipeline definitions)
