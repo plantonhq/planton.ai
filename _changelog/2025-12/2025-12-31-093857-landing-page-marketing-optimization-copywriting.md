@@ -338,7 +338,7 @@ Planton = Vercel/Heroku DX + Terraform/Pulumi Infrastructure + Your Cloud
   - "100% customer retention since launch"
 - **CTA Hierarchy Simplified**: 
   - Primary: [Start Free Trial] (large gradient button)
-  - Secondary: "Watch 5-Min Demo →" (text link)
+  - Secondary: "Book Demo →" (text link)
   - Tertiary: [See Pricing] (ghost button)
   - **Why**: Too many equal CTAs = decision paralysis
 - **Interactive Terminal Demo Added**: Animated terminal showing live deployment sequence

@@ -72,7 +72,7 @@ The existing landing page at `src/app/(root)/page.tsx` was organized around thes
 - **Subheadline**: Multi-cloud automation, eliminates DevOps bottlenecks
 - **Social Proof**: 5+ IT consulting firms, 100% retention
 - **Trust Indicators**: Multi-cloud support, open source foundation, zero lock-in
-- **Dual CTAs**: Start Free Trial | Watch 5-Min Demo
+- **Dual CTAs**: Start Free Trial | Book Demo
 
 #### Section 2: Problem/Solution
 - **Three-column layout** addressing each customer segment:
@@ -309,7 +309,7 @@ Following `@general-writing-guidelines.mdc`:
 - Headline: "DevOps-in-a-Box—From Code to Cloud in Under an Hour"
 - Social Proof: "Trusted by 5+ IT consulting firms | 100% customer retention"
 - Trust Indicators: Multi-cloud, open source, zero lock-in
-- Dual CTAs: Start Free Trial | Watch 5-Min Demo
+- Dual CTAs: Start Free Trial | Book Demo
 
 **Why**: Shifts from AI hype to concrete value (speed, automation, multi-cloud)
 

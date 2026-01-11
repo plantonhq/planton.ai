@@ -314,7 +314,7 @@ export const HeroSection: FC = () => {
                 target="_blank"
                 className="text-[#a78bfa] hover:text-white transition-colors text-sm font-medium"
               >
-                Watch 5-Min Demo →
+                Book Demo →
               </Link>
               <Link 
                 href="#pricing"

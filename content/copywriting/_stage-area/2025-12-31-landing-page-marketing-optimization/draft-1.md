@@ -82,7 +82,7 @@ _Large gradient button_
 **Secondary CTA**:
 
 ```
-Watch 5-Min Demo →
+Book Demo →
 ```
 
 _Text link below primary button_

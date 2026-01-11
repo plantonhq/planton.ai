@@ -18,7 +18,7 @@ Trusted by 5+ IT consulting firms | 100% customer retention
 (100 automation minutes, no credit card required)
 
 ### Secondary CTA
-**Watch 5-Min Demo**
+**Book Demo**
 (See actual customer walkthrough)
 
 ### Trust Indicators
